@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/img_poster"
+        android:layout_width="100dip"
+        android:layout_height="70dip"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#a4a4a2" />
+
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/job_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:singleLine="true"
+            android:textColor="#a4a4a2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/search_listview_textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#a4a4a2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/search_listview_textview0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:textColor="#a4a4a2"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/jiantou_right" />
+    </RelativeLayout>
+
+</LinearLayout>

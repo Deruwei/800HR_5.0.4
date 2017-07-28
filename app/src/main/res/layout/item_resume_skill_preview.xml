@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="24dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="14dp" />
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_alignBottom="@+id/tv_previewresume_traintime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@mipmap/jianli_yulan_xiaoquan" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#EBEBEB" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_myresume_skill_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:drawableLeft="@mipmap/xiugai1"
+                android:drawablePadding="5dp"
+                android:text="编辑"
+                android:textColor="#F39700"
+                android:layout_marginEnd="10dp"
+                android:layout_alignTop="@+id/tv_previewresume_skillname"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_skilltime"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignTop="@+id/tv_previewresume_jobexppost"
+                android:layout_toEndOf="@+id/tv_previewresume_jobexppost"
+                android:layout_toRightOf="@+id/tv_previewresume_jobexppost" />
+
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="技能名称：" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_skillname"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignTop="@+id/textView10"
+                android:layout_toEndOf="@+id/textView10"
+                android:layout_toRightOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_jobexppost"
+                style="@style/resume_previewresume_infoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView10"
+                android:layout_alignStart="@+id/textView10"
+                android:layout_below="@+id/textView10"
+                android:layout_marginTop="9dp"
+                android:text="使用时间（月）：" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_trainname"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignLeft="@+id/tv_previewresume_jobexppost"
+                android:layout_alignStart="@+id/tv_previewresume_jobexppost"
+                android:layout_below="@+id/tv_previewresume_skilltime"
+                android:layout_marginTop="12dp"
+                android:text="专业水平：" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_skilllevel"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignTop="@+id/tv_previewresume_trainname"
+                android:layout_toEndOf="@+id/tv_previewresume_trainname"
+                android:layout_toRightOf="@+id/tv_previewresume_trainname" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#fff" />
+    </LinearLayout>
+</LinearLayout>

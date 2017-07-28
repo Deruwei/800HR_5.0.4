@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#f0efef" >
+
+    <!-- title -->
+    <RelativeLayout
+        android:id="@+id/rl_sendresume_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <ImageView
+            android:id="@+id/iv_selectcity_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:id="@+id/tv_sendresume_jobnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="简历外发"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/rl_sendresume_top" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recive_email"
+                android:textColor="#949390"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/activity_resumesend_email"
+                style="@style/colour_style2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView1"
+                android:layout_below="@+id/textView1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:inputType="textEmailAddress"
+                android:padding="3dp"
+                android:singleLine="true" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/activity_resumesend_email"
+                android:text="@string/email_content"
+                android:textColor="#949390"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/activity_resumesend_content"
+                style="@style/colour_style2"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_alignLeft="@+id/textView1"
+                android:layout_below="@+id/textView2"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:ems="10"
+                android:gravity="top|left"
+                android:padding="3dp"
+                android:singleLine="false" >
+            </EditText>
+
+            <Button
+                android:id="@+id/resumesend_sendbtn"
+                style="@style/text_shadow"
+                android:textColor="#fff"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/activity_resumesend_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_1chang"
+                android:text="@string/resume_select"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

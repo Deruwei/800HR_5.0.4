@@ -1,0 +1,23 @@
+/*common*/
+html,body{-webkit-touch-callout: none;  -webkit-user-select: none;}
+body,body.ui-mobile-viewport,.ui-overlay-c{background:url(img/wood.jpg);}
+.ui-body-c{background:none;}
+.ui-btn-up-n{background:#fff;border-bottom:1px solid #d7d7d7;}/*n��ɫ*/
+.ui-btn-hover-n{background:#fff;border-bottom:1px solid #d7d7d7;}
+
+/*page_index*/
+#index_title{width:75%}
+#li_number label{float:right;line-height:2em;}
+#result_img{background:#fff;}
+#result_img img{display:block;margin:0 auto;}
+
+/*page_result*/
+#table_money{border:2px solid #b7cde8;width:100%;background:#fff;}
+#table_money th{background:#b7cde8;font-size:12px;}
+#table_money td{background:#fff;border-right:1px solid #d7d7d7;white-space:nowrap;}
+#table_money td:last{border:none;}
+
+#padding_left5{padding:0.7em 2px;}
+.ui-content{padding: 10px;}
+
+

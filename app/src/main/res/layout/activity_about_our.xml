@@ -1,0 +1,161 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.AboutOurActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_settingapp_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <ImageView
+            android:id="@+id/iv_aboutour_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="关于800hr"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d3d3d3" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_settingapp_top">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="\u3000\u3000英才网联（北京）科技有限公司(www.800hr.com)是国内首家分行业专业人才招聘网站，致力于为国内企业与求职者提供分行业、精准化、专业化网络招聘服务。目前旗下拥有建筑英才网、医药英才网、化工英才网、金融英才网、制造业人才网、服装英才网、传媒英才网、教培英才网、IT英才网、电子英才网、酒店餐饮英才网、运输物流英才网、通信英才网、电力英才网、旅游英才网十五个分行业专业人才招聘网站，均已成为该行业最具影响力和专业性的行业人才招聘网站。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="\u3000\u3000英才网联专注于为各行业提供精准的招聘渠道，为行业精英打造专属的求职平台，以推动企业聘用的高效和个人求职的准确。经过多年发展，旗下拥有的十五个分行业专业人才招聘网站，已成为深受行业客户信任与广大求职者青睐的专业招聘与求职平台。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="\u3000\u3000英才网联以网络人才推荐与招聘为核心业务，涉及人才供求信息的收集、储存、发布和咨询，以及人才素质测评、智力开发服务等层面；先后以团体会员身份加入了北京人才交流协会、中国人才交流协会等机构，并得到国家人力资源和社会保障部门、北京人力资源和社会保障局及数十家行业社团的鼎力支持。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="\u3000\u3000快速增长的人才储备，不断完善的服务方式，以人为本的服务理念，使英才网联得到各行业客户及个人会员的好评与赞誉。成立至今，已为600多万人提供了求职和职业发展的机会，为国内50万家企业提供了各类人力资源服务。多家知名企业与机构选择与英才网联深度合作，并对公司的服务理念、人才质量、后续服务等给予了高度评价。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="\u3000\u3000英才网联以创新的服务模式、权威的行业资源、专业的客户服务帮助  企业找到适用人才，继而通过人力资源的优化使客户建立与巩固持久的行业竞争优势，同时还力求让不同领域的求职者都能在此找到较佳的职业成长位置。 英才网联将倾力打造覆盖各个领域的分行业专业人才招聘网站，为中国企业的腾飞与人力资源的优化配置提供永久助力！"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_aboutour_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="#EBEBEB" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="官方公众号\u3000\u3000\u3000\u3000    800hr"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="#EBEBEB" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="官方网站\u3000\u3000\u3000\u3000\u3000\u3000www.800hr.com"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="#EBEBEB" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="手机网站\u3000\u3000\u3000\u3000\u3000\u3000m.800hr.com"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="#EBEBEB" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="客服电话\u3000\u3000\u3000\u3000\u3000\u3000400-6500588"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

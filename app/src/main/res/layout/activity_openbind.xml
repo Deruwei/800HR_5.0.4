@@ -1,0 +1,251 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.RegistPhoneActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <ImageView
+            android:id="@+id/iv_login_bind_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="帐号绑定"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_regist_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="真实姓名"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/activity_openbind_truename"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="33dp"
+                android:layout_marginStart="33dp"
+                android:layout_toEndOf="@+id/tv_regist_email"
+                android:layout_toRightOf="@+id/tv_regist_email"
+                android:background="#fff"
+                android:hint="请输入姓名"
+                android:singleLine="true"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#F6F6F6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_regist_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="常用邮箱"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/activity_openbind_email"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="28dp"
+                android:layout_marginStart="28dp"
+                android:layout_toEndOf="@+id/tv_regist_username"
+                android:layout_toRightOf="@+id/tv_regist_username"
+                android:background="#fff"
+                android:hint="请输入邮箱"
+                android:maxLength="25"
+                android:singleLine="true"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <RelativeLayout
+        android:id="@+id/rl_openbind_login_btn"
+        style="@style/bt_orange"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/btn_1chang">
+
+        <TextView
+            android:id="@+id/activity_openbind_loginbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="登录"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <TextView
+        android:id="@+id/activity_openbind_showinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="12dp"
+        android:text="@string/openbind_hadaccountnummber"
+        android:textColor="#949390"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/activity_openbind_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="用户名"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_login_username"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/activity_openbind_username"
+                android:layout_toRightOf="@+id/activity_openbind_username"
+                android:background="#fff"
+                android:hint="请输入用户名"
+                android:singleLine="true"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#F6F6F6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/activity_openbind_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="密    码"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_openbind_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/activity_openbind_pwd"
+                android:layout_toRightOf="@+id/activity_openbind_pwd"
+                android:background="#fff"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"></LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_openbind_login_btn2"
+        style="@style/bt_orange"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/btn_1chang">
+        <TextView
+            android:id="@+id/activity_openbind_bindandloginbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="绑定并登录"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</LinearLayout>
+

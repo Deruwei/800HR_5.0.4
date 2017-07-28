@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textView42"
+            style="@style/reusme_myresume_tvhead"
+            android:text="语言类别" />
+
+        <com.hr.ui.view.custom.IdSpineer
+            android:id="@+id/sp_resume_language_langname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView45"
+            android:layout_toStartOf="@+id/imageView45"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView45"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="360dp"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/textView42"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView42"
+            android:background="#EBEBEB" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textView42444"
+            style="@style/reusme_myresume_tvhead"
+            android:text="听说能力" />
+
+        <com.hr.ui.view.custom.IdSpineer
+            android:id="@+id/sp_resume_language_speak_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView452222"
+            android:layout_toStartOf="@+id/imageView452222"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView452222"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+        <View
+            android:layout_width="360dp"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/textView42444"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView42444"
+            android:background="#EBEBEB" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textView42334"
+            style="@style/reusme_myresume_tvhead"
+            android:text="读写能力" />
+
+        <com.hr.ui.view.custom.IdSpineer
+            android:id="@+id/sp_resume_language_read_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView10045"
+            android:layout_toStartOf="@+id/imageView10045"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView10045"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+        <View
+            android:layout_width="360dp"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/textView42334"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView42334"
+            android:background="#EBEBEB" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_resume_item_language_delete"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/rl_resume_item_language_add"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_resume_item_language_add"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

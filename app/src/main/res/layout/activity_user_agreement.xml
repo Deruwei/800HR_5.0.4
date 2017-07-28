@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.UserAgreementActivity">
+
+    <RelativeLayout style="@style/title_rl_scale">
+
+        <ImageView
+            android:id="@+id/iv_userargument"
+            style="@style/title_iv_back" />
+
+        <TextView
+            android:id="@+id/tv_userargument_title"
+            style="@style/title_tv_textsize"
+            android:text="用户协议" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_user_agreement"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/userargument" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

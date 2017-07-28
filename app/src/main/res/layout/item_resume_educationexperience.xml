@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="24dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <View
+            android:layout_width="1dp"
+            android:layout_height="14dp" />
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_alignBottom="@+id/tv_previewresume_traintime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@mipmap/jianli_yulan_xiaoquan" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#EBEBEB" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/tv_myresume_edu_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:drawableLeft="@mipmap/xiugai1"
+                android:drawablePadding="5dp"
+                android:text="编辑"
+                android:textColor="#F39700"
+                android:layout_alignBaseline="@+id/tv_previewresume_edutime"
+                android:layout_alignBottom="@+id/tv_previewresume_edutime"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp" />
+            <TextView
+                android:id="@+id/tv_previewresume_edutime"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:text="2006年12月-2012年12月" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_eduname"
+                style="@style/resume_previewresume_info"
+                android:layout_alignLeft="@+id/tv_previewresume_edutime"
+                android:layout_alignStart="@+id/tv_previewresume_edutime"
+                android:layout_below="@+id/tv_previewresume_edutime"
+                android:layout_marginTop="11dp"
+                android:text="曲阜师范大学" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_major"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignLeft="@+id/tv_previewresume_eduname"
+                android:layout_alignStart="@+id/tv_previewresume_eduname"
+                android:layout_below="@+id/tv_previewresume_eduname"
+                android:layout_marginTop="12dp"
+                android:text="土木工程" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_majordes"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignTop="@+id/tv_previewresume_major"
+                android:layout_toEndOf="@+id/tv_previewresume_major"
+                android:layout_toRightOf="@+id/tv_previewresume_major"
+                android:text=" 本科" />
+
+            <TextView
+                android:id="@+id/textView58"
+                style="@style/resume_previewresume_infoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_previewresume_major"
+                android:layout_alignStart="@+id/tv_previewresume_major"
+                android:layout_below="@+id/tv_previewresume_major"
+                android:layout_marginTop="12dp"
+                android:text="专业描述" />
+
+            <TextView
+                android:id="@+id/tv_resume_previewresume_desp"
+                style="@style/resume_previewresume_infoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView58"
+                android:layout_alignStart="@+id/textView58"
+                android:layout_below="@+id/textView58"
+                android:layout_marginTop="12dp"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#fff" />
+    </LinearLayout>
+</LinearLayout>

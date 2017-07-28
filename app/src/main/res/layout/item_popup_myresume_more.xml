@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60000000">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:id="@+id/relativeLayout6"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_popup_isresumeapp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/iv_morepopup_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="11dp"
+                android:src="@mipmap/guanbi_x" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_margin="20dp"
+            android:id="@+id/tv_morepopup_updateresume"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center"
+            android:text="升级简历"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_margin="20dp"
+            android:id="@+id/tv_morepopup_sendresume"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center"
+            android:text="简历外发"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'newlens'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+
+    defaultConfig {
+        applicationId "com.hr.ui"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 59
+        versionName "5.4.4"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    useLibrary 'org.apache.http.legacy'
+    packagingOptions {
+        exclude 'AndroidMainfest.xml'
+    }
+    productFlavors {
+        taobao {}
+        tencent {}
+        baidu {}
+        "360" {}
+        anzhi {}
+        wandoujia {}
+        xiaomi {}
+        "800hr" {}
+        huawei {}
+        vivo {}
+        oppo {}
+        meizu {}
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/umeng-analytics-v5.6.1.jar')
+    compile files('libs/Volley.jar')
+    compile files('libs/universal-image-loader-1.9.3-SNAPSHOT.jar')
+    compile files('libs/gson-2.2.4.jar')
+    compile files('libs/asmack.jar')
+    compile files('libs/jpush-android-2.1.0.jar')
+    compile files('src/main/jniLibs/Msc.jar')
+    compile files('src/main/jniLibs/Sunflower.jar')
+    compile files('libs/MobCommons-2017.0608.1618.jar')
+    compile files('libs/MobTools-2017.0608.1618.jar')
+    compile files('libs/ShareSDK-Core-3.0.0.jar')
+    compile files('libs/ShareSDK-Email-3.0.0.jar')
+    compile files('libs/ShareSDK-Facebook-3.0.0.jar')
+    compile files('libs/ShareSDK-QQ-3.0.0.jar')
+    compile files('libs/ShareSDK-QZone-3.0.0.jar')
+    compile files('libs/ShareSDK-ShortMessage-3.0.0.jar')
+    compile files('libs/ShareSDK-SinaWeibo-3.0.0.jar')
+    compile files('libs/ShareSDK-TencentWeibo-3.0.0.jar')
+    compile files('libs/ShareSDK-Twitter-3.0.0.jar')
+    compile files('libs/ShareSDK-Wechat-3.0.0.jar')
+    compile files('libs/ShareSDK-Wechat-Core-3.0.0.jar')
+    compile files('libs/ShareSDK-Wechat-Favorite-3.0.0.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-3.0.0.jar')
+    compile 'com.android.support:appcompat-v7:23.0.3'
+    compile 'com.networkbench.newlens.agent.android:nbs.newlens.agent:2.3.2'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:support-v4:23.0.3'
+    compile 'com.jph.takephoto:takephoto_library:4.0.2'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+}

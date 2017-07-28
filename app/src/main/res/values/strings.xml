@@ -1,0 +1,883 @@
+<resources>
+    <string name="app_name">行业找工作</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_choose_industries">ChooseIndustriesActivity</string>
+    <string name="title_activity_welcome">行业找工作</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_person_center">PersonCenterActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_regist">RegistActivity</string>
+    <string name="title_activity_regist_email">RegistEmailActivity</string>
+
+    <!-- 侧边栏中的内容 -->
+    <string name="personal_Centre">个人中心</string>
+    <string name="resume_Centre">简历中心</string>
+    <string name="News__Centre">就业指导</string>
+    <string name="Pay__Query">薪酬查询</string>
+    <string name="seting">设置  </string>
+    <!-- 找工作页面 -->
+    <string name="searchjob_result">找工作</string>
+    <string name="findjob">找工作</string>
+    <string name="nearbyjob">附近的工作</string>
+    <string name="search_key">请输入关键字</string>
+    <string name="function">职能</string>
+    <string name="map">选择地点</string>
+    <string name="search_btn">搜   职  位</string>
+    <string name="search_Recent">近期搜索条件</string>
+    <string name="clear_btn">清空所有</string>
+    <!-- 搜索结果 页面 -->
+    <string name="search_condition">搜索条件</string>
+    <string name="job_key">设置为抢工作</string>
+    <string name="setRobJob_succes">操作成功</string>
+    <!-- 个人中心 -->
+    <!-- 账号绑定 -->
+    <string name="openbind_hasbinded">已绑定行业选择</string>
+    <string name="openbind_title">账号绑定</string>
+    <string name="openbind_firstbind">第一次访问</string>
+    <string name="openbind_truename">真实姓名</string>
+    <string name="openbind_email">常用邮箱</string>
+    <string name="openbind_hadaccountnummber">已有英才网账号</string>
+    <string name="openbind_username">用户名</string>
+    <string name="openbind_pwd">密码</string>
+    <string name="openbind_login">登录</string>
+    <string name="openbind_bindAndlogin">绑定并登录</string>
+    <!-- 职位详情 -->
+    <string name="screen">筛选</string>
+    <string name="PositionDetails">职位详情</string>
+    <string name="poster">海报</string>
+    <string name="Company_Introduce">公司介绍</string>
+    <string name="education">学历：</string>
+    <string name="place">地点：</string>
+    <string name="release">发布：</string>
+    <string name="otherpositions">其他职位</string>
+    <string name="experience">经验：</string>
+    <string name="numberofpeople">人数：</string>
+    <string name="treatment">待遇：</string>
+    <string name="mailbox">邮箱：</string>
+    <string name="jobdescription">职位描述：</string>
+    <string name="jobplace">工作地点：</string>
+    <string name="developpost">开发岗位：</string>
+    <string name="askfor">要求：</string>
+    <string name="collect_succeed">收藏职位成功</string>
+    <string name="delete_collect_succeed">取消收藏成功</string>
+    <!--城市选择-->
+    <string name="locating">定位中</string>
+    <string name="search">搜索</string>
+    <string name="notfound">抱歉，未找到！</string>
+    <string name="key_word">请输入关键字</string>
+    <string name="locatez_as">定位为</string>
+    <string name="switch_ornot">，是否切换？</string>
+    <string name="city_show_text_hot">热门城市</string>
+    <string name="city_hotcity_curlocationcity_text">定位城市</string>
+    <string name="third_title_close">关闭</string>
+    <string name="city_hotcity_searchedittext_hint">请输入城市名,首字母或拼音</string>
+    <string name="xml_loading_01">加载中</string>
+
+    <string name="cancel">取消</string>
+    <string name="quit_dialog_cancel">取 消</string>
+    <string name="assistant_upload_dialog_title">提示</string>。
+
+    <string name="properties">性质：</string>
+    <string name="scale">规模：</string>
+    <string name="industry">行业：</string>
+    <string name="address">地址：</string>
+    <string name="company_introduction">公司介绍：</string>
+
+    <!-- popwindow -->
+
+    <string name="money">薪资待遇</string>
+    <string name="all">全部</string>
+    <string name="time">发布时间</string>
+    <string name="time_today">今天</string>
+    <string name="time_three">近三天</string>
+    <string name="time_week">近一周</string>
+    <string name="education_background_askfor">学历要求</string>
+    <string name="askfor_junior_high_school">初中以上</string>
+    <string name="askfor_bachelor_or_above_degree">本科以上</string>
+    <string name="askfor_master">硕士以上</string>
+    <string name="job">工作经验</string>
+    <string name="job_no">无经验</string>
+    <string name="job_oneyear">1年以下</string>
+    <string name="job_threeyear">1-3年</string>
+    <string name="queding">确定</string>
+    <string name="quxiao">取消</string>
+    <string name="scale_job_nature">工作性质</string>
+    <string name="scale_job_site">附近工作</string>
+    <string name="scale_of_company">公司规模</string>
+    <string name="choose_job_year">选择工作年限</string>
+    <string name="choose_job_time">选择发布日期</string>
+    <string name="choose_education_background">选择学历</string>
+
+    <!-- 简历中心 -->
+    <string name="no_record_en">no record</string>
+    <string name="resume_send">简历外发</string>
+    <string name="recive_email">接收邮箱：</string>
+    <string name="email_content">邮件内容：</string>
+    <string name="resume_select">发送</string>
+    <string name="resume_name">简历名称:</string>
+    <string name="resume_time">创建时间:</string>
+    <string name="update_time">更新时间:</string>
+    <string name="hasresume_en">英文简历:</string>
+    <string name="common_resume">社会人简历:</string>
+    <string name="myresume1">我的简历1</string>
+    <string name="myresume">我的简历</string>
+    <string name="integrity">完整度：80%</string>
+    <string name="notnull">必填:填写完整才可投递简历</string>
+    <string name="resume_mold">选填:完善信息可以提高求职成功率</string>
+    <string name="pop_text">我是应届毕业生</string>
+    <string name="personal_info">个人信息</string>
+    <string name="education_experience">教育背景</string>
+    <string name="pop_name">简历名称:</string>
+    <string name="job_intention">求职意向</string>
+    <string name="cultivate_experience">培训经历</string>
+    <string name="work_experience">工作经验</string>
+    <string name="self_assessment">自我评价</string>
+    <string name="project_experience">项目经验</string>
+    <string name="no_job_experience">我没工作经验</string>
+    <string name="more">更多</string>
+    <string name="language">语言能力</string>
+    <string name="now_positions">现任职位：</string>
+    <string name="hope_positions">期望职位：</string>
+    <string name="hope_money">期望薪资：</string>
+    <string name="Job_Status">求职状态：</string>
+    <string name="resume_digest">简历摘要</string>
+    <string name="professional_skill">专业技能</string>
+    <string name="delete">删除</string>
+    <string name="upgrade_success">简历升级成功</string>
+    <string name="upgrade_faile">简历升级失败，请稍后重试</string>
+    <string name="send_faile">发送失败，请稍后重试</string>
+    <string name="resume_language">语言能力</string>
+    <string name="resume_language_type">语言类别</string>
+    <string name="resume_language_readlevel">读写能力</string>
+    <string name="resume_language_speaklevel">听说能力</string>
+    <string name="resume_order_zhixi">职系</string>
+    <!-- 错误对应消息 -->
+    <string name="error">连接超时</string>
+    <string name="error_null">信息为空</string>
+    <string name="error_net">网络不稳定，请稍后重试</string>
+    <string name="error_notnet">无法连接网络</string>
+    <string name="error_faile_connect">服务器连接失败</string>
+    <string name="error_setting_faile">设置失败</string>
+    <string name="error_101">网络不稳定</string>
+    <string name="error_102">服务器临时不可用</string>
+    <string name="error_103">请求无效</string>
+    <!--<string name="error">连接超时</string>-->
+    <!--<string name="error_null">信息为空</string>-->
+    <!--<string name="error_net">网络不稳定，请稍后重试</string>-->
+    <!--<string name="error_notnet">无法连接网络</string>-->
+    <!--<string name="error_faile_connect">服务器连接失败</string>-->
+    <!--<string name="error_setting_faile">设置失败</string>-->
+    <!--<string name="error_101">服务器错误</string>-->
+    <!--<string name="error_102">服务器临时不可用</string>-->
+    <!--<string name="error_103">请求无效</string>-->
+    <string name="error_104">调用次数超过了限制</string>
+    <string name="error_105">请求来自未经授权的IP地址</string>
+    <string name="error_106">客户端版本过期，请升级客户端</string>
+    <string name="error_201">请求数据校验失败</string>
+    <string name="error_202">必须是POST提交</string>
+    <string name="error_203">无效的SESSION_KEY</string>
+    <string name="error_204">session key已过期</string>
+    <string name="error_205">无效或缺少服务参数</string>
+    <string name="error_206">执行失败</string>
+    <string name="error_207">缺少必填项</string>
+    <string name="error_208">记录不存在</string>
+    <string name="error_209">超过记录最大限制</string>
+    <string name="error_210">记录不可修改</string>
+    <string name="error_301">用户不存在</string>
+    <string name="error_302">用户名已经存在</string>
+    <string name="error_303">用户未登录</string>
+    <string name="error_304">简历不存在</string>
+    <string name="error_305">第三方账号未绑定</string>
+    <string name="error_306">本站账号已绑定过此类型第三方账号</string>
+    <string name="error_307">第三方生成账号，只有一个绑定信息，不能够解绑</string>
+    <string name="error_308">用户所属的行业不存在</string>
+    <string name="error_309">简历/简历类型数超过最大分数</string>
+    <string name="error_310">用户名与邮箱不匹配</string>
+    <string name="error_311">用户名或密码错误</string>
+    <string name="error_312">用户被禁止</string>
+    <string name="error_313">第三方账号已被本站账号绑定过</string>
+    <string name="error_314">此账号类型无需激活</string>
+    <string name="error_315">重置密码无效</string>
+    <string name="error_317">简历不存在此项</string>
+    <string name="error_318">不可创建非中文简历</string>
+    <string name="error_319">简历的类型不可修改</string>
+    <string name="error_320">简历不可复制</string>
+    <string name="error_321">缺少中文简历</string>
+    <string name="error_327">手机号码已被使用</string>
+    <string name="error_401">职位已过期</string>
+    <string name="error_402">职位已过期</string>
+    <string name="error_403">职位近期已经投递过了</string>
+    <string name="error_404">简历完整度较低</string>
+    <string name="error_405">请求操作太过频繁，3秒后重试</string>
+    <string name="error_406">职位已经收藏</string>
+    <string name="error_407">职位已保密</string>
+    <string name="error_408">用户被禁止投递</string>
+    <string name="error_411">企业不存在</string>
+    <string name="error_412">企业已经关闭</string>
+    <string name="error_413">请完善您的简历</string>
+    <string name="error_417">简历类型与职位类型不匹配</string>
+    <string name="error_501">新闻不存在</string>
+    <string name="error_502">新闻栏目不存在</string>
+    <string name="error_503">新闻/推荐不是审核通过状态，不可更新浏览量</string>
+    <string name="error_504">投票/调查报告已结束，不可保存</string>
+    <string name="error_2010">密码不能包含企业名称与电话邮箱用户名</string>
+    <string name="error_2012">密码与确认密码不一至</string>
+    <string name="error_2013">用户名不合法(支持字母、数字、下划线，长度4-25位)</string>
+    <string name="error_2014">用户名已存在</string>
+
+    <string name="no_photo">没有头像</string>
+
+    <!-- 个人信息 -->
+
+    <string name="edit_personal_info">职位已经收藏</string>
+    <string name="name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="age">年龄</string>
+    <string name="date_of_birth">出生日期</string>
+    <string name="workyear">工作经验</string>
+    <string name="country">国家/地区</string>
+    <string name="phone_number">手机号码</string>
+    <string name="now_place">现居住地</string>
+    <string name="account_place">户口所在地</string>
+    <string name="degree_of_education">教育程度</string>
+    <string name="working_starttime">参加工作年份</string>
+    <string name="mobile_phone">手机</string>
+    <string name="Email">电子邮件</string>
+    <string name="Current_Professional_Titles">现有职称</string>
+    <string name="type_of_pagers">证件类型</string>
+    <string name="nummber_of_pagers">证件号码</string>
+    <string name="marriage_info">婚姻状况</string>
+    <string name="polity">政治面貌</string>
+    <string name="height">身高</string>
+    <string name="blood_type">血型</string>
+    <string name="fixed_phone">固话</string>
+    <string name="message_type">即时通讯类型</string>
+    <string name="message_nummber">即时通讯号码</string>
+    <string name="message_address">地址</string>
+    <string name="message_homepage">个人主页</string>
+    <!-- 教育背景 -->
+    <string name="add_education_experience">教育背景</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="school">学校名称</string>
+    <string name="education2">学历</string>
+    <string name="major">专业</string>
+    <string name="Professional_description">专业描述</string>
+    <string name="Study_Abroad">海外学习</string>
+    <string name="country_edu">国家/地区</string>
+
+    <!-- 个人中心 -->
+    <string name="Position_the_favorites">职位收藏夹</string>
+    <string name="user_name">用户名:</string>
+    <string name="my_position">我申请的职位</string>
+    <string name="my_collect">我收藏的职位</string>
+    <string name="look_me">谁看过我的简历</string>
+    <string name="my_letter">人事经理来信</string>
+
+    <!-- 修改密码 -->
+
+    <string name="old_password">原密码</string>
+    <string name="now_password">新密码</string>
+    <string name="affirm_password">确认密码</string>
+    <string name="update_password">修改密码</string>
+
+    <!-- 选择行业 -->
+    <string name="choice">请选择您所在的行业</string>
+
+    <!-- 注册 -->
+
+    <string name="register">注册</string>
+    <string name="register2">注册为会员</string>
+    <string name="E_mail">E-mail :</string>
+    <string name="choice2">您所选择的行业:</string>
+    <string name="user_name2">用户名</string>
+    <string name="password">密码</string>
+    <string name="prompt">您已绑定以下行业，请选择行业进行登录。</string>
+
+    <!-- 登录 -->
+
+    <string name="enter">会员登录</string>
+    <string name="enter2">登录</string>
+    <string name="enter_youself">自动登录</string>
+    <string name="default_setting">投递默认简历</string>
+    <string name="other_enter">使用其他账号登录</string>
+    <string name="enter_autologin_false">自动登录失败</string>
+    <string name="enter_auto_information">登录中...</string>
+    <string name="enter_findpwd">验证邮件已发送到指定邮箱，请注意查收.</string>
+    <string name="enter_updatepwd">密码修改成功</string>
+    <!-- Activity label name -->
+    <string name="activity_industry">选择您所在的行业</string>
+    <string name="activity_searchjob">找工作</string>
+    <string name="activity_searchjob_result">职位搜索结果</string>
+    <string name="activity_login">个人会员登录</string>
+    <string name="activity_register">个人会员注册</string>
+    <string name="activity_post">选择职能</string>
+    <string name="activity_place">选择地区</string>
+    <string name="activity_jobinfo">职位详情</string>
+    <string name="activity_enterpriseinfo">公司详情</string>
+    <string name="activity_post_appliy">职位申请</string>
+    <string name="activity_personal_centre">个人中心</string>
+    <string name="activity_personal_navigation">个人导航</string>
+    <string name="activity_rushjob">快来抢工作</string>
+    <string name="activity_todayjob">今日工作</string>
+    <string name="activity_config">设置</string>
+    <string name="activity_guidance">职业指导</string>
+    <string name="activity_guidance_83">求职宝典</string>
+    <string name="activity_guidance_120">简历指南</string>
+    <string name="activity_guidance_121">面试秘籍</string>
+    <string name="activity_guidance_122">薪酬行情</string>
+    <string name="activity_guidance_86">职业诊断</string>
+    <string name="activity_guidance_82">职场八卦</string>
+    <string name="activity_guidance_87">人际关系</string>
+    <string name="activity_guidance_723">创业指南</string>
+    <string name="activity_guidance_846">劳动法苑</string>
+    <string name="activity_nearby_job">附近的工作</string>
+    <string name="activity_showmap">显示地图</string>
+    <string name="activity_new_resume">新建简历</string>
+    <string name="activity_edit_resume">修改简历</string>
+    <string name="activity_scan_resume">预览简历</string>
+    <string name="activity_field">选择领域</string>
+    <string name="update_text">新版本已发布，快来看看吧</string>
+    <string name="alert_dialog_ok_btn">确认</string>
+    <string name="alert_dialog_cancel_btn">取消</string>
+    <string name="no_network">无可用网络</string>
+    <string name="connection_failure">连接失败</string>
+    <string name="load_failure">加载失败</string>
+    <string name="searchjob_key">请输入关键字</string>
+    <string name="searchjob_filter">筛选条件</string>
+    <string name="searchjob_post">职能</string>
+    <string name="searchjob_field">领域</string>
+    <string name="searchjob_place">地点</string>
+    <string name="searchjob_searching">正在搜索中...</string>
+    <string name="searchjob_nomore">已全部加载"</string>
+    <string name="guidanceIn_load">正在加载...</string>
+    <string name="searchjob_input_error">请输入关键词或选择职能</string>
+    <string name="searchjob_no_result">没有符合您搜索条件的职位信息!</string>
+    <string name="searchjob_shownext">显示下 20 条</string>
+    <string name="searchjob_shownext_ten">显示下 10 条</string>
+    <string name="searchjob_nonext">没有数据</string>
+    <string name="searchjob_email">邮箱</string>
+    <string name="searchjob_issue">发布</string>
+    <string name="searchjob_workplace">地点</string>
+    <string name="searchjob_number">人数</string>
+    <string name="searchjob_workyear">经验</string>
+    <string name="searchjob_education_backgroud">学历</string>
+    <string name="searchjob_monthly_pay">待遇</string>
+    <string name="searchjob_synopsis">职位描述</string>
+    <string name="searchjob_enterprise_desc">公司简介</string>
+    <string name="searchjob_noresume_donot_apply">您当前没有完整简历，不能申请职位！</string>
+    <string name="searchjob_appliy_post">您申请的职位</string>
+    <string name="searchjob_select_your_resume">选择您的简历</string>
+    <string name="searchjob_apply_success">申请成功</string>
+    <string name="searchjob_apply_no_resume">无完整简历，不可申请</string>
+    <string name="searchjob_please_login_apply">请登录后申请职位！</string>
+    <string name="searchjob_please_login_favour">请登录后收藏职位！</string>
+    <string name="searchjob_favour_success">职位收藏成功！</string>
+    <string name="searchjob_nearby_job_select_range">选择距离</string>
+    <string name="searchjob_nearby_job_map_model">地图模式</string>
+    <string name="searchjob_nearby_job_list_model">列表模式</string>
+    <string name="searchjob_no_location">无可用位置服务</string>
+    <string name="personal_username">用户名</string>
+    <string name="personal_password">密码</string>
+    <string name="personal_autologin">自动登录</string>
+    <string name="personal_register">还未注册？</string>
+    <string name="personal_email">Email</string>
+    <string name="personal_password_confirm">确认密码</string>
+    <string name="personal_register_email_explain">您常用的邮件地址</string>
+    <string name="personal_register_username_explain">数字或字母，长度4-25字符</string>
+    <string name="personal_register_password_explain">最少6位字符，区分大小写</string>
+    <string name="personal_register_psdconfirm_explain">再次输入密码</string>
+    <string name="personal_register_industry">您所选择的行业</string>
+    <string name="personal_centre_username_suffix">，您好！</string>
+    <string name="personal_centre_resume_manage">简历管理</string>
+    <string name="personal_centre_resume_deletesuccess">删除成功</string>
+    <string name="personal_centre_myresume">我的简历</string>
+    <string name="personal_centre_who_browsed_myresume">谁看了我的简历</string>
+    <string name="personal_centre_sendresume">简历外发</string>
+    <string name="personal_centre_post_manage">职位管理</string>
+    <string name="personal_centre_tool">常用工具</string>
+    <string name="personal_centre_post_favourite">职位收藏夹</string>
+    <string name="personal_centre_post_applied">职位申请记录</string>
+    <string name="personal_centre_invited">人事经理来信</string>
+    <string name="personal_centre_noboby_browsed">还没有人关注过您的简历</string>
+    <string name="personal_centre_no_favourite">您当前没有收藏任何职位！</string>
+    <string name="personal_centre_no_applied">您还没有申请过任何职位！</string>
+    <string name="personal_centre_no_invited">您当前没有邀请面试记录！</string>
+    <string name="personal_navigation_username_middle">您好，您已成功注册成为</string>
+    <string name="personal_navigation_username_suffix">英才网的个人会员。您现在可以：</string>
+    <string name="personal_navigation_searchjob_desc">立即开始找工作</string>
+    <string name="personal_navigation_centre_desc">管理您的个人信息</string>
+    <string name="personal_navigation_resume_desc">建议电脑登录网站完成简历，也可立即新建简历</string>
+    <string name="personal_navigation_write_resume">写简历</string>
+    <string name="personal_centre_choose_resume">选择您的简历</string>
+    <string name="personal_centre_send_email">您要发的邮件地址：</string>
+    <string name="personal_centre_email_content">邮件内容：</string>
+    <string name="personal_centre_payquery">薪酬查询</string>
+    <string name="personal_centre_payquery_jobclassification">职位分类</string>
+    <string name="personal_centre_payquery_jobaddress">工作地点</string>
+    <string name="personal_centre_payquery_jobsalary">期望薪资(元/月)</string>
+    <string name="personal_centre_payquery_search">查询</string>
+    <string name="personal_centre_payquery_compare">比较</string>
+    <string name="personal_centre_payquery_warning0">请选择职位分类</string>
+    <string name="personal_centre_payquery_warning1">请选择工作地点</string>
+    <string name="personal_centre_payquery_warning2">请输入期望薪资</string>
+    <string name="personal_centre_payquery_resulttitle">您所查询职位的市场薪资水平</string>
+    <string name="rushjob_desc">好的工作机会总是会在不经意间出现，不放过每一个适合您的工作，让好工作不再溜走！快来抢工作吧！</string>
+    <string name="open_platform">其他账号登录</string>
+    <string name="open_sina">新浪微博</string>
+    <string name="open_tencent">QQ</string>
+    <string name="open_renren">人人网</string>
+    <string name="open_baidu">百度</string>
+    <string name="open_bind_name">真实姓名：</string>
+    <string name="open_bind_emial">常用邮箱：</string>
+    <string name="open_bind_un">用户名：</string>
+    <string name="open_bind_pd">密码：</string>
+    <string name="guidance_info">新闻列表</string>
+    <!-- =============================================add rush dialog text=========================================== -->
+    <string name="rushjoc_t">抢工作</string>
+    <string name="rushjob_set_sucess">抢工作设置成功</string>
+    <string name="rushjob_set_failure">抢工作设置失败，请到设置页面设置。</string>
+    <string name="rushjob_nonlocation_m">请选择一个准确的工作地点</string>
+    <string name="rushjob_set">没有设置抢工作，是否设置抢工作？</string>
+    <string name="config_change_skin">更换皮肤</string>
+    <string name="config_logout_login">注销登录</string>
+    <string name="config_notice_manage">通知管理</string>
+    <string name="config_feedback">意见反馈</string>
+    <string name="config_qqwall">其他应用推荐</string>
+    <string name="config_about_us">关于我们</string>
+    <string name="config_about_us_desc">英才网联(www.800hr.com)是国内首家分行业专业招聘网站，致力于为国内企业与求职者提供分行业、精准化、专业化网络招聘服务。目前旗下拥有建筑英才网、金融英才网、医药英才网、化工英才网、机械英才网、教培英才网、电子英才网、IT英才网、服装英才网、传媒英才网十个分行业专业人才招聘网站，均已成为该行业最具影响力和专业性的行业人才招聘网站。</string>
+    <string name="config_about_us_ver">软件版本：Android\t</string>
+    <string name="config_about_us_copyright">软件版权：英才网联</string>
+    <string name="config_about_us_phone">客服电话：4006500588</string>
+    <string name="config_about_us_website">官方网址：http://www.800hr.com</string>
+    <string name="config_about_us_phoneweb">手机访问：http://m.800hr.com</string>
+    <string name="config_notice_receive_time">通知接收时段</string>
+    <string name="config_notice_rushjob">抢工作通知</string>
+    <string name="config_notice_invited">邀请面试通知</string>
+    <string name="config_notice_advise">建议您打开接收通知，您将在第一时间接收到与您相关的信息</string>
+    <string name="resume_handle">简历操作</string>
+    <string name="resume_handle_delete">温馨提示</string>
+    <string name="resume_scan">查看</string>
+    <string name="resume_create">新建</string>
+    <string name="resume_refresh">刷新</string>
+    <string name="resume_edit">修改</string>
+    <string name="resume_delete">删除</string>
+    <string name="resume_open">简历公开</string>
+    <string name="resume_refresh_success">刷新成功</string>
+    <string name="resume_not_complet">您当前没有完整简历，不能外发简历。</string>
+    <string name="resume_delete_confirm">简历删除后无法恢复，确认要删除吗？</string>
+    <string name="success">设置成功</string>
+    <string name="nofile">文件不存在</string>
+    <string name="upsuccess">上传成功</string>
+    <string name="delete_success">删除成功</string>
+    <string name="delete_faile">删除失败</string>
+    <string name="save">保存</string>
+    <string name="edit">修改</string>
+    <string name="send">发送</string>
+    <string name="send_success">发送成功</string>
+    <string name="delete_favour">删除收藏记录</string>
+    <string name="delete_confirm">确定删除？</string>
+    <string name="logout">注销</string>
+    <string name="exit">退出</string>
+    <string name="exit_confirm">确定退出程序？</string>
+    <string name="system_loading">系统加载中 ...</string>
+    <string name="update_new">更新提示</string>
+    <string name="feedback_confirm">提交</string>
+    <string name="feedback_prompt">请输入内容</string>
+    <string name="feedback_email_fail">邮箱格式不正确</string>
+    <string name="feedback_ok">已经提交反馈，谢谢您的支持。</string>
+    <string name="feedback_no">反馈意见提交失败</string>
+    <string name="feedback_contenthint">请输入您的反馈意见（500字以内）</string>
+    <!-- 校验信息 -->
+    <string name="username_or_password_error">用户名或密码错误，请重新输入</string>
+    <string name="email_null">请输入邮箱</string>
+    <string name="comname_null">请输入公司名称</string>
+    <string name="comphone_null">请输入联系电话</string>
+    <string name="comphone_mistake">请输入正确的联系电话</string>
+    <string name="comcontacts_null">请输入联系人</string>
+    <string name="username_null">请输入用户名</string>
+    <string name="password_null">请输入密码</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_false">登录失败</string>
+    <string name="email_error">邮箱地址格式错误</string>
+    <string name="username_error">用户名不能包含特殊字符</string>
+    <string name="username_nochina">用户名不能是中文</string>
+    <string name="username_length_error">用户名长度不符</string>
+    <string name="password_error">密码填写格式不正确</string>
+    <string name="password_length_error">密码长度不符</string>
+    <string name="password_pswconfirm_not_equal">两次输入的密码不一致</string>
+    <string name="password_username_equal">密码不能与用户名相同</string>
+    <string name="email_content_null">请输入邮件内容</string>
+    <string name="industry_null">请选择行业</string>
+    <string name="resume_not_complete">您的此份简历基本信息不完整，需要您完善简历方可公开。</string>
+    <!-- 行业名称 -->
+    <string name="industry_bank">金融</string>
+    <string name="industry_build">建筑</string>
+    <string name="industry_chen">化工</string>
+    <string name="industry_cloth">服装</string>
+    <string name="industry_cnedu">教培</string>
+    <string name="industry_cnit">IT</string>
+    <string name="industry_ctv">传媒</string>
+    <string name="industry_ele">电子</string>
+    <string name="industry_healt">医药</string>
+    <string name="industry_mec">机械</string>
+
+    <!-- 设置 -->
+    <string name="set_push">推送设置</string>
+    <string name="set_clear_cache">清空缓存</string>
+    <string name="set_change_background">更换皮肤</string>
+    <string name="set_weibo_attention">关注我们</string>
+    <string name="set_user_feedback">用户反馈</string>
+    <string name="set_recommended_application">推荐应用</string>
+    <string name="set_about_us">关于我们</string>
+    <string name="set_logout">注销</string>
+    <string name="logout_success">注销成功</string>
+    <string name="set_feed_words">欢迎留下您的宝贵意见</string>
+    <string name="set_feed_words_toast">反馈成功</string>
+    <string name="edit_feed_words_toast">请先输入您的宝贵意见</string>
+    <string name="set_app_recommend">应用推荐</string>
+    <string name="set_contact_information">请输入您的邮箱</string>
+    <string name="opinion_input_box">意见输入框</string>
+    <string name="set_remind_the_way">提醒方式</string>
+    <string name="push_words">推送内容</string>
+    <string name="push_notice">推送内容</string>
+    <string name="set_receiving_time">接收时段</string>
+    <string name="set_push_voice">推送提示音</string>
+    <string name="set_rob_work_notice">抢工作通知</string>
+    <string name="set_rob_work_term">抢工作条件</string>
+    <string name="set_rob_work">抢工作设置</string>
+    <string name="set_invitation_for_interview">人事经理来信</string>
+    <string name="submit">提交</string>
+    <string name="advanced_options">高级选项</string>
+
+    <!-- 简历预览 -->
+    <string name="resume_scan_title">简历预览</string>
+    <string name="resume_scan_nummber">编号：</string>
+    <string name="resume_scan_refreshdate">更新：</string>
+    <string name="resume_scan_national">民族：</string>
+    <string name="resume_scan_height">身高</string>
+    <string name="resume_scan_bloodtype">血型</string>
+    <string name="resume_scan_accountaddress">户口所在地</string>
+    <string name="resume_scan_marriage">婚姻状况</string>
+    <string name="resume_scan_politics">政治面貌</string>
+    <string name="resume_scan_personalpage">个人主页</string>
+    <string name="resume_scan_cellphone_number">手机</string>
+    <string name="resume_scan_telephone_number">固话</string>
+    <string name="resume_scan_IM">即时通讯工具</string>
+    <string name="resume_scan_workyear">工作年限</string>
+    <string name="resume_scan_worktype">工作性质</string>
+    <string name="resume_scan_workresponsibility">职责描述</string>
+    <string name="resume_scan_func">期望职位</string>
+    <string name="resume_scan_curr_state">求职状态</string>
+    <string name="resume_scan_salary">期望月薪</string>
+    <string name="resume_scan_company_name">公司名称</string>
+    <string name="resume_scan_company_type">公司性质</string>
+    <string name="resume_scan_exper_time">工作时间</string>
+    <string name="resume_scan_workplace">工作地点</string>
+    <string name="resume_scan_orderworkplace">工作地区</string>
+    <string name="resume_scan_presalary">税前月薪</string>
+    <string name="resume_scan_companysize">公司规模</string>
+    <string name="resume_scan_position">所任职位</string>
+    <string name="resume_scan_project_time">项目时间</string>
+    <string name="resume_scan_project_name">项目名称</string>
+    <string name="resume_scan_project_desc">项目描述</string>
+    <string name="resume_scan_responsibility">项目责任</string>
+    <string name="resume_scan_offreason">离职原因</string>
+    <string name="resume_scan_edu_time">起止时间</string>
+    <string name="resume_scan_school_name">学校名称</string>
+    <string name="resume_scan_degree">学历</string>
+    <string name="resume_scan_major">专业</string>
+    <string name="resume_scan_major_des">专业描述</string>
+    <string name="resume_scan_abroad">海外经历</string>
+    <string name="resume_scan_language_type">语言</string>
+    <string name="resume_scan_language_readwrite">读写</string>
+    <string name="resume_scan_language_listenspeak">听说</string>
+    <string name="resume_scan_major_name">技能名称</string>
+    <string name="resume_scan_major_usetime">使用时间</string>
+    <string name="resume_scan_major_level">水平</string>
+    <string name="resume_scan_training_time">培训时间</string>
+    <string name="resume_scan_training_organization">培训机构</string>
+    <string name="resume_scan_training_lession">培训课程</string>
+    <string name="resume_scan_training_descrip">培训描述</string>
+    <string name="resume_scan_training_certificate">获得证书</string>
+    <string name="resume_scan_training_place">培训地点</string>
+
+    <!-- 简历中心求职意向 -->
+    <string name="edit_jobintension_title">求职意向</string>
+    <string name="edit_jobintension_state">求职状态 </string>
+    <string name="edit_jobintension_expectposition">从事职位</string>
+    <string name="edit_jobintension_expectfield">从事领域</string>
+    <string name="edit_jobintension_expectplace">工作地区</string>
+    <string name="edit_jobintension_expectsalary">期望薪资(元)</string>
+    <string name="edit_jobintension_nowposition">目前从事职位</string>
+    <string name="edit_jobintension_expectproperties">工作性质</string>
+    <!-- 简历中心实习经验 -->
+    <string name="edit_intership_title">实习经验</string>
+    <string name="edit_intership_company">公司名称</string>
+    <string name="edit_intership_companyproperties">公司性质</string>
+    <string name="edit_intership_companyscrop">公司规模</string>
+    <string name="edit_intership_date">实习时间</string>
+    <string name="edit_intership_address">实习地点</string>
+    <string name="edit_intership_position">所任职位</string>
+    <string name="edit_intership_branch">所属部门</string>
+    <string name="edit_intership_duty">职责描述</string>
+    <string name="edit_intership_resonleave">换岗原因</string>
+    <!-- 简历中心项目经验 -->
+    <string name="edit_projectexperience_title">项目经验</string>
+    <string name="edit_projectexperience_starttime">开始时间</string>
+    <string name="edit_projectexperience_endtime">结束时间</string>
+    <string name="edit_projectexperience_projectname">项目名称</string>
+    <string name="edit_projectexperience_projectdescription">项目描述</string>
+    <string name="edit_projectexperience_projectduty">项目责任</string>
+    <string name="edit_projectexperience_positon">项目职务</string>
+    <!-- 简历中心培训经历 -->
+    <string name="edit_trainingexperience_title">培训经历</string>
+    <string name="edit_trainingexperience_startdate">开始时间</string>
+    <string name="edit_trainingexperience_enddate">结束时间</string>
+    <string name="edit_trainingexperience_organization">培训机构</string>
+    <string name="edit_trainingexperience_lesson">培训课程</string>
+    <string name="edit_trainingexperience_address">培训地点</string>
+    <string name="edit_trainingexperience_letter">获得证书</string>
+    <string name="edit_trainingexperience_description">培训描述</string>
+    <!-- 简历中心工作经历 -->
+    <string name="edit_workexperience_title">工作经验</string>
+    <string name="edit_workexperience_company">公司名称</string>
+    <string name="edit_workexperience_companyproperties">公司性质</string>
+    <string name="edit_workexperience_companyscrop">公司规模</string>
+    <string name="edit_workexperience_starttime">开始时间</string>
+    <string name="edit_workexperience_endtime">结束时间</string>
+    <string name="edit_workexperience_address">工作地点</string>
+    <string name="edit_workexperience_position">所任职位</string>
+    <string name="edit_workexperience_branch">所属部门</string>
+    <string name="edit_workexperience_duty">职责描述</string>
+    <string name="edit_workexperience_resonleave">离职原因</string>
+    <string name="edit_workexperience_pre_tax">税前月薪(元)</string>
+    <string name="edit_workexperience_industry">行业</string>
+    <string name="edit_workexperience_mainareas">主营领域</string>
+    <string name="edit_workexperience_positionpart">职位分类</string>
+    <string name="edit_workexperience_zhixi">职系</string>
+    <string name="edit_workexperience_zhicheng">职称</string>
+    <string name="edit_workexperience_abroad">海外工作</string>
+    <string name="edit_workexperience_country">国家/地区</string>
+
+    <!-- 简历中心专业技能 -->
+    <string name="edit_professionalskill_title">专业技能</string>
+    <string name="edit_professionalskill_name">技能名称</string>
+    <string name="edit_professionalskill_data">使用时间(月)</string>
+    <string name="edit_professionalskill_level">水平</string>
+    <!-- 简历中心自我评价 -->
+    <string name="edit_selfevaluation_title">自我评价</string>
+    <!-- 简历中心设置公开度 -->
+    <string name="set_public">请选择公开度</string>
+    <string name="choose_resume">请选择一个简历</string>
+    <string name="resume_public">公开</string>
+    <string name="resume_half_public">半公开</string>
+    <string name="resume_secrecy">保密</string>
+    <string name="resume_public_text">除了被您屏蔽的公司以外，其他企业会员都可以通过搜索看到您的简历和联系方式</string>
+    <string name="resume_half_public_text">企业可以都可以通过搜索看到您的简历，但您的电话和姓名是保密的，企业会员只能通过E-mail和您联系</string>
+    <string name="resume_secrecy_text">企业无法搜索到您的简历，只有您应聘的企业才能看到您的简历</string>
+
+    <!-- 加载更多 -->
+    <string name="listview_load_more">加载更多</string>
+    <string name="listview_load_false">加载失败</string>
+    <string name="listview_load_over">已全部加载</string>
+
+    <!-- 消息推送 -->
+
+    <string name="login">登录</string>
+    <string name="text_hint">Channel绑定信息：</string>
+    <string name="text_btn_init">登陆百度账号初始化Channel</string>
+    <string name="text_btn_init1">更换百度账号初始化Channel</string>
+    <string name="text_btn_rich">查看富媒体消息</string>
+    <string name="text_btn_initAK">无账号初始化Channel</string>
+    <string name="text_btn_setTags">设置标签</string>
+    <string name="text_btn_delTags">删除标签</string>
+    <string name="text_btn_senior">高级功能</string>
+    <string name="text_btn_set">设置</string>
+    <string name="text_media_title">富媒体消息列表</string>
+    <string name="media">Rich Media</string>
+    <string name="custom_text_hint">用户自定义打开的Activity</string>
+    <string name="tags_hint">请输入多个标签，以英文逗号隔开</string>
+    <!-- 日期选择 -->
+    <string name="date0">结束时间不能早于开始时间</string>
+    <string name="date1">日期不能是未来时间</string>
+
+    <!-- 简历投递判断是否过期及是否已经投递 -->
+    <string name="is_expire">该职位已过期不能投递</string>
+    <string name="is_apply">职位近期已经投递过了</string>
+    <!-- 简历收藏判断是否已经收藏该简历 -->
+    <string name="is_favourite">您已经收藏该职位</string>
+    <string name="install_confirm">安装提示</string>
+    <string name="no_exit_800hrapp">推荐职位需安装“行业找工作”才能查看，是否下载安装？</string>
+    <string name="unuser_sdcard">存储卡不可用或不存在</string>
+    <string name="feedback">意见反馈</string>
+    <string name="about_us">关于</string>
+    <string name="more_no_exit_app">您的手机未安装此应用，是否马上去下载安装？</string>
+    <string name="feedback_contenthint0">Email:请输入您的email</string>
+    <string name="feedback_contenthint1">请输入您的反馈意见（500字以内）</string>
+    <string name="about_us_desc">薪酬查询是英才网联(800HR.com)根据多年对行业市场薪酬水平调研成果，为您提供最新的薪酬查询报告。</string>
+    <string name="about_us_copyright">软件版权：英才网联</string>
+    <string name="about_us_phone">客服电话：4006500588</string>
+    <string name="about_us_website">官方网址：http://www.800hr.com</string>
+    <string name="about_us_phoneweb">手机访问：http://wap.800hr.com</string>
+    <string name="about_us_ver">软件版本：Android\t</string>
+    <string name="title_activity_search_job_site">Search_job_site</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_select_function">SelectFunctionActivity</string>
+    <string name="title_activity_search_job_result">SearchJobResultActivity</string>
+    <string name="title_activity_select_city">SelectCityActivity</string>
+    <!-- PullToRefresh-->
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">释放刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">正在加载...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新</string>
+    <string name="title_activity_post_particulars">PostParticularsActivity</string>
+    <string name="title_activity_else_job">ElseJobActivity</string>
+    <string name="title_activity_company_particular">CompanyParticularActivity</string>
+    <string name="title_activity_my_resume">MyResumeActivity</string>
+
+    <!--我的简历页面-->
+    <string name="myresume_updata">最后修改时间：</string>
+    <string name="myresume_resumeoperation">简历操作</string>
+    <string name="myresume_uploading">上传云端</string>
+    <string name="myresume_refresh">刷新简历</string>
+    <string name="myresume_resumepreview">预览简历</string>
+
+    <string name="myresume_resume_mustneed">必填项（完成即可投递简历）</string>
+    <string name="myresume_resume_mustneed1">个人信息</string>
+    <string name="myresume_resume_mustneed2">求职意向</string>
+    <string name="myresume_resume_mustneed3">教育背景</string>
+    <string name="myresume_resume_mustneed4">工作经验</string>
+
+    <string name="myresume_resume_maybe">选填项（补填一项增加5%完整度）</string>
+    <string name="myresume_resume_maybe1">项目经验</string>
+    <string name="myresume_resume_maybe2">专业技能</string>
+    <string name="myresume_resume_maybe3">语言能力</string>
+    <string name="myresume_resume_maybe4">培训经历</string>
+    <string name="myresume_resume_maybe5">自我评价</string>
+    <string name="myresume_resume_maybe6">实习经验</string>
+    <string name="title_activity_preview_resume">PreviewResumeActivity</string>
+    <!--简历预览-->
+    <string name="myresume_privewresume_infoname1">个人信息</string>
+    <string name="myresume_privewresume_infoname2">求职意向</string>
+    <string name="myresume_privewresume_infoname3">教育背景</string>
+    <string name="myresume_privewresume_infoname4">工作经验</string>
+    <string name="myresume_privewresume_infoname5">自我评价</string>
+    <string name="myresume_privewresume_infoname6">项目经验</string>
+    <string name="myresume_privewresume_infoname7">专业技能</string>
+    <string name="myresume_privewresume_infoname8">语言能力</string>
+    <string name="myresume_privewresume_infoname9">培训经历</string>
+
+    <string name="myresume_privewresume_infoname101">出生日期</string>
+    <string name="myresume_privewresume_infoname107">现居住地</string>
+    <string name="myresume_privewresume_infoname102">国家/地区</string>
+    <string name="myresume_privewresume_infoname103">参加工作年份</string>
+    <string name="myresume_privewresume_infoname104">现有职称</string>
+    <string name="myresume_privewresume_infoname105">手机号码</string>
+    <string name="myresume_privewresume_infoname106">电子邮箱 </string>
+
+    <string name="myresume_privewresume_infoname201">求职状态</string>
+    <string name="myresume_privewresume_infoname202">工作性质 </string>
+    <string name="myresume_privewresume_infoname203">期望职位 </string>
+    <string name="myresume_privewresume_infoname204">期望领域</string>
+    <string name="myresume_privewresume_infoname205">工作地点</string>
+    <string name="myresume_privewresume_infoname206">期望月薪</string>
+    <string name="title_activity_resume_person_info">ResumePersonInfoActivity</string>
+    <string name="title_activity_resume_job_order">ResumeJobOrderActivity</string>
+    <string name="title_activity_resume_edu_info">ResumeEduInfoActivity</string>
+    <string name="title_activity_resume_job_exp">ResumeJobExpActivity</string>
+    <string name="title_activity_resume_place_selected">ResumePlaceSelectedActivity</string>
+    <string name="title_activity_main_select_city_to_resume">MainSelectCityToResumeActivity</string>
+    <string name="title_activity_resume_project_exp">ResumeProjectExpActivity</string>
+    <string name="title_activity_resume_train_exp">ResumeTrainExpActivity</string>
+    <string name="title_activity_resume_language_info">ResumeLanguageInfoActivity</string>
+    <string name="title_activity_resume_skill_info">ResumeSkillInfoActivity</string>
+    <string name="title_activity_resume_self_assess">ResumeSelfAssessActivityActivity</string>
+    <string name="title_activity_app_setting">AppSettingActivity</string>
+    <string name="title_activity_user_feed_back">UserFeedBackActivity</string>
+    <string name="title_activity_my_position">MyPositionActivity</string>
+    <string name="title_activity_my_collection">MyCollectionActivity</string>
+    <string name="title_activity_company_other_job">CompanyOtherJobActivity</string>
+    <string name="title_activity_select_function_search">SelectFunctionSearchActivity</string>
+    <string name="title_activity_main_select_city_to_keyword">MainSelectCityToKeywordActivity</string>
+    <string name="title_activity_select_place_to_resume">SelectPlaceToResumeActivity</string>
+    <string name="title_activity_select_zhi_xi_search">SelectZhiXiSearchActivity</string>
+    <string name="title_activity_select_function_job_order">SelectFunctionJobOrderActivity</string>
+    <string name="title_activity_select_territory">SelectTerritoryActivity</string>
+    <string name="title_activity_create_resume_person_info">CreateResumePersonInfoActivity</string>
+    <string name="title_activity_create_resume_job_order">CreateResumeJobOrderActivity</string>
+    <string name="title_activity_create_resume_edu_info">CreateResumeEduInfoActivity</string>
+    <string name="title_activity_create_resume_job_exp">CreateResumeJobExpActivity</string>
+    <string name="title_activity_create_select_function_job_order">CreateSelectFunctionJobOrderActivity</string>
+    <string name="title_activity_create_select_place_to_resume">CreateSelectPlaceToResumeActivity</string>
+    <string name="title_activity_create_select_territory">CreateSelectTerritoryActivity</string>
+    <string name="title_activity_who_look_me">WhoLookMeActivity</string>
+    <string name="title_activity_company_email">CompanyEmailActivity</string>
+    <string name="title_activity_company_email_list">CompanyEmailListActivity</string>
+    <string name="title_activity_about_our">AboutOurActivity</string>
+    <string name="apply_no_resume">请先到"我->简历"设置默认简历</string>
+    <string name="title_activity_find_pwd">FindPwdActivity</string>
+    <string name="title_activity_user_agreement">UserAgreementActivity</string>
+    <string name="userargument">请仔细阅读下面的协议，请您在完全理解并同意遵守协议后继续会员注册操作。\n
+        \u0020\u0020\u0020\u0020 \u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020 英才网联个人会员注册协议\n本网站为英才网联（以下简称“公司”或“网站”）所有，网站仅提供求职、招聘及其他公司工商登记经营范围内的合法服务。注册会员在使用本网站时应和公司共同遵守以下协议内容。\n一、权利声明\n1、本网站的全部内容和图表受中国相关法律法规和中国加入国际条约的保护，公司保留对网站享有的全部权利。\n网站对其所创造的用以制成网页的HTML享有完整的知识产权；\n网站对其网页上的所有图标、图饰、图表、色彩、文字表述及其组合、版面设计、数据库均享有完整的知识产权；\n网站对其网页上的“观看”和“感觉”（包括并不仅限于颜色的组合、按钮的形状、设计等）享有完整的知识产权。\n未经同意，严禁下载、复制或以任何目的在本网站以外使用上述列举内容。\n2、在申请并得到网站许可的情况下，内容和图表不作任何修改、保留性内容未做修改的网站材料可供非商业用途使用。申请使用网站内容的许可是按逐个批准的原则进行的，网站欢迎提出申请，请在此申请，在收到正式书面同意许可后方可在许可范围内使用。\n二、网站使用\n（一）信息发布\n1、会员信息 当您到网站上注册会员并填写简历的时候，您会被要求提供一系列个人基本信息，如您的姓名、地址、电子邮件、电话号码等等。您同意网站有权对这些资料统计、汇总，为网站的广告商提供依据。但除非有关政府部门依法要求提供，网站承诺不会向第三方公开上述信息。\n2、简历信息 网站为您的简历提供三种控制权限，您在填写简历时可以自主设置个人简历控制权限：\nA、对所有公开\n网站的工作人员以及经过网站许可的招聘单位有权使用我们的数据库，搜索您的个人信息。如果您希望得到尽可能多的招聘机会，这项服务将更加适合您。\nB、对网站公开\n您只授权网站的工作人员检索您的个人信息。在没有得到您的许可之前，网站将不会向招聘单位提供任何有关您的个人信息。如果您希望比较谨慎地选择工作，可以使用本项服务。\nC、完全保密\n您可以在网站上填写统一的简历表格，并自行查找工作职位。您的任何个人信息不会被包括网站工作人员在内的他人通过数据库搜索到，所有的信息完全保密。如果您刚刚得到一份新的工作，或不希望收到任何形式的职务推荐，可以选择使用本功能。\n3、公共论坛 网站为访问者提供论坛、BBS等信息平台，供来访客户自由交流、讨论，在此区域发布的任何信息都会成为公开信息。如果您访问这些区域，应确保发布的信息不得违反法律规定。您在这些区域发表言论或发布信息属个人行为，不代表网站的立场，网站不对此类个人言论及个人行为承担任何责任。\n（二）信息的修改和删除\n您可以在网站上自由修改您的个人信息和简历。除了信息的发布者外，任何人无权修改或删除他人发布的信息，但您授权网站可以自主判断任何不适当信息并采取屏蔽、修改或删除措施。\n(三）信息的准确性\n任何在本网站发布的信息，应遵守合法、准确、及时、完整的原则。但本网站不能保证由第三方提供的信息或本网站自行采集的信息完全准确，网站对材料的正确性、准确性、可靠性及其他不作任何保证或承诺。在网站所登录的信息，均有可能被网站访问者浏览，也可能被错误使用，使用信息时应充分了解这些信息并进行充分有效的核实，本网站对因使用本网站信息而产生的任何损失不承担任何责任。\n（四）信息的使用和保密\n1、有关网站所有来访客人的资料 一般来说，网站收集使用者的总体资料，例如，您经常访问网站的哪些内容或您最经常使用网站提供的哪些服务项目。网站以总体的形式来使用这些信息及数据，这些资料帮助网站确定：对于网站使用者来说什么是最有益的；如何做才能不断地为网站使用者提供更高效服务，等等。网站可能会提供这些资料给业务合作伙伴共享，但也只是以总体的形式共享，以便我们的业务合作伙伴们也能为你们创造一个良好的全面使用经验。\n2、有关您的具体资料 在某些情况下，您选择使用网站提供的服务（如“简历中心”），或您参加网站举办的有奖活动，或您要购买网站提供的某一种产品，此时网站可能需要您的一些具体个人资料。您同意：网站可能利用这些资料向您发送相关职位信息或提供网站认为您可能感兴趣的相关产品和服务信息，或者在网站调整改变时通知您；网站也可能向您询问或搜集一些其他情况，例如您感兴趣的资料，喜欢的网站或不喜欢的网站、感兴趣的职业等等，其目的均是向您提供尽可能好的服务和网络使用经验。\n3、公开一般情况的资料 除上述“有关网站所有来访客人的资料”情况外，我们不会公开您个人浏览网站的情况，我们不会在没有取得您同意的情况下，公开您向我们提供的个人资料，如您的姓名、地址、电子邮件地址、电话号码、信用卡号码等等。除非有关政府部门依法要求提供，网站承诺不会向第三方公开上述信息。但您授权网站有权收集总体信息，并有权提供给业务合作伙伴共享。如果您把资料输入网站和业务合作伙伴们共同主持的网页上（如网站和伙伴公司共同主持的竞赛等），那么网站对业务合作伙伴所收到信息以及该业务合作伙伴对该信息的使用不负任何法律责任。\n（五）网站使用的禁止行为\n1、网站只用于合法求职与招聘目的，所有使用者同意在使用时不得违反下列规则：\nA、不得在简历中心公布虚假、不准确的简历资料，或不是本人的简历(如替他人求职等)，也不得公布意见、通知、商业广告等不是简历的资料；\nB、除非您有意申请该职位，不得随意回应职位数据库中任何一个就业机会。禁止网站竞争同行用此方法寻求与客户联络业务。\nC、不得打印、复制或使用有关其他求职者的任何个人资料或有关招聘单位的商业信息。禁止未经同意，利用公布信息给相关个人或公司发电子邮件、打电话、寄信或进行其他接触。\n2、网站安全禁止行为：\nA、禁止接触未经许可的数据或进入未经许可的服务器或帐户；\nB、禁止未经许可，企图探查、扫描或测试系统、网络的弱点，或者破坏网站安全措施；\nC、禁止破坏对用户及网络的服务，包括但不限于通过超载、“邮件炸弹”或“摧毁”等手段；\nD、禁止发送促销，产品广告及服务的email；\nE、禁止伪造TCP/IP数据包名称或部分名称，破坏系统或网络。\n网站将调查上述网站安全破坏行为，并积极和相关执法部门合作，制止和惩罚有此类破坏行为者。\n3、其他：\nA、禁止侵犯他人的合法知识产权，或侵犯他人的隐私权等合法权利；\nB、禁止利用网站传送、散布有诽谤、淫秽、威胁、侮辱内容的材料；\nC、禁止利用网站实施其他违法行为。\n（六）网站的暂停与终止使用：\n任何网站确信违反了本协议或网站其他使用规则的用户，将收到一份书面警告，在该用户以书面形式表示不再有任何违规行为后，网站有权决定是否给予其继续使用、暂停使用或者终止使用的处理。但是，网站也有权对违反了本协议或网站其他使用规则的用户不提出警告，而马上暂停或终止对该用户的服务。\n三、其他约定\n1、服务终止\n本网站有权在预先通知或不予通知的情况下终止任何免费服务。\n2、技术故障 如本网站因正常的系统维护、系统升级、网络拥塞或者其他原因导致网站不能访问，本网站不承担任何责任。\n3、免责条款 网站保留实时监视此网址的权利，但不能承诺做到随时监视。对于他方输入的材料，本网站不负任何法律责任。应聘信息发布者对其存入简历中心的个人简历及材料的格式、内容的真实性、合法性独立承担一切法律责任；招聘信息发布者对其在职位数据库中公布材料的真实性、合法性独立承担一切法律责任。网站不保证对某一种职位描述会有一定数目的使用者来浏览，也不保证会有一位特定的使用者来浏览。对于其他网址链接在本网站的内容，本网站不负法律责任。\n所有使用本网站的用户，对使用本网站信息和在本网站发布信息的被使用，承担完全责任。本网站对任何因使用本网站而产生的他方之间的纠纷，不负任何责任。\n四、协议内容的变更\n网站有权根据情况的变化（如相关政策、法规、经营方式变化等）而调整本协议相关内容，网站会及时在相应网页上公布协议的相关调整变化。作为网站注册会员，您同意及时关注相关调整并予以承认。\n五、因本协议及因使用本网站而产生的与本网站之间的纠纷，将适用中华人民共和国的有关法律，由公司注册所在地法院即北京市海淀区人民法院行使诉讼管辖权。\n六、您在注册页面确认接受本协议后，协议正式生效，网站和您将共同恪守。\n如果您对协议条款有不明之处或有任何关于本协议的问题，欢迎您和我们联系。</string>
+    <string name="comargument">亲爱的用户，欢迎您加入英才网联 \n
+           \u0020\u0020\u0020\u0020 \u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020 英才网联企业会员注册协议\n
+本网站及与本网站链接的网站，仅提供求职、招聘及其它与此相关联的服务。求职者、招聘单位以及因其它任何目的进入本网站的访问者应接受本协议书条款，注册成为会员，并遵守本协议所述的条款使用本网站所提供之服务。如果你不接受本声明的条款，请勿使用本网站。接受本声明的条款，你将遵守本协议的规定。
+\n一、信息的发布
+\n·不得发布任何违反有关法律规定信息；
+\n·不得发布任何与本网站求职、招聘目的不适之信息；
+\n·不得发布任何不完整、虚假的信息；
+\n·用户对所发布的信息承担完全责任。
+\n二、信息的使用
+\n·招聘单位仅可就招聘目的使用求职者之简历信息；
+\n·求职者仅可因应聘某职位，使用招聘单位发布之招聘信息；
+\n·本网站提供的其它信息，仅与其相应内容有关的目的而被使用；
+\n·不得将任何本网站的信息用作任何商业目的。
+\n三、信息的公开
+\n在本网站所登录的任何信息，均有可能被任何本网站的访问者浏览，也可能被错误使用。本网站对此将不予承担任何责任。
+\n四、信息的准确性
+\n任何在本网站发布的信息，均必须符合合法、准确、及时、完整的原则。但本网站将不能保证所有由第三方提供的信息，或本网站自行采集的信息完全准确。使用者了解，对这些信息的使用，需要经过进一步核实。本网站对访问者未经自行核实误用本网站信息造成的任何损失不予承担任何责任。
+\n五、信息更改与删除
+\n除了信息的发布者外，任何访问者不得更改或删除他人发布的任何信息。本网站有权根据其判断保留修改或删除任何不适信息之权利。
+\n六、版权、商标权
+\n本网站的图形、图像、文字及其程序等均属英才网联之版权，受商标法及相关知识产权法律保护，未经英才网联书面许可，任何人不得下载、复制、再使用。在本网发布信息之商标，归其相应的商标所有权人，受商标法保护。
+\n七、注册信息使用
+\n注册会员所提供的资料将会被英才网联统计、汇总，在我们的严格管理下，为英才网联的广告商及合作者提供依据。英才网联会不定期地通过注册会员留下的电子邮件同该会员保持联系。
+\n英才网联承诺：在未经访问者授权同意的情况下，英才网联不会将访问者的个人资料泄露给第三方。但以下情况除外。
+\n根据执法单位之要求或为公共之目的向相关单位提供个人资料；
+\n由于你将用户密码告知他人或与他人共享注册帐户，由此导致的任何个人资料泄露；
+\n由于计算机2000年问题、黑客攻击、计算机病毒侵入或发作、因政府管制而造成的暂时性关闭等影响网络正常经营之不可抗力而造成的个人资料泄露、丢失、被盗用或被窜改等；
+\n由于与英才网联链接的其它网站所造成之个人资料泄露及由此而导致的任何法律争议和后果；
+\n为免除访问者在生命、身体或财产方面之急迫危险。
+\n八、服务声明
+\n本网站有权根据国家法律法规的更新、产品和服务规则的调整随时修改网站功能，用户接受本网站因此变更的服务内容和相应规则，与本网站不适之客户，本网站有权行使修改和终断服务的权利。
+\n本网站有权在预先通知或不予通知的情况下终止任何免费服务。
+\n九、争议处理
+\n本网站因正常的系统维护、系统升级，或者因网络拥塞而导致网站不能访问，本网站不承担任何责任。本协议及因使用本网站而产生的与本网站之间纠纷，将依据中华人民共和国的有关法律解决。
+\n十、免责条款
+\n本网并无随时监视此网址，但保留对其实施实时监视的权利。对于他方输入的，不是本网发布的材料，本网概不负任何法律责任。应聘信息发布方必须对其存入简历中心的个人简历及材料的格式、内容的准确性和合法性独立承担一切法律责任。招聘信息的发布方对其在职位数据库公布的材料独立承担一切法律责任。本网不保证对某一种职位描述会有一定数目的使用者来浏览，也不保证会有一位特定的使用者来浏览。对于其他网址链接在本网址的内容，本网概不负法律责任。
+\n所有使用本网站的用户，对使用本网站信息和在本网站发布信息的被使用，承担完全责任。本网站对任何因使用本网站而产生的第三方之间的纠纷，不负任何责任。</string>
+    <string name="title_activity_subscription">SubscriptionActivity</string>
+    <string name="title_activity_refuse_company">RefuseCompanyActivity</string>
+    <string name="title_activity_refuse_com_result">RefuseComResultActivity</string>
+    <string name="refuse_com_agreement">提示：\n
+        \u0020\u0020\u0020 1. 建议您输入公司全称或公司全称中含有的文字。\n
+        \u0020\u0020\u0020 2. 请勿使用常用的公司名称结尾文字：如“公司”、“有限公司”、 “股份公司”、“股份有限公司”、“集团”、“国际”等。\n
+        \u0020\u0020\u0020 3. 请不要直接使用行业名称或城市名称作为关键字：如“建筑”、 “北京”、“深圳”等。</string>
+    <string name="title_activity_apply_valuable_book">ApplyValuableBookActivity</string>
+    <string name="title_activity_vocational_counsel">VocationalCounselActivity</string>
+    <string name="title_activity_vocational_counsel1">VocationalCounselActivity1</string>
+    <string name="title_activity_attention_our">AttentionOurActivity</string>
+    <string name="attention_our">关注公众号，获得爆款岗位，职场热点，招聘会信息，了解更多职场热点，打开微信搜索以下名称关注公众号：</string>
+    <string name="title_activity_select_function_recommend_job">SelectFunctionRecommendJobActivity
+    </string>
+    <string name="title_activity_select_city_recommend_job">SelectCityRecommendJobActivity</string>
+    <string name="title_activity_new_login">NewLoginActivity</string>
+    <!--讯飞-->
+    <!-- 请替换成在语音云官网申请的appid -->
+    <string name="xunfei_app_id">583e3019</string>
+    <string name="privewresume_infoname0" translatable="false">姓名</string>
+</resources>

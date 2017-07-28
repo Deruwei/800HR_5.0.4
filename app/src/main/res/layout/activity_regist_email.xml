@@ -1,0 +1,238 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.RegistPhoneActivity">
+
+    <RelativeLayout style="@style/title_rl_scale">
+
+        <ImageView
+            android:id="@+id/iv_login_email_back"
+            style="@style/title_iv_back" />
+
+        <TextView
+            style="@style/title_tv_textsize"
+            android:text="注册" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_regist_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="邮    箱"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_regist_email"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="28dp"
+                android:layout_marginStart="28dp"
+                android:layout_toEndOf="@+id/tv_regist_email"
+                android:layout_toRightOf="@+id/tv_regist_email"
+                android:background="@null"
+                android:hint="请输入邮箱"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#F6F6F6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_regist_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="用户名"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_regist_email_username"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="28dp"
+                android:layout_marginStart="28dp"
+                android:layout_toEndOf="@+id/tv_regist_username"
+                android:layout_toRightOf="@+id/tv_regist_username"
+                android:background="@null"
+                android:hint="4-25个字符"
+                android:maxLength="25"
+                android:singleLine="true"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_login_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="登录密码"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_login_password1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@+id/tv_login_username"
+                android:background="@null"
+                android:hint="最少6位字符,区分大小写"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#F6F6F6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="确认密码"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_login_password2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@+id/tv_login_password"
+                android:background="@null"
+                android:hint="请再次输入密码"
+                android:inputType="textPassword"
+                android:textColorHint="#40666666"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"></LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+
+        <ImageView
+            android:id="@+id/iv_regist_check"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/tv_regist_agreement"
+            android:layout_toStartOf="@+id/tv_regist_agreement"
+            android:scaleType="fitXY"
+            android:src="@mipmap/lv" />
+
+        <TextView
+            android:id="@+id/tv_regist_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:text="同意《英才网联会员注册协议》"
+            android:textColor="#F7931E"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"></LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_regist_email_save"
+        style="@style/bt_orange"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/btn_1chang">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="完成注册"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</LinearLayout>

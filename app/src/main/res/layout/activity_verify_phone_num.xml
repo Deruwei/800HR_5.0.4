@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.VerifyPhoneNumActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <ImageView
+            android:id="@+id/iv_phoneverify_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="手机验证"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#f6f6f6"
+        android:gravity="center"
+        android:text="验证后，今后可以手机登录"
+        android:textColor="#F7931E"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_phoneverify_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="手机号"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_phoneverify_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@+id/tv_phoneverify_username"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:textColorHint="#40666666"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F6F6F6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_phoneverify_authcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="验证码"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/tv_phoneverify_authcode"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_phoneverify_authcode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:textColorHint="#40666666"
+                    android:textSize="14sp" />
+
+                <com.hr.ui.view.custom.CodeButton
+                    android:id="@+id/bt_phoneverify_authcode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/linear_yuanhu_button"
+                    android:text=""
+                    android:textColor="#fff"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f6f6f6">
+
+        <FrameLayout
+            android:id="@+id/frame_phoneverify_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp">
+
+            <ImageView
+                style="@style/bt_orange"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/linear_yuanhu_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确认"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

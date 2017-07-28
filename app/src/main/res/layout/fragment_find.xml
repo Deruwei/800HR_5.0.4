@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:background="@color/new_main"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:clipToPadding="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <TextView
+            android:id="@+id/tv_find__back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="发现"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_gome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/wowo"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d3d3d3" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/linear_find_findjob"
+            style="@style/linear_find_width">
+            <TextView
+                android:id="@+id/tv_find_findjob"
+                style="@style/text_find_tab"
+                android:text="发现职位" />
+            <View
+                android:id="@+id/v_find_findjob"
+                style="@style/linear_find_view" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/linear_find_width">
+            <TextView
+                android:id="@+id/tv_find_recruitment"
+                style="@style/text_find_tab"
+                android:text="品牌招聘" />
+
+            <View
+                android:id="@+id/v_find_recruitment"
+                style="@style/linear_find_view" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/linear_find_width">
+
+            <TextView
+                android:id="@+id/tv_find_company"
+                style="@style/text_find_tab"
+                android:text="炫公司" />
+            <View
+                android:id="@+id/v_find_company"
+                style="@style/linear_find_view" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/linear_find_width">
+
+            <TextView
+                android:id="@+id/tv_find_activity"
+                style="@style/text_find_tab"
+                android:text="专题活动" />
+            <View
+                android:id="@+id/v_find_activity"
+                style="@style/linear_find_view" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_find"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

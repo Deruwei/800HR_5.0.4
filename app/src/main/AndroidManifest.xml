@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hr.ui"
+    android:versionCode="59"
+    android:versionName="5.4.4">
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="23" />
+    <!-- 连接网络权限，用于执行云端语音能力 -->
+    <!-- <uses-permission android:name="android.permission.INTERNET"/> -->
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读取网络信息状态 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
+    <!-- 获取当前wifi状态 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> -->
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
+    <!-- <uses-permission android:name="android.permission.READ_CONTACTS"/> -->
+    <!-- 注册网络访问权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 友盟权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 读写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 百度地图 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 照相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- JPush运行需要的权限 -->
+    <uses-permission android:name="com.hr.ui.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+
+    <application
+        android:name=".HrApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.Light.NoTitleBar">
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="f5b88fa661ff" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="250503555782bda4dd4da382ea632d86" />
+        <!-- 友盟Key -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="50762338527015512a000084" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="jMfg95xhZFMHsDjfxVitMjyg " />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+        <!-- JPush -->
+        <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.hr.ui" />
+            </intent-filter>
+        </activity>
+        <!-- Required  SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Required SDK 核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".server.RegisterCodeTimerService"
+            android:enabled="true" />
+        <!-- 百度地图定位 -->
+        <!-- <service -->
+        <!-- android:name="com.baidu.location.f" -->
+        <!-- android:enabled="true" -->
+        <!-- android:process=":remote"> -->
+        <!-- &lt;!&ndash;   <intent-filter> -->
+        <!-- <action android:name="com.baidu.location.service_v2.9"></action> -->
+        <!-- </intent-filter>&ndash;&gt; -->
+        <!-- </service> -->
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+                <!-- Required  显示通知栏 -->
+                <category android:name="com.hr.ui" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能 -->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+
+        <!-- User defined.    用户自定义的广播接收器 -->
+        <receiver
+            android:name=".receiver.MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- Required  用户打开自定义通知栏的intent -->
+                <category android:name="com.hr.ui" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="5519e3a933a2c059db3a9227" />
+        <!-- </>值来自开发者平台取得的AppKey -->
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.ChooseIndustriesActivity"
+            android:label="@string/title_activity_choose_industries"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:label="@string/title_activity_welcome"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.BaseActivity"
+            android:label="@string/title_activity_base"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name=".activity.PersonalCenterActivity"
+            android:label="@string/title_activity_person_center"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegistPhoneActivity"
+            android:label="@string/title_activity_regist"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewbieGuideActivity"
+            android:label="@string/title_activity_regist"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegistEmailActivity"
+            android:label="@string/title_activity_regist_email"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PayQueryActivity"
+            android:label="PayQueryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectFunctionActivity"
+            android:label="@string/title_activity_select_function"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchJobResultActivity"
+            android:label="@string/title_activity_search_job_result"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectCityActivity"
+            android:label="@string/title_activity_select_city"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PostParticularsActivity"
+            android:label="@string/title_activity_post_particulars"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OtherPostParticularsActivity"
+            android:label="@string/title_activity_post_particulars"
+            android:screenOrientation="portrait" />
+        <!-- android:launchMode="singleTask" -->
+        <activity
+            android:name=".activity.ElseJobActivity"
+            android:label="@string/title_activity_else_job"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CompanyParticularActivity"
+            android:label="@string/title_activity_company_particular"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <!-- android:launchMode="singleTop" -->
+        <activity
+            android:name=".activity.MyResumeActivity"
+            android:label="@string/title_activity_my_resume"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PreviewResumeActivity"
+            android:label="@string/title_activity_preview_resume"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResumePersonInfoActivity"
+            android:label="@string/title_activity_resume_person_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.ResumeSendActivity"
+            android:label="@string/title_activity_resume_person_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResumeJobOrderActivity"
+            android:label="@string/title_activity_resume_job_order"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.ResumeEduInfoActivity"
+            android:label="@string/title_activity_resume_edu_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResumeJobExpActivity"
+            android:label="@string/title_activity_resume_job_exp"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.MainSelectCityToSearchActivity"
+            android:label="@string/title_activity_main_select_city_to_resume"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ResumeProjectExpActivity"
+            android:label="@string/title_activity_resume_project_exp"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ResumeTrainExpActivity"
+            android:label="@string/title_activity_resume_train_exp"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ResumeLanguageInfoActivity"
+            android:label="@string/title_activity_resume_language_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ResumeSkillInfoActivity"
+            android:label="@string/title_activity_resume_skill_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ResumeSelfAssessActivity"
+            android:label="@string/title_activity_resume_self_assess"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.AppSettingActivity"
+            android:label="@string/title_activity_app_setting"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.UserFeedBackActivity"
+            android:label="@string/title_activity_user_feed_back"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyPositionActivity"
+            android:label="@string/title_activity_my_position"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyCollectionActivity"
+            android:label="@string/title_activity_my_collection"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CompanyOtherJobActivity"
+            android:label="@string/title_activity_company_other_job"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectFunctionSearchActivity"
+            android:label="@string/title_activity_select_function_search"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.MainSelectCityToKeywordActivity"
+            android:label="@string/title_activity_main_select_city_to_keyword"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.SelectPlaceToResumeActivity"
+            android:label="@string/title_activity_select_place_to_resume"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.SelectZhiXiSearchActivity"
+            android:label="@string/title_activity_select_zhi_xi_search"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.SelectFunctionJobOrderActivity"
+            android:label="@string/title_activity_select_function_job_order"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.SelectTerritoryActivity"
+            android:label="@string/title_activity_select_territory"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CreateResumePersonInfoActivity"
+            android:label="@string/title_activity_create_resume_person_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.CreateResumeJobOrderActivity"
+            android:label="@string/title_activity_create_resume_job_order"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.CreateResumeEduInfoActivity"
+            android:label="@string/title_activity_create_resume_edu_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CreateResumeJobExpActivity"
+            android:label="@string/title_activity_create_resume_job_exp"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CreateSelectFunctionJobOrderActivity"
+            android:label="@string/title_activity_create_select_function_job_order"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CreateSelectPlaceToResumeActivity"
+            android:label="@string/title_activity_create_select_place_to_resume"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CreateSelectTerritoryActivity"
+            android:label="@string/title_activity_create_select_territory"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.WhoLookMeActivity"
+            android:label="@string/title_activity_who_look_me"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CompanyEmailActivity"
+            android:label="@string/title_activity_company_email"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CompanyEmailListActivity"
+            android:label="@string/title_activity_company_email_list"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutOurActivity"
+            android:label="@string/title_activity_about_our"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectFunctionSubscriptionActivity"
+            android:label="SelectFunctionSubscriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubComScaleActivity"
+            android:label="SubComScaleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubEduActivity"
+            android:label="SubEduActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubJobExpActivity"
+            android:label="SubJobExpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubJobNatureActivity"
+            android:label="SubJobNatureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubSalaryActivity"
+            android:label="SubMobeyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubTimeActivity"
+            android:label="SubTimeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectCitySubscriptionActivity"
+            android:label="SelectCitySubscriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FindPwdActivity"
+            android:label="@string/title_activity_find_pwd"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OpenBindActivity"
+            android:label="@string/title_activity_find_pwd"
+            android:screenOrientation="portrait" />
+        <!-- <activity -->
+        <!-- android:name="cn.sharesdk.framework.AuthorizeActivity" -->
+        <!-- android:configChanges="keyboardHidden|orientation" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <!-- android:windowSoftInputMode="stateHidden|adjustResize" /> -->
+        <!-- 微信分享回调 -->
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 分享需要添加的Activity -->
+        <!-- <activity -->
+        <!-- android:name="com.mob.tools.MobUIShell" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <!-- android:windowSoftInputMode="stateHidden|adjustResize"/> -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100247251" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.UserAgreementActivity"
+            android:label="@string/title_activity_user_agreement"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SubscriptionActivity"
+            android:label="@string/title_activity_subscription"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.CompanyRegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.RefuseCompanyActivity"
+            android:label="@string/title_activity_refuse_company"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.RefuseComResultActivity"
+            android:label="@string/title_activity_refuse_com_result"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ApplyValuableBookActivity"
+            android:label="@string/title_activity_apply_valuable_book"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VocationalCounselActivity"
+            android:label="@string/title_activity_vocational_counsel"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VocationalCounselActivity1"
+            android:label="@string/title_activity_vocational_counsel1"
+            android:screenOrientation="portrait" />
+
+        <!-- &lt;!&ndash;易信分享回调 &ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name=".yxapi.YXEntryActivity" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <!-- android:exported="true" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+        <!-- &lt;!&ndash; 支付宝分享回调 &ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name=".apshare.ShareEntryActivity" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <!-- android:exported="true" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+        <activity
+            android:name=".activity.AttentionOurActivity"
+            android:label="@string/title_activity_attention_our"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BaseResumeActivity" />
+        <activity
+            android:name=".activity.SelectFunctionRecommendJobActivity"
+            android:label="@string/title_activity_select_function_recommend_job"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectCityRecommendJobActivity"
+            android:label="@string/title_activity_select_city_recommend_job"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewLoginActivity"
+            android:label="@string/title_activity_new_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.NewFindPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.NewPhoneRegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.NewBindActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.VerifyPhoneNumActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.VerifyPhoneNumStateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.MeFragmentSelectCityActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activity.ModifyEduActivity" />
+        <activity android:name=".activity.ModifyExpActivity" />
+        <activity android:name=".activity.ModifyLanguageActivity" />
+        <activity android:name=".activity.ModifySkillActivity" />
+        <activity android:name=".activity.ModifyProjectActivity" />
+        <activity android:name=".activity.ModifyPlantActivity" />
+        <activity android:name=".activity.CreateResumeEduActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.CreateResumeJobActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
+    </application>
+
+</manifest>

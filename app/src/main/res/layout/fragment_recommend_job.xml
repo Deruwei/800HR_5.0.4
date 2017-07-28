@@ -1,0 +1,273 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.fragment.RecommendJobFragment">
+    <View
+        android:background="@color/new_main"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:clipToPadding="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <TextView
+            android:id="@+id/tv_recommendfragment_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:gravity="center"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="职位推荐"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_gome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:drawableRight="@mipmap/wowo"
+            />
+    </RelativeLayout>
+
+    <View
+        android:background="#d3d3d3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+
+    <LinearLayout
+        android:id="@+id/lr_recfragment_job"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6F6F6"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_recfragment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Hello,告诉我你的求职意向吧！"
+                android:textColor="#F7931E"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_recfragment_function"
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginStart="14dp"
+                    android:text="期望职位"
+                    android:textColor="#333333"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_recfragment_function"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:layout_toLeftOf="@+id/imageView27"
+                    android:layout_toStartOf="@+id/imageView27"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="请选择"
+                    android:textColor="#F7931E"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/imageView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/jiantou_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="11dp"
+                android:background="#EBEBEB" />
+
+            <RelativeLayout
+                android:id="@+id/rl_recfragment_place"
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginStart="14dp"
+                    android:text="期望地区"
+                    android:textColor="#333333"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_recfragment_place"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:layout_toLeftOf="@+id/imageView28"
+                    android:layout_toStartOf="@+id/imageView28"
+                    android:gravity="right"
+                    android:text="请选择"
+                    android:textColor="#F7931E"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/imageView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/jiantou_right" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:background="#f6f6f6"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/bt_recfragment_submit"
+                style="@style/bt_orange"
+                android:background="@drawable/btn_1chang"
+                android:text="提交意向"
+                android:textColor="#fff" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/line_or" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_recfragment_login"
+            android:layout_width="111dp"
+            android:layout_height="45dp"
+            android:layout_above="@+id/imageView9"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/linear_select_orange">
+
+            <TextView
+                android:id="@+id/tv_recfragment_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="注册登录"
+                android:textColor="#F7931E"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_recommendfragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></ListView>
+
+    <RelativeLayout
+        android:id="@+id/rl_recfragment_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="目前没有适合您的职位"
+                android:textColor="#999999" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="将继续为您寻找！"
+                android:textColor="#999999" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

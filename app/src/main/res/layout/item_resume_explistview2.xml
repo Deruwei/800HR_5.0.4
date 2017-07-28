@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_resume_item_21"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:text="英语"
+            android:textColor="#333333"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:text="听说:"
+            android:textColor="#666666"
+            android:textSize="15sp"
+            android:layout_alignTop="@+id/tv_resume_item_22"
+            android:layout_toRightOf="@+id/tv_resume_item_21"
+            android:layout_toEndOf="@+id/tv_resume_item_21" />
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_resume_item_22"
+            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp"
+            android:layout_toEndOf="@+id/tv_resume_item_22"
+            android:layout_toRightOf="@+id/tv_resume_item_22"
+            android:text="读写:"
+            android:textColor="#666666"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/textView52"
+            android:layout_toRightOf="@+id/textView52"
+            android:text="熟练"
+            android:textColor="#666666"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/textView53"
+            android:layout_toRightOf="@+id/textView53"
+            android:text="熟练"
+            android:textColor="#666666"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+    </RelativeLayout>
+</RelativeLayout>

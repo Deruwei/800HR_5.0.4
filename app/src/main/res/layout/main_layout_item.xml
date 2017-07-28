@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+    <FrameLayout
+        android:id="@+id/framLayout_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearlayout_main_tab"></FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/linearlayout_main_tab"
+        android:background="#EBEBEB" />
+
+    <LinearLayout
+        android:id="@+id/linearlayout_main_tab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FEFEFE"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linear_main_recommendjob"
+            style="@style/linear_main_tab">
+
+            <ImageView
+                android:id="@+id/iv_main_recommendjob"
+                style="@style/linear_main_tab_iv"
+                android:src="@mipmap/jian" />
+
+            <TextView
+                android:id="@+id/tv_main_recommendjob"
+                style="@style/linear_main_tab_tv"
+                android:text="适合你" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_main_findjob"
+            style="@style/linear_main_tab">
+
+            <ImageView
+                android:id="@+id/iv_main_findjob"
+                style="@style/linear_main_tab_iv"
+                android:src="@mipmap/zhaogongzuo" />
+
+            <TextView
+                android:id="@+id/tv_main_findjob"
+                style="@style/linear_main_tab_tv"
+                android:text="找工作" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_main_find"
+            style="@style/linear_main_tab">
+
+            <ImageView
+                android:id="@+id/iv_main_find"
+                style="@style/linear_main_tab_iv"
+                android:src="@mipmap/faxian" />
+
+            <TextView
+                android:id="@+id/tv_main_find"
+                style="@style/linear_main_tab_tv"
+                android:text="发现" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_main_me"
+            style="@style/linear_main_tab">
+
+            <ImageView
+                android:id="@+id/iv_main_me"
+                style="@style/linear_main_tab_iv"
+                android:src="@mipmap/jianli" />
+
+            <TextView
+                android:id="@+id/tv_main_me"
+                style="@style/linear_main_tab_tv"
+                android:text="简历" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

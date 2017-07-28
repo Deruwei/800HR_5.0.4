@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="24dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="14dp" />
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_alignBottom="@+id/tv_previewresume_traintime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@mipmap/jianli_yulan_xiaoquan" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#EBEBEB" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_myresume_workecperience_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:drawableLeft="@mipmap/xiugai1"
+                android:drawablePadding="5dp"
+                android:text="编辑"
+                android:textColor="#F39700"
+                android:layout_marginEnd="10dp"
+                android:layout_alignTop="@+id/tv_previewresume_jobtime"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <TextView
+                android:id="@+id/tv_previewresume_jobtime"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="11dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_eduname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_comname"
+                style="@style/resume_previewresume_info"
+                android:layout_alignLeft="@+id/tv_previewresume_jobtime"
+                android:layout_alignStart="@+id/tv_previewresume_jobtime"
+                android:layout_below="@+id/tv_previewresume_jobtime"
+                android:layout_marginTop="12dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_post"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignBaseline="@+id/resume_previewresume_jobexppost"
+                android:layout_alignBottom="@+id/resume_previewresume_jobexppost"
+                android:layout_toEndOf="@+id/resume_previewresume_jobexppost"
+                android:layout_toRightOf="@+id/resume_previewresume_jobexppost" />
+
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignLeft="@+id/tv_previewresume_jobtime"
+                android:layout_alignStart="@+id/tv_previewresume_jobtime"
+                android:layout_below="@+id/tv_previewresume_comname"
+                android:layout_marginTop="12dp"
+                android:text="税前月薪：" />
+
+            <TextView
+                android:id="@+id/resume_previewresume_jobexpsalary"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignTop="@+id/textView10"
+                android:layout_toEndOf="@+id/textView10"
+                android:layout_toRightOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/resume_previewresume_jobexppost"
+                style="@style/resume_previewresume_infoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView10"
+                android:layout_alignStart="@+id/textView10"
+                android:layout_below="@+id/textView10"
+                android:layout_marginTop="12dp"
+                android:text="所任职位：" />
+
+            <TextView
+                android:id="@+id/tv_previewresume_trainname"
+                style="@style/resume_previewresume_infoname"
+                android:layout_alignLeft="@+id/resume_previewresume_jobexppost"
+                android:layout_alignStart="@+id/resume_previewresume_jobexppost"
+                android:layout_below="@+id/tv_previewresume_post"
+                android:layout_marginTop="12dp"
+                android:text="职位描述：" />
+
+
+            <TextView
+                android:id="@+id/resume_previewresume_jobdesp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_previewresume_trainname"
+                android:layout_alignStart="@+id/tv_previewresume_trainname"
+                android:layout_below="@+id/tv_previewresume_trainname"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:paddingRight="10dp"
+                android:text="职位描述"
+                android:textColor="#999999"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#fff" />
+    </LinearLayout>
+</LinearLayout>

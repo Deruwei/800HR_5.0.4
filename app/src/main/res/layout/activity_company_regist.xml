@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:orientation="vertical"
+    tools:context=".activity.CompanyRegisterActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_comregister_top"
+        style="@style/title_rl_scale">
+
+        <ImageView
+            android:id="@+id/iv_comregister_back"
+            style="@style/title_iv_back" />
+
+        <TextView
+            android:id="@+id/tv_comregister_jobnum"
+            style="@style/title_tv_textsize"
+            android:text="企业招聘注册" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@mipmap/hrlogo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView64"
+                        style="@style/comregister_tv2"
+                        android:text="公司名称：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_comname"
+                        style="@style/comregister_et"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView64"
+                        android:layout_toRightOf="@+id/textView64"
+                        android:hint="必须与营业执照中公司全称一致" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/comregister_rl2" />
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView65"
+                        style="@style/comregister_tv2"
+                        android:text="联系电话：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_comphone"
+                        style="@style/comregister_et"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView65"
+                        android:layout_toRightOf="@+id/textView65"
+                        android:hint="区号—固定电话号码"
+                        android:inputType="phone" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/comregister_rl2" />
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView66"
+                        style="@style/comregister_tv2"
+                        android:text="联  系  人：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_comcontacts"
+                        style="@style/comregister_et"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView66"
+                        android:layout_toRightOf="@+id/textView66"
+                        android:hint="请输入贵公司的联系人" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/comregister_rl2" />
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView67"
+                        style="@style/comregister_tv2"
+                        android:text="电子邮箱：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_comnemail"
+                        style="@style/comregister_et"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView67"
+                        android:layout_toRightOf="@+id/textView67"
+                        android:hint="邮箱是您收取简历的重要方式" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#f9f9f9" />
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView
+                        android:id="@+id/textView68"
+                        style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView69"
+                        style="@style/comregister_tv2"
+                        android:text="用  户  名：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_username"
+                        style="@style/comregister_et"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView69"
+                        android:layout_toRightOf="@+id/textView69"
+                        android:hint="请输入4-25位字母、数字、下划线" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/comregister_rl2" />
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView70"
+                        style="@style/comregister_tv2"
+                        android:text="登录密码：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_password"
+                        style="@style/comregister_et"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView70"
+                        android:layout_toRightOf="@+id/textView70"
+                        android:hint="请输入6-25位字母与数字组合"
+                        android:inputType="textPassword" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/comregister_rl2" />
+
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView
+                        android:id="@+id/textView71"
+                        style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView72"
+                        style="@style/comregister_tv2"
+                        android:text="确认密码：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_password2"
+                        style="@style/comregister_et"
+                        android:layout_alignTop="@+id/textView71"
+                        android:layout_toEndOf="@+id/textView72"
+                        android:layout_toRightOf="@+id/textView72"
+                        android:hint="请再次输入密码"
+                        android:inputType="textPassword" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#f9f9f9" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="#f9f9f9">
+
+                    <ImageView
+                        android:id="@+id/iv_registcom_check"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/tv_registcom_agreement"
+                        android:layout_toStartOf="@+id/tv_registcom_agreement"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/lv" />
+
+                    <TextView
+                        android:id="@+id/tv_registcom_agreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="28dp"
+                        android:layout_marginRight="28dp"
+                        android:text="同意《英才网联企业会员注册协议》"
+                        android:textColor="#F7931E"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#f9f9f9" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#f9f9f9">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_comregistr_save"
+                        style="@style/bt_orange"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/btn_1chang"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="注册"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="业务咨询电话"
+                android:textColor="#666666" />
+            <TextView
+                android:id="@+id/tv_company_register_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="010-62123388"
+                android:textColor="#007AFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

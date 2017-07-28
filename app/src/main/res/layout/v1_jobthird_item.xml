@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/v1_list_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/v1_zhixi_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dip"
+            android:text="建筑"
+            android:textColor="#9f9f9f"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/v1_item_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="8dip"
+            android:src="@mipmap/duihao"
+            android:visibility="invisible" />
+    </RelativeLayout>
+</RelativeLayout>

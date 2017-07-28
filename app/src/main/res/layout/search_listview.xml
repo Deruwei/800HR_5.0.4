@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/list_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/linnearlayout0"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/imageView1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/search_listview_textview0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#a4a4a2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/search_listview_textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/search_listview_textview0"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#a4a4a2"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/jiantou_right" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:layout_toRightOf="@+id/list_delete"
+        android:orientation="vertical"
+        android:paddingLeft="5dp" >
+
+        <TextView
+            android:id="@+id/job_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:ems="9"
+            android:singleLine="true"
+            android:textColor="#9D9D9A"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:ems="11"
+            android:singleLine="true"
+            android:textColor="#949390"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</RelativeLayout>

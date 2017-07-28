@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.VocationalCounselActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_vocationalcounse_top"
+        style="@style/title_rl_scale">
+
+        <ImageView
+            android:id="@+id/iv_vocationalcounse_back"
+            style="@style/title_iv_back" />
+
+        <TextView
+            android:id="@+id/tv_vocationalcounse_title"
+            style="@style/title_tv_textsize"
+            android:text="" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f6f6f6" />
+
+    <ListView
+        android:id="@+id/lv_vocationalcounse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#f6f6f6"
+        android:dividerHeight="10dp"
+        android:scrollbars="none"></ListView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f6f6f6" />
+</LinearLayout>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="学校名称"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_resume_item_resumeedu_schoolname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView50"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入学校名称" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView501"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="开始时间"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_resumeedu_starttime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView45"
+            android:layout_toStartOf="@+id/imageView45"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:text="请选择时间"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView45"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="结束时间"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_resumeedu_endtime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView451"
+            android:layout_toStartOf="@+id/imageView451"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:text="请选择时间"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView451"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="学历"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <com.hr.ui.view.custom.IdSpineer
+            android:id="@+id/sp_resume_item_resumeedu_degree"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView452"
+            android:layout_toStartOf="@+id/imageView452"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/imageView452"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="专业"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:id="@+id/textView57" />
+        <EditText
+            android:id="@+id/et_resume_item_resumeedu_majorname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入专业名称"
+            android:layout_alignTop="@+id/textView57"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+            android:id="@+id/textView56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="15dp"
+            android:text="专业描述"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+        <RelativeLayout
+            android:layout_width="360dp"
+            android:layout_height="150dp"
+            android:layout_alignLeft="@+id/textView56"
+            android:layout_alignStart="@+id/textView56"
+            android:layout_below="@+id/textView56"
+            android:layout_marginTop="10dp"
+            android:background="#F6F6F6">
+            <EditText
+                android:layout_margin="5dp"
+                android:id="@+id/et_resume_item_resumeedu_describe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="请填写专业描述，限600字以内"
+                android:maxEms="600"
+                android:scrollbars="vertical"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_resume_item_resumeedu_delete"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="删除"
+            android:background="@drawable/btn_1chang"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_alignBottom="@+id/rl_resume_item_resumeedu_add"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <RelativeLayout
+            android:id="@+id/rl_resume_item_resumeedu_add"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBEBEB"
+    >
+    <ListView
+        android:layout_margin="12dp"
+        android:id="@+id/lv_pager_recruitment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#00000000"
+        android:dividerHeight="18dp"
+        android:scrollbars="none"
+        ></ListView>
+</RelativeLayout>

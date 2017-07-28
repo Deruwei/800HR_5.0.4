@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_refusecomitem_dian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="25dp"
+        android:src="@mipmap/dian" />
+
+    <TextView
+        android:id="@+id/tv_refusecomitem"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/iv_refusecomitem_dian"
+        android:layout_toRightOf="@+id/iv_refusecomitem_dian"
+        android:paddingLeft="10dp"
+        android:text=""
+        android:textColor="#666666" />
+
+    <ImageView
+        android:id="@+id/iv_refusecom_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/guanbi_chahao"
+        android:visibility="invisible" />
+</RelativeLayout>

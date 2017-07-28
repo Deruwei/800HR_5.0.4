@@ -1,0 +1,186 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.fragment.FindPhonePWDFragment">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_findphonepwd_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="手机号"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_findphonepwd_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@+id/tv_findphonepwd_username"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:textColorHint="#40666666"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F6F6F6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_findphonepwd_authcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="23dp"
+                android:text="验证码"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/tv_findphonepwd_authcode"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_findphonepwd_authcode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:textColorHint="#40666666"
+                    android:textSize="14sp" />
+
+                <com.hr.ui.view.custom.CodeButton
+                    android:id="@+id/bt_findphonepwd_authcode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/linear_yuanhu_button"
+                    android:text=""
+                    android:textColor="#fff"
+                    android:textSize="12sp" />
+                <!--<Button-->
+                <!--android:id="@+id/bt_findphonepwd_authcode"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_weight="2"-->
+                <!--android:background="@drawable/linear_yuanhu_button"-->
+                <!--android:text="获取手机验证码"-->
+                <!--android:textColor="#fff"-->
+                <!--android:textSize="12sp" />-->
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/tv_findphonepwd_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="23dp"
+            android:text="新密码"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_findphonepwd_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/tv_findphonepwd_password"
+            android:background="@null"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:textColorHint="#40666666"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F6F6F6" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f6f6">
+
+        <FrameLayout
+            android:id="@+id/frame_findphonepwd_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp">
+
+            <ImageView
+                style="@style/bt_orange"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/linear_yuanhu_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确认提交"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+    </RelativeLayout>
+</LinearLayout>

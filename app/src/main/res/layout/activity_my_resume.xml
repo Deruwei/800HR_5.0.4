@@ -1,0 +1,745 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.MyResumeActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_myresume_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#F39800">
+
+        <ImageView
+            android:id="@+id/iv_myresume_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:id="@+id/tv_myresume_jobnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的简历"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/iv_myresume_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@mipmap/en"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d3d3d3" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_myresume_top"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rl_myresume_middle"
+                android:background="#F6F6F6">
+
+                <LinearLayout
+                    android:id="@+id/ll_resume_mustneed"
+                    android:layout_width="360dp"
+                    android:layout_height="230dp"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout style="@style/resume_myresume_relative2">
+
+                        <TextView
+                            android:id="@+id/textView38"
+                            style="@style/resume_myresume_textviewresumedian"
+                            android:layout_marginLeft="10dp" />
+
+                        <TextView
+                            style="@style/resume_myresume_textviewresume2"
+                            android:layout_alignTop="@+id/textView38"
+                            android:layout_toEndOf="@+id/textView38"
+                            android:layout_toRightOf="@+id/textView38"
+                            android:text="@string/myresume_resume_mustneed" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_personalinfo"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView39"
+                            style="@style/resume_myresume_textviewresumedian"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView40"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_alignTop="@+id/textView39"
+                            android:layout_toEndOf="@+id/textView39"
+                            android:layout_toRightOf="@+id/textView39"
+                            android:text="@string/myresume_resume_mustneed1" />
+
+                        <ImageView
+                            android:id="@+id/iv_resume_personalinfo"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40"
+                            android:layout_toRightOf="@+id/textView40"
+                            android:src="@mipmap/duihao" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_objective"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40906"
+                            style="@style/resume_myresume_textviewresumedian"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView40907"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_alignTop="@+id/textView40906"
+                            android:layout_toEndOf="@+id/textView40906"
+                            android:layout_toRightOf="@+id/textView40906"
+                            android:text="@string/myresume_resume_mustneed2" />
+
+                        <ImageView
+                            android:id="@+id/iv_resume_objective"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40907"
+                            android:layout_toRightOf="@+id/textView40907"
+                            android:src="@mipmap/duihao" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_education"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40908"
+                            style="@style/resume_myresume_textviewresumedian"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView40909"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_alignTop="@+id/textView40908"
+                            android:layout_toEndOf="@+id/textView40908"
+                            android:layout_toRightOf="@+id/textView40908"
+                            android:text="@string/myresume_resume_mustneed3" />
+
+                        <ImageView
+                            android:id="@+id/iv_resume_education"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40909"
+                            android:layout_toRightOf="@+id/textView40909"
+                            android:src="@mipmap/duihao" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_experience"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40910"
+                            style="@style/resume_myresume_textviewresumedian"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView40911"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_alignTop="@+id/textView40910"
+                            android:layout_toEndOf="@+id/textView40910"
+                            android:layout_toRightOf="@+id/textView40910"
+                            android:text="@string/myresume_resume_mustneed4" />
+
+                        <ImageView
+                            android:id="@+id/iv_myresume_experience"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40911"
+                            android:layout_toRightOf="@+id/textView40911"
+                            android:src="@mipmap/duihao" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/ll_resume_mustneed"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout style="@style/resume_myresume_relative2">
+
+                        <TextView
+                            style="@style/resume_myresume_textviewresume2"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
+                            android:text="@string/myresume_resume_maybe" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_practiceexp"
+                        style="@style/resume_myresume_relative1"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/textView40912"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:text="@string/myresume_resume_maybe6" />
+
+                        <TextView
+                            android:id="@+id/tv_myresume_practiceexp"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40912"
+                            android:layout_toRightOf="@+id/textView40912"
+                            android:textColor="#32B16C" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_projects"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40912111"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:text="@string/myresume_resume_maybe1" />
+
+                        <TextView
+                            android:id="@+id/tv_myresume_projects"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40912111"
+                            android:layout_toRightOf="@+id/textView40912111"
+                            android:textColor="#32B16C" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_skills"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40913"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:text="@string/myresume_resume_maybe2" />
+
+                        <TextView
+                            android:id="@+id/tv_myresume_skills"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40913"
+                            android:layout_toRightOf="@+id/textView40913"
+                            android:textColor="#32B16C" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_language"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView4010112"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:text="@string/myresume_resume_maybe3" />
+
+                        <TextView
+                            android:id="@+id/tv_myresume_language"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView4010112"
+                            android:layout_toRightOf="@+id/textView4010112"
+                            android:textColor="#32B16C" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_training"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40903"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:text="@string/myresume_resume_maybe4" />
+
+                        <TextView
+
+                            android:id="@+id/tv_myresume_training"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40903"
+                            android:layout_toRightOf="@+id/textView40903"
+                            android:textColor="#32B16C" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="360dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#F6F6F6" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_introduction"
+                        style="@style/resume_myresume_relative1">
+
+                        <TextView
+                            android:id="@+id/textView40901"
+                            style="@style/resume_myresume_textviewresume"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:text="@string/myresume_resume_maybe5" />
+
+                        <TextView
+                            android:id="@+id/tv_myresume_introduction"
+                            android:layout_width="11dp"
+                            android:layout_height="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_toEndOf="@+id/textView40901"
+                            android:layout_toRightOf="@+id/textView40901"
+                            android:textColor="#32B16C" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="23dp"
+                            android:layout_marginRight="23dp"
+                            android:src="@mipmap/jiantou_right" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="#F6F6F6" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_myresume_middle"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:background="#fff">
+
+                <RelativeLayout
+
+                    android:id="@+id/rl_me_resume1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/myresume_updata"
+                        android:textColor="#333333"
+                        android:textSize="14sp"
+                        android:layout_alignBaseline="@+id/tv_myresume_updatatime"
+                        android:layout_alignBottom="@+id/tv_myresume_updatatime"
+                        android:layout_alignRight="@+id/tv_myresume_updatatime"
+                        android:layout_alignEnd="@+id/tv_myresume_updatatime" />
+
+                    <TextView
+                        android:id="@+id/tv_myresume_updatatime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearlayout100"
+                    android:layout_width="360dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_myresume_setting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/jianli_shezhi" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_myresume_setting"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/myresume_resumeoperation"
+                            android:textColor="#F39D0D"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="#EBEBEB" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_myresume_refreshresume"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/jianlishuaxin" />
+
+                        <TextView
+                            android:id="@+id/tv_myresume_refreshresume"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_myresume_refreshresume"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/myresume_refresh"
+                            android:textColor="#F39D0D"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="#EBEBEB" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_myresume_preview"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/imageView41"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/jianli_yulan" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imageView41"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/myresume_resumepreview"
+                            android:textColor="#F39D0D"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/linearlayout100"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/linear_border">
+
+                    <LinearLayout
+                        android:id="@+id/linear_myresume_progressbarwaimian"
+                        android:layout_width="300dp"
+                        android:layout_height="30dp"
+                        android:weightSum="100">
+
+                        <LinearLayout
+                            android:id="@+id/rl_myresume_progressbar"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:background="@drawable/linear_yuanhu_bg"
+                            android:orientation="horizontal"></LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_myresume_complete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text=""
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+                </FrameLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:id="@+id/cb_item_my_position_select"
+        style="@style/checkbox_searchjoblv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
+
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:id="@+id/rl_item_my_positionlv_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/cb_item_my_position_select"
+        android:layout_toRightOf="@+id/cb_item_my_position_select">
+
+        <TextView
+            android:id="@+id/tv_item_my_position_jobname"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="施工图设计师"
+            android:textColor="#666666"
+            android:textSize="16sp"
+            android:layout_alignTop="@+id/tv_item_my_position_cityname"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_marginBottom="5dp"
+            android:id="@+id/tv_item_my_position_companyname"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="公司名公司名"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            android:layout_below="@+id/tv_item_my_position_jobname"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <!--
+            <TextView
+                android:id="@+id/tv_item_my_positionlv_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学历"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:layout_alignBottom="@+id/tv_item_my_position_jobname"
+                android:layout_toLeftOf="@+id/textView28"
+                android:layout_toStartOf="@+id/textView28" />
+        -->
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_item_my_position_cityname"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="地点"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/tv_item_my_positionlv_releasetime"
+            android:layout_alignEnd="@+id/tv_item_my_positionlv_releasetime" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_item_my_positionlv_releasetime"
+            android:layout_alignBottom="@+id/tv_item_my_positionlv_releasetime"
+            android:layout_toLeftOf="@+id/tv_item_my_positionlv_releasetime"
+            android:layout_toStartOf="@+id/tv_item_my_positionlv_releasetime"
+            android:text="发布: "
+            android:textColor="#999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_item_my_positionlv_releasetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="2015.12.23"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:layout_alignTop="@+id/tv_item_my_position_companyname"
+            android:layout_toLeftOf="@+id/iv_item_my_positionlv_jobinfo"
+            android:layout_toStartOf="@+id/iv_item_my_positionlv_jobinfo" />
+
+        <ImageView
+            android:id="@+id/iv_item_my_positionlv_jobinfo"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="7dp"
+            android:layout_marginRight="7dp"
+            android:src="@mipmap/jiantou_right" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_item_my_positionlv_applycollection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:paddingBottom="5dp"
+            android:singleLine="true"
+            android:text="已收藏   已投递"
+            android:textColor="#3CA9C4"
+            android:textSize="12sp"
+            android:layout_below="@+id/textView28"
+            android:layout_alignRight="@+id/tv_item_my_positionlv_releasetime"
+            android:layout_alignEnd="@+id/tv_item_my_positionlv_releasetime" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hr.ui.activity.ModifySkillActivity">
+    <RelativeLayout
+        android:id="@+id/rl_resume_modifynewskill_top"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="@color/new_main"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintHorizontal_bias="0.0">
+        <ImageView
+            android:id="@+id/iv_resume_modifynewskill_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="专业技能"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_resume_modifynewskill_top"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:text="技能名称"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+            <EditText
+                android:id="@+id/et_resume_item_modifyskill_skillname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView50"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="请输入技能名称"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <View
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#efefef"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/textView501111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:text="使用时间(月)"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+            <EditText
+                android:id="@+id/et_resume_item_modifyskill_skilltime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="请输入数字"
+                android:inputType="number"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <View
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#efefef"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textView42"
+                style="@style/reusme_myresume_tvhead"
+                android:text="专业水平" />
+
+            <com.hr.ui.view.custom.IdSpineer
+                android:id="@+id/sp_resume_modifyskill_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_toLeftOf="@+id/imageView45"
+                android:layout_toStartOf="@+id/imageView45"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:singleLine="true"
+                android:textColor="#F7931E" />
+
+            <ImageView
+                android:id="@+id/imageView45"
+                android:layout_width="6dp"
+                android:layout_height="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:src="@mipmap/jiantou_right" />
+        </RelativeLayout>
+        <View
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#efefef"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="13"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_resume_item_skillmodify_delete"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/tv_resume_item_skillmodify_save"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="5"
+                android:background="@drawable/btn_1chang"
+                android:gravity="center"
+                android:text="删除此条"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_resume_item_skillmodify_save"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="5"
+                android:background="@drawable/btn_1chang"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

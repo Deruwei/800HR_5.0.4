@@ -1,0 +1,411 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f6f6"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="#F6F6F6"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_keyword_net"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/net11" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#F6F6F6"
+                android:gravity="center">
+                <!--<ImageView-->
+                <!--android:id="@+id/imageView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="12dp"-->
+                <!--android:layout_marginStart="12dp"-->
+                <!--android:src="@mipmap/didian" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_keyword_city"-->
+                <!--android:layout_width="45dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginStart="10dp"-->
+                <!--android:layout_toEndOf="@+id/imageView"-->
+                <!--android:layout_toRightOf="@+id/imageView"-->
+                <!--android:ellipsize="end"-->
+                <!--android:singleLine="true"-->
+                <!--android:text="北京" />-->
+
+                <RelativeLayout
+                    android:id="@+id/rl_pager_keyword_search"
+                    style="@style/pager_keyword_search_search"
+                    android:background="@drawable/linear_yuanhu_search">
+
+                    <TextView
+                        android:id="@+id/tv_keyword_condition"
+                        style="@style/pager_keyword_search_searchscale"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="搜全文" />
+
+
+                    <ImageView
+                        android:id="@+id/imageView32"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tv_keyword_condition"
+                        android:layout_toRightOf="@+id/tv_keyword_condition"
+                        android:src="@mipmap/zhinengxuanze_xiala" />
+
+                    <View
+                        android:id="@+id/view_keyword_1"
+                        android:layout_width="3dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toEndOf="@+id/imageView32"
+                        android:layout_toRightOf="@+id/imageView32"
+                        android:background="#F6F6F6" />
+
+                    <EditText
+                        android:id="@+id/et_keyword_keyword"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/view_keyword_1"
+                        android:layout_toRightOf="@+id/view_keyword_1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:hint="请输入关键词"
+                        android:singleLine="true"
+                        android:textColorHint="#40666666"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:id="@+id/view_keyword_2"
+                        android:layout_width="3dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/iv_keyword_search"
+                        android:background="#F6F6F6" />
+
+                    <ImageView
+                        android:id="@+id/iv_keyword_voice"
+                        style="@style/search_icon_distance"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/view_keyword_2"
+                        android:src="@mipmap/voice" />
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/iv_keyword_search"-->
+                    <!--android:layout_width="15dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_marginRight="16dp"-->
+                    <!--android:src="@mipmap/fangdajing" />-->
+                    <TextView
+                        android:id="@+id/iv_keyword_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="13dp"
+                        android:gravity="center"
+                        android:text="搜索"
+                        android:textColor="#E49C00"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#F6F6F6" />
+
+            <!-- 近期搜索记录显示近期搜索的一条数据 -->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_keywordsearch_text1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true">
+
+                        <ImageView
+                            android:id="@+id/imageView31"
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@mipmap/lishi" />
+
+                        <TextView
+                            android:id="@+id/tv_keywordsearch_text1"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/imageView31"
+                            android:layout_toRightOf="@+id/imageView31"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="历史记录1"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/jiantou_right" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="12dp"
+                            android:background="#EBEBEB" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_keywordsearch_text2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true">
+
+                        <ImageView
+                            android:id="@+id/imageView31011"
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@mipmap/lishi" />
+
+                        <TextView
+                            android:id="@+id/tv_keywordsearch_text2"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/imageView31011"
+                            android:layout_toRightOf="@+id/imageView31011"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="历史记录2"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/jiantou_right" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="12dp"
+                            android:background="#EBEBEB" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_keywordsearch_text3"
+                        android:layout_width="match_parent"
+                        android:layout_height="43dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true">
+
+                        <ImageView
+                            android:id="@+id/imageView3112"
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@mipmap/lishi" />
+
+                        <TextView
+                            android:id="@+id/tv_keywordsearch_text3"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/imageView3112"
+                            android:layout_toRightOf="@+id/imageView3112"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="历史记录3"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/jiantou_right" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="12dp"
+                            android:background="#EBEBEB" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_keywordsearch_text4"
+                        android:layout_width="match_parent"
+                        android:layout_height="43dp"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imageView3104"
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="17dp"
+                            android:layout_marginStart="17dp"
+                            android:src="@mipmap/lishi" />
+
+                        <TextView
+                            android:id="@+id/tv_keywordsearch_text4"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_toEndOf="@+id/imageView3104"
+                            android:layout_toRightOf="@+id/imageView3104"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="历史记录4"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/jiantou_right" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_search_keyword_clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:background="#fff"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:id="@+id/tv_search_keyword_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="清空搜索历史"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F6F6F6"
+                    android:gravity="center_horizontal">
+
+                    <ListView
+                        android:id="@+id/lv_keyword_advertistment"
+                        style="@style/pager_keyword_search_history"
+                        android:layout_margin="10dp"
+                        android:divider="#00000000"
+                        android:padding="3dp"
+                        android:scrollbars="none" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_searchjobresult_top"
+        style="@style/title_rl_scale">
+
+        <ImageView
+            android:id="@+id/iv_selectcity_back"
+            style="@style/title_iv_back" />
+
+        <TextView
+            android:id="@+id/tv_searchjobresult_jobnum"
+            style="@style/title_tv_textsize"
+            android:text="搜索中。。。" />
+
+        <TextView
+            android:id="@+id/tv_searchjobresult_filtration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="筛选"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_searchjobresult_condition"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_searchjobresult_top"
+        android:background="#F6F6F6">
+        <!--TextView跑马灯效果-->
+        <TextView
+            android:id="@+id/tv_searchjobresult_condition"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="搜索条件"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_searchjob_result_subscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_searchjobresult_condition"
+            android:layout_alignBottom="@+id/tv_searchjobresult_condition"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:text="订阅"
+            android:textColor="#4C7DE1"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="#cccccc" />
+    </RelativeLayout>
+
+    <com.hr.ui.view.pulltorefresh.PullToRefreshListView
+        android:id="@+id/lv_searchjobresult_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_searchjobresult_condition"
+        android:background="#fff"
+        android:divider="@null"
+        android:scrollbars="none"></com.hr.ui.view.pulltorefresh.PullToRefreshListView>
+
+    <LinearLayout
+        android:id="@+id/rl_searchjobresult_visible"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/lv_searchjobresult_result"
+        android:alpha="95"
+        android:background="#fff"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <Button
+            android:id="@+id/bt_searchjobresult_collect"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="3"
+            android:background="@drawable/linear_select_orange"
+            android:drawableLeft="@mipmap/select_xing"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="30dp"
+            android:text="收藏"
+            android:textColor="#F39D0D"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3" />
+
+        <Button
+            android:id="@+id/bt_searchjobresult_deliver"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="5.5"
+            android:background="@drawable/linear_yuanhu_button"
+            android:text="投递简历"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--放大页面-->
+<title>薪酬查询首页</title>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="http://js.cdn.800hr.com/pd/touch/money/v13/js/money.js"></script>
+<!--money js-->
+<link rel="stylesheet" href="js/jqMobile/jquery.mobile-1.2.0.css" />
+<!--jqm structure css-->
+<link rel="stylesheet" href="js/jqMobile/money.css" />
+<script type="text/javascript" src="js/jsonConfig/c_city_json.js"></script>
+<script type="text/javascript" src="js/jsonConfig/c_funtype_json.js"></script>
+<script type="text/javascript" src="js/cookies.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/jqChart/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="js/jqChart/jquery.jqChart.min.js"></script>
+<link rel="stylesheet" href="js/jqChart/jquery.jqChart.css" />
+<script type="text/javascript" src="js/result_control.js"></script>
+<script src="js/jqMobile/jquery.mobile-1.2.0.js"></script>
+<!--jqm-->
+</head>
+<body>
+	<div data-role="page" id="page_result">
+		<div data-role="content" id="result_content">
+			<!-- 查询结果 -->
+			<ul data-role="listview" data-inset="true">
+				<li data-icon="arrow-d" id="switch_options" data-theme="b"><a
+					data-transition="none" href="#">您的查询条件</a></li>
+				<li id="options"><a data-transition="none" data-ajax="false"
+					href="index_solo.html" onclick="android_payquery.index_click(-1);">
+						<h5>
+							职位分类：
+							<script>
+								document.write(android_payquery
+										.getcookie("job_pname")
+										+ "&nbsp;&nbsp;"
+										+ android_payquery
+												.getcookie("job_name"));
+							</script>
+						</h5>
+						<h5>
+							工作地点：
+							<script>
+								document.write(android_payquery
+										.getcookie("city_name"));
+							</script>
+							&nbsp;&nbsp;期望薪资：
+							<script>
+								document.write(android_payquery
+										.getcookie("money_num"));
+							</script>
+							元/月
+						</h5>
+				</a></li>
+				<li data-icon="arrow-d" id="switch_options_compare" data-theme="e"><a
+					data-transition="none" href="#">比较条件</a></li>
+				<li id="options_compare"><a> <script>
+					if (android_payquery.getcookie("job_czid")
+							&& android_payquery.getcookie("city_cid")) {
+						document.write("<h5>职位分类："
+								+ android_payquery.getcookie("job_cpname")
+								+ "&nbsp;&nbsp;"
+								+ android_payquery.getcookie("job_czname")
+								+ "</h5><h5>工作地点："
+								+ android_payquery.getcookie("city_cname")
+								+ "</h5>");
+					}
+				</script>
+				</a></li>
+				<li id="result_img">
+					<h3>您所查询职位的市场薪资水平</h3> <!--<p><img src="http://img.cdn.800hr.com/pd/touch/money/v13/img/result.png"/></p>
+				-->
+					<div class="money_img" id="jqChart"></div>
+				</li>
+				<li id="padding_left5">
+					<table id="table_money">
+						<tr>
+							<th data-theme="b">&nbsp;</th>
+							<th data-theme="b">低端</th>
+							<th data-theme="b">中低端</th>
+							<th data-theme="b">中端</th>
+							<th data-theme="b">中高端</th>
+							<th data-theme="b">高端</th>
+						</tr>
+						<tr></tr>
+						<tr>
+						</tr>
+					</table>
+				</li>
+			</ul>
+			<!-- 薪酬比较 -->
+			<ul data-role="listview" data-inset="true">
+				<!-- <li id="select_options" data-icon="arrow-d" data-theme="e"
+					data-role="list-divider">薪酬比较</li> -->
+				<li data-theme="e" data-icon="arrow-d"
+					class="ui-li ui-li-static ui-btn-up-e ui-corner-top" data-role="list-divider">薪酬比较</li>
+				<!--			
+			<li data-icon="arrow-d" id="select_options"><a data-transition="none" id="Compare" name="Compare">薪酬比较</a></li>
+			-->
+				<li><a data-transition="none" href="#page_select_job_catalog"
+					id="select_job" data-transition="slide">职位分类</a></li>
+				<li><a data-transition="none" href="#page_select_city"
+					id="select_city" data-transition="slide">工作地点</a></li>
+				<li><button id="compare_button" data-theme="e" type="submit"
+						data-theme="e">比较</button></li>
+			</ul>
+			<!-- 推荐职位 -->
+			<!-- <div id="recmd">
+				<h3>推荐职位</h3>
+				<ul id="recommend" data-role="listview" data-inset="true">
+				</ul>
+			</div> -->
+		</div>
+
+		<!-- popup-->
+		<!--         <div data-role="popup" id="selet_none" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+            <div data-role="header" data-theme="a" class="ui-corner-top">
+                <h1>提示</h1>
+            </div>
+            <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                <h3 id="popup_text" class="ui-title"></h3>
+                <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">确定</a>
+            </div>
+        </div> -->
+	</div>
+	<!-- /page -->
+	<div data-role="page" id="page_select_job_catalog">
+		<div data-role="content">
+			<form>
+				<ul data-role="listview" data-inset="true">
+					<script>
+						var hy_id = android_payquery.getcookie("hy_id");
+						if (hy_id) {
+							var job = new Array();
+							var getFuntype = "getFuntype" + hy_id + "Json";
+							//alert(getFuntype);
+							getstrToJson = eval('(' + getFuntype + ')');
+							var job = getstrToJson();
+							var outlist = "";
+							$
+									.each(
+											job,
+											function(key, val) {
+												outlist += "<li id='"+val.id+"'><a data-transition='none'	href='#page_select_job' id='"+val.id+"'>"
+														+ val.name
+														+ "</a></li>";
+											});
+							document.write(outlist);
+						}
+					</script>
+				</ul>
+			</form>
+		</div>
+	</div>
+	<!-- /page_select_job_catalog -->
+	<div data-role="page" id="page_select_job">
+		<div data-role="content">
+			<form>
+				<ul data-role="listview" data-inset="true">
+				</ul>
+			</form>
+		</div>
+	</div>
+	<!-- /page_select_job -->
+	<div data-role="page" id="page_select_city">
+		<div data-role="content">
+			<form>
+				<ul data-role="listview" data-inset="true">
+					<script>
+						var city = new Array();
+						var city = getCityJson("cn");
+						$
+								.each(
+										city,
+										function(key, val) {
+											document
+													.write("<li data-icon='false'><a data-transition='none' href='result.html' id='"+val.id+"'>"
+															+ val.name
+															+ "</a></li>")
+										});
+					</script>
+				</ul>
+			</form>
+		</div>
+	</div>
+	<!-- /page_select_city -->
+</body>
+</html>

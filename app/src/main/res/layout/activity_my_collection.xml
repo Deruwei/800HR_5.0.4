@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <!-- start title -->
+    <RelativeLayout
+        android:id="@+id/rl_my_collection_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <ImageView
+            android:id="@+id/iv_my_collection_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:id="@+id/tv_my_collection_jobnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的收藏"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <com.hr.ui.view.pulltorefresh.PullToRefreshListView
+        android:id="@+id/lv_my_collection_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_my_collection_top"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:id="@+id/rl_my_collection_visible"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/lv_my_collection_result"
+        android:background="#95ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/bt_my_collection_collect"
+            style="@style/bt_orange_two"
+            android:background="@drawable/linear_yuanhu_button"
+            android:text="取消收藏"
+            android:textColor="#fff" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+
+        <Button
+            android:id="@+id/bt_my_collection_deliver"
+            style="@style/bt_orange_two"
+            android:background="@drawable/linear_yuanhu_button"
+            android:text="投递职位"
+            android:textColor="#fff" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView44"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_alignBottom="@+id/tv_previewresume_projtime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/jianli_yulan_xiaoquan" />
+
+        <TextView
+            android:id="@+id/tv_previewresume_projtime"
+            style="@style/resume_previewresume_infoname"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="11dp"
+            android:layout_toEndOf="@+id/imageView44"
+            android:layout_toRightOf="@+id/imageView44"
+            android:text="2006年12月-2012年12月" />
+
+        <TextView
+            android:id="@+id/tv_previewresume_projname"
+            style="@style/resume_previewresume_info"
+            android:layout_alignLeft="@+id/tv_previewresume_projtime"
+            android:layout_alignStart="@+id/tv_previewresume_projtime"
+            android:layout_below="@+id/tv_previewresume_projtime"
+            android:layout_marginTop="11dp"
+            android:text="项目名称" />
+
+        <TextView
+            android:id="@+id/tv_previewresume_major"
+            style="@style/resume_previewresume_infoname"
+            android:layout_alignLeft="@+id/tv_previewresume_projname"
+            android:layout_alignStart="@+id/tv_previewresume_projname"
+            android:layout_below="@+id/tv_previewresume_projname"
+            android:layout_marginTop="6dp"
+            android:text="项目职务" />
+
+        <TextView
+            android:id="@+id/tv_resume_previewresume_projdesp"
+            style="@style/resume_previewresume_infoname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_previewresume_major"
+            android:layout_alignStart="@+id/tv_previewresume_major"
+            android:layout_below="@+id/tv_previewresume_major"
+            android:layout_marginTop="10dp"
+            android:text="项目描述" />
+
+        <TextView
+            android:id="@+id/tv_resume_previewresume_projpost"
+            style="@style/resume_previewresume_infoname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_resume_previewresume_projdesp"
+            android:layout_alignStart="@+id/tv_resume_previewresume_projdesp"
+            android:layout_below="@+id/tv_resume_previewresume_projdesp"
+            android:layout_marginTop="10dp"
+            android:text="项目责任" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff" />
+</LinearLayout>

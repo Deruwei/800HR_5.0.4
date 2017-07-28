@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60000000"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_popup_isresumeapp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请输入图片验证码"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="选择后无法更改"-->
+            <!--android:textColor="#333333"-->
+            <!--android:textSize="16sp"-->
+            <!--android:layout_below="@+id/textView51"-->
+            <!--android:layout_centerHorizontal="true" />-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/vc_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+            <TextView
+                android:id="@+id/vc_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="刷新"
+                android:textColor="#F39800" />
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:background="#fff"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/vc_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!--<View-->
+            <!--android:layout_width="280dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:background="#CCCCCC" />-->
+
+        <!--<View-->
+            <!--android:layout_width="280dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:background="#CCCCCC" />-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/rl__item_autocode_confirm"
+                android:layout_width="270dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_1chang"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="确定"
+                    android:textColor="#fff" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

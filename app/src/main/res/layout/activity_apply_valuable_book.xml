@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hr.ui.activity.ApplyValuableBookActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_applyvaluable_top"
+        style="@style/title_rl_scale">
+
+        <ImageView
+            android:id="@+id/iv_applyvaluable_back"
+            style="@style/title_iv_back" />
+
+        <TextView
+            android:id="@+id/tv_applyvaluable"
+            style="@style/title_tv_textsize"
+            android:text="" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d3d3d3" />
+    <ScrollView
+        android:id="@+id/activity_news_more2_scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/rl_applyvaluable_top" >
+
+        <ViewFlipper
+            android:id="@+id/activity_news_more2_viewFlipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/news_more2_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="15dip"
+                    android:textColor="#949390"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/news_more2_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="#a4a4a2"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </ViewFlipper>
+    </ScrollView>
+
+</LinearLayout>

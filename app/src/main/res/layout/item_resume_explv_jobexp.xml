@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="公司名称"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_resume_item_jobexp_comname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView50"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入公司名称"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView5012"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="开始时间"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_jobexp_starttime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView45"
+            android:layout_toStartOf="@+id/imageView45"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:text="请选择时间"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView45"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView5012123"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="结束时间"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_jobexp_endtime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView45111"
+            android:layout_toStartOf="@+id/imageView45111"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:text="请选择时间"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView45111"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="工作地点"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_jobexp_workplace"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView451"
+            android:layout_toStartOf="@+id/imageView451"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:text="请选择地点"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView451"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView503"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="税前月薪"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+        <CheckBox
+            android:layout_toRightOf="@+id/textView503"
+            android:id="@+id/cb_item_ischeck"
+            style="@style/CheckBoxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:padding="10dp"
+            android:text="保密"
+            android:layout_centerVertical="true"
+            android:textColor="#666666"
+            android:textSize="15sp" />
+        <EditText
+            android:id="@+id/et_resume_item_jobexp_salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView503"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入税前月薪(元)"
+            android:inputType="number"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView502"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="所任职位"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_resume_item_jobexp_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView502"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入所任职位"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/textView501"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="15dp"
+            android:text="职位描述"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="360dp"
+            android:layout_height="150dp"
+            android:layout_alignLeft="@+id/textView501"
+            android:layout_alignStart="@+id/textView501"
+            android:layout_below="@+id/textView501"
+            android:layout_marginTop="10dp"
+            android:background="#F6F6F6">
+
+            <EditText
+                android:id="@+id/et_resume_item_jobexp_describe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="请填写职位描述，限400字以内"
+                android:maxEms="4000"
+                android:scrollbars="vertical"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_resume_item_jobexp_delete"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="删除"
+            android:background="@drawable/btn_1chang"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_alignBottom="@+id/rl_resume_item_jobexp_add"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <RelativeLayout
+            android:id="@+id/rl_resume_item_jobexp_add"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

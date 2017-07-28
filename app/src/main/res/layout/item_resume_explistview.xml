@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp">
+
+        <TextView
+            android:id="@+id/tv_resume_item_time1"
+            style="@style/resume_previewresume_infoname"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="11dp"
+            android:layout_toEndOf="@+id/imageView44"
+            android:layout_toRightOf="@+id/imageView44"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_2"
+            style="@style/resume_previewresume_info"
+            android:layout_alignLeft="@+id/tv_resume_item_time1"
+            android:layout_alignStart="@+id/tv_resume_item_time1"
+            android:layout_below="@+id/tv_resume_item_time1"
+            android:layout_marginTop="11dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_3"
+            style="@style/resume_previewresume_infoname"
+            android:layout_alignLeft="@+id/tv_resume_item_2"
+            android:layout_alignStart="@+id/tv_resume_item_2"
+            android:layout_below="@+id/tv_resume_item_2"
+            android:layout_marginTop="6dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_resume_item_4"
+            style="@style/resume_previewresume_infoname"
+            android:layout_alignTop="@+id/tv_resume_item_3"
+            android:layout_toEndOf="@+id/tv_resume_item_3"
+            android:layout_toRightOf="@+id/tv_resume_item_3"
+            android:text="" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff" />
+</LinearLayout>

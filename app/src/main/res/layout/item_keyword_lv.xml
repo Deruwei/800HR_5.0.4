@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/industry_rec_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="11dp"
+        android:drawableRight="@mipmap/jiantou_right"
+        android:gravity="center_vertical"
+        android:paddingRight="12dp"
+        android:singleLine="true"
+        android:text="测试一下"
+        android:textColor="#666666"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/view_rec_title"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="11dp"
+        android:background="#EBEBEB" />
+</LinearLayout>

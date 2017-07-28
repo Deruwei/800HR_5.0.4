@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="技能名称"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_resume_item_skill_skillname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView50"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入技能名称"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/textView501111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="使用时间(月)"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_resume_item_skill_skilltime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入数字"
+            android:inputType="number"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textView42"
+            style="@style/reusme_myresume_tvhead"
+            android:text="专业水平" />
+
+        <com.hr.ui.view.custom.IdSpineer
+            android:id="@+id/sp_resume_skill_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@+id/imageView45"
+            android:layout_toStartOf="@+id/imageView45"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="#F7931E" />
+
+        <ImageView
+            android:id="@+id/imageView45"
+            android:layout_width="6dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/jiantou_right" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="360dp"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/textView42"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/textView42"
+            android:background="#EBEBEB" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_resume_item_skill_delete"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/rl_resume_item_skill_add"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+        <RelativeLayout
+            android:id="@+id/rl_resume_item_skill_add"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

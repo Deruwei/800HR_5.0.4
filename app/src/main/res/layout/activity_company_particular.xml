@@ -1,0 +1,256 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hr.ui.activity.CompanyParticularActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_companyparticular_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/new_main">
+
+        <ImageView
+            android:id="@+id/iv_companyparticular_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_fanhui" />
+
+        <TextView
+            android:id="@+id/tv_companyparticular_jobnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="公司详情"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+        <!--
+                <ImageView
+                    android:id="@+id/iv_companyparticular_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@mipmap/fenxiang" />
+                    -->
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sl_companyparticular2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_companyparticular_top"
+        android:fillViewport="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/iv_companyparticular_comlogo2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="28dp"
+                    android:src="@mipmap/logo_gongsi" />
+                <TextView
+                    android:id="@+id/tv_companyparticular_comname2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_companyparticular_comlogo2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="17dp"
+                    android:text="公司名"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="18sp" />
+                <View
+                    android:id="@+id/relativeLayout4"
+                    android:layout_width="360dp"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/tv_companyparticular_comname2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="#EBEBEB" />
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/relativeLayout4"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="21dp"
+                    android:text="性质："
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView33"
+                    android:layout_alignStart="@+id/textView33"
+                    android:layout_below="@+id/textView33"
+                    android:text="规模："
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView32"
+                    android:layout_alignStart="@+id/textView32"
+                    android:layout_below="@+id/textView32"
+                    android:text="地址："
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_companyparticular_nature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView33"
+                    android:layout_toEndOf="@+id/textView33"
+                    android:layout_toRightOf="@+id/textView33"
+                    android:text="性质"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_companyparticular_scale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_companyparticular_nature"
+                    android:layout_toEndOf="@+id/textView33"
+                    android:layout_toRightOf="@+id/textView33"
+                    android:text="规模"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_companyparticular_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView31"
+                    android:layout_toEndOf="@+id/textView31"
+                    android:layout_toRightOf="@+id/textView31"
+                    android:text="地址"
+                    android:gravity="left"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="#EBEBEB" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff">
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="公司介绍"
+                    android:textColor="#333333"
+                    android:textSize="20sp" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="360dp"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/textView34"
+                    android:layout_alignStart="@+id/textView34"
+                    android:layout_below="@+id/textView34"
+                    android:layout_marginTop="14dp"
+                    android:background="#EBEBEB" />
+
+                <TextView
+                    android:padding="10dp"
+                    android:id="@+id/tv_companyparticular_comparticular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view2"
+                    android:layout_alignStart="@+id/view2"
+                    android:layout_below="@+id/view2"
+                    android:layout_marginTop="26dp"
+                    android:ellipsize="end"
+                    android:text="内容详情"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/tv_companyparticular_comparticular" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="#EBEBEB" />
+
+            <RelativeLayout
+                android:id="@+id/rl_companyparticular_clickother"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textView36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:text="正在招聘的职位"
+                    android:textColor="#333333"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@mipmap/jiantou_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="#EBEBEB" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

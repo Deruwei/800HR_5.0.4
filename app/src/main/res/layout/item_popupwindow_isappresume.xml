@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60000000"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="450dp"
+        android:background="@drawable/bg_popup_isresumeapp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择一份已有简历作为你的默认简历"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:id="@+id/textView51" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择后无法更改"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:layout_below="@+id/textView51"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="280dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#CCCCCC" />
+        <android.support.v7.widget.RecyclerView
+            android:listSelector="#00000000"
+            android:divider="@null"
+            android:id="@+id/lv_item_popupwindow_appresume"
+            android:layout_width="match_parent"
+            android:layout_height="308dp"
+            android:scrollbars="none" >
+
+        </android.support.v7.widget.RecyclerView>
+       <!-- <ListView
+            android:listSelector="#00000000"
+            android:divider="@null"
+            android:id="@+id/lv_item_popupwindow_appresume"
+            android:layout_width="match_parent"
+            android:layout_height="308dp"
+            android:scrollbars="none" />
+-->
+        <View
+            android:layout_width="280dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#CCCCCC" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/rl__item_popupwindow_appresume_save"
+                android:layout_width="270dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_1chang"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="确定"
+                    android:textColor="#fff" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

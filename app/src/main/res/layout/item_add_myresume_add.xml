@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lr_myresume_add"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="#fff"
+    android:orientation="vertical">
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.7dp"-->
+        <!--android:background="#ebebeb"-->
+        <!--/>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+      />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_add_myresume_name"-->
+        <!--android:drawablePadding="5dp"-->
+        <!--android:drawableLeft="@mipmap/xiugai1"-->
+        <!--android:textSize="13sp"-->
+        <!--android:textColor="#FBC34B"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center_vertical" />-->
+    <TextView
+        android:id="@+id/tv_add_myresume_some"
+        android:layout_gravity="center"
+        android:textSize="13sp"
+        android:textColor="#FBC34B"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        />
+</LinearLayout>

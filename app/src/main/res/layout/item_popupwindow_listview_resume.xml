@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <ImageView
+            android:id="@+id/iv_popupwindow_lsitview_check"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:src="@mipmap/hui" />
+
+        <TextView
+            android:id="@+id/tv_popupwindow_lsitview_myresume_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_popupwindow_lsitview_check"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/iv_popupwindow_lsitview_check"
+            android:layout_toRightOf="@+id/iv_popupwindow_lsitview_check"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="我的简历"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView54"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_popupwindow_lsitview_myresume_name"
+            android:layout_alignStart="@+id/tv_popupwindow_lsitview_myresume_name"
+            android:layout_alignTop="@+id/iv_popupwindow_lsitview_check"
+            android:layout_marginTop="6dp"
+            android:text="简历最后更新时间："
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_popupwindow_lsitview_myresume_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tv_popupwindow_lsitview_myresume_complete"
+            android:layout_alignRight="@+id/tv_popupwindow_lsitview_myresume_complete"
+            android:layout_alignTop="@+id/textView54"
+            android:text="2015-12-22 am10:30"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_popupwindow_lsitview_myresume_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_popupwindow_lsitview_myresume_time"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:text="简历完整度"
+            android:textColor="#009944"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</RelativeLayout>
