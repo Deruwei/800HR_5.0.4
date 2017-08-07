@@ -75,6 +75,7 @@ public class PhoneLoginFragment extends Fragment {
     private boolean isFromPush = false;// 推送
     private SharedPreferencesUtils sUtils;
     private AsyncNewLoginPhone loginAsync;
+    private String usernameString, pwdString;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -147,19 +148,19 @@ public class PhoneLoginFragment extends Fragment {
     private void initData() {
         sUtils = new SharedPreferencesUtils(getActivity());
         isAutoLogin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, false);
+        usernameString = sUtils.getStringValue(Constants.USERPHONE, null);
+        pwdString = sUtils.getStringValue(Constants.PASSWORD, null);
         if (isAutoLogin) {
             ivPhoneloginAuto.setImageResource(R.mipmap.lv);
         } else {
             ivPhoneloginAuto.setImageResource(R.mipmap.hui);
         }
+
         /**
          * 尝试自动登录
          */
         if (MyUtils.isLogin && getActivity().getIntent().getIntExtra("LoingTag", -1) == 10010) {// 未登录
-            // 自动登录
-            boolean autologin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, true);
-            String usernameString = sUtils.getStringValue(Constants.USERPHONE, null);
-            String pwdString = sUtils.getStringValue(Constants.PASSWORD, null);
+
             //是否自动登录
             isAutoLogin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, false);
             //之前为自动登录还是自动登录
@@ -170,7 +171,7 @@ public class PhoneLoginFragment extends Fragment {
             }
             etPhoneloginUsername.setText(usernameString);
             etPhoneloginPassword.setText(pwdString);
-            if (autologin && usernameString != null && pwdString != null) {
+            if (isAutoLogin && "".equals(usernameString) && "".equals(pwdString)) {
                 loginAsync = new AsyncNewLoginPhone(getActivity(), handler);
                 loginAsync.execute(usernameString, pwdString, MyUtils.industryId + "");
             }
@@ -191,11 +192,14 @@ public class PhoneLoginFragment extends Fragment {
                 break;
             case R.id.iv_phonelogin_auto:
                 //是否自动登录 取反
+
                 sUtils.setBooleanValue(Constants.AUTO_LOGIN, !isAutoLogin);
                 sUtils.setStringValue("autoLoginThired", "2");//设置为正常登录状态
                 isAutoLogin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, false);
                 //获取已经修改好的 判断背景图片
                 if (isAutoLogin) {
+                    sUtils.setStringValue(Constants.USERPHONE, usernameString);
+                    sUtils.setStringValue(Constants.PASSWORD, pwdString);
                     ivPhoneloginAuto.setImageResource(R.mipmap.lv);
                 } else {
                     ivPhoneloginAuto.setImageResource(R.mipmap.hui);
@@ -267,6 +271,7 @@ public class PhoneLoginFragment extends Fragment {
                 message.what = 2;
                 handler.sendMessage(message);
             }
+
             @Override
             public void onCancel(Platform arg0, int arg1) {
                 // TODO Auto-generated method stub
@@ -341,7 +346,7 @@ public class PhoneLoginFragment extends Fragment {
             @Override
             public void onError(Platform arg0, int arg1, Throwable arg2) {
                 // TODO Auto-generated method stub
-                Toast.makeText(getActivity(),"响应失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "响应失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -353,7 +358,6 @@ public class PhoneLoginFragment extends Fragment {
                 String birthdayString = arg2.get("birthday") + "";
                 String tinyurlString = arg2.get("figureurl_qq_2") + "";
                 String genderString = arg2.get("gender") + "";
-
                 Bundle bundleQzone = new Bundle();
                 bundleQzone.putString("nameString", nickNameString);
                 bundleQzone.putString("uidString", uidString);
@@ -392,10 +396,6 @@ public class PhoneLoginFragment extends Fragment {
             return;
         } else {
             AsyncNewLoginPhone asyncLogin = new AsyncNewLoginPhone(getActivity(), handler);
-            if (isAutoLogin) {
-                sUtils.setStringValue(Constants.USERPHONE, username);
-                sUtils.setStringValue(Constants.PASSWORD, password);
-            }
             asyncLogin.execute(username, password, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
         }
     }

@@ -3,8 +3,12 @@ package com.hr.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,7 @@ import com.hr.ui.activity.MainSelectCityToKeywordActivity;
 import com.hr.ui.adapter.FindPagerAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.CityNameConvertCityID;
+import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 
@@ -62,6 +67,20 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     private List<Fragment> list;
     private TextView[] tvArray;
     private ImageView[] ivArray;
+    private GetBaiduLocation baiduLocation;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    String city= (String) msg.obj;
+                    if(city!=null) {
+                        city = city.substring(0, city.length() - 1);
+                    }
+                    setPlaceText(city);
+            }
+        }
+    };
 
     public FindjobFragment() {
     }
@@ -112,15 +131,10 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_findjob, container, false);
+        baiduLocation=new GetBaiduLocation(getActivity());
         initView();
         initViewPager();
         initData();
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         cityName = tv_findjob_city.getText().toString().trim();
         placeId = CityNameConvertCityID.convertCityID(getActivity(), cityName);
         PagerKeywordSearchFragment.setPlaceId(placeId);
@@ -130,12 +144,19 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
         if (MyUtils.isLogin) {
             tv_findjob_back.setVisibility(View.GONE);
         }
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
+        baiduLocation.loadLocation();
         tvArray[0].setTextColor(Color.parseColor("#F39D0D"));
         ivArray[0].setBackgroundColor(Color.parseColor("#F39D0D"));
         SharedPreferencesUtils sUtils = new SharedPreferencesUtils(getActivity());
@@ -190,6 +211,10 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
 //                tv_findjob_industory.setText("通信英才网");
 //                break;
 //        }
+        Message message=new Message();
+        message.what=1;
+        message.obj=MyUtils.currentCityZh;
+       handler.sendMessage(message);
     }
 
     /**

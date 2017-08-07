@@ -129,7 +129,7 @@ public class BindSecondFragment extends Fragment {
     /**
      * 确认登录
      */
-    private void saveInfo2() {
+    private void  saveInfo2() {
         String username = etBindloginUsername.getText().toString().trim();
         String userpassword = etBindloginUserpwd.getText().toString().trim();
         if (username == null || username.equals("")) {

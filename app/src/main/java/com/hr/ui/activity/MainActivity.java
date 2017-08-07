@@ -1,10 +1,12 @@
 package com.hr.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -12,8 +14,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Display;
@@ -31,6 +35,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.hr.ui.HrApplication;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
@@ -39,10 +45,14 @@ import com.hr.ui.fragment.FindjobFragment;
 import com.hr.ui.fragment.MeFragment;
 import com.hr.ui.fragment.MyResumeFragment;
 import com.hr.ui.fragment.RecommendJobFragment;
+import com.hr.ui.model.Industry;
 import com.hr.ui.model.ResumeList;
 import com.hr.ui.receiver.NetBroadcastReceiver;
 import com.hr.ui.utils.AndroidMarketEvaluate;
+import com.hr.ui.utils.GetBaiduLocation;
+import com.hr.ui.utils.MyLocationListenner;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.PermissionCheck;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncLogin;
 import com.hr.ui.utils.netutils.AsyncNewAutoLoginPhone;
@@ -54,6 +64,9 @@ import com.hr.ui.view.custom.BeautifulDialog;
 import com.networkbench.agent.impl.NBSAppAgent;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,6 +96,18 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      */
     private long firstClickTime;
     /**
+     * 是否需要刷新个人信息
+     */
+    public static boolean isLoad = true;
+    public static boolean newAppResume = false;
+    private String listResumeJsonString;
+    public String resumeId;
+    public static ArrayList<ResumeList> listResume = null;
+    public ArrayList<ResumeList> listResumeIsApp = null;
+    public boolean isHaveAppResume;
+    public String resumeType = null;// 简历类型
+    private boolean isHaveResume = false;
+    /**
      * 控件名
      */
     private FrameLayout framLayout_main_content;
@@ -99,6 +124,10 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private TextView tv_main_me, tv_main_recommendjob;
     private RelativeLayout main_layout;
     private RelativeLayout right_layout;
+    private String thirdCode, thirdUid, thirdIndustry, PhoneName, phonePsw, userName, psw;
+    private int Industry;
+    private static final int BAIDU_READ_PHONE_STATE =100;
+    private GetBaiduLocation baiduLocation;
     /**
      * Fragment管理器
      */
@@ -138,6 +167,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         setContentView(R.layout.activity_main);
         mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mReceiver, mFilter);
+        baiduLocation=new GetBaiduLocation(this);
+
+        if (Build.VERSION.SDK_INT>=23){
+            showContacts();
+        }else{
+            baiduLocation.loadLocation();
+        }
         /**
          * 听云
          */
@@ -146,16 +182,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         isLogin();
         initView();
         initData();
-        MyUtils.currentCityZh = "北京";
-//        loadLocation();
-    }
 
+
+    }
     @Override
     public void onResume() {
         super.onResume();
         whatState();
     }
-
     public void whatState() {
         if (MyUtils.isLogin) {
             if (newAppResume) {
@@ -169,7 +203,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //关闭手势滑动
         }
     }
-
     /**
      * 先判断是否登录
      * <p/>
@@ -178,6 +211,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      */
     private void isLogin() {
         sUtils = new SharedPreferencesUtils(mContext);
+        thirdCode = sUtils.getStringValue("autoLoginThird_code", "");
+        thirdIndustry = sUtils.getStringValue("autoLoginIndustry", "");
+        thirdUid = sUtils.getStringValue("autoLoginThird_uid", "");
+        userName = sUtils.getStringValue(Constants.USERNAME, "");
+        psw = sUtils.getStringValue(Constants.PASSWORD, "");
+        PhoneName = sUtils.getStringValue(Constants.USERPHONE, "");
+        Industry = sUtils.getIntValue(Constants.INDUSTRY, 11);
         /*
          * 是否已经登录
          */
@@ -187,40 +227,29 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
              */
             if (sUtils.getBooleanValue(Constants.AUTO_LOGIN, false)) {
                 if (sUtils.getStringValue("autoLoginThired", "0").equals("1")) {
-                    IsBind isBindSina = new IsBind(sUtils.getStringValue("autoLoginThird_code", ""), sUtils.getStringValue("autoLoginThird_uid", ""), MainActivity.this, sUtils.getStringValue("autoLoginIndustry", ""), "");
+                    IsBind isBindSina = new IsBind(thirdCode, thirdUid, MainActivity.this, thirdIndustry, "");
                     isBindSina.execute();
 //                    Toast.makeText(mContext,"     isBindSina.execute();",Toast.LENGTH_SHORT).show();
                 } else if (sUtils.getStringValue("autoLoginThired", "0").equals("2")) {
 //                    Toast.makeText(mContext,"      asyncLogin.execute;",Toast.LENGTH_SHORT).show();
-                    AsyncNewAutoLoginPhone asyncLogin = new AsyncNewAutoLoginPhone(mContext, handler);
-                    asyncLogin.execute(sUtils.getStringValue(Constants.USERPHONE, ""), sUtils.getStringValue(Constants.PASSWORD, ""), sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+                    if (!"".equals(PhoneName) && !"".equals(psw)) {
+                        AsyncNewAutoLoginPhone asyncLogin = new AsyncNewAutoLoginPhone(mContext, handler);
+                        asyncLogin.execute(PhoneName, psw, Industry + "");
+                    }
                 } else {
-                    AsyncLogin asyncLogin = new AsyncLogin(mContext, handler);
-                    asyncLogin.execute(sUtils.getStringValue(Constants.USERNAME, ""), sUtils.getStringValue(Constants.PASSWORD, ""), sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+                    if (!"".equals(userName) && !"".equals(psw)) {
+                        AsyncLogin asyncLogin = new AsyncLogin(mContext, handler);
+                        asyncLogin.execute(userName, psw, Industry + "");
+                    }
                 }
+                MyUtils.isLogin=true;
             } else if (sUtils.getBooleanValue(Constants.IS_CHOOSEINDUSTRY, false)) {
                 goActivity(ChooseIndustriesActivity.class);
+                MyUtils.isLogin = false;
             }
         }
     }
 
-//    /**
-//     * 获取位置
-//     */
-//    public void loadLocation() {
-//        if (locationClient == null) {
-//            locationClient = new LocationClient(mContext);
-//            locationClient.registerLocationListener(new LocationListenner());
-//            LocationClientOption option = new LocationClientOption();
-//            option.setAddrType("all");
-//            option.setOpenGps(true);
-//            option.setCoorType("bd09ll");
-//            option.setScanSpan(2000);
-//            locationClient.setLocOption(option);
-//        }
-//        locationClient.start();
-//        locationClient.requestLocation();
-//    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -394,6 +423,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 
     /**
@@ -549,19 +579,43 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         fragmentManager = getSupportFragmentManager();
         setTabSelect(0);
     }
+    /**
+     * 判断获取的权限的返回码
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            // requestCode即所声明的权限获取码，在checkSelfPermission时传入
+            case BAIDU_READ_PHONE_STATE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+                    baiduLocation.loadLocation();
+                } else {
+                    // 没有获取到权限，做特殊处理
+                    Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     /**
-     * 是否需要刷新个人信息
+     * 动态获取百度地图的定位权限
+     *
      */
-    public static boolean isLoad = true;
-    public static boolean newAppResume = false;
-    private String listResumeJsonString;
-    public String resumeId;
-    public static ArrayList<ResumeList> listResume = null;
-    public ArrayList<ResumeList> listResumeIsApp = null;
-    public boolean isHaveAppResume;
-    public String resumeType = null;// 简历类型
-    private boolean isHaveResume = false;
+    public void showContacts(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                ){
+            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, BAIDU_READ_PHONE_STATE);
+        }else{
+            baiduLocation.loadLocation();
+        }
+    }
+
 
     /**
      * 存储个人信息的Map
@@ -611,7 +665,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      */
     public void execute() {
         try {
-            Log.i("=========加载数据", "1");
+            //Log.i("=========加载数据", "1");
             HashMap<String, String> requestParams = new HashMap<String, String>();
             requestParams.put("method", "user_resume.resumelist");
             NetService service = new NetService(mContext, handlerRefresh);
@@ -621,6 +675,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * 装载简历的数据
+     */
     private Handler handlerRefresh = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -743,6 +800,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         }
     };
 
+    /**
+     * 跳转到新用户创建建立页面
+     */
     public void createNewResume() {
         if (MyUtils.ableInternet) {
             if (!isHaveResume) {
@@ -751,6 +811,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 intentResume2.putExtra("resumeLanguage", "zh");
                 intentResume2.putExtra("isCHS", true);
                 startActivity(intentResume2);
+                finish();
             }
         } else {
             Toast.makeText(mContext, "无网络,请稍候重试", Toast.LENGTH_SHORT).show();

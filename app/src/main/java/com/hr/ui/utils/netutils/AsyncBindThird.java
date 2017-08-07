@@ -8,7 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.hr.ui.activity.NewBindActivity;
+import com.hr.ui.activity.NewLoginActivity;
 import com.hr.ui.config.Constants;
+import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
@@ -23,9 +25,7 @@ import java.util.HashMap;
  */
 public class AsyncBindThird {
     private Context context;
-    private String user_phone;
     private Handler handler = null;
-    private String pwdString = null;
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
@@ -39,6 +39,12 @@ public class AsyncBindThird {
 //                            // 存储用户数据
                             Log.i("===========", jsonObject.toString());
                             MyUtils.isLogin = true;
+                            MyUtils.username= user_name;
+                            MyUtils.industryId = industry;
+                            // 成功登录后记录数据
+                            SharedPreferencesUtils sUtils = new SharedPreferencesUtils(context);
+                            sUtils.setStringValue(Constants.USERNAME, user_name);
+                            sUtils.setStringValue(Constants.PASSWORD, user_pwd);
 //                            MyUtils.userphone = user_phone;
 //                            MyUtils.userID = jsonObject.getString("user_id");
 //                            MyUtils.industryId = jsonObject.getString("industry");
@@ -46,6 +52,10 @@ public class AsyncBindThird {
                             message.what = 0;
                             handler.sendMessage(message);
 //                            NewBindActivity.newBindActivity.finish();
+                            RecommendJobFragment.recommendJobFragment.initView();
+//                            MyUtils.isLogin = true;
+//                    FindjobFragment.upDataUI();
+                            NewLoginActivity.newLoginActivity.execute();
                             break;
                         default:
 //                            Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();

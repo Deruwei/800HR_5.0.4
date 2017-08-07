@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
@@ -399,8 +401,9 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 drawable = BitmapFactory.decodeFile(comLogoFileName);
                 showImg(drawable);
             } else {// 下载海报
-                dLoadImg = new DownLoadImg(iv_postparticular_comlogo2);
-                dLoadImg.execute(posterPath);
+                Glide.with(this).load(posterPath).into(iv_postparticular_comlogo2);
+                /*dLoadImg = new DownLoadImg(iv_postparticular_comlogo2);
+                dLoadImg.execute(posterPath);*/
             }
         }
     }
@@ -571,7 +574,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
             View view = inflater.inflate(R.layout.poster_dialog_background, null);
             ImageView closeBtn = (ImageView) view.findViewById(R.id.close_btn);
             ll_viewArea = (LinearLayout) view.findViewById(R.id.ll_viewArea);
-            parm = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+            parm = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             parm.gravity = Gravity.CENTER;
             // 自定义布局控件，用来初始化并存放自定义imageView
             viewArea = new ViewArea(PostParticularsActivity.this, res);
@@ -589,8 +592,10 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         }
     }
 
+
     private void goLoginActivity() {
         Intent intentLogin = new Intent(PostParticularsActivity.this, NewLoginActivity.class);
         startActivity(intentLogin);
     }
+
 }

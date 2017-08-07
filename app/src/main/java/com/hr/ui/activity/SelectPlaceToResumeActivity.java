@@ -1,6 +1,7 @@
 package com.hr.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -49,6 +50,8 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
     private final int FROMTAG_VALUE3 = 103;// 103：培训地点
     private String locationCityID = "";// 定位到的城市对应的id
     private boolean isCHS = true;
+    public  static int ResultCode=2005;
+    private String address="";
     private ArrayList<HashMap<String, String>> dataArrayList = null;
     private ArrayList<HashMap<String, String>> dataArrayList2 = null;
 
@@ -164,6 +167,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
                  */
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long itemId) {
+                    address=dataArrayList.get(position).get("value");
                     if (fromTag == FROMTAG_VALUE1) {// --------------------------求职意向-工作地址
                         if (zhixiashiORhotcity.contains(dataArrayList.get(position).get("value"))) {
                             if (checkStateHashMap.containsKey(dataArrayList.get(position).get("key"))) {
@@ -259,6 +263,8 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
                                     adapter.notifyDataSetChanged();
                                 }
                             } catch (Exception e) {
+
+
                                 e.printStackTrace();
                             }
                         }
@@ -267,6 +273,9 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
 
                 // 回到“找工作”页面
                 private void backPage(Object object) {
+                    Intent intent=new Intent(SelectPlaceToResumeActivity.this,ResumePersonInfoActivity.class);
+                    intent.putExtra("address",address);
+                    setResult(ResultCode,intent);
                     finish();
                 }
 
@@ -275,6 +284,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
             add_city_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    address=dataArrayList.get(position).get("value");
                     switch (fromTag) {
                         case FROMTAG_VALUE1:// 求职意向
                             if (checkStateHashMap

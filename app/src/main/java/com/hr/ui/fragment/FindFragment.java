@@ -24,6 +24,7 @@ import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -114,7 +115,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
                 try {
                     message.what = 1001;
                     message.arg1 = json();
-//                    Log.d(TAG, "=====message.arg1" + message.arg1);
+    //                Log.d(TAG, "=====message.arg1" + message.arg1);
                     pagerRecruitmentFragment.upData();
                     pagerCompanyFragment.upData();
                     pagerActivityFragment.upData();
@@ -218,13 +219,22 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             pagerFindJobFragment = new PagerFindJobFragment();
         }
         if (pagerActivityFragment == null) {
+            Bundle bundle=new Bundle();
+            bundle.putSerializable("special_data",special_data);
             pagerActivityFragment = new PagerActivityFragment(getActivity(), special_data);
+            pagerActivityFragment.setArguments(bundle);
         }
         if (pagerCompanyFragment == null) {
+            Bundle bundle2=new Bundle();
+            bundle2.putSerializable("dazzle_data",dazzle_data);
             pagerCompanyFragment = new PagerCompanyFragment(getActivity(), dazzle_data);
+            pagerCompanyFragment.setArguments(bundle2);
         }
         if (pagerRecruitmentFragment == null) {
             pagerRecruitmentFragment = new PagerRecruitmentFragment(getActivity(), enterprise_data);
+            Bundle bundle3=new Bundle();
+            bundle3.putSerializable("enterprise_data",enterprise_data);
+            pagerActivityFragment.setArguments(bundle3);
         }
         /*
         将Fragment加入集合
@@ -258,7 +268,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             public void onPageSelected(int position) {
                 resetState();
                 ad_type = position + 1;
-                if (ad_type == 1) {
+               if (ad_type == 1) {
                     enterprise_data.clear();
                 } else if (ad_type == 2) {
                     dazzle_data.clear();

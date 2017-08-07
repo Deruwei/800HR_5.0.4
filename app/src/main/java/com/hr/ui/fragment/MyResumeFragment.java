@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -61,6 +63,7 @@ import com.hr.ui.activity.VerifyPhoneNumStateActivity;
 import com.hr.ui.adapter.ResumeIsAppResumePopupLVAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
+import com.hr.ui.model.Industry;
 import com.hr.ui.model.ResumeAssessInfo;
 import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.model.ResumeEducation;
@@ -99,6 +102,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.umeng.analytics.MobclickAgent;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,6 +113,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import static android.content.Context.WINDOW_SERVICE;
 
@@ -408,13 +413,13 @@ public class MyResumeFragment extends Fragment {
             if (fillScallInt >= 60) {
                 tv_compnum.setText(fillScallInt + "%");
                 if (fillScallInt >= 70) {
-                    tv_compnum.setTextColor(Color.parseColor("#22AC38"));
+                    tv_compnum.setTextColor(ContextCompat.getColor(getActivity(),R.color.green));
                 } else {
-                    tv_compnum.setTextColor(Color.parseColor("#22AC38"));
+                    tv_compnum.setTextColor(ContextCompat.getColor(getActivity(),R.color.green));
                 }
             } else {
                 tv_compnum.setText(fillScallInt + "%");
-                tv_compnum.setTextColor(Color.parseColor("#22AC38"));
+                tv_compnum.setTextColor(ContextCompat.getColor(getActivity(),R.color.red));
             }
         }
 //        Toast.makeText(getActivity(),MyUtils.resumeTime,Toast.LENGTH_SHORT).show();
@@ -777,7 +782,7 @@ public class MyResumeFragment extends Fragment {
         HrApplication.userJob = "无职位";
         if (resumeTitle != null) {
             if (resumeTitle.getResume_type().equals("1")) {
-                resume_previewresume_shixi.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.bitian), null);
+                resume_previewresume_shixi.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(getActivity(),R.mipmap.bitian), null);
                 resume_previewresume_shixi.setText("工作经验");
                 tv_myresume_upresume.setVisibility(View.GONE);
                 if (resumeExperiences != null) {
@@ -924,6 +929,7 @@ public class MyResumeFragment extends Fragment {
                 // System.out.println("个人信息：" + resumeBaseInfo);
             }
             initLingyu(resumeOrder.getLingyu());
+
         }
     }
 
@@ -940,25 +946,32 @@ public class MyResumeFragment extends Fragment {
         StringBuffer showStringBuffer = new StringBuffer();// 要显示的文字
         // 过滤出当前行业下领域
         ArrayList<String> curIndustryLingyu = new ArrayList<String>();
-        String[] itemLingyu = lingyuId.split(",");
-        for (String string : itemLingyu) {
-            if (string.contains(MyUtils.industryId + ":")) {
-                curIndustryLingyu.add(string);// 11:111100
+        if(lingyuId.indexOf(",")!=-1) {
+            String[] itemLingyu = lingyuId.split(",");
+            for (String string : itemLingyu) {
+                if (string.contains(MyUtils.industryId + ":")) {
+                    curIndustryLingyu.add(string);// 11:111100
+                }
+            }
+        }else{
+            if (lingyuId.contains(MyUtils.industryId + ":")) {
+                curIndustryLingyu.add(lingyuId);
             }
         }
-
-        if ("11".equals(MyUtils.industryId) || "12".equals(MyUtils.industryId)
-                || "14".equals(MyUtils.industryId)
-                || "29".equals(MyUtils.industryId) || "22".equals(MyUtils.industryId)) {
-            fragmentView.findViewById(R.id.rl_previewresume_territory).setVisibility(View.VISIBLE);
-            for (String string : curIndustryLingyu) {
-                String id = string.replace(MyUtils.industryId + ":", "");
-                showStringBuffer.append(","
-                        + ResumeInfoIDToString.getLingYuString(getActivity(),
-                        MyUtils.industryId, id));
+        String industryID=null;
+        if(curIndustryLingyu.size()!=0) {
+            industryID = curIndustryLingyu.get(0).substring(0, curIndustryLingyu.get(0).indexOf(":"));
+            if (industryID.equals(MyUtils.industryId)) {
+                fragmentView.findViewById(R.id.rl_previewresume_territory).setVisibility(View.VISIBLE);
+                for (String string : curIndustryLingyu) {
+                    String id = string.replace(MyUtils.industryId + ":", "");
+                    showStringBuffer.append(","
+                            + ResumeInfoIDToString.getLingYuString(getActivity(),
+                            MyUtils.industryId, id));
+                }
+            } else {
+                fragmentView.findViewById(R.id.rl_previewresume_territory).setVisibility(View.GONE);
             }
-        } else {
-            fragmentView.findViewById(R.id.rl_previewresume_territory).setVisibility(View.GONE);
         }
 
         if (showStringBuffer.toString().startsWith(",")) {// 去除首个“，”
@@ -1090,7 +1103,6 @@ public class MyResumeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChooseIndustriesActivity.class);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
         tv_myresumescan_persioninfo.setOnClickListener(new View.OnClickListener() {
@@ -1220,13 +1232,11 @@ public class MyResumeFragment extends Fragment {
             }
         });
     }
-
     public void refreshNow() {
         isRefresh = true;
         isHaveAppResume = false;
         getData();
     }
-
     private BeautifulDialog.Builder builderUpResume;
 
     private void setOpen() {
@@ -1438,10 +1448,10 @@ public class MyResumeFragment extends Fragment {
      * 职位
      */
     private void initOrderFunc() {
-        String func = resumeOrder.getFunc();
         StringBuffer showBuffer = new StringBuffer();
         if (isCHS) {
-            func = resumeOrder.getFunc();
+            String func = resumeOrder.getFunc();
+            Log.i("期望职位",func);
             if (func.length() > 0) {
                 String[] itemFuncStrings = func.split(",");// 所有行业信息
                 ArrayList<String> curIndustryFuncArrayList = new ArrayList<String>();// 当前行业职能
@@ -1453,25 +1463,31 @@ public class MyResumeFragment extends Fragment {
                                     .replace(MyUtils.industryId + ":", ""));
                         }
                     }
-                    for (String string : curIndustryFuncArrayList) {
-                        if (string.contains("|")) {// 例如：264101|10100
-                            String[] funcAndZhixiStrings = string.split("\\|");
-                            showBuffer.append(","
-                                    + ResumeInfoIDToString.getFunc(getActivity(),
-                                    MyUtils.industryId,
-                                    funcAndZhixiStrings[0].trim())
-                                    + ResumeInfoIDToString.getZhixiString(getActivity(),
-                                    funcAndZhixiStrings[1].trim()));
-                        } else {// 例如： 256101
-                            showBuffer.append("," + ResumeInfoIDToString.getFunc(getActivity(), MyUtils.industryId, string.trim()));
+                    if(curIndustryFuncArrayList.size()!=0) {
+                        for (String string : curIndustryFuncArrayList) {
+                            if (string.contains("|")) {// 例如：264101|10100
+                                String[] funcAndZhixiStrings = string.split("\\|");
+                                showBuffer.append(","
+                                        + ResumeInfoIDToString.getFunc(getActivity(),
+                                        MyUtils.industryId,
+                                        funcAndZhixiStrings[0].trim())
+                                        + ResumeInfoIDToString.getZhixiString(getActivity(),
+                                        funcAndZhixiStrings[1].trim()));
+                            } else {// 例如： 256101
+                                showBuffer.append("," + ResumeInfoIDToString.getFunc(getActivity(), MyUtils.industryId, string.trim()));
+                            }
                         }
+                    }else{
+                        showBuffer=new StringBuffer();
                     }
-                    if (showBuffer.toString().length() > 0) {// 显示数据
-                        tv_previewresume_func.setText(showBuffer.substring(1));
 
-
-                    }
                 }
+            }
+            if (showBuffer.toString().length() > 0) {// 显示数据
+                tv_previewresume_func.setText(showBuffer.substring(1));
+
+            }else{
+                tv_previewresume_func.setText("");
             }
         } else {
             tv_previewresume_func.setText(resumeOrder.getJobname());
@@ -1798,6 +1814,7 @@ public class MyResumeFragment extends Fragment {
         public void handleMessage(Message msg) {
             int msgInt = msg.arg1;
             resumeTitle = dbOperator.query_ResumeTitle_info(resumeID, "zh");
+            Log.i("刷新的标题",resumeTitle+"");
             canUpdate = true;
 //            getData();
             upDateUI();

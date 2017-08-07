@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hr.ui.R;
 import com.hr.ui.activity.CompanyParticularActivity;
@@ -23,11 +25,16 @@ import com.hr.ui.utils.netutils.NetService;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PagerCompanyFragment extends Fragment {
 
+    @Bind(R.id.tv_comNoData)
+    TextView tvComNoData;
     private View view;
     private ListView lv_pager_recruitment;
     private FindAdapter findAdapter;
@@ -41,7 +48,12 @@ public class PagerCompanyFragment extends Fragment {
     @SuppressLint("ValidFragment")
     public PagerCompanyFragment(Context context, ArrayList<Industry> data) {
         this.mContext = context;
-        this.dataList = data;
+        if(data!=null) {
+            this.dataList = data;
+        }else{
+            dataList=new ArrayList<>();
+        }
+
     }
 
     @SuppressLint("ValidFragment")
@@ -53,12 +65,13 @@ public class PagerCompanyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_company, container, false);
+        ButterKnife.bind(this, view);
         initView();
         return view;
     }
 
     private void initView() {
-
+        Log.i("this", dataList.toString());
         lv_pager_recruitment = (ListView) view.findViewById(R.id.lv_pager_company);
         if (dataList != null) {
             findAdapter = new FindAdapter(mContext, dataList, 2);
@@ -108,4 +121,9 @@ public class PagerCompanyFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

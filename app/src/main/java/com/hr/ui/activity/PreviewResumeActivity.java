@@ -64,7 +64,7 @@ public class PreviewResumeActivity extends BaseActivity {
     /**
      * 每个选项中的编辑按钮
      */
-    private TextView tv_previewEductionResume_edit,tv_previewFindJobResume_edit,tv_previewPreExp_edit,tv_previewProfessionSkill_edit,tv_previewTrainingExp_edit,tv_previewLanguageSkill_edit;
+    private TextView tv_previewEductionResume_edit,tv_previewShixiExp_edit,tv_previewFindJobResume_edit,tv_previewPreExp_edit,tv_previewProfessionSkill_edit,tv_previewTrainingExp_edit,tv_previewLanguageSkill_edit;
     /**
      * 项目经验
      */
@@ -657,6 +657,8 @@ public class PreviewResumeActivity extends BaseActivity {
                     View workExperienceView = LayoutInflater.from(this).inflate(R.layout.item_resume_scan_workexperience, null);
                     activity_resume_scan_workexperience_linnearlayout.addView(workExperienceView);
                     // initview
+                    tv_previewShixiExp_edit= (TextView) workExperienceView.findViewById(R.id.tv_myresume_workecperience_modify);
+                    tv_previewShixiExp_edit.setVisibility(View.GONE);
                     tv_previewresume_jobtime = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_jobtime);
                     tv_previewresume_comname = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_comname);
                     tv_previewresume_post = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_post);

@@ -4,9 +4,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -332,6 +334,7 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
         new Async_GetNotice(SubscriptionActivity.this, handler).execute("job.getnotice", MyUtils.ALIAS);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @OnClick({R.id.iv_subscription_back, R.id.tv_subscription_post, R.id.tv_subscription_place, R.id.tv_subscription_jobexp, R.id.tv_subscription_releasetime, R.id.tv_subscription_edu, R.id.tv_subscription_scaleofcom, R.id.tv_subscription_salary, R.id.tv_subscription_category, R.id.tv_subscription_receivetime, R.id.iv_subscription_subsound, R.id.iv_subscription_subinfo, R.id.iv_subscription_subcomemail, R.id.rl_subscription_save})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -384,17 +387,19 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.iv_subscription_subsound:
                 NotificationManager manger = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notification = new Notification();
+                Notification.Builder builder = new Notification.Builder(this);
+                builder.setSmallIcon(R.mipmap.icon);
                 if (notification_voice == 1) {
                     ivSubscriptionSubsound.setImageResource(R.mipmap.kaiguan_guan);
                     notification_voice = 2;
-                    notification.sound = null;
+                    builder.setSound(null);
                 } else if (notification_voice == 2) {
                     ivSubscriptionSubsound.setImageResource(R.mipmap.kaiguan_kai);
                     notification_voice = 1;
-                    notification.defaults = Notification.DEFAULT_SOUND;
+                    builder.setDefaults(Notification.DEFAULT_SOUND);
                 }
-                manger.notify(1, notification);
+                Notification notification=builder.build();
+                manger.notify(1,notification);
                 break;
             case R.id.iv_subscription_subinfo:
                 if (rushjob_state == 2) {

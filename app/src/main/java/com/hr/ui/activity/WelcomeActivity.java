@@ -1,15 +1,25 @@
 package com.hr.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import com.networkbench.agent.impl.NBSAppAgent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
+import com.hr.ui.utils.GetBaiduLocation;
+import com.hr.ui.utils.MyLocationListenner;
+import com.hr.ui.utils.PermissionCheck;
 import com.hr.ui.utils.VersionUpdate;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncArrayUpdate;
@@ -17,17 +27,22 @@ import com.hr.ui.utils.tools.PushAliasString;
 import com.networkbench.agent.impl.NBSAppAgent;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.security.acl.Permission;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+
+import static android.R.attr.start;
 
 /**
  * 欢迎页面
  */
 public class WelcomeActivity extends BaseActivity {
     private SharedPreferencesUtils sUtils;
+    private static  final int REQUESTCODE=101;
     public static WelcomeActivity welcomeActivity;
+    static final String[] permissionStrings=new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE};
     private Handler handler = new Handler() {
 
         public void handleMessage(android.os.Message msg) {
@@ -81,13 +96,29 @@ public class WelcomeActivity extends BaseActivity {
             tintManager.setStatusBarTintColor(Color.parseColor("#ffffff"));// 通知栏所需颜色
         }
         setContentView(R.layout.activity_welcome);
+        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(
+                this.getApplicationContext());
         welcomeActivity = WelcomeActivity.this;
 //        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(this);
         sUtils = new SharedPreferencesUtils(WelcomeActivity.this);
         sUtils.setIntValue(Constants.OPPEN_NUM, sUtils.getIntValue(Constants.OPPEN_NUM, 0) + 1);
         initData();
+        /*goToPermissionActivity();
+        if (Build.VERSION.SDK_INT>=23){
+            showContacts();
+        }else{
+          baiduLocation.loadLocation();
+        }*/
     }
 
+   /* private void goToPermissionActivity(){
+        if(permissionCheck.lackPermission(permissionStrings)){
+            startPermissionsActivity();
+        }
+    }
+    private void startPermissionsActivity() {
+        PermissionActivity.startActivityForResult(this, REQUESTCODE,permissionStrings);
+    }*/
     /**
      * 初始化行业选择
      */
@@ -106,4 +137,12 @@ public class WelcomeActivity extends BaseActivity {
         System.out.println("设备别名：" + PushAliasString.getDeviceId(this));
         new VersionUpdate(WelcomeActivity.this, handler);
     }
+   /* @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
+        if (requestCode == REQUESTCODE && resultCode == PermissionActivity.PERMISSIONS_DENIED) {
+            Toast.makeText(this,"请手动获取手机定位权限",Toast.LENGTH_SHORT).show();
+        }
+    }*/
 }

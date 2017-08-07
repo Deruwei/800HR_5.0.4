@@ -23,6 +23,7 @@ import com.hr.ui.adapter.CreateResumeJobExpLVAdapter;
 import com.hr.ui.adapter.ResumeTrainExpLVAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 
@@ -764,9 +765,12 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                     if (MyUtils.currentCityZh != null
                             && MyUtils.currentCityZh.length() > 0) {// 定位城市
                         try {
-                            locationCityID = MyUtils.currentCityId;
-                            if (isCHS) {topViewHolder.name.setText(MyUtils.currentCityZh);
+
+                            if (isCHS) {
+                                locationCityID = ResumeInfoIDToString.getCityID(CreateSelectPlaceToResumeActivity.this,MyUtils.currentCityZh,true);
+                                topViewHolder.name.setText(MyUtils.currentCityZh);
                             } else {
+                                locationCityID = ResumeInfoIDToString.getCityID(CreateSelectPlaceToResumeActivity.this,MyUtils.currentCityZh,true);
                                 topViewHolder.name.setText(MyUtils.currentCityEn);
                             }
                         } catch (Exception e) {

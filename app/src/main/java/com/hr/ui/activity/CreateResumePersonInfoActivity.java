@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +30,7 @@ import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.ResumeComplete;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.datautils.ResumeListStringJsonParser;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
@@ -75,6 +77,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     private boolean isCHS = true;
     private ResumeBaseInfo baseInfoZh, baseInfoEn;
     private int stateNum = 0;
+    private long firstClickTime;
     /**
      * 控件
      */
@@ -167,6 +170,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         resumeTitle = dbOperator.query_ResumeTitle_info(resumeIdString,
                 resumeLanguageString);
         initSpinnerData();
+
+        placeName=MyUtils.currentCityZh;
         if (resumeBaseInfo != null) {
             // System.out.println("baseInfo:" + resumeBaseInfo);
             setResumeBaseInfoToUI(resumeBaseInfo);
@@ -358,11 +363,19 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             }
             String locationId = resumeBaseInfo.getLocation();
             String hukouId = resumeBaseInfo.getHukou();
-            placeIdNowPlace = locationId;
+            if(locationId!=null){
+                placeIdNowPlace = locationId;
+                MyUtils.currentCityId=placeIdNowPlace;
+            }else{
+                placeIdNowPlace=ResumeInfoIDToString.getCityID(this,MyUtils.currentCityZh,true);
+                MyUtils.currentCityId=placeIdNowPlace;
+            }
+
             // 现居住地
             for (int i = 0; i < cityJSONArray.length(); i++) {
                 JSONObject object = cityJSONArray.getJSONObject(i);
                 if (object.has(locationId)) {
+                    placeName=object.getString(locationId);
                     tv_createresume_personinfo_home.setText(object.getString(locationId));
                     break;
                 } else {
@@ -379,11 +392,11 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         }
     }
 
-
     private void initView() {
         et_createresume_personinfo_name = (EditText) findViewById(R.id.et_createresume_personinfo_name);
         rb_createresume_personinfo_man = (RadioButton) findViewById(R.id.rb_createresume_personinfo_man);
         rb_createresume_personinfo_woman = (RadioButton) findViewById(R.id.rb_createresume_personinfo_woman);
+        iv_createresume_personinfo_back= (ImageView) findViewById(R.id.iv_createresume_personinfo_back);
 
         tv_createresume_personinfo_birthday = (TextView) findViewById(R.id.tv_createresume_personinfo_birthday);
         rl_createresume_personinfo_save = (RelativeLayout) findViewById(R.id.rl_createresume_personinfo_save);
@@ -400,8 +413,9 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
 
         rl_createresume_personinfo_save.setOnClickListener(this);
         tv_createresume_personinfo_birthday.setOnClickListener(this);
+
         tv_createresume_personinfo_home.setOnClickListener(this);
-//        iv_createresume_personinfo_back.setOnClickListener(this);
+       iv_createresume_personinfo_back.setOnClickListener(this);
     }
     private BeautifulDialog.Builder builderCreateResume;
     @Override
@@ -410,9 +424,9 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             case R.id.rl_createresume_personinfo_save:
                 saveData();
                 break;
-//            case R.id.iv_createresume_personinfo_back:
-//                chooseIsExit();
-//                break;
+            case R.id.iv_createresume_personinfo_back:
+                chooseIsExit();
+                break;
             case R.id.tv_createresume_personinfo_birthday:
                 DataPickerDialog.showDialog(mContext, tv_createresume_personinfo_birthday, 3);
                 break;
@@ -437,7 +451,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            return false;
+            chooseIsExit();
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -449,6 +464,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Intent intent=new Intent(CreateResumePersonInfoActivity.this,MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -479,8 +496,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (placeName == "北京") {
-                placeIdNowPlace = "1100";
+            if(MyUtils.currentCityZh.equals(placeName)){
+                placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
             }
             if (placeIdNowPlace == null || "".equals(placeIdNowPlace)
                     || "0".equals(placeIdNowPlace)) {

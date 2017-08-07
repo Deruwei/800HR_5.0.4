@@ -1,6 +1,7 @@
 package com.hr.ui.utils.datautils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
@@ -12,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.util.jar.Attributes;
 
 /**
  * 根据提供id，返回对应文字信息
@@ -192,6 +194,7 @@ public class ResumeInfoIDToString {
 			}
 			for (int i = 0; i < cityJSONArray.length(); i++) {
 				JSONObject object = cityJSONArray.getJSONObject(i);
+
 				if (object.has(id)) {
 					return object.getString(id);
 				}
@@ -201,7 +204,47 @@ public class ResumeInfoIDToString {
 		}
 		return "";
 	}
-
+	/**
+	 * 通过城市获取城市ID
+	 */
+	public static String getCityID(Context context,String city,boolean isCHS){
+		if(city==null||"".equals(city)){
+			return "";
+		}
+		JSONArray cityJSONArray;
+		try {
+			if (MyUtils.USE_ONLINE_ARRAY && isCHS) {
+				cityJSONArray = NetService.getCityAsJSONArray(context,
+						"city.json");
+			} else {
+				if (isCHS) {
+					InputStream inputStream = context.getAssets().open(
+							"city_zh.json");
+					cityJSONArray = new JSONArray(NetUtils.readAsString(
+							inputStream, Constants.ENCODE));
+				} else {
+					InputStream inputStream = context.getAssets().open(
+							"city_en.json");
+					cityJSONArray = new JSONArray(NetUtils.readAsString(
+							inputStream, Constants.ENCODE));
+				}
+			}
+			if("北京市".equals(city)||"上海市".equals(city)||"重庆市".equals(city)||"天津市".equals(city)) {
+				city = city.substring(0,city.length()-1);
+			}
+			for (int i = 0; i < cityJSONArray.length(); i++) {
+				JSONObject object = cityJSONArray.getJSONObject(i);
+                String name=object.toString();
+                String cityName=name.substring(name.indexOf(":")+2,name.length()-2);
+				if(cityName.equals(city)){
+                    return name.substring(2,name.indexOf(":")-1);
+                }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 	/**
 	 * 获取职称
 	 */
@@ -410,7 +453,6 @@ public class ResumeInfoIDToString {
 		}
 		return "";
 	}
-
 	/**
 	 * 获取职系文字
 	 * 

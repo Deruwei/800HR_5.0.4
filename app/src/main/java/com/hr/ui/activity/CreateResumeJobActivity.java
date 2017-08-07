@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -39,6 +40,7 @@ import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncResumeUpdate;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
+import com.mob.tools.utils.LocationHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -137,11 +139,11 @@ public class CreateResumeJobActivity extends BaseActivity {
 //                            Toast.makeText(mContext, "设置成功", Toast.LENGTH_SHORT).show();
                             sUtils.setStringValue("is_app_resumeid" + MyUtils.userID, resumeAppId);
 //                            MeFragment.meFragment.execute();
-                            finish();
+                            goMainActivity();
                             break;
                         default:
                             Toast.makeText(mContext, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
-                            finish();
+                            goMainActivity();
                             break;
                     }
                 } catch (Exception e) {
@@ -153,7 +155,11 @@ public class CreateResumeJobActivity extends BaseActivity {
             }
         }
     };
-
+    private void goMainActivity(){
+        Intent intent=new Intent(CreateResumeJobActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,8 +183,7 @@ public class CreateResumeJobActivity extends BaseActivity {
         resumeExperience = dbOperator.query_ResumeWorkExperience(resumeIdString,
                 resumeLanguageString);
         listResumeJobExp = new ArrayList<>();
-
-        ResumeTitle resumeTitle1 = dbOperator.query_ResumeTitle_info("-1", "zh");
+        ResumeTitle resumeTitle1 = dbOperator.query_ResumeTitle_info("-1", resumeLanguageString);
         resumeType = resumeTitle1.getResume_type();
         for (ResumeExperience resumeJobExp : resumeExperience) {
             listResumeJobExp.add(resumeJobExp);

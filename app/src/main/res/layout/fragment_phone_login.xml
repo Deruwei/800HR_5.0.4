@@ -117,8 +117,8 @@
 
             <ImageView
                 android:id="@+id/iv_phonelogin_auto"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"

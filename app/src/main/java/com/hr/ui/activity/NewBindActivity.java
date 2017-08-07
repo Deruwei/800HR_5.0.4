@@ -144,8 +144,12 @@ public class NewBindActivity extends BaseFragmentActivity {
      */
     private void initViewPager() {
         list = new ArrayList<>();
-        bindFirstFragment = new BindFirstFragment(opf, uid, industry + "",third_userinfo);
-        bindSecondFragment = new BindSecondFragment(opf, uid, industry + "",third_userinfo);
+        if(bindFirstFragment==null) {
+            bindFirstFragment = new BindFirstFragment(opf, uid, industry + "", third_userinfo);
+        }
+        if(bindSecondFragment==null) {
+            bindSecondFragment = new BindSecondFragment(opf, uid, industry + "", third_userinfo);
+        }
         list.add(bindFirstFragment);
         list.add(bindSecondFragment);
         findPagerAdapter = new FindPagerAdapter(getSupportFragmentManager(), list);

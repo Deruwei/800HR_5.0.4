@@ -67,7 +67,7 @@
         Enable="true"
         Id="1"
         RedirectUrl="https://api.t.sina.com.cn/"
-        ShareByAppClient="false"
+        ShareByAppClient="true"
         SortId="1" />
 
     <TencentWeibo

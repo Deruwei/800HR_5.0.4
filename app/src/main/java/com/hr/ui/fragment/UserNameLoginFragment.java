@@ -220,6 +220,7 @@ public class UserNameLoginFragment extends Fragment {
                 sUtils.setStringValue(Constants.PASSWORD, password);
             }
             asyncLogin.execute(username, password, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+            MyUtils.isLogin=true;
         }
     }
     /**

@@ -3,6 +3,7 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
@@ -45,6 +47,8 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     private boolean isCHS;
     private DAO_DBOperator dbOperator;
     private SharedPreferencesUtils sUtils;
+    private static int RequestCode=1005;
+    private String address;
     /**
      * 控件
      */
@@ -75,6 +79,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         resumeIdString = getIntent().getStringExtra("resumeId");
         resumeLanguageString = getIntent().getStringExtra("resumeLanguage");
         isCHS = getIntent().getBooleanExtra("isCHS", true);
+
         resumeBaseInfo = dbOperator.query_ResumePersonInfo_Toone(resumeLanguageString);
         initSpinnerData();
         if (resumeBaseInfo != null) {
@@ -257,10 +262,12 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
             String locationId = resumeBaseInfo.getLocation();
             String hukouId = resumeBaseInfo.getHukou();
             placeIdNowPlace = locationId;
+            //Log.i("城市的名字",placeIdNowPlace);
             // 现居住地
             for (int i = 0; i < cityJSONArray.length(); i++) {
                 JSONObject object = cityJSONArray.getJSONObject(i);
                 if (object.has(locationId)) {
+                    placeName=object.getString(locationId);
                     tv_resume_personinfo_home.setText(object.getString(locationId));
                     break;
                 } else {
@@ -392,14 +399,24 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 intent.putExtra("filter", "place");
                 intent.putExtra("isCHS", true);
                 intent.putExtra("value", "省市选择");
-                mContext.startActivity(intent);
+                startActivityForResult(intent,RequestCode);
                 break;
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==RequestCode &&requestCode==SelectPlaceToResumeActivity.ResultCode){
+            address=data.getStringExtra("address");
+            placeName=address;
+            setPlaceText(placeName);
+        }
+    }
+
     /*
-     * 保存数据
-     */
+             * 保存数据
+             */
     private void saveData() {
         if (isCHS) {
             if (et_resume_personinfo_name.getText().toString().trim().length() == 0) {
@@ -415,12 +432,12 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (placeName == "北京") {
-                placeIdNowPlace = "1100";
+            if(placeName.equals(MyUtils.currentCityZh)) {
+                placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
             }
             if (placeIdNowPlace == null || "".equals(placeIdNowPlace)
                     || "0".equals(placeIdNowPlace)) {
-                Toast.makeText(mContext, "请选择现居住地", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "请选择现居住地"+MyUtils.currentCityZh+"------------"+placeIdNowPlace, Toast.LENGTH_SHORT).show();
                 return;
             }
             if ("0".equals(sp_resume_personinfo_jobbegintime.getSelectedId())) {

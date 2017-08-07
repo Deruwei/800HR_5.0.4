@@ -33,7 +33,7 @@
             android:drawablePadding="5dp"
             android:drawableLeft="@mipmap/dingwei"
             android:drawableRight="@mipmap/jiantou_white"
-            android:text="北京"
+            android:text=""
             android:textColor="#FFFFFF"
             android:textSize="17sp" />
 

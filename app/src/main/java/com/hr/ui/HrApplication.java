@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
+import com.networkbench.agent.impl.NBSAppAgent;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -60,6 +61,7 @@ public class HrApplication extends MobApplication {
         sInstance = this;
         checkNetState(getApplicationContext());
         mContext = getApplicationContext();
+        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(mContext);
         SpeechUtility.createUtility(HrApplication.this, "appid=" + getString(R.string.xunfei_app_id));
         initUIL();
     }
