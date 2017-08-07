@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,39 @@ public class PagerActivityFragment extends Fragment {
      * 品牌招聘对象
      */
     private Industry industry;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    lv_pager_recruitment.setVisibility(View.GONE);
+                    tvActNoData.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    findAdapter = new FindAdapter(mContext, dataList, 2);
+                    lv_pager_recruitment.setAdapter(findAdapter);
+                    lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            industry = dataList.get(position);
+                            if (industry.getTopic_type() == 1) {// 专题网址
+                                openBrowser(industry.getTopic_url());
+
+                            } else if (industry.getTopic_type() == 2) {// 企业详情
+                                Intent intent = new Intent(mContext,
+                                        CompanyParticularActivity.class);
+                                intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                startActivity(intent);
+                            }
+                            totalAdNum(industry.getA_id());
+                        }
+                    });
+                    lv_pager_recruitment.setVisibility(View.VISIBLE);
+                    tvActNoData.setVisibility(View.GONE);
+                    break;
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,27 +111,14 @@ public class PagerActivityFragment extends Fragment {
     private void initView() {
         lv_pager_recruitment = (ListView) view.findViewById(R.id.lv_pager_activity);
        // Log.i("this", dataList.toString());
-        if (dataList != null) {
+         Message  message=new Message();
+        if (dataList != null&&!"".equals(dataList)) {
+            message.what=1;
+        }else{
+            message.what=0;
 
-            findAdapter = new FindAdapter(mContext, dataList, 2);
-            lv_pager_recruitment.setAdapter(findAdapter);
-            lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    industry = dataList.get(position);
-                    if (industry.getTopic_type() == 1) {// 专题网址
-                        openBrowser(industry.getTopic_url());
-
-                    } else if (industry.getTopic_type() == 2) {// 企业详情
-                        Intent intent = new Intent(mContext,
-                                CompanyParticularActivity.class);
-                        intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                        startActivity(intent);
-                    }
-                    totalAdNum(industry.getA_id());
-                }
-            });
         }
+        handler.sendMessage(message);
     }
 
     public void upData() {

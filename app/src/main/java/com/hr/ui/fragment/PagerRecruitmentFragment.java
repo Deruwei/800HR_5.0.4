@@ -69,7 +69,6 @@ public class PagerRecruitmentFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    if (dataList!=null) {
                         lv_pager_recruitment.setVisibility(View.VISIBLE);
                         tvComNoData.setVisibility(View.GONE);
                         findAdapter = new FindAdapter(mContext, dataList, 1);
@@ -89,9 +88,13 @@ public class PagerRecruitmentFragment extends Fragment {
                                 totalAdNum(industry.getA_id());
                             }
                         });
-                    }else {
+                        tvComNoData.setVisibility(View.GONE);
+                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                    break;
+                case 0:
                         tvComNoData.setVisibility(View.VISIBLE);
-                    }
+                        lv_pager_recruitment.setVisibility(View.GONE);
+                    break;
             }
         }
     };
@@ -106,7 +109,11 @@ public class PagerRecruitmentFragment extends Fragment {
 
     private void initData() {
         Message  mes=new Message();
-        mes.what=1;
+        if(dataList!=null&&!"".equals(dataList)) {
+            mes.what = 1;
+        }else {
+            mes.what=0;
+        }
         mhandler.sendMessage(mes);
     }
 

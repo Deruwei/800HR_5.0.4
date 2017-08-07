@@ -382,7 +382,7 @@ public class RecommendJobFragment extends Fragment {
 
     private void updateUI(ArrayList<HashMap<String, Object>> totalList1) {
         Message message=new Message();
-       if(totalList1!=null||totalList1.size()!=0){
+       if(totalList1!=null&&totalList1.size()!=0){
            message.what=0;
            message.obj=totalList1;
        }else{
@@ -458,6 +458,12 @@ public class RecommendJobFragment extends Fragment {
 
 
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 
     /**
      * 加载数据

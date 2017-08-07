@@ -142,8 +142,8 @@ public class FindFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_find, container, false);
-        loadNetMsg();
         initView();
+        loadNetMsg();
         initViewPager();
         return view;
     }
@@ -219,22 +219,13 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             pagerFindJobFragment = new PagerFindJobFragment();
         }
         if (pagerActivityFragment == null) {
-            Bundle bundle=new Bundle();
-            bundle.putSerializable("special_data",special_data);
             pagerActivityFragment = new PagerActivityFragment(getActivity(), special_data);
-            pagerActivityFragment.setArguments(bundle);
         }
         if (pagerCompanyFragment == null) {
-            Bundle bundle2=new Bundle();
-            bundle2.putSerializable("dazzle_data",dazzle_data);
             pagerCompanyFragment = new PagerCompanyFragment(getActivity(), dazzle_data);
-            pagerCompanyFragment.setArguments(bundle2);
         }
         if (pagerRecruitmentFragment == null) {
             pagerRecruitmentFragment = new PagerRecruitmentFragment(getActivity(), enterprise_data);
-            Bundle bundle3=new Bundle();
-            bundle3.putSerializable("enterprise_data",enterprise_data);
-            pagerActivityFragment.setArguments(bundle3);
         }
         /*
         将Fragment加入集合
@@ -258,6 +249,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
         listView.get(0).setBackgroundColor(Color.parseColor("#F39D0D"));
         findPagerAdapter = new FindPagerAdapter(getActivity().getSupportFragmentManager(), list);
         vpFind.setAdapter(findPagerAdapter);
+        vpFind.setOffscreenPageLimit(1);
         vpFind.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -267,6 +259,8 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onPageSelected(int position) {
                 resetState();
+                listText.get(position).setTextColor(Color.parseColor("#F39D0D"));
+                listView.get(position).setBackgroundColor(Color.parseColor("#F39D0D"));
                 ad_type = position + 1;
                if (ad_type == 1) {
                     enterprise_data.clear();
@@ -276,8 +270,6 @@ public class FindFragment extends Fragment implements View.OnClickListener {
                     special_data.clear();
                 }
                 loadNetMsg();
-                listText.get(position).setTextColor(Color.parseColor("#F39D0D"));
-                listView.get(position).setBackgroundColor(Color.parseColor("#F39D0D"));
             }
 
             @Override
