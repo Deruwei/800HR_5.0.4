@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +27,14 @@ import com.hr.ui.R;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.activity.SearchJobResultActivity;
 import com.hr.ui.adapter.IndustryRecAdapter;
+import com.hr.ui.adapter.IndustryRecKeywordAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.Industry;
 import com.hr.ui.model.KeyWorldHistory;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.tools.OptimizeLVSV;
@@ -62,7 +67,7 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
     private TextView tv_keyword_condition;
     private EditText et_keyword_keyword;
     private TextView iv_keyword_search;
-    private ListView lv_keyword_advertistment;
+    private RecyclerView lv_keyword_advertistment;
     private SharedPreferencesUtils sUtils;
 
     private ArrayList<HashMap<String, String>> listSearch;
@@ -85,7 +90,7 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
     private ArrayList<Industry> rec_data;// 企业推荐数据
     private String json_result;// 网络获取的json数据集合
     private int error_code;// 异常返回值
-    private IndustryRecAdapter industryRecAdapter;
+    private IndustryRecKeywordAdapter industryRecAdapter;
     /**
      * 城市名
      */
@@ -107,9 +112,18 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
                     if (msg.arg1 == 0) {// 数据获取成功，并解析没有错误
                         if (rec_data != null && rec_data.size() > 0) {
                             Log.i("广告的数据",rec_data.toString());
-                            industryRecAdapter = new IndustryRecAdapter(getActivity(), rec_data);
+                            industryRecAdapter = new IndustryRecKeywordAdapter(getActivity(), rec_data);
                             lv_keyword_advertistment.setAdapter(industryRecAdapter);
-                            OptimizeLVSV.setListViewHeightBasedOnChildren(lv_keyword_advertistment);
+                            industryRecAdapter.setOnItemClick(new OnItemClick() {
+                                @Override
+                                public void ItemClick(View view, int position) {
+                                    Intent intent = new Intent(getActivity(),
+                                            CompanyParticularActivity.class);
+                                    intent.putExtra("Enterprise_id", rec_data.get(position).getEnterprise_id());
+                                    startActivity(intent);
+                                }
+                            });
+                           /* OptimizeLVSV.setListViewHeightBasedOnChildren(lv_keyword_advertistment);*/
                         }
                     } else if (msg.arg1 == 206) {
                         Log.i("SearchJobActivity", "handlerUI 执行失败");
@@ -186,7 +200,11 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         iv_keyword_search = (TextView) view.findViewById(R.id.iv_keyword_search);
         iv_keyword_voice = (ImageView) view.findViewById(R.id.iv_keyword_voice);
 //        lv_keyword_history = (ListView) view.findViewById(R.id.lv_keyword_history);
-        lv_keyword_advertistment = (ListView) view.findViewById(R.id.lv_keyword_advertistment);
+        lv_keyword_advertistment = (RecyclerView) view.findViewById(R.id.lv_keyword_advertistment);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        lv_keyword_advertistment.setLayoutManager(linearLayoutManager);
+        lv_keyword_advertistment.addItemDecoration(new SpacesItemDecoration(1));
         tv_keywordsearch_text1 = (TextView) view.findViewById(R.id.tv_keywordsearch_text1);
         tv_keywordsearch_text2 = (TextView) view.findViewById(R.id.tv_keywordsearch_text2);
         tv_keywordsearch_text3 = (TextView) view.findViewById(R.id.tv_keywordsearch_text3);
@@ -257,15 +275,6 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
                 break;
         }
 
-        lv_keyword_advertistment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),
-                        CompanyParticularActivity.class);
-                intent.putExtra("Enterprise_id", rec_data.get(position).getEnterprise_id());
-                startActivity(intent);
-            }
-        });
     }
 
     private void btnVoice() {

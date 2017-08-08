@@ -20,6 +20,8 @@ import com.hr.ui.R;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
+import com.hr.ui.utils.GetDataInfo;
+import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.netutils.NetService;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -43,19 +45,19 @@ public class PagerActivityFragment extends Fragment {
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
+    private int ad_type;
+    private String json_result;
     /**
      * 品牌招聘对象
      */
     private Industry industry;
-    private Handler handler=new Handler(){
-        @Override
+    private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 0:
-                    lv_pager_recruitment.setVisibility(View.GONE);
-                    tvActNoData.setVisibility(View.VISIBLE);
-                    break;
-                case 1:
+            if (msg.what == 0) {
+                json_result = (String) msg.obj;
+                dataList=new ArrayList<>();
+                dataList= GetJssonList.getEnterpriseJson(ad_type,json_result);
+                if(dataList.size()!=0) {
                     findAdapter = new FindAdapter(mContext, dataList, 2);
                     lv_pager_recruitment.setAdapter(findAdapter);
                     lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,17 +78,32 @@ public class PagerActivityFragment extends Fragment {
                     });
                     lv_pager_recruitment.setVisibility(View.VISIBLE);
                     tvActNoData.setVisibility(View.GONE);
-                    break;
+                }else{
+                    lv_pager_recruitment.setVisibility(View.GONE);
+                    tvActNoData.setVisibility(View.VISIBLE);
+                }
+            } else {
+//                Message message = Message.obtain();
+//                message.what = 1002;
+//                handlerUI.sendMessage(message);
             }
         }
     };
 
+    /**
+     * 向服务器请求数据
+     */
+    public void loadNetMsg() {
+        NetService service = new NetService(getActivity(), handlerService);
+        service.execute(GetDataInfo.getData(ad_type,getActivity()));
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_activity, container, false);
         ButterKnife.bind(this, view);
         initView();
+        loadNetMsg();
         return view;
     }
 
@@ -96,13 +113,9 @@ public class PagerActivityFragment extends Fragment {
     }
 
     @SuppressLint("ValidFragment")
-    public PagerActivityFragment(Context context, ArrayList<Industry> data) {
+    public PagerActivityFragment(Context context, int ad_type) {
         this.mContext = context;
-        if(data!=null) {
-            this.dataList = data;
-        }else{
-            dataList=new ArrayList<>();
-        }
+       this.ad_type=ad_type;
     }
     @Subscribe
     public void onEvent(ArrayList<Industry> dataList){
@@ -111,14 +124,6 @@ public class PagerActivityFragment extends Fragment {
     private void initView() {
         lv_pager_recruitment = (ListView) view.findViewById(R.id.lv_pager_activity);
        // Log.i("this", dataList.toString());
-         Message  message=new Message();
-        if (dataList != null&&!"".equals(dataList)) {
-            message.what=1;
-        }else{
-            message.what=0;
-
-        }
-        handler.sendMessage(message);
     }
 
     public void upData() {

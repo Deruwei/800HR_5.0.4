@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.fragment.FindjobFragment;
+import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
@@ -101,9 +102,14 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                     if (position == 0) {
                         FindjobFragment
                                 .setPlaceId(locationCityID);
-                        FindjobFragment.setPlaceText(MyUtils.currentCityZh);
-
-                        System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
+                        String city="";
+                        if(MyUtils.currentCityZh.length()>0){
+                            city=MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1);
+                            FindjobFragment.setPlaceText(city);
+                        }else{
+                            FindjobFragment.setPlaceText("定位失败");
+                        }
+                        //System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
                         toSearchJob();
                         return;
                     }
@@ -348,7 +354,7 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
 
                 if (MyUtils.currentCityZh != null
                         && MyUtils.currentCityZh.length() > 0) {
-                    topViewHolder.name.setText(MyUtils.currentCityZh);
+                    topViewHolder.name.setText(MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1));
                     JSONArray cityJSONArray;
                     try {
                         cityJSONArray = NetService.getCityAsJSONArray(

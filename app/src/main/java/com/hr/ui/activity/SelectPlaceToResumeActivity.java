@@ -770,7 +770,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
                         try {
                             locationCityID = MyUtils.currentCityId;
                             if (isCHS) {
-                                topViewHolder.name.setText(MyUtils.currentCityZh);
+                                topViewHolder.name.setText(MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1));
                             } else {
                                 topViewHolder.name.setText(MyUtils.currentCityEn);
                             }

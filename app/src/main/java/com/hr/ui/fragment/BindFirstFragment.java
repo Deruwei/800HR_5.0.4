@@ -29,9 +29,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.NewPhoneRegisterActivity;
 import com.hr.ui.activity.VerifyPhoneNumStateActivity;
 import com.hr.ui.config.Constants;
+import com.hr.ui.model.Industry;
 import com.hr.ui.server.RegisterCodeTimerService;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncBindThird;
@@ -85,6 +87,7 @@ public class BindFirstFragment extends Fragment {
     private Handler handlerLogin = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                btFirstbindAuthcode.setClickable(true);
                 getActivity().finish();
             }
         }
@@ -98,8 +101,6 @@ public class BindFirstFragment extends Fragment {
                 asyncBindThird.execute();
             }
         }
-
-        ;
     };
     private Handler handlerPhone = new Handler() {
         @Override
@@ -141,8 +142,8 @@ public class BindFirstFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        btFirstbindAuthcode.onDestroy();
         super.onDestroyView();
+        btFirstbindAuthcode.onDestroy();
         ButterKnife.unbind(this);
     }
 
@@ -162,6 +163,7 @@ public class BindFirstFragment extends Fragment {
                         } else {
                             AsyncPhoneVerifyStates asyncPhoneVerifyStates = new AsyncPhoneVerifyStates(getActivity(), handlerPhone);
                             asyncPhoneVerifyStates.execute(phoneNum);
+                            btFirstbindAuthcode.setClickable(false);
                         }
                     }
                 } else {

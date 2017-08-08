@@ -32,6 +32,7 @@ import com.hr.ui.model.ResumeExperience;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.NoDoubleClickListener;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.ResumeInfoToJsonString;
@@ -167,7 +168,22 @@ public class CreateResumeJobActivity extends BaseActivity {
         ButterKnife.bind(this);
         createResumeJobActivity = CreateResumeJobActivity.this;
         initData();
+        initListener();
     }
+
+    private void initListener() {
+        tvResumeItemResumejobSave.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                if (resumeType.equals("1")) {
+                    saveData();
+                } else {
+                    resumeUpdate();
+                }
+            }
+        });
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -526,13 +542,7 @@ public class CreateResumeJobActivity extends BaseActivity {
             case R.id.tv_resume_item_newresumeedu_ago:
                 ago();
                 break;
-            case R.id.tv_resume_item_resumejob_save:
-                if (resumeType.equals("1")) {
-                    saveData();
-                } else {
-                    resumeUpdate();
-                }
-                break;
+
         }
     }
 

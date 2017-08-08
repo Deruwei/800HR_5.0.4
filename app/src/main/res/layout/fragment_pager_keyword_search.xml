@@ -397,7 +397,7 @@
                     android:background="#F6F6F6"
                     android:gravity="center_horizontal">
 
-                    <ListView
+                    <android.support.v7.widget.RecyclerView
                         android:id="@+id/lv_keyword_advertistment"
                         style="@style/pager_keyword_search_history"
                         android:layout_margin="10dp"

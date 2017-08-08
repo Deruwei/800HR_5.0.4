@@ -388,7 +388,7 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
             case R.id.iv_subscription_subsound:
                 NotificationManager manger = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 Notification.Builder builder = new Notification.Builder(this);
-                builder.setSmallIcon(R.mipmap.icon);
+                builder.setSmallIcon(R.mipmap.logo_1);
                 if (notification_voice == 1) {
                     ivSubscriptionSubsound.setImageResource(R.mipmap.kaiguan_guan);
                     notification_voice = 2;
@@ -439,10 +439,10 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                 }
 
                 Toast.makeText(SubscriptionActivity.this, R.string.setRobJob_succes, Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
 
-        ;
     };
 
     private void saveData() {

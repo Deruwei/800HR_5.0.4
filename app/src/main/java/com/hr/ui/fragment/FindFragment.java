@@ -20,6 +20,7 @@ import com.hr.ui.activity.MainActivity;
 import com.hr.ui.adapter.FindPagerAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.model.Industry;
+import com.hr.ui.utils.GetDataInfo;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
@@ -51,19 +52,19 @@ public class FindFragment extends Fragment implements View.OnClickListener {
     private View vFindActivity;
     private ViewPager vpFind;
     private LinearLayout linearFindFindjob;
-    /**
+ /*   *//**
      * 异常返回值
-     */
+     *//*
     private int error_code;
-    /**
+    *//**
      * 1.品牌招聘 2.炫公司 3.专题活动
-     */
+     *//*
     private int ad_type = 1;
-    /**
+    *//**
      * 网络获取的json数据集合
-     */
+     *//*
     private String json_result;
-    /**
+    *//**
      * 存放Fragment的list集合
      */
     private List<Fragment> list;
@@ -89,24 +90,24 @@ public class FindFragment extends Fragment implements View.OnClickListener {
     private PagerActivityFragment pagerActivityFragment;
     private PagerCompanyFragment pagerCompanyFragment;
     private PagerRecruitmentFragment pagerRecruitmentFragment;
-    /**
+/*    *//**
      * 品牌招聘的数据
-     */
+     *//*
     private ArrayList<Industry> enterprise_data;
-    /**
+    *//**
      * 炫公司的数据
-     */
+     *//*
     private ArrayList<Industry> dazzle_data;
-    /**
+    *//**
      * 专题活动的数据
-     */
+     *//*
     private ArrayList<Industry> special_data;
 
-    private Industry industry;
+    private Industry industry;*/
     /**
      * 访问网络
      */
-    private Handler handlerService = new Handler() {
+   /* private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 json_result = (String) msg.obj;
@@ -132,7 +133,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
 
         ;
     };
-
+*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +144,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_find, container, false);
         initView();
-        loadNetMsg();
+        /*loadNetMsg();*/
         initViewPager();
         return view;
     }
@@ -205,10 +206,10 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             listView.add(vFindActivity);
         }
 
-        enterprise_data = new ArrayList<Industry>();
+       /* enterprise_data = new ArrayList<Industry>();
         dazzle_data = new ArrayList<Industry>();
         special_data = new ArrayList<Industry>();
-        enterprise_data = new ArrayList<Industry>();
+        enterprise_data = new ArrayList<Industry>();*/
     }
 
     private void initViewPager() {
@@ -219,13 +220,13 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             pagerFindJobFragment = new PagerFindJobFragment();
         }
         if (pagerActivityFragment == null) {
-            pagerActivityFragment = new PagerActivityFragment(getActivity(), special_data);
+            pagerActivityFragment = new PagerActivityFragment(getActivity(), 1);
         }
         if (pagerCompanyFragment == null) {
-            pagerCompanyFragment = new PagerCompanyFragment(getActivity(), dazzle_data);
+            pagerCompanyFragment = new PagerCompanyFragment(getActivity(), 2);
         }
         if (pagerRecruitmentFragment == null) {
-            pagerRecruitmentFragment = new PagerRecruitmentFragment(getActivity(), enterprise_data);
+            pagerRecruitmentFragment = new PagerRecruitmentFragment(getActivity(), 3);
         }
         /*
         将Fragment加入集合
@@ -261,7 +262,8 @@ public class FindFragment extends Fragment implements View.OnClickListener {
                 resetState();
                 listText.get(position).setTextColor(Color.parseColor("#F39D0D"));
                 listView.get(position).setBackgroundColor(Color.parseColor("#F39D0D"));
-                ad_type = position + 1;
+                vpFind.setCurrentItem(position);
+             /*   ad_type = position + 1;
                if (ad_type == 1) {
                     enterprise_data.clear();
                 } else if (ad_type == 2) {
@@ -269,7 +271,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
                 } else if (ad_type == 3) {
                     special_data.clear();
                 }
-                loadNetMsg();
+                loadNetMsg();*/
             }
 
             @Override
@@ -289,22 +291,22 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             lv.setBackgroundColor(Color.parseColor("#00333333"));
         }
     }
-
-    /**
+/*
+    *//**
      * 向服务器请求数据
-     */
+     *//*
     public void loadNetMsg() {
         NetService service = new NetService(getActivity(), handlerService);
-        service.execute(getData());
-    }
+        service.execute(GetDataInfo.getData(ad_type,getActivity()));
+    }*/
 
 
-    /**
+   /* *//**
      * 初始化请求参数
      *
      * @param
      * @return
-     */
+     *//*
     private HashMap<String, String> getData() {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("method", "mobilead.list");
@@ -323,14 +325,14 @@ public class FindFragment extends Fragment implements View.OnClickListener {
         params.put("page", "");
         params.put("page_nums", "20");
         return params;
-    }
+    }*/
 
     /**
      * 解析
      *
      * @return
      */
-    private int json() {
+   /* private int json() {
         Log.i(TAG, "======json" + json_result.toString());
         try {
             JSONObject jsonObject = new JSONObject(json_result);
@@ -367,7 +369,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
         return error_code;
-    }
+    }*/
 
     @Override
     public void onClick(View v) {

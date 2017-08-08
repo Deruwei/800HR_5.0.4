@@ -74,8 +74,10 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
             switch (msg.what){
                 case 1:
                     String city= (String) msg.obj;
-                    if(city!=null) {
+                    if(city.length()>0) {
                         city = city.substring(0, city.length() - 1);
+                    }else {
+                        city="定位失败";
                     }
                     setPlaceText(city);
             }
@@ -135,12 +137,6 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
         initView();
         initViewPager();
         initData();
-        cityName = tv_findjob_city.getText().toString().trim();
-        placeId = CityNameConvertCityID.convertCityID(getActivity(), cityName);
-        PagerKeywordSearchFragment.setPlaceId(placeId);
-        PagerKeywordSearchFragment.setPlaceText(cityName);
-        PagerPostSearchFragment.setPlaceId(placeId);
-        PagerPostSearchFragment.setPlaceText(cityName);
         if (MyUtils.isLogin) {
             tv_findjob_back.setVisibility(View.GONE);
         }
@@ -241,6 +237,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 resetState();
                 tvArray[position].setTextColor(Color.parseColor("#F39D0D"));
                 ivArray[position].setBackgroundColor(Color.parseColor("#F39D0D"));
+                vp_findjob.setCurrentItem(position);
             }
 
             @Override
@@ -272,11 +269,15 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 vp_findjob.setCurrentItem(0);
                 break;
             case R.id.tv_findjob_city:
-                Intent intent1 = new Intent(getActivity(), MainSelectCityToKeywordActivity.class);
-                intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent1.putExtra("value", "选择地点");
-                intent1.putExtra("filter", "place");
-                startActivity(intent1);
+                if(tv_findjob_city.getText().toString().equals("")||tv_findjob_city.getText().equals("定位失败")){
+                    initData();
+                }else {
+                    Intent intent1 = new Intent(getActivity(), MainSelectCityToKeywordActivity.class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent1.putExtra("value", "选择地点");
+                    intent1.putExtra("filter", "place");
+                    startActivity(intent1);
+                }
                 break;
             case R.id.tv_findjob_back:
                 Intent intent = new Intent(getActivity(), ChooseIndustriesActivity.class);

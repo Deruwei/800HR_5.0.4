@@ -3,14 +3,14 @@ apply plugin: 'newlens'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.hr.ui"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 60
-        versionName "5.4.5"
+        versionCode 61
+        versionName "5.4.6"
     }
     buildTypes {
         release {

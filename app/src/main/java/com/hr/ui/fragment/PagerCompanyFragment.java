@@ -21,6 +21,8 @@ import com.hr.ui.R;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
+import com.hr.ui.utils.GetDataInfo;
+import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.netutils.NetService;
 
 import java.util.ArrayList;
@@ -41,51 +43,54 @@ public class PagerCompanyFragment extends Fragment {
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
+    private int  ad_type;
+    private String json_result;
     /**
      * 品牌招聘对象
      */
     private Industry industry;
-    private Handler handler=new Handler(){
-        @Override
+    private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 0:
-                    lv_pager_recruitment.setVisibility(View.GONE);
-                    tvComNoData.setVisibility(View.VISIBLE);
-                    break;
-                case 1:
-                    findAdapter = new FindAdapter(mContext, dataList, 2);
-                    lv_pager_recruitment.setAdapter(findAdapter);
-                    lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            industry = dataList.get(position);
-                            if (industry.getTopic_type() == 1) {// 专题网址
-                                openBrowser(industry.getTopic_url());
-                            } else if (industry.getTopic_type() == 2) {// 企业详情
-                                Intent intent = new Intent(mContext,
-                                        CompanyParticularActivity.class);
-                                intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                startActivity(intent);
+            if (msg.what == 0) {
+                json_result = (String) msg.obj;
+
+                    dataList=new ArrayList<>();
+                    dataList=GetJssonList.getDazzleJson(ad_type,json_result);
+                    if(dataList.size()!=0) {
+                        findAdapter = new FindAdapter(mContext, dataList, 2);
+                        lv_pager_recruitment.setAdapter(findAdapter);
+                        lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                industry = dataList.get(position);
+                                if (industry.getTopic_type() == 1) {// 专题网址
+                                    openBrowser(industry.getTopic_url());
+                                } else if (industry.getTopic_type() == 2) {// 企业详情
+                                    Intent intent = new Intent(mContext,
+                                            CompanyParticularActivity.class);
+                                    intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                    startActivity(intent);
+                                }
+                                totalAdNum(industry.getA_id());
                             }
-                            totalAdNum(industry.getA_id());
-                        }
-                    });
-                    lv_pager_recruitment.setVisibility(View.VISIBLE);
-                    tvComNoData.setVisibility(View.GONE);
-                    break;
+                        });
+                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                        tvComNoData.setVisibility(View.GONE);
+                    }else{
+                        lv_pager_recruitment.setVisibility(View.GONE);
+                        tvComNoData.setVisibility(View.VISIBLE);
+                    }
+            } else {
+//                Message message = Message.obtain();
+//                message.what = 1002;
+//                handlerUI.sendMessage(message);
             }
         }
     };
-
     @SuppressLint("ValidFragment")
-    public PagerCompanyFragment(Context context, ArrayList<Industry> data) {
+    public PagerCompanyFragment(Context context, int ad_type) {
         this.mContext = context;
-        if(data!=null) {
-            this.dataList = data;
-        }else{
-            dataList=new ArrayList<>();
-        }
+       this.ad_type=ad_type;
 
     }
 
@@ -100,19 +105,18 @@ public class PagerCompanyFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_pager_company, container, false);
         ButterKnife.bind(this, view);
         initView();
+        loadNetMsg();
         return view;
     }
-
+    /**
+     * 向服务器请求数据
+     */
+    public void loadNetMsg() {
+        NetService service = new NetService(getActivity(), handlerService);
+        service.execute(GetDataInfo.getData(ad_type,getActivity()));
+    }
     private void initView() {
-        Log.i("this", dataList.toString());
         lv_pager_recruitment = (ListView) view.findViewById(R.id.lv_pager_company);
-        Message message=new Message();
-        if (dataList != null&&!"".equals(dataList)) {
-            message.what=1;
-        }else{
-            message.what=0;
-        }
-        handler.sendMessage(message);
     }
 
     public void upData() {

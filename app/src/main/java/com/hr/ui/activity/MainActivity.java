@@ -53,6 +53,7 @@ import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.MyLocationListenner;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.PermissionCheck;
+import com.hr.ui.utils.PermissionHelper;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncLogin;
 import com.hr.ui.utils.netutils.AsyncNewAutoLoginPhone;
@@ -140,7 +141,13 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public MyResumeFragment meFragment;
     private SharedPreferencesUtils sUtils;
     private RecommendJobFragment recommendJobFragment;
+    private PermissionHelper helper;
 //    private boolean isDrawer = false;
+    private static final String[] PERMISSIONS_CONTACT = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE} ;
+   // 定义一个请求码
+
+    private static final int REQUEST_CONTACTS = 1000;
     /**
      * 检测网路状态
      */
@@ -168,7 +175,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mReceiver, mFilter);
         baiduLocation=new GetBaiduLocation(this);
-
         if (Build.VERSION.SDK_INT>=23){
             showContacts();
         }else{
@@ -589,7 +595,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             // requestCode即所声明的权限获取码，在checkSelfPermission时传入
             case BAIDU_READ_PHONE_STATE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
                     baiduLocation.loadLocation();
                 } else {
                     // 没有获取到权限，做特殊处理
@@ -608,14 +613,17 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public void showContacts(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
-                ){
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(),"没有权限,请手动开启定位权限",Toast.LENGTH_SHORT).show();
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, BAIDU_READ_PHONE_STATE);
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, BAIDU_READ_PHONE_STATE);
         }else{
             baiduLocation.loadLocation();
         }
     }
-
 
     /**
      * 存储个人信息的Map

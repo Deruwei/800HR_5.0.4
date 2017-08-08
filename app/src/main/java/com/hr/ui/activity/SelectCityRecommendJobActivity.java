@@ -343,7 +343,7 @@ public class SelectCityRecommendJobActivity extends BaseActivity implements View
 
                 if (MyUtils.currentCityZh != null
                         && MyUtils.currentCityZh.length() > 0) {
-                    topViewHolder.name.setText(MyUtils.currentCityZh);
+                    topViewHolder.name.setText(MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1));
                     JSONArray cityJSONArray;
                     try {
                         cityJSONArray = NetService.getCityAsJSONArray(

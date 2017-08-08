@@ -16,6 +16,7 @@ import com.hr.ui.R;
 import com.hr.ui.activity.NewLoginActivity;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.NoDoubleClickListener;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncBindThird;
 import com.hr.ui.utils.netutils.AsyncLogin;
@@ -87,25 +88,29 @@ public class BindSecondFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bind_second, container, false);
         ButterKnife.bind(this, view);
         sUtils = new SharedPreferencesUtils(getActivity());
+        initListener();
         return view;
+    }
+
+    private void initListener() {
+        frameBindloginPhonelogin.setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View v) {
+                    saveInfo();
+                }
+            });
+        frameBindloginUserlogin.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                saveInfo2();
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-    }
-
-    @OnClick({R.id.frame_bindlogin_phonelogin, R.id.frame_bindlogin_userlogin})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.frame_bindlogin_phonelogin:
-                saveInfo();
-                break;
-            case R.id.frame_bindlogin_userlogin:
-                saveInfo2();
-                break;
-        }
     }
 
     /**

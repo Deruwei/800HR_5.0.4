@@ -21,6 +21,8 @@ import com.hr.ui.R;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
+import com.hr.ui.utils.GetDataInfo;
+import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.netutils.NetService;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -42,19 +44,18 @@ public class PagerRecruitmentFragment extends Fragment {
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
+    private int ad_type;
+    private String json_result;
+
     /**
      * 品牌招聘对象
      */
     private Industry industry;
 
     @SuppressLint("ValidFragment")
-    public PagerRecruitmentFragment(Context context, ArrayList<Industry> data) {
+    public PagerRecruitmentFragment(Context context, int ad_type) {
         this.mContext = context;
-        if(data!=null) {
-            this.dataList = data;
-        }else{
-            dataList=new ArrayList<>();
-        }
+       this.ad_type=ad_type;
     }
     @Subscribe
     public void onEvent(ArrayList<Industry> dataList){
@@ -64,37 +65,39 @@ public class PagerRecruitmentFragment extends Fragment {
     public PagerRecruitmentFragment() {
 
     }
-    private Handler mhandler=new Handler(){
-        @Override
+    private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 1:
-                        lv_pager_recruitment.setVisibility(View.VISIBLE);
-                        tvComNoData.setVisibility(View.GONE);
-                        findAdapter = new FindAdapter(mContext, dataList, 1);
-                        lv_pager_recruitment.setAdapter(findAdapter);
-                        lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                industry = dataList.get(position);
-                                if (industry.getTopic_type() == 1) {// 专题网址
-                                    openBrowser(industry.getTopic_url());
+            if (msg.what == 0) {
+                json_result = (String) msg.obj;
+                // 1001 成功 1002失败
+                dataList=new ArrayList<>();
+                dataList= GetJssonList.getSpecialJson(ad_type,json_result);
+                if(dataList.size()!=0) {
+                    lv_pager_recruitment.setVisibility(View.VISIBLE);
+                    tvComNoData.setVisibility(View.GONE);
+                    findAdapter = new FindAdapter(mContext, dataList, 1);
+                    lv_pager_recruitment.setAdapter(findAdapter);
+                    lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            industry = dataList.get(position);
+                            if (industry.getTopic_type() == 1) {// 专题网址
+                                openBrowser(industry.getTopic_url());
 
-                                } else if (industry.getTopic_type() == 2) {// 企业详情
-                                    Intent intent = new Intent(mContext, CompanyParticularActivity.class);
-                                    intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                    startActivity(intent);
-                                }
-                                totalAdNum(industry.getA_id());
+                            } else if (industry.getTopic_type() == 2) {// 企业详情
+                                Intent intent = new Intent(mContext, CompanyParticularActivity.class);
+                                intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                startActivity(intent);
                             }
-                        });
-                        tvComNoData.setVisibility(View.GONE);
-                        lv_pager_recruitment.setVisibility(View.VISIBLE);
-                    break;
-                case 0:
-                        tvComNoData.setVisibility(View.VISIBLE);
-                        lv_pager_recruitment.setVisibility(View.GONE);
-                    break;
+                            totalAdNum(industry.getA_id());
+                        }
+                    });
+                    tvComNoData.setVisibility(View.GONE);
+                    lv_pager_recruitment.setVisibility(View.VISIBLE);
+                }else{
+                    tvComNoData.setVisibility(View.VISIBLE);
+                    lv_pager_recruitment.setVisibility(View.GONE);
+                }
             }
         }
     };
@@ -103,20 +106,17 @@ public class PagerRecruitmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_pager_recruitment, container, false);
         ButterKnife.bind(this, view);
         initView();
-        initData();
+        loadNetMsg();
         return view;
     }
 
-    private void initData() {
-        Message  mes=new Message();
-        if(dataList!=null&&!"".equals(dataList)) {
-            mes.what = 1;
-        }else {
-            mes.what=0;
-        }
-        mhandler.sendMessage(mes);
+    /**
+     * 向服务器请求数据
+     */
+    public void loadNetMsg() {
+        NetService service = new NetService(getActivity(), handlerService);
+        service.execute(GetDataInfo.getData(ad_type,getActivity()));
     }
-
 
     private void initView() {
        // Log.i("this", dataList.toString());

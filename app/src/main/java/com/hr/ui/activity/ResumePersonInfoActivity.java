@@ -437,7 +437,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
             }
             if (placeIdNowPlace == null || "".equals(placeIdNowPlace)
                     || "0".equals(placeIdNowPlace)) {
-                Toast.makeText(mContext, "请选择现居住地"+MyUtils.currentCityZh+"------------"+placeIdNowPlace, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "请选择现居住地", Toast.LENGTH_SHORT).show();
                 return;
             }
             if ("0".equals(sp_resume_personinfo_jobbegintime.getSelectedId())) {

@@ -24,6 +24,7 @@ import com.hr.ui.activity.SelectCityRecommendJobActivity;
 import com.hr.ui.activity.SelectFunctionRecommendJobActivity;
 import com.hr.ui.adapter.SearchJobResultRecommendAdapter;
 import com.hr.ui.config.Constants;
+import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
@@ -326,29 +327,44 @@ public class RecommendJobFragment extends Fragment {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 json_result = (String) msg.obj;
-                try {
+               /* try {*/
                     // 1001 成功 1002失败
-                    Message msg0 = new Message();
-                    msg0.what = 1001;
-                    msg0.arg1 = searchResult_json();// 状态码
-                    Log.d("msg0.arg1", msg0.arg1 + "");
+                   /* Message msg0 = new Message();
+                    msg0.what = 1001;*/
+                    dataList = GetJssonList.searchResult_json(json_result);// 状态码
+                    if(dataList!=null&&dataList.size()!=0) {
+                        totalList.addAll(dataList);
+                        sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
+                        lvRecommendfragment.setAdapter(sjrAdapter);
+                        lrRecfragmentJob.setVisibility(View.GONE);
+                        lvRecommendfragment.setVisibility(View.VISIBLE);
+                        rlRecfragmentEmpty.setVisibility(View.GONE);
+                    }else{
+                        lrRecfragmentJob.setVisibility(View.GONE);
+                        lvRecommendfragment.setVisibility(View.GONE);
+                        rlRecfragmentEmpty.setVisibility(View.VISIBLE);
+                    }
+                  /*  Log.d("msg0.arg1", msg0.arg1 + "");
                     myhandler.sendMessage(msg0);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Message msg1 = new Message();
+                  *//*  Message msg1 = new Message();
                     msg1.what = 1002;
-                    myhandler.sendMessage(msg1);
+                    myhandler.sendMessage(msg1);*//*
+                }*/
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
                 }
-            } else {
+            }/* else {
                 Message msg1 = new Message();
                 msg1.what = 1002;
                 myhandler.sendMessage(msg1);
-            }
+            }*/
         }
 
-        ;
+
     };
-    // 更新UI
+  /*  // 更新UI
     private Handler myhandler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1001) {
@@ -357,11 +373,11 @@ public class RecommendJobFragment extends Fragment {
                     updateUI(totalList);
                 } else if (msg.arg1 == 206) {//
                     Toast.makeText(getActivity(), "执行失败", Toast.LENGTH_SHORT).show();
-                    try {
+                 *//*   try {
 //                        progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
+                    }*//*
 
                 } else if (msg.arg1 == 11) {
                     Toast.makeText(getActivity(), getString(R.string.error_notnet), Toast.LENGTH_SHORT).show();
@@ -378,16 +394,15 @@ public class RecommendJobFragment extends Fragment {
         }
 
         ;
-    };
+    };*/
 
-    private void updateUI(ArrayList<HashMap<String, Object>> totalList1) {
+    /*private void updateUI(ArrayList<HashMap<String, Object>> totalList1) {
         Message message=new Message();
        if(totalList1!=null&&totalList1.size()!=0){
            message.what=0;
            message.obj=totalList1;
        }else{
            message.what=1;
-
        }
        refleshUIHandler.sendMessage(message);
 
@@ -398,11 +413,11 @@ public class RecommendJobFragment extends Fragment {
             switch (msg.what){
                 case 0:
                     totalList= (ArrayList<HashMap<String, Object>>) msg.obj;
+                    sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
+                    lvRecommendfragment.setAdapter(sjrAdapter);
                     lrRecfragmentJob.setVisibility(View.GONE);
                     lvRecommendfragment.setVisibility(View.VISIBLE);
                     rlRecfragmentEmpty.setVisibility(View.GONE);
-                    sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
-                    lvRecommendfragment.setAdapter(sjrAdapter);
                     break;
                 case 1:
                     lrRecfragmentJob.setVisibility(View.GONE);
@@ -411,7 +426,7 @@ public class RecommendJobFragment extends Fragment {
                     break;
             }
         }
-    };
+    };*/
     /**
      * 加载数据
      */
@@ -449,11 +464,11 @@ public class RecommendJobFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }/* else {
                 Message msg1 = new Message();
                 msg1.what = 1002;
                 myhandler.sendMessage(msg1);
-            }
+            }*/
         }
 
 
@@ -480,7 +495,7 @@ public class RecommendJobFragment extends Fragment {
      *
      * @return
      */
-    public int searchResult_json() {
+  /*  public int searchResult_json() {
         // TODO Auto-generated method stub
         try {
             dataList = new ArrayList<HashMap<String, Object>>();
@@ -516,5 +531,5 @@ public class RecommendJobFragment extends Fragment {
             e.printStackTrace();
         }
         return error_code;
-    }
+    }*/
 }

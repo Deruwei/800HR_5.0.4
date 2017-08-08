@@ -163,6 +163,7 @@ public class NewBindActivity extends BaseFragmentActivity {
                 resetState();
                 tvArray[position].setTextColor(Color.parseColor("#F39D0D"));
                 ivArray[position].setBackgroundColor(Color.parseColor("#F39D0D"));
+                vpNewbind.setCurrentItem(position);
             }
 
             @Override

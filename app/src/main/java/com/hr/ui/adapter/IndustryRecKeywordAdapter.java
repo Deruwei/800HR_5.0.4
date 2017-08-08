@@ -17,36 +17,33 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 作者：Colin
- * 日期：2016/5/13 09:07
- * 邮箱：bestxt@qq.com
+ * Created by wdr on 2017/8/8.
  */
-public class IndustryRecAdapter2 extends RecyclerView.Adapter<IndustryRecAdapter2.MyViewHolder> {
+
+public class IndustryRecKeywordAdapter extends RecyclerView.Adapter<IndustryRecKeywordAdapter.MyViewhoder> {
     private Context context;
-    private ArrayList<Industry> data = null;
+    private ArrayList<Industry> industries;
     private OnItemClick onItemClick;
 
     public void setOnItemClick(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
     }
 
-    public IndustryRecAdapter2(Context context, ArrayList<Industry> data) {
+    public IndustryRecKeywordAdapter(Context context, ArrayList<Industry> industries) {
         this.context = context;
-        this.data = data;
-//        Log.i("IndustryRecAdapter", "======data" + data.toString());
-    }
-
-
-    @Override
-    public IndustryRecAdapter2.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_keyword_lv, parent, false);
-        return new MyViewHolder(view);
+        this.industries = industries;
     }
 
     @Override
-    public void onBindViewHolder(IndustryRecAdapter2.MyViewHolder holder, final int position) {
-        holder.industryRecTitle.setText(data.get(position).getTitle());
-        if (position == data.size() - 1) {
+    public MyViewhoder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_keyword_lv, parent,false);
+        return new MyViewhoder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewhoder holder, final int position) {
+        holder.industryRecTitle.setText(industries.get(position).getTitle());
+        if (position == industries.size() - 1) {
             holder.viewRecTitle.setVisibility(View.GONE);
         }
         if(onItemClick!=null){
@@ -61,17 +58,16 @@ public class IndustryRecAdapter2 extends RecyclerView.Adapter<IndustryRecAdapter
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return industries.size();
     }
 
-
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-
+    static class MyViewhoder extends RecyclerView.ViewHolder {
         @Bind(R.id.industry_rec_title)
         TextView industryRecTitle;
         @Bind(R.id.view_rec_title)
         View viewRecTitle;
-        public MyViewHolder(View itemView) {
+
+        public MyViewhoder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }

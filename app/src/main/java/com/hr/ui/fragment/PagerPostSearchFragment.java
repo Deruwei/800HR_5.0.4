@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,8 @@ import com.hr.ui.model.HistoyInfo;
 import com.hr.ui.model.Industry;
 import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.tools.OptimizeLVSV;
@@ -62,7 +66,7 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
     private SharedPreferencesUtils sUtils;
     private String functionId = "";// 职能Id
 
-    private ListView lv_postsearch_advertistment;
+    private RecyclerView lv_postsearch_advertistment;
     /**
      * 数据库
      */
@@ -119,7 +123,15 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
                         if (rec_data != null && rec_data.size() > 0) {
                             industryRecAdapter2 = new IndustryRecAdapter2(getActivity(), rec_data);
                             lv_postsearch_advertistment.setAdapter(industryRecAdapter2);
-                            OptimizeLVSV.setListViewHeightBasedOnChildren(lv_postsearch_advertistment);
+                            /*OptimizeLVSV.setListViewHeightBasedOnChildren(lv_postsearch_advertistment);*/
+                            industryRecAdapter2.setOnItemClick(new OnItemClick() {
+                                @Override
+                                public void ItemClick(View view, int position) {
+                                    Intent intent = new Intent(getActivity(), CompanyParticularActivity.class);
+                                    intent.putExtra("Enterprise_id", rec_data.get(position).getEnterprise_id());
+                                    startActivity(intent);
+                                }
+                            });
                             lv_postsearch_advertistment.setFocusable(false);
                         }
                     } else if (msg.arg1 == 206) {
@@ -185,8 +197,11 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
     private void initView() {
         sUtils = new SharedPreferencesUtils(getActivity());
         industryId = sUtils.getIntValue(Constants.INDUSTRY, Constants.INDUSTRY_BUILD_ID);
-
-        lv_postsearch_advertistment = (ListView) view.findViewById(R.id.lv_postsearch_advertistment);
+        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lv_postsearch_advertistment = (RecyclerView) view.findViewById(R.id.lv_postsearch_advertistment);
+        lv_postsearch_advertistment.setLayoutManager(manager);
+        lv_postsearch_advertistment.addItemDecoration(new SpacesItemDecoration(1));
         /*
         历史记录相关
          */
@@ -267,14 +282,6 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
                 break;
         }
         functionSelectMap.clear();
-        lv_postsearch_advertistment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), CompanyParticularActivity.class);
-                intent.putExtra("Enterprise_id", rec_data.get(position).getEnterprise_id());
-                startActivity(intent);
-            }
-        });
     }
 
     private int json() {

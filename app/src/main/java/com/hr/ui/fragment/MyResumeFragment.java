@@ -1793,8 +1793,10 @@ public class MyResumeFragment extends Fragment {
             e.printStackTrace();
         }
         //网络没有
-        if (!isHaveAppResume) {
+        if (!isHaveAppResume&&listResumeIsApp.size()!=1) {
             chooseIsApp();
+        }else{
+            refreshResume();
         }
         //本地有
     }
@@ -1917,16 +1919,23 @@ public class MyResumeFragment extends Fragment {
                             popwindowIsAPPResume.dismiss();
                             break;
                         case 404:
-                            builderUpResume = new BeautifulDialog.Builder(getActivity());
-                            builderUpResume.setMessage("完整度低于60%不能设置为默认简历，请您选择完整度达标的简历，或者访问m.800hr.com完善简历后再来设置。");
-                            builderUpResume.setTitle("提示");
-                            builderUpResume.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            builderUpResume.create().show();
+                            if(listResumeIsApp.size()==1){
+                                sUtils.setStringValue("is_app_resumeid" + userId, resumeID);
+                                MeFragment.meFragment.execute();
+                                getData();
+                                popwindowIsAPPResume.dismiss();
+                            }else {
+                                builderUpResume = new BeautifulDialog.Builder(getActivity());
+                                builderUpResume.setMessage("完整度低于60%不能设置为默认简历，请您选择完整度达标的简历，或者访问m.800hr.com完善简历后再来设置。");
+                                builderUpResume.setTitle("提示");
+                                builderUpResume.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builderUpResume.create().show();
+                            }
                             break;
                         default:
                             Toast.makeText(getActivity(), Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
