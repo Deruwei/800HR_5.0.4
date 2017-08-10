@@ -3,6 +3,7 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.fragment.RecommendJobFragment;
+import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
@@ -117,7 +120,6 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
                         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                             // 一级实例
                             SelectFunctionRecommendJobActivity functionSelectActivity1 = SelectFunctionRecommendJobActivity.this;
-
                             dataItem = data.get(arg2);
                             String value2 = dataItem.get("value");
                             String id2 = dataItem.get("key");
@@ -325,12 +327,14 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
                     JSONArray jobJSONArray = NetService.getJobAsJSONArray(this,
                             "job.json", String.valueOf(industryId));
                     data = NetService.getJobArray(jobJSONArray, "0");
+                    Log.i("职能1","------------------>"+jobJSONArray.toString());
                 } else {// 使用程序内置数据
                     InputStream in = getAssets().open("job.json");
                     JSONObject jsonObject = new JSONObject(
                             NetUtils.readAsString(in, Constants.ENCODE));
                     JSONArray jonArray = jsonObject.getJSONArray(industryId
                             + "");
+                    Log.i("职能","------------------>"+jonArray.toString());
                     data = NetService.getJobArray(jonArray, "0");
                 }
 
@@ -342,16 +346,20 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
                         Constants.PREFS_NAME, Context.MODE_PRIVATE);
                 int industryId = sp.getInt(Constants.INDUSTRY,
                         Constants.INDUSTRY_BUILD_ID);// 默认为建筑
+
                 if (MyUtils.USE_ONLINE_ARRAY) {// 使用网络提供的数据
                     JSONArray jobJSONArray = NetService.getJobAsJSONArray(this,
                             "job.json", String.valueOf(industryId));
+                    GetJssonList.getFunctionList(jobJSONArray);
                     data = NetService.getJobArray(jobJSONArray, id);
+                    Log.i("职能2","------------------>"+jobJSONArray.toString());
                 } else {// 使用程序内置数据
                     InputStream in = getAssets().open("job.json");
                     JSONObject jsonObject = new JSONObject(
                             NetUtils.readAsString(in, Constants.ENCODE));
                     JSONArray jonArray = jsonObject.getJSONArray(industryId
                             + "");
+                    Log.i("职能2","------------------>"+jonArray.toString());
 
                     data = NetService.getJobArray(jonArray, id);
                 }
@@ -476,6 +484,7 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
                 viewHolder = new ViewHolder();
                 viewHolder.textView = (TextView) convertView
                         .findViewById(R.id.functionselect_listview_item_textview);
+                viewHolder.rl_function= (RelativeLayout) convertView.findViewById(R.id.item_function);
                 viewHolder.imageview = (ImageView) convertView
                         .findViewById(R.id.imageview1);
                 convertView.setTag(viewHolder);
@@ -499,6 +508,7 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
         class ViewHolder {
             TextView textView;
             ImageView imageview;
+            private RelativeLayout rl_function;
 
         }
     }

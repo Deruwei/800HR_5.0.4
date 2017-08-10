@@ -51,32 +51,41 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_below="@+id/relativeLayout3"
-        android:background="#EBEBEC"
+        android:background="@color/whitesmoke"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <TextView
+            android:layout_marginLeft="@dimen/dimen_5px"
             style="@style/colour_style2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:text="已选职位"
             android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
         <TextView
             android:id="@+id/funtionselect_selectedinfo"
             style="@style/colour_style2"
+            android:layout_toLeftOf="@+id/iv_seeSelectFunction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_centerVertical="true"
             android:drawablePadding="5dp"
-            android:drawableRight="@mipmap/xiajiantou"
             android:gravity="right|center_vertical"
             android:text="0/3"
             android:textSize="18sp" />
         <ImageView
+            android:layout_marginRight="@dimen/dimen_5px"
+            android:id="@+id/iv_seeSelectFunction"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
             android:src="@mipmap/xiajiantou"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="@dimen/dimen_20px"
+            android:layout_height="@dimen/dimen_20px" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -85,7 +94,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/funtionselect_showmessage"
         android:background="#F6F6F6"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -94,7 +105,7 @@
         android:layout_below="@+id/functionselect_showinforlayout"
         android:orientation="horizontal">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/functionselect_listview"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -104,9 +115,10 @@
             android:divider="#FFFFFF"
             android:focusable="true"
             android:listSelector="#30000000"
-            android:scrollbars="none"></ListView>
+            android:scrollbars="none">
+        </android.support.v7.widget.RecyclerView>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/functionselect_listview2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -116,6 +128,8 @@
             android:divider="#FFFFFF"
             android:focusable="true"
             android:listSelector="#10000000"
-            android:scrollbars="none"></ListView>
+            android:scrollbars="none">
+
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </RelativeLayout>

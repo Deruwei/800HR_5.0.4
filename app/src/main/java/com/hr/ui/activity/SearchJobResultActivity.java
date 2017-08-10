@@ -9,8 +9,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -18,18 +21,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SearchJobResultAdapter;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.Async_SetRobJob;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.tools.LogTools;
 import com.hr.ui.view.custom.MyProgressDialog;
 import com.hr.ui.view.custom.PopupmenuBar;
-import com.hr.ui.view.pulltorefresh.PullToRefreshBase;
 import com.hr.ui.view.pulltorefresh.PullToRefreshListView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -39,9 +43,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SearchJobResultActivity extends Activity implements View.OnClickListener {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class SearchJobResultActivity extends Activity  {
     private static final String TAG = "SearchJobResultActivity";
-    private PullToRefreshListView lv_searchjobresult_result;
+    @Bind(R.id.iv_selectcity_back)
+    ImageView ivSelectcityBack;
+    @Bind(R.id.tv_searchjobresult_jobnum)
+    TextView tvSearchjobresultJobnum;
+    @Bind(R.id.tv_searchjobresult_filtration)
+    TextView tvSearchjobresultFiltration;
+    @Bind(R.id.rl_searchjobresult_top)
+    RelativeLayout rlSearchjobresultTop;
+    @Bind(R.id.tv_searchjobresult_condition)
+    TextView tvSearchjobresultCondition;
+    @Bind(R.id.tv_searchjob_result_subscribe)
+    TextView tvSearchjobResultSubscribe;
+    @Bind(R.id.rl_searchjobresult_condition)
+    RelativeLayout rlSearchjobresultCondition;
+    @Bind(R.id.lv_searchjobresult_result)
+    RecyclerView lvSearchjobresultResult;
+    @Bind(R.id.sr_searchJobResult)
+    SwipeRefreshLayout srSearchJobResult;
+    @Bind(R.id.bt_searchjobresult_collect)
+    Button btSearchjobresultCollect;
+    @Bind(R.id.bt_searchjobresult_deliver)
+    Button btSearchjobresultDeliver;
+    @Bind(R.id.rl_searchjobresult_visible)
+    LinearLayout rlSearchjobresultVisible;
     private String searchword;
     private String funcid;
     private String areaid;
@@ -73,17 +104,9 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
      * 搜索到的工作总数
      */
     private String jobNum;
-    private TextView tv_searchjobresult_jobnum;
-    private LinearLayout rl_searchjobresult_visible;
-    private TextView tv_searchjobresult_condition;
-    private TextView tv_searchjobresult_filtration, tv_searchjob_result_subscribe;
-    private ImageView iv_selectcity_back;
-    private Button bt_searchjobresult_collect, bt_searchjobresult_deliver;
-
     /**
      * ResultListView
      */
-    private ListView resultListView;
     /**
      * 网络获取的json数据集合
      */
@@ -102,6 +125,8 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
      */
     private static HashMap<String, String> titledataHashMap = new HashMap<String, String>();
     public static HashMap<String, String> dataHashMap;
+    private LinearLayoutManager manager;
+    private int lastVisibleItem;
     /**
      * 访问网络
      */
@@ -113,7 +138,8 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
                     // 1001 成功 1002失败
                     Message msg0 = new Message();
                     msg0.what = 1001;
-                    msg0.arg1 = searchResult_json();// 状态码
+                    msg0.arg1 = searchResult_json();
+                    // 状态码
                     Log.d("msg0.arg1", msg0.arg1 + "");
                     myhandler.sendMessage(msg0);
                 } catch (Exception e) {
@@ -136,13 +162,29 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
         public void handleMessage(Message msg) {
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
-                    // 通知适配器更新数据
-                    if (firstNumm == 0) {
-                        sjrAdapter = new SearchJobResultAdapter(SearchJobResultActivity.this, totalList);
-                        resultListView.setAdapter(sjrAdapter);
-                        firstNumm = 2;
-                    } else if (dataList != null && firstNumm == 2 && dataList.size() > 0) {
-                        sjrAdapter.notifyDataSetChanged();
+                    if(dataList!=null&&dataList.size()!=0){
+                    totalList.addAll(dataList);
+                        Log.i("页码的总数",totalList.size()+"");
+                    if (totalIsSelect.size() == 0) {
+                        for (int i = 0; i < totalList.size(); i++) {
+                            totalIsSelect.put(i, false);
+                        }
+                    } else {
+                        for (int i = totalIsSelect.size() - 1; i < dataList.size(); i++) {
+                            totalIsSelect.put(i, false);
+                        }
+                    }
+                    refreshInfo();
+                        sjrAdapter.setDataList(totalList);
+                        // 通知适配器更新数据
+                        if (pageNum == 1) {
+                            lvSearchjobresultResult.setAdapter(sjrAdapter);
+                        } else {
+                            sjrAdapter.notifyDataSetChanged();
+                        }
+                    }else{
+                        Toast.makeText(SearchJobResultActivity.this, "没有更多的数据！",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else if (msg.arg1 == 206) {//
                     Toast.makeText(SearchJobResultActivity.this, "执行失败",
@@ -178,6 +220,7 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_job_result);
+        ButterKnife.bind(this);
         MobclickAgent.onEvent(this, "job-search");
         titledataHashMap.clear();
         initView();
@@ -190,24 +233,59 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
      * 初始化控件
      */
     private void initView() {
-        tv_searchjobresult_condition = (TextView) findViewById(R.id.tv_searchjobresult_condition);
-        tv_searchjob_result_subscribe = (TextView) findViewById(R.id.tv_searchjob_result_subscribe);
-        lv_searchjobresult_result = (PullToRefreshListView) findViewById(R.id.lv_searchjobresult_result);
-        tv_searchjobresult_jobnum = (TextView) findViewById(R.id.tv_searchjobresult_jobnum);
-        rl_searchjobresult_visible = (LinearLayout) findViewById(R.id.rl_searchjobresult_visible);
-        tv_searchjobresult_filtration = (TextView) findViewById(R.id.tv_searchjobresult_filtration);
-        iv_selectcity_back = (ImageView) findViewById(R.id.iv_selectcity_back);
-        iv_selectcity_back.setOnClickListener(this);
-        tv_searchjobresult_filtration.setOnClickListener(this);
-        bt_searchjobresult_collect = (Button) findViewById(R.id.bt_searchjobresult_collect);
-        bt_searchjobresult_deliver = (Button) findViewById(R.id.bt_searchjobresult_deliver);
+        manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvSearchjobresultResult.setLayoutManager(manager);
+        lvSearchjobresultResult.addItemDecoration(new SpacesItemDecoration(5));
+        srSearchJobResult.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        totalList = new ArrayList<HashMap<String, Object>>();
+                        pageNum = 1;
+                        loadNetData();
+                        srSearchJobResult.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+        //rvChannalcontent根据上拉到页面的最低端来加载下一页
+        lvSearchjobresultResult.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //当滑动到页面的最底端的时候最后一个item的下标+1等于adapter数据的个数，加载下一页
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) == sjrAdapter
+                        .getItemCount()) {
+                    pageNum++;
+                    srSearchJobResult.setRefreshing(true);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadNetData();
+                            srSearchJobResult.setRefreshing(false);
+                        }
+                    }, 2000);
+                }
+            }
 
-        bt_searchjobresult_collect.setOnClickListener(this);
-        bt_searchjobresult_deliver.setOnClickListener(this);
-        tv_searchjob_result_subscribe.setOnClickListener(this);
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = manager.findLastVisibleItemPosition();
+            }
+        });
+        srSearchJobResult.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        srSearchJobResult.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        srSearchJobResult.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources()
+                        .getDisplayMetrics()));
 
-        resultListView = lv_searchjobresult_result.getRefreshableView();
-        View view = LayoutInflater.from(SearchJobResultActivity.this).inflate(R.layout.foot_listview_white, null);
+       /* View view = LayoutInflater.from(SearchJobResultActivity.this).inflate(R.layout.foot_listview_white, null);
         resultListView.addFooterView(view);
         // 设置PullToRefreshListView的事件监听
         // 刷新监听器，目的是实现下拉刷新
@@ -231,7 +309,7 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
                         pageNum += 1;
                         loadNetData();
                     }
-                });
+                });*/
 //        lv_searchjobresult_result.setOnScrollListener(new AbsListView.OnScrollListener() {
 //            @Override
 //            public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -252,10 +330,9 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
      * 初始化数据
      */
     private void initData() {
+        sjrAdapter=new SearchJobResultAdapter(this);
         totalList = new ArrayList<>();
         totalIsSelect = new HashMap<>();
-
-
         getFindJobData();
         loadNetData();
         initPopupmenuBar();
@@ -333,12 +410,15 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
         params.put("range", "");
         return params;
     }
+
     private NetService service;
+
     /**
      * 加载数据
      */
     public void loadNetData() {
         service = new NetService(this, handlerService);
+        Log.i("页码",pageNum+"");
         service.execute(getData(pageNum));
     }
 
@@ -379,17 +459,6 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
 
                 dataList.add(hs);
             }
-            totalList.addAll(dataList);
-            if (totalIsSelect.size() == 0) {
-                for (int i = 0; i < totalList.size(); i++) {
-                    totalIsSelect.put(i, false);
-                }
-            } else {
-                for (int i = totalIsSelect.size() - 1; i < dataList.size(); i++) {
-                    totalIsSelect.put(i, false);
-                }
-            }
-            refreshInfo();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -407,16 +476,16 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
             int jobNumInt = Integer.parseInt(jobNum);
             if (jobNumInt > 999) {
                 jobNum = "999";
-                tv_searchjobresult_jobnum.setText("为您找到" + jobNum + "+个职位");
+                tvSearchjobresultJobnum.setText("为您找到" + jobNum + "+个职位");
             } else {
-                tv_searchjobresult_jobnum.setText("为您找到" + jobNum + "个职位");
+                tvSearchjobresultJobnum.setText("为您找到" + jobNum + "个职位");
             }
             if (jobNum.equals("0")) {
-                lv_searchjobresult_result.setVisibility(View.GONE);
-                rl_searchjobresult_visible.setVisibility(View.GONE);
+                srSearchJobResult.setVisibility(View.GONE);
+                rlSearchjobresultVisible.setVisibility(View.GONE);
             } else {
-                lv_searchjobresult_result.setVisibility(View.VISIBLE);
-                rl_searchjobresult_visible.setVisibility(View.VISIBLE);
+                srSearchJobResult.setVisibility(View.VISIBLE);
+                rlSearchjobresultVisible.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -481,11 +550,11 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
             showBuffer.delete(showBuffer.length() - 1, showBuffer.length());
         }
         if (showBuffer.toString().equals("") || showBuffer == null || showBuffer.toString().equals("null")) {
-            tv_searchjobresult_condition.setText(word);
+            tvSearchjobresultCondition.setText(word);
             return;
         } else {
             // 设置找工作的值
-            tv_searchjobresult_condition.setText(showBuffer.toString().replace("++", "+"));
+            tvSearchjobresultCondition.setText(showBuffer.toString().replace("++", "+"));
             return;
         }
     }
@@ -502,41 +571,6 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
                 ViewGroup.LayoutParams.WRAP_CONTENT, this, filterMap);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_searchjobresult_filtration:
-                popupmenuBar.show(v);
-                break;
-            case R.id.iv_selectcity_back:
-                finish();
-                break;
-            case R.id.bt_searchjobresult_collect:
-                if (MyUtils.isLogin) {
-                    if (sjrAdapter != null) {
-                        sjrAdapter.collectJob();
-                    }
-                } else {
-                    Toast.makeText(SearchJobResultActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
-                    goLoginActivity();
-                }
-                break;
-            case R.id.bt_searchjobresult_deliver:
-                if (MyUtils.isLogin) {
-                    if (sjrAdapter != null) {
-                        sjrAdapter.deliverJob();
-                    }
-                } else {
-                    Toast.makeText(SearchJobResultActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
-                    goLoginActivity();
-                }
-                break;
-            case R.id.tv_searchjob_result_subscribe:
-                isSubscription();
-                break;
-        }
-    }
 
     private void goLoginActivity() {
         Intent intentLogin = new Intent(SearchJobResultActivity.this, NewLoginActivity.class);
@@ -608,6 +642,42 @@ public class SearchJobResultActivity extends Activity implements View.OnClickLis
             }
         }
 
-        ;
+
     };
+
+
+    @OnClick({R.id.iv_selectcity_back, R.id.tv_searchjobresult_filtration, R.id.tv_searchjob_result_subscribe, R.id.bt_searchjobresult_collect, R.id.bt_searchjobresult_deliver})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_selectcity_back:
+                finish();
+                break;
+            case R.id.tv_searchjobresult_filtration:
+                popupmenuBar.show(view);
+                break;
+            case R.id.tv_searchjob_result_subscribe:
+                isSubscription();
+                break;
+            case R.id.bt_searchjobresult_collect:
+                if (MyUtils.isLogin) {
+                    if (sjrAdapter != null) {
+                        sjrAdapter.collectJob();
+                    }
+                } else {
+                    Toast.makeText(SearchJobResultActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                    goLoginActivity();
+                }
+                break;
+            case R.id.bt_searchjobresult_deliver:
+                if (MyUtils.isLogin) {
+                    if (sjrAdapter != null) {
+                        sjrAdapter.deliverJob();
+                    }
+                } else {
+                    Toast.makeText(SearchJobResultActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                    goLoginActivity();
+                }
+                break;
+        }
+    }
 }

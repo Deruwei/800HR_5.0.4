@@ -220,13 +220,13 @@ public class FindFragment extends Fragment implements View.OnClickListener {
             pagerFindJobFragment = new PagerFindJobFragment();
         }
         if (pagerActivityFragment == null) {
-            pagerActivityFragment = new PagerActivityFragment(getActivity(), 1);
+            pagerActivityFragment = new PagerActivityFragment(getActivity(), 3);
         }
         if (pagerCompanyFragment == null) {
             pagerCompanyFragment = new PagerCompanyFragment(getActivity(), 2);
         }
         if (pagerRecruitmentFragment == null) {
-            pagerRecruitmentFragment = new PagerRecruitmentFragment(getActivity(), 3);
+            pagerRecruitmentFragment = new PagerRecruitmentFragment(getActivity(), 1);
         }
         /*
         将Fragment加入集合

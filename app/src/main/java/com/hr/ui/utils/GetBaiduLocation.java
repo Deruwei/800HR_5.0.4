@@ -35,7 +35,7 @@ public class GetBaiduLocation {
         option.setOpenGps(true);
         //可选，默认false,设置是否使用gps
 
-        option.setLocationNotify(true);
+        option.setLocationNotify(false);
         //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
 
         option.setIsNeedLocationDescribe(true);

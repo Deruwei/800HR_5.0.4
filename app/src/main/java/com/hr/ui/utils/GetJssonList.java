@@ -2,9 +2,12 @@ package com.hr.ui.utils;
 
 import android.util.Log;
 
+import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.model.Industry;
+import com.lidroid.xutils.db.annotation.Id;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -49,7 +52,7 @@ public class GetJssonList {
                 industry.setEdit_time(obj.getInt("edit_time"));
                 industry.setCompany_type(obj.getString("company_type"));
                 industry.setStuff_munber(obj.getString("stuff_munber"));
-                if (ad_type == 1) {
+                if (ad_type == 3) {
                     enterprise_data.add(industry);
                 }
             }
@@ -133,7 +136,7 @@ public class GetJssonList {
                 industry.setEdit_time(obj.getInt("edit_time"));
                 industry.setCompany_type(obj.getString("company_type"));
                 industry.setStuff_munber(obj.getString("stuff_munber"));
-                if (ad_type == 3) {
+                if (ad_type == 1) {
                     special_data.add(industry);
                 }
             }
@@ -182,5 +185,26 @@ public class GetJssonList {
             e.printStackTrace();
         }
         return dataList;
+    }
+    public static List<FunctionBean> getFunctionList(JSONArray jsonArray){
+        List<FunctionBean> list=new ArrayList<>();
+        try {
+            for(int i=0;i<jsonArray.length();i++){
+                FunctionBean functionBean=new FunctionBean();
+                JSONObject obj=jsonArray.getJSONObject(i);
+                String s=obj.toString();
+                String[] arr=s.split(":");
+                String id=arr[0].substring(arr[0].indexOf("\"")+1,arr[0].lastIndexOf("\""));
+                String name=arr[1].substring(arr[1].indexOf("\"")+1,arr[1].lastIndexOf("\""));
+                functionBean.setId(id);
+                functionBean.setName(name);
+                functionBean.setSelect(false);
+                list.add(functionBean);
+            }
+        } catch (JSONException e) {
+             e.printStackTrace();
+        }
+        Log.i("职能的集合",list.toString());
+        return list;
     }
 }

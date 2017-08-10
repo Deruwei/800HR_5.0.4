@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
+import com.hr.ui.adapter.MyWhoLookMeAdapter;
 import com.hr.ui.model.BrowsedInfo;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 
@@ -28,8 +30,8 @@ public class AsyncPersonCenterBrowsed {
     private Context context;
     private ArrayList<BrowsedInfo> listBrowsedInfos;
     private String listTagString;// json中数组对象名称
-    private BaseAdapter adapter;
-    ListView listview;
+    private MyWhoLookMeAdapter adapter;
+    RecyclerView listview;
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
@@ -87,7 +89,7 @@ public class AsyncPersonCenterBrowsed {
      */
     public AsyncPersonCenterBrowsed(Context context,
                                     ArrayList<BrowsedInfo> listBrowsedInfos, String listTagString,
-                                    BaseAdapter adapter, ListView listview) {
+                                    MyWhoLookMeAdapter adapter,RecyclerView listview) {
         this.context = context;
         this.listTagString = listTagString;
         this.listBrowsedInfos = listBrowsedInfos;

@@ -376,6 +376,7 @@
     <string name="searchjob_monthly_pay">待遇</string>
     <string name="searchjob_synopsis">职位描述</string>
     <string name="searchjob_enterprise_desc">公司简介</string>
+    <string name="applyJob">您还没有申请职位！</string>
     <string name="searchjob_noresume_donot_apply">您当前没有完整简历，不能申请职位！</string>
     <string name="searchjob_appliy_post">您申请的职位</string>
     <string name="searchjob_select_your_resume">选择您的简历</string>
@@ -723,6 +724,7 @@
     <string name="unuser_sdcard">存储卡不可用或不存在</string>
     <string name="feedback">意见反馈</string>
     <string name="about_us">关于</string>
+    <string name="noData_whoLookMe">暂无数据，请多投点简历！</string>
     <string name="no_data">品牌招聘暂无数据</string>
     <string name="more_no_exit_app">您的手机未安装此应用，是否马上去下载安装？</string>
     <string name="feedback_contenthint0">Email:请输入您的email</string>

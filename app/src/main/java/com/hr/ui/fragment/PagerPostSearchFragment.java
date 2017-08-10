@@ -1,6 +1,8 @@
 package com.hr.ui.fragment;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,6 +109,7 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
     private IndustryRecAdapter2 industryRecAdapter2;
     private boolean request_type = true;
     int DB_strid = -3;
+    private Context context;
     private int industry_id;
 
 
@@ -176,7 +179,18 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
 
         ;
     };
+    @SuppressLint("ValidFragment")
+    public PagerPostSearchFragment(Context context, String cityName, String placeId) {
+        this.context = context;
+        this.cityName=cityName;
+        this.placeId=placeId;
 
+    }
+
+    @SuppressLint("ValidFragment")
+    public PagerPostSearchFragment() {
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_post_search, container, false);
@@ -527,19 +541,20 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
      * 保存历史记录
      */
     private void saveHistory() {
+        Log.i("城市的名称和id",MyUtils.selectCityId+MyUtils.selectCityZh);
         String str_function = tv_post_function.getText().toString().trim();
-        if (str_function.equals("全部职能")) {
+        if ("全部职能".equals(str_function)) {
             str_function = "";
         }
         String str_place = cityName;
-        if (str_place.equals("全国")) {
+        if ("全国".equals(MyUtils.selectCityZh)) {
             str_place = "";
         }
         histoyInfo.setFunction_value(tv_post_function.getText().toString());
         histoyInfo.setIndustry_id(industryId + "");
         histoyInfo.setFunction_id("0".equals(functionId) ? "" : functionId);
-        histoyInfo.setPlace_id(placeId);
-        histoyInfo.setPlace_value(cityName);
+        histoyInfo.setPlace_id(MyUtils.selectCityId);
+        histoyInfo.setPlace_value(MyUtils.selectCityZh);
         int db_num = db.query_SearchHistory(industryId + "", str_function, str_place);
         if (db_num == 0) {
             DB_strid = db.Insert_SearchHistory(histoyInfo);
@@ -624,10 +639,10 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
         // TODO Auto-generated method stub
         String Function_value = histoyInfo2[histoyInfo2.length - i].getFunction_value();
         String Place_value = histoyInfo2[histoyInfo2.length - i].getPlace_value();
-        if (!Function_value.equals("")) {
+        if (!"".equals(Function_value)) {
             Function_value = Function_value;
         }
-        if (!Place_value.equals("")) {
+        if (!"".equals(Place_value)) {
             Place_value = "+" + Place_value;
         }
         textView.setText(Function_value + Place_value);

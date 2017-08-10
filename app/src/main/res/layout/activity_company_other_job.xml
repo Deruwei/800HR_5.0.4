@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EBEBEB"
     tools:context="com.hr.ui.activity.CompanyOtherJobActivity">
 
     <RelativeLayout
@@ -24,13 +25,20 @@
             android:layout_centerVertical="true"
             android:text="正在招聘的职位"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="@dimen/dimen_22px" />
     </RelativeLayout>
 
-    <com.hr.ui.view.pulltorefresh.PullToRefreshListView
-        android:id="@+id/lv_company_otherjob_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_marginTop="@dimen/dimen_10px"
         android:layout_below="@+id/rl_company_otherjob_top"
-        android:scrollbars="none" />
+        android:id="@+id/sr_companyother"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lv_company_otherjob_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

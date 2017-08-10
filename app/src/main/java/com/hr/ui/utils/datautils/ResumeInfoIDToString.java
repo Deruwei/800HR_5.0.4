@@ -208,6 +208,7 @@ public class ResumeInfoIDToString {
 	 * 通过城市获取城市ID
 	 */
 	public static String getCityID(Context context,String city,boolean isCHS){
+		String cityId="";
 		if(city==null||"".equals(city)){
 			return "";
 		}
@@ -237,13 +238,14 @@ public class ResumeInfoIDToString {
                 String name=object.toString();
                 String cityName=name.substring(name.indexOf(":")+2,name.length()-2);
 				if(cityName.equals(city)){
-                    return name.substring(2,name.indexOf(":")-1);
+					cityId=name.substring(2,name.indexOf(":")-1);
                 }
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "";
+		Log.i("城市的Id",cityId);
+		return cityId;
 	}
 	/**
 	 * 获取职称

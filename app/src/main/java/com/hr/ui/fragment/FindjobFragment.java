@@ -20,10 +20,12 @@ import com.hr.ui.activity.ChooseIndustriesActivity;
 import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.MainSelectCityToKeywordActivity;
 import com.hr.ui.adapter.FindPagerAdapter;
+import com.hr.ui.bean.ResumeInfo;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
@@ -67,19 +69,20 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     private List<Fragment> list;
     private TextView[] tvArray;
     private ImageView[] ivArray;
-    private GetBaiduLocation baiduLocation;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    String city= (String) msg.obj;
+                    String city= MyUtils.currentCityZh;
                     if(city.length()>0) {
-                        city = city.substring(0, city.length() - 1);
+                        cityName = city.substring(0, city.length() - 1);
+                        MyUtils.selectCityZh=cityName;
+                        MyUtils.selectCityId=ResumeInfoIDToString.getCityID(getActivity(),city,true);
                     }else {
                         city="定位失败";
                     }
-                    setPlaceText(city);
+                    setPlaceText(cityName);
             }
         }
     };
@@ -90,6 +93,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyUtils.firstIn=true;
     }
 
     private void initView() {
@@ -133,28 +137,36 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_findjob, container, false);
-        baiduLocation=new GetBaiduLocation(getActivity());
-        initView();
-        initViewPager();
-        initData();
-        if (MyUtils.isLogin) {
-            tv_findjob_back.setVisibility(View.GONE);
-        }
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initView();
+        initData();
+        if(MyUtils.firstIn==true){
+            initViewPager();
+        }
+        if (MyUtils.isLogin) {
+            tv_findjob_back.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MyUtils.firstIn=false;
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
-        baiduLocation.loadLocation();
-        tvArray[0].setTextColor(Color.parseColor("#F39D0D"));
-        ivArray[0].setBackgroundColor(Color.parseColor("#F39D0D"));
+        if(MyUtils.firstIn==true) {
+            tvArray[0].setTextColor(Color.parseColor("#F39D0D"));
+            ivArray[0].setBackgroundColor(Color.parseColor("#F39D0D"));
+        }
         SharedPreferencesUtils sUtils = new SharedPreferencesUtils(getActivity());
         int industry = sUtils.getIntValue(Constants.INDUSTRY, 11);
         /*
@@ -209,7 +221,6 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
 //        }
         Message message=new Message();
         message.what=1;
-        message.obj=MyUtils.currentCityZh;
        handler.sendMessage(message);
     }
 
@@ -218,10 +229,8 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
      */
     private void initViewPager() {
         list = new ArrayList<>();
-
         pagerPostSearchFragment = new PagerPostSearchFragment();
         pagerKeywordSearchFragment = new PagerKeywordSearchFragment();
-
         list.add(pagerKeywordSearchFragment);
         list.add(pagerPostSearchFragment);
         findPagerAdapter = new FindPagerAdapter(getActivity().getSupportFragmentManager(), list);

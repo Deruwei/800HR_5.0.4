@@ -24,7 +24,10 @@ public class MyUtils extends HrApplication {
     public static String industryId;// 行业
     public static double latitude;// 当前经纬度
     public static double longitude;
+    public static boolean firstIn;
     public static String currentCityZh = "";// 当前城市zh
+    public static String selectCityZh = "";
+    public static String selectCityId = "";
     public static String currentCityEn = "";// 当前城市en
     public static String currentCityId = "";// 当前城市id
     public static boolean ableInternet = true;// 网络状态

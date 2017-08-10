@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#fff"
+    android:background="#EBEBEB"
     android:orientation="vertical">
 
     <!-- start title -->
@@ -29,15 +29,43 @@
 
     </RelativeLayout>
     <!-- end title -->
-
-    <ListView
-        android:dividerHeight="3dp"
-        android:id="@+id/listview_search"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="#00000000"
-        android:listSelector="#F6F6F6"></ListView>
+        android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50px"
+            android:layout_marginTop="@dimen/dimen_10px"
+            android:background="@color/white"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/tv_nodDataWhoLookMe"
+            android:text="@string/noData_whoLookMe" />
 
+        <RelativeLayout
+            android:id="@+id/rl_hasDataWhoLookMe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/sr_whoLookMe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dimen_10px">
+
+                <android.support.v7.widget.RecyclerView
+
+                    android:id="@+id/listview_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cacheColorHint="#00000000"
+                    android:divider="#00000000"
+                    android:dividerHeight="3dp"
+                    android:listSelector="#F6F6F6">
+
+                </android.support.v7.widget.RecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

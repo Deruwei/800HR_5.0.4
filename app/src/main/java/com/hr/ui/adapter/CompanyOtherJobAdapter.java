@@ -3,10 +3,10 @@ package com.hr.ui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,38 +19,47 @@ import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 作者：Colin
  * 日期：2016/1/25 19:58
  * 邮箱：bestxt@qq.com
  */
-public class CompanyOtherJobAdapter extends BaseAdapter implements View.OnClickListener {
+public class CompanyOtherJobAdapter extends RecyclerView.Adapter<CompanyOtherJobAdapter.MyViewHolder> implements View.OnClickListener{
     private static final String TAG = "CompanyOtherJobAdapter";
     private static ArrayList<HashMap<String, Object>> dataList;
     private static Context mContext;
     /**
      * 本地缓存图片名字
      */
-    private ViewHolder viewHolder;
     private SharedPreferencesUtils sUtils;
-    private LayoutInflater inflater;
 
+    public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
+        this.dataList = dataList;
+    }
 
-    public CompanyOtherJobAdapter(Context context, ArrayList<HashMap<String, Object>> list) {
+    public CompanyOtherJobAdapter(Context context) {
         this.mContext = context;
-        this.dataList = list;
-        inflater = LayoutInflater.from(mContext);
         sUtils = new SharedPreferencesUtils(mContext);
     }
 
     @Override
-    public int getCount() {
-        return dataList.size();
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_my_position_lv, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return dataList.get(position);
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.tvItemMyPositionJobname.setText(dataList.get(position).get("job_name").toString());
+        holder.tvItemMyPositionCityname.setText(dataList.get(position).get("workplace").toString());
+        holder.tvItemMyPositionCompanyname.setText(dataList.get(position).get("enterprise_name").toString());
+        holder.tvItemMyPositionlvReleasetime.setText(dataList.get(position).get("issue_date").toString());
+        holder.rlItemMyPositionlvClick.setTag(dataList.get(position).get("job_id").toString());
+        holder.cbItemMyPositionSelect.setVisibility(View.GONE);
+        holder.rlItemMyPositionlvClick.setOnClickListener(this);
     }
 
     @Override
@@ -59,47 +68,34 @@ public class CompanyOtherJobAdapter extends BaseAdapter implements View.OnClickL
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.item_my_position_lv, null);
-            viewHolder.tv_item_my_position_jobname = (TextView) convertView.findViewById(R.id.tv_item_my_position_jobname);
-            viewHolder.tv_item_my_position_companyname = (TextView) convertView.findViewById(R.id.tv_item_my_position_companyname);
-            viewHolder.tv_item_my_position_cityname = (TextView) convertView.findViewById(R.id.tv_item_my_position_cityname);
-            viewHolder.tv_item_my_positionlv_releasetime = (TextView) convertView.findViewById(R.id.tv_item_my_positionlv_releasetime);
-            viewHolder.iv_item_my_positionlv_jobinfo = (ImageView) convertView.findViewById(R.id.iv_item_my_positionlv_jobinfo);
-            viewHolder.rl_item_my_positionlv_click = (RelativeLayout) convertView.findViewById(R.id.rl_item_my_positionlv_click);
-            viewHolder.cb_item_my_position_select = (CheckBox) convertView.findViewById(R.id.cb_item_my_position_select);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        viewHolder.tv_item_my_position_jobname.setText(dataList.get(position).get("job_name").toString());
-        viewHolder.tv_item_my_position_cityname.setText(dataList.get(position).get("workplace").toString());
-        viewHolder.tv_item_my_position_companyname.setText(dataList.get(position).get("enterprise_name").toString());
-        viewHolder.tv_item_my_positionlv_releasetime.setText(dataList.get(position).get("issue_date").toString());
-        viewHolder.rl_item_my_positionlv_click.setTag(dataList.get(position).get("job_id").toString());
-        viewHolder.cb_item_my_position_select.setVisibility(View.GONE);
-        viewHolder.rl_item_my_positionlv_click.setOnClickListener(this);
-//        StringBuffer sb = new StringBuffer();
-//        if (dataList.get(position).get("is_apply").toString().equals("1")) {
-//            sb.append("   已投递");
-//        }
-//        if (dataList.get(position).get("is_favourite").toString().equals("1")) {
-//            sb.append("   已收藏");
-//        }
-//        if (sb.toString().trim().length() > 0) {
-//            viewHolder.tv_item_my_positionlv_applycollection.setVisibility(View.VISIBLE);
-//            viewHolder.tv_item_my_positionlv_applycollection.setText(sb.toString());
-//        }
-        return convertView;
+    public int getItemCount() {
+        return dataList.size();
     }
 
-    class ViewHolder {
-        TextView tv_item_my_position_jobname, tv_item_my_positionlv_applycollection, tv_item_my_position_companyname, tv_item_my_position_cityname, tv_item_my_positionlv_releasetime;
-        ImageView iv_item_my_positionlv_jobinfo;
-        RelativeLayout rl_item_my_positionlv_click;
-        CheckBox cb_item_my_position_select;
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.cb_item_my_position_select)
+        CheckBox cbItemMyPositionSelect;
+        @Bind(R.id.tv_item_my_position_jobname)
+        TextView tvItemMyPositionJobname;
+        @Bind(R.id.tv_item_my_position_companyname)
+        TextView tvItemMyPositionCompanyname;
+        @Bind(R.id.tv_item_my_position_cityname)
+        TextView tvItemMyPositionCityname;
+        @Bind(R.id.textView28)
+        TextView textView28;
+        @Bind(R.id.tv_item_my_positionlv_releasetime)
+        TextView tvItemMyPositionlvReleasetime;
+        @Bind(R.id.iv_item_my_positionlv_jobinfo)
+        ImageView ivItemMyPositionlvJobinfo;
+        @Bind(R.id.tv_item_my_positionlv_applycollection)
+        TextView tvItemMyPositionlvApplycollection;
+        @Bind(R.id.rl_item_my_positionlv_click)
+        RelativeLayout rlItemMyPositionlvClick;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
     }
 
     /**

@@ -3,21 +3,25 @@ package com.hr.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.MyCollectionAdapter;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.tools.LogTools;
-import com.hr.ui.view.pulltorefresh.PullToRefreshBase;
-import com.hr.ui.view.pulltorefresh.PullToRefreshListView;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
@@ -26,9 +30,32 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MyCollectionActivity extends BaseActivity implements View.OnClickListener {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MyCollectionActivity extends BaseActivity {
     private static final String TAG = "MyCollectionActivity";
-    private PullToRefreshListView lv_my_collection_result;
+    @Bind(R.id.iv_my_collection_back)
+    ImageView ivMyCollectionBack;
+    @Bind(R.id.tv_my_collection_jobnum)
+    TextView tvMyCollectionJobnum;
+    @Bind(R.id.rl_my_collection_top)
+    RelativeLayout rlMyCollectionTop;
+    @Bind(R.id.lv_my_collection_result)
+    RecyclerView lvMyCollectionResult;
+    @Bind(R.id.sr_collection)
+    SwipeRefreshLayout srCollection;
+    @Bind(R.id.bt_my_collection_collect)
+    Button btMyCollectionCollect;
+    @Bind(R.id.bt_my_collection_deliver)
+    Button btMyCollectionDeliver;
+    @Bind(R.id.rl_my_collection_visible)
+    LinearLayout rlMyCollectionVisible;
+    @Bind(R.id.tv_noDataCollection)
+    TextView tvNoDataCollection;
+    @Bind(R.id.rl_hasDataCollection)
+    RelativeLayout rlHasDataCollection;
     private MyCollectionAdapter myCollectionAdapter;
     private ArrayList<HashMap<String, Object>> dataList;
     private int firstNumm = 0;
@@ -38,6 +65,7 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
     private static ArrayList<HashMap<String, Object>> totalList;
     private HashMap<String, Object> hs;
     private HashMap<Integer, Boolean> totalIsSelect;
+    private LinearLayoutManager manager;
     /**
      * 当前第几页
      */
@@ -45,9 +73,7 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
     /**
      * 搜索到的工作总数
      */
-    private LinearLayout rl_my_collection_visible;
-    private ImageView iv_my_collection_back;
-    private Button bt_my_collection_collect, bt_my_collection_deliver;
+
     public static MyCollectionActivity instance = null;
     /**
      * ResultListView
@@ -61,6 +87,7 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
      * 异常返回值
      */
     private int error_code;
+    private int lastVisibleItem;
     /**
      * 访问网络
      */
@@ -96,11 +123,11 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
                     // 通知适配器更新数据
-                    if (firstNumm == 0) {
-                        myCollectionAdapter = new MyCollectionAdapter(MyCollectionActivity.this, totalList);
-                        resultListView.setAdapter(myCollectionAdapter);
-                        firstNumm = 2;
-                    } else if (dataList != null && firstNumm == 2 && dataList.size() > 0) {
+                     myCollectionAdapter = new MyCollectionAdapter(MyCollectionActivity.this);
+                    myCollectionAdapter.setDataList(totalList);
+                    if(pageNum==1) {
+                        lvMyCollectionResult.setAdapter(myCollectionAdapter);
+                    }else{
                         myCollectionAdapter.notifyDataSetChanged();
                     }
                 } else if (msg.arg1 == 206) {//
@@ -133,6 +160,7 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_collection);
+        ButterKnife.bind(this);
         MobclickAgent.onEvent(this, "cv-show-favorites");
         initView();
         initData();
@@ -144,9 +172,13 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
      */
     private void isVISIBLE() {
         if (totalList.size() > 0) {
-            rl_my_collection_visible.setVisibility(View.VISIBLE);
+            rlMyCollectionVisible.setVisibility(View.VISIBLE);
+            rlHasDataCollection.setVisibility(View.VISIBLE);
+            tvNoDataCollection.setVisibility(View.GONE);
         } else {
-            rl_my_collection_visible.setVisibility(View.GONE);
+            rlMyCollectionVisible.setVisibility(View.GONE);
+            rlHasDataCollection.setVisibility(View.GONE);
+            tvNoDataCollection.setVisibility(View.VISIBLE);
         }
     }
 
@@ -154,52 +186,70 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
      * 初始化控件
      */
     private void initView() {
-        lv_my_collection_result = (PullToRefreshListView) findViewById(R.id.lv_my_collection_result);
-        rl_my_collection_visible = (LinearLayout) findViewById(R.id.rl_my_collection_visible);
-        iv_my_collection_back = (ImageView) findViewById(R.id.iv_my_collection_back);
-        iv_my_collection_back.setOnClickListener(this);
-        bt_my_collection_collect = (Button) findViewById(R.id.bt_my_collection_collect);
-        bt_my_collection_deliver = (Button) findViewById(R.id.bt_my_collection_deliver);
-
-        bt_my_collection_collect.setOnClickListener(this);
-        bt_my_collection_deliver.setOnClickListener(this);
-
-        resultListView = lv_my_collection_result.getRefreshableView();
-        // 设置PullToRefreshListView的事件监听
-        // 刷新监听器，目的是实现下拉刷新
-        lv_my_collection_result
-                .setOnRefreshListener(new PullToRefreshBase.OnRefreshListener() {
+        manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvMyCollectionResult.setLayoutManager(manager);
+        lvMyCollectionResult.addItemDecoration(new SpacesItemDecoration(5));
+        srCollection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onRefresh() {
+                    public void run() {
                         totalList.clear();
                         totalIsSelect.clear();
                         pageNum = 1;
                         loadNetData();
-                        // 让下拉刷新的动画Ui消失
-                        lv_my_collection_result.onRefreshComplete();
+                        myCollectionAdapter.notifyDataSetChanged();
+                        srCollection.setRefreshing(false);
                     }
-                });
-        // 监听当前页面的最后一条，目的是触发上拉加载下一页
-        lv_my_collection_result
-                .setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-                    @Override
-                    public void onLastItemVisible() {
-                        pageNum += 1;
-                        loadNetData();
-                    }
-                });
-        lv_my_collection_result.setOnScrollListener(new AbsListView.OnScrollListener() {
+                }, 1000);
+            }
+        });
+        //rvChannalcontent根据上拉到页面的最低端来加载下一页
+        lvMyCollectionResult.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == 1 || scrollState == 2) {
-                    rl_my_collection_visible.setVisibility(View.INVISIBLE);
-                } else {
-                    rl_my_collection_visible.setVisibility(View.VISIBLE);
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //当滑动到页面的最底端的时候最后一个item的下标+1等于adapter数据的个数，加载下一页
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) == myCollectionAdapter
+                        .getItemCount()) {
+                    pageNum++;
+                    srCollection.setRefreshing(true);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            srCollection.setRefreshing(true);
+                            loadNetData();
+                            myCollectionAdapter.notifyDataSetChanged();
+                            srCollection.setRefreshing(false);
+                        }
+                    }, 1000);
                 }
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = manager.findLastVisibleItemPosition();
+            }
+        });
+        srCollection.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        srCollection.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        srCollection.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources()
+                        .getDisplayMetrics()));
+
+        lvMyCollectionResult.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == 1 || newState == 2) {
+                    rlMyCollectionVisible.setVisibility(View.INVISIBLE);
+                } else {
+                    rlMyCollectionVisible.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -271,9 +321,9 @@ public class MyCollectionActivity extends BaseActivity implements View.OnClickLi
         return error_code;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    @OnClick({R.id.iv_my_collection_back, R.id.bt_my_collection_collect, R.id.bt_my_collection_deliver})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.iv_my_collection_back:
                 finish();
                 break;

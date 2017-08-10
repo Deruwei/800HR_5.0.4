@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EBEBEB"
     tools:context="com.hr.ui.activity.MyPositionActivity">
 
     <RelativeLayout
@@ -26,12 +27,38 @@
             android:textColor="#fff"
             android:textSize="22sp" />
     </RelativeLayout>
-
-    <ListView
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_10px"
+        android:layout_below="@+id/rl_my_position_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_noDataApplyJob"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/dimen_50px">
+        <TextView
+            android:text="@string/applyJob"
+            android:gravity="center"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_hasDataApplyJob"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sr_position"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lv_my_position_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_my_position_top"
         android:listSelector="#f9f9f9"
         android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

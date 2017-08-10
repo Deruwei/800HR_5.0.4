@@ -3,15 +3,22 @@ package com.hr.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.CompanyOtherJobAdapter;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.view.pulltorefresh.PullToRefreshBase;
 import com.hr.ui.view.pulltorefresh.PullToRefreshListView;
@@ -22,9 +29,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CompanyOtherJobActivity extends BaseActivity implements View.OnClickListener {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class CompanyOtherJobActivity extends BaseActivity {
     private static final String TAG = "CompanyOtherJobAdapter";
-    private PullToRefreshListView lv_company_otherjob_listview;
+    @Bind(R.id.iv_company_otherjob_back)
+    ImageView ivCompanyOtherjobBack;
+    @Bind(R.id.tv_company_otherjob_jobnum)
+    TextView tvCompanyOtherjobJobnum;
+    @Bind(R.id.rl_company_otherjob_top)
+    RelativeLayout rlCompanyOtherjobTop;
+    @Bind(R.id.lv_company_otherjob_listview)
+    RecyclerView lvCompanyOtherjobListview;
+    @Bind(R.id.sr_companyother)
+    SwipeRefreshLayout srCompanyother;
     private CompanyOtherJobAdapter comAdapter;
     private ArrayList<HashMap<String, Object>> dataList;
     private int firstNumm = 0;
@@ -37,10 +57,6 @@ public class CompanyOtherJobActivity extends BaseActivity implements View.OnClic
      * 当前第几页
      */
     private int pageNum = 1;
-    /**
-     * 返回按钮
-     */
-    private ImageView iv_company_otherjob_back;
     /**
      * 企业id(加密)
      */
@@ -57,6 +73,8 @@ public class CompanyOtherJobActivity extends BaseActivity implements View.OnClic
      * 异常返回值
      */
     private int error_code;
+    private int lastVisibleItem;
+    private LinearLayoutManager manager;
     /**
      * 访问网络
      */
@@ -92,12 +110,17 @@ public class CompanyOtherJobActivity extends BaseActivity implements View.OnClic
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
                     // 通知适配器更新数据
-                    if (firstNumm == 0) {
-                        comAdapter = new CompanyOtherJobAdapter(CompanyOtherJobActivity.this, totalList);
-                        resultListView.setAdapter(comAdapter);
-                        firstNumm = 2;
-                    } else if (dataList != null && firstNumm == 2 && dataList.size() > 0) {
-                        comAdapter.notifyDataSetChanged();
+                    if (dataList.size() != 0&&dataList!=null) {
+                        totalList.addAll(dataList);
+                        comAdapter.setDataList(totalList);
+                        if(pageNum==1) {
+                            lvCompanyOtherjobListview.setAdapter(comAdapter);
+                        }else{
+                            comAdapter.notifyDataSetChanged();
+                        }
+                    } else{
+                        Toast.makeText(CompanyOtherJobActivity.this, "没有更多的数据了！",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else if (msg.arg1 == 206) {//
                     Toast.makeText(CompanyOtherJobActivity.this, "执行失败",
@@ -128,6 +151,7 @@ public class CompanyOtherJobActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_other_job);
+        ButterKnife.bind(this);
         getCompanyData();
         initView();
         initData();
@@ -137,50 +161,68 @@ public class CompanyOtherJobActivity extends BaseActivity implements View.OnClic
      * 初始化控件
      */
     private void initView() {
-        lv_company_otherjob_listview = (PullToRefreshListView) findViewById(R.id.lv_company_otherjob_listview);
-        iv_company_otherjob_back = (ImageView) findViewById(R.id.iv_company_otherjob_back);
-        iv_company_otherjob_back.setOnClickListener(this);
-
-        resultListView = lv_company_otherjob_listview.getRefreshableView();
-        // 设置PullToRefreshListView的事件监听
-        // 刷新监听器，目的是实现下拉刷新
-        lv_company_otherjob_listview
-                .setOnRefreshListener(new PullToRefreshBase.OnRefreshListener() {
+        manager=new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvCompanyOtherjobListview.setLayoutManager(manager);
+        lvCompanyOtherjobListview.addItemDecoration(new SpacesItemDecoration(5));
+        srCompanyother.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onRefresh() {
+                    public void run() {
                         totalList.clear();
                         pageNum = 1;
                         loadNetData();
-                        // 让下拉刷新的动画Ui消失
-                        lv_company_otherjob_listview.onRefreshComplete();
+                        comAdapter.notifyDataSetChanged();
+                        srCompanyother.setRefreshing(false);
                     }
-                });
-        // 监听当前页面的最后一条，目的是触发上拉加载下一页
-        lv_company_otherjob_listview
-                .setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-                    @Override
-                    public void onLastItemVisible() {
-                        pageNum += 1;
-                        loadNetData();
-                    }
-                });
-        lv_company_otherjob_listview.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                },1000);
             }
         });
+        //rvChannalcontent根据上拉到页面的最低端来加载下一页
+        lvCompanyOtherjobListview.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //当滑动到页面的最底端的时候最后一个item的下标+1等于adapter数据的个数，加载下一页
+                if(newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) ==comAdapter
+                        .getItemCount()){
+                    pageNum++;
+                    srCompanyother.setRefreshing(true);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            srCompanyother.setRefreshing(true);
+                            loadNetData();
+                            comAdapter.notifyDataSetChanged();
+                            srCompanyother.setRefreshing(false);
+                        }
+                    },1000);
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = manager.findLastVisibleItemPosition();
+            }
+        });
+        srCompanyother.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        srCompanyother.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        srCompanyother.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources()
+                        .getDisplayMetrics()));
+
+
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
+        comAdapter = new CompanyOtherJobAdapter(CompanyOtherJobActivity.this);
         totalList = new ArrayList<>();
         loadNetData();
     }
@@ -253,12 +295,9 @@ public class CompanyOtherJobActivity extends BaseActivity implements View.OnClic
         return error_code;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_company_otherjob_back:
-                finish();
-                break;
-        }
+
+    @OnClick(R.id.iv_company_otherjob_back)
+    public void onViewClicked() {
+        finish();
     }
 }

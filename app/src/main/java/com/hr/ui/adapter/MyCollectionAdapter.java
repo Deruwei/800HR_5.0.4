@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -31,35 +31,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 作者：Colin
  * 日期：2016/1/25 19:58
  * 邮箱：bestxt@qq.com
  */
-public class MyCollectionAdapter extends BaseAdapter {
+public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapter.MyViewHolder> {
     private static final String TAG = "MyCollectionAdapter";
-    private static ArrayList<HashMap<String, Object>> dataList;
-    private static Context mContext;
-    private static HashMap<Integer, Boolean> isSelected;
+    private  ArrayList<HashMap<String, Object>> dataList;
+    private  Context mContext;
+    private  HashMap<Integer, Boolean> isSelected;
     /**
      * 本地缓存图片名字
      */
-    private ViewHolder viewHolder;
     private SharedPreferencesUtils sUtils;
     private LayoutInflater inflater;
     private int error_code;
     private Handler handler;
 
-
-    public MyCollectionAdapter(Context context, ArrayList<HashMap<String, Object>> list) {
-        this.mContext = context;
-        this.dataList = list;
-        inflater = LayoutInflater.from(mContext);
-        isSelected = new HashMap<>();
-        Log.i(TAG, "====list " + list.size());
-        Log.i(TAG, "====dataList " + dataList.size());
+    public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
+        this.dataList = dataList;
         initData();
         sUtils = new SharedPreferencesUtils(mContext);
+    }
+
+    public MyCollectionAdapter(Context context) {
+        this.mContext = context;
+        inflater = LayoutInflater.from(mContext);
+        isSelected = new HashMap<>();
+
+
     }
 
     // 初始化isSelected的数据
@@ -145,48 +149,19 @@ public class MyCollectionAdapter extends BaseAdapter {
     };
 
     @Override
-    public int getCount() {
-        return dataList.size();
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_searchjob_result, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return dataList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        int type = getItemViewType(position);
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.item_searchjob_result, null);
-            viewHolder.tv_item_searchjob_jobname = (TextView) convertView.findViewById(R.id.tv_item_searchjob_jobname);
-            viewHolder.tv_item_searchjob_companyname = (TextView) convertView.findViewById(R.id.tv_item_searchjob_companyname);
-            viewHolder.tv_item_searchjob_cityname = (TextView) convertView.findViewById(R.id.tv_item_searchjob_cityname);
-            viewHolder.tv_item_searchjoblv_releasetime = (TextView) convertView.findViewById(R.id.tv_item_searchjoblv_releasetime);
-            viewHolder.iv_item_searchjoblv_jobinfo = (ImageView) convertView.findViewById(R.id.iv_item_searchjoblv_jobinfo);
-            viewHolder.cb_item_searchjob_select = (CheckBox) convertView.findViewById(R.id.cb_item_searchjob_select);
-            viewHolder.rl_item_searchjoblv_click = (RelativeLayout) convertView.findViewById(R.id.rl_item_searchjoblv_click);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        viewHolder.tv_item_searchjob_jobname.setText(dataList.get(position).get("job_name").toString());
-        viewHolder.tv_item_searchjob_cityname.setText(dataList.get(position).get("workplace").toString());
-        viewHolder.tv_item_searchjob_companyname.setText(dataList.get(position).get("enterprise_name").toString());
-        viewHolder.tv_item_searchjoblv_releasetime.setText(dataList.get(position).get("favourite_time").toString());
-        viewHolder.rl_item_searchjoblv_click.setTag(dataList.get(position).get("job_id").toString());
-        viewHolder.rl_item_searchjoblv_click.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        holder.tvItemSearchJobJobName.setText(dataList.get(position).get("job_name").toString());
+        holder.tvItemSearchjobCityname.setText(dataList.get(position).get("workplace").toString());
+        holder.tvItemSearchjobCompanyname.setText(dataList.get(position).get("enterprise_name").toString());
+        holder.tvItemSearchjoblvReleasetime.setText(dataList.get(position).get("favourite_time").toString());
+        holder.rlItemSearchjoblvClick.setTag(dataList.get(position).get("job_id").toString());
+        holder.rlItemSearchjoblvClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (dataList.get(position).get("is_expire").equals("0")) {
@@ -206,23 +181,50 @@ public class MyCollectionAdapter extends BaseAdapter {
         if (isSelected.get(position) == null) {
             isSelected.put(position, false);
         }
-        viewHolder.cb_item_searchjob_select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.cbItemSearchjobSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 //                        Toast.makeText(mContext, "" + position + isChecked, Toast.LENGTH_SHORT).show();
                 isSelected.put(position, isChecked);
             }
         });
-        viewHolder.cb_item_searchjob_select.setChecked(isSelected.get(position));
-        return convertView;
+        holder.cbItemSearchjobSelect.setChecked(isSelected.get(position));
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return dataList.size();
     }
 
 
-    class ViewHolder {
-        TextView tv_item_searchjob_jobname, tv_item_searchjob_companyname, tv_item_searchjob_cityname, tv_item_searchjoblv_releasetime;
-        CheckBox cb_item_searchjob_select;
-        ImageView iv_item_searchjoblv_jobinfo;
-        RelativeLayout rl_item_searchjoblv_click;
+
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.cb_item_searchjob_select)
+        CheckBox cbItemSearchjobSelect;
+        @Bind(R.id.tv_item_searchJob_jobName)
+        TextView tvItemSearchJobJobName;
+        @Bind(R.id.tv_item_searchjob_companyname)
+        TextView tvItemSearchjobCompanyname;
+        @Bind(R.id.tv_item_searchjob_cityname)
+        TextView tvItemSearchjobCityname;
+        @Bind(R.id.tv_item_searchjoblv_releasetime)
+        TextView tvItemSearchjoblvReleasetime;
+        @Bind(R.id.iv_item_searchjoblv_jobinfo)
+        ImageView ivItemSearchjoblvJobinfo;
+        @Bind(R.id.tv_item_searchjoblv_applycollection)
+        TextView tvItemSearchjoblvApplycollection;
+        @Bind(R.id.rl_item_searchjoblv_click)
+        RelativeLayout rlItemSearchjoblvClick;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
     }
 
 
@@ -231,12 +233,12 @@ public class MyCollectionAdapter extends BaseAdapter {
      *
      * @return
      */
-    public static HashMap<Integer, Boolean> getIsSelected() {
+    public  HashMap<Integer, Boolean> getIsSelected() {
         return isSelected;
     }
 
-    public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
-        MyCollectionAdapter.isSelected = isSelected;
+    public  void setIsSelected(HashMap<Integer, Boolean> isSelected) {
+        this.isSelected = isSelected;
     }
 
     /**

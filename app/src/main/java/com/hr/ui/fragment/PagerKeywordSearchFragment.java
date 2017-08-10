@@ -1,5 +1,7 @@
 package com.hr.ui.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -44,6 +46,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.speech.UtilityConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +87,7 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
     // 显示广告的图片
     private ArrayList<Industry> ad_data;
     private ImageRequest mRequest = null;
+    private Context context;
 
     // 显示企业推荐的列表
     private Industry industry;
@@ -94,11 +98,11 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
     /**
      * 城市名
      */
-    private static String cityName;
+    private  String cityName;
     /**
      * 城市ID
      */
-    private static String placeId;
+    private  String placeId;
     private int industry_id;
 
 
@@ -185,7 +189,6 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         initData();
         updateUI();
     }
-
 
 
 
@@ -336,28 +339,6 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         service.execute(getData(3));
     }
 
-    /**
-     * 设置地点
-     *
-     * @param value
-     */
-    public static void setPlaceText(String value) {
-        // TODO Auto-generated method stub
-//        tv_keyword_city.setText(value);
-        cityName = value;
-        // System.out.println("placeValue:" + value);
-    }
-
-    /**
-     * 设置城市ID
-     *
-     * @param string
-     */
-    public static void setPlaceId(String string) {
-        // TODO Auto-generated method stub
-        placeId = string;
-        // System.out.println("placeid:" + placeId);
-    }
 
     @Override
     public void onClick(View v) {
@@ -481,16 +462,25 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         return error_code;
     }
 
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
     /**
      * 保存历史记录
      */
     private void saveHistory() {
-        if (cityName.equals("全国")) {
-            cityName = "";
+        Log.i("城市的名称和id",MyUtils.selectCityId+ MyUtils.selectCityZh);
+        if ("全国".equals(MyUtils.selectCityZh)) {
+            cityName="";
         }
         keyWorldHistory.setIndustry_id(industryId + "");
-        keyWorldHistory.setPlace_id(placeId);
-        keyWorldHistory.setPlace_value(cityName);
+        keyWorldHistory.setPlace_id(MyUtils.selectCityId);
+        keyWorldHistory.setPlace_value(MyUtils.selectCityZh);
         keyWorldHistory.setSearch_value(et_keyword_keyword.getText().toString().trim());
         keyWorldHistory.setWordtype(wordtype);
         int db_num = db.query_KeyWorldHistory(industryId + "", et_keyword_keyword.getText().toString(), cityName, wordtype);
@@ -587,10 +577,10 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         // TODO Auto-generated method stub
         String Search_value = keyWorldHistory2[keyWorldHistory2.length - i].getSearch_value();
         String Place_value = keyWorldHistory2[keyWorldHistory2.length - i].getPlace_value();
-        if (Search_value.equals("")) {
+        if ("".equals(Search_value)) {
             Search_value = "全部";
         }
-        if (!Place_value.equals("")) {
+        if (!"".equals(Place_value)) {
             Place_value = "+" + Place_value;
         }
         textView.setText(Search_value + Place_value);

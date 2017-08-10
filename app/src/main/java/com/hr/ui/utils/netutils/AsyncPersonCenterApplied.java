@@ -3,11 +3,13 @@ package com.hr.ui.utils.netutils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hr.ui.activity.MyPositionActivity;
+import com.hr.ui.adapter.MyPositionAdapter;
 import com.hr.ui.model.PositionInfo;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 
@@ -27,10 +29,10 @@ public class AsyncPersonCenterApplied {
 	private Context context;
 	private ArrayList<PositionInfo> listPositionInfos;
 	private String listTagString;// json中数组对象名称
-	private BaseAdapter adapter;
+	private MyPositionAdapter adapter;
 	public static String user_id;
 	Handler handler;
-	ListView listview;
+	RecyclerView listview;
 	private Handler handlerService = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 0) {
@@ -104,7 +106,7 @@ public class AsyncPersonCenterApplied {
 								int total_pageInt = Integer
 										.parseInt(total_pages);
 								if (current_pageInt >= total_pageInt) {
-									MyPositionActivity.isLoadAll = true;
+									/*MyPositionActivity.isLoadAll = true;*/
 								}
 							}
 						}
@@ -117,7 +119,7 @@ public class AsyncPersonCenterApplied {
 								Toast.LENGTH_SHORT).show();
 						break;
 					}
-					MyPositionActivity.isLoading = false;// 加载完毕
+					/*MyPositionActivity.isLoading = false;// 加载完毕*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -133,8 +135,8 @@ public class AsyncPersonCenterApplied {
 	 * @param listTagString
 	 */
 	public AsyncPersonCenterApplied(Context context,
-			ArrayList<PositionInfo> listPositionInfos, String listTagString,
-			BaseAdapter adapter, ListView listview) {
+									ArrayList<PositionInfo> listPositionInfos, String listTagString,
+									MyPositionAdapter adapter, RecyclerView listview) {
 		this.context = context;
 		// System.out.println(context);
 		this.listTagString = listTagString;
@@ -146,7 +148,7 @@ public class AsyncPersonCenterApplied {
 
 	public void execute(String method, String page, String page_nums) {
 		try {
-			MyPositionActivity.isLoading = true;// 开始加载
+			/*MyPositionActivity.isLoading = true;// 开始加载*/
 			HashMap<String, String> requestParams = new HashMap<String, String>();
 			requestParams.put("method", method);
 			requestParams.put("page", page);

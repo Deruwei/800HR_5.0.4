@@ -2,16 +2,17 @@ package com.hr.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hr.ui.R;
 import com.hr.ui.model.Industry;
+import com.hr.ui.utils.OnItemClick;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -19,26 +20,31 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 作者：Colin
  * 日期：2016/1/6 17:13
  * 邮箱：bestxt@qq.com
  */
-public class FindAdapter extends BaseAdapter {
-
+public class FindAdapter extends RecyclerView.Adapter<FindAdapter.MyViewHolder> {
     /**
      * UIL配置信息
      */
     private DisplayImageOptions options;
     private Context context;
     private ArrayList<Industry> data;
+    private OnItemClick onItemClick;
     // 显示图片信息
     private int pagerType;
     private ImageLoader imageLoader = ImageLoader.getInstance();
-    private LayoutInflater mInflater;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
 
     public FindAdapter(Context context, ArrayList<Industry> data, int type) {
-        mInflater = LayoutInflater.from(context);
         this.context = context;
         this.data = data;
         this.pagerType = type;
@@ -46,46 +52,13 @@ public class FindAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
-        return data.size();
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_findactivity_lv, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        // TODO Auto-generated method stub
-        return position;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        // TODO Auto-generated method stub
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = mInflater.inflate(
-                    R.layout.item_findactivity_lv, null);
-            holder.iv = (ImageView) convertView
-                    .findViewById(R.id.famous_enterprise_niv);
-            holder.title = (TextView) convertView
-                    .findViewById(R.id.famous_enterprise_title);
-            holder.type = (TextView) convertView
-                    .findViewById(R.id.famous_enterprise_type);
-            holder.number = (TextView) convertView
-                    .findViewById(R.id.famous_enterprise_number);
-            holder.ll_enterprise_number1 = (LinearLayout) convertView.findViewById(R.id.ll_enterprise_number1);
-            holder.ll_enterprise_type1 = (LinearLayout) convertView.findViewById(R.id.ll_enterprise_type1);
-//            setLayoutParams(holder.iv);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         Industry industry = data.get(position);
         // 获取服务器图片，处理图片，设置图片
         String url = industry.getPic_path();
@@ -95,7 +68,7 @@ public class FindAdapter extends BaseAdapter {
         // 请求的url不能为空
         if (url != null && !url.equals("")) {
             try {
-                imageLoader.displayImage(url, holder.iv, options);
+                imageLoader.displayImage(url, holder.famousEnterpriseNiv, options);
             } catch (Exception e) {
                 // TODO: handle exception
             }
@@ -103,27 +76,54 @@ public class FindAdapter extends BaseAdapter {
         }
         if (pagerType == 1) {
             // 设置公司名称、公司性质、公司规模
-            holder.title.setText(industry.getTitle());
-            holder.type.setText(industry.getCompany_type());
-            holder.number.setText(industry.getStuff_munber());
+            holder.famousEnterpriseTitle.setText(industry.getTitle());
+            holder.famousEnterpriseType.setText(industry.getCompany_type());
+            holder.famousEnterpriseNumber.setText(industry.getStuff_munber());
         } else {
-            holder.title.setText(industry.getTitle());
-            holder.ll_enterprise_number1.setVisibility(View.GONE);
-            holder.ll_enterprise_type1.setVisibility(View.GONE);
+            holder.famousEnterpriseTitle.setText(industry.getTitle());
+            holder.llEnterpriseNumber1.setVisibility(View.GONE);
+            holder.llEnterpriseType1.setVisibility(View.GONE);
         }
-//            convertView.setBackgroundResource(R.drawable.list_selector);
-        return convertView;
+        if(onItemClick!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClick.ItemClick(view,position);
+                }
+            });
+        }
     }
 
-    static class ViewHolder {
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
 
-        ImageView iv;// 公司广告图片
-        TextView title;// 公司名称
-        TextView type;// 公司性质
-        TextView number;// 公司规模
-        LinearLayout ll_enterprise_number1;
-        LinearLayout ll_enterprise_type1;
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
 
+
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.famous_enterprise_niv)
+        ImageView famousEnterpriseNiv;
+        @Bind(R.id.famous_enterprise_title)
+        TextView famousEnterpriseTitle;
+        @Bind(R.id.famous_enterprise_type)
+        TextView famousEnterpriseType;
+        @Bind(R.id.ll_enterprise_type1)
+        LinearLayout llEnterpriseType1;
+        @Bind(R.id.famous_enterprise_number)
+        TextView famousEnterpriseNumber;
+        @Bind(R.id.ll_enterprise_number1)
+        LinearLayout llEnterpriseNumber1;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
     }
 
 //    /**

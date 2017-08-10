@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.netutils.AsyncCompanyIntroduce;
@@ -62,7 +63,8 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
                 tv_companyparticular_comparticular.setText(resultComMap.get("synopsis"));
                 logoUrl = resultComMap.get("ent_logo").toString();
                 if (!logoUrl.equals("")) {
-                    imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_companyparticular_comlogo2, options);
+                    Glide.with(CompanyParticularActivity.this).load(Constants.LOGO_ROOTPATH + logoUrl).into(iv_companyparticular_comlogo2);
+                    /*imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_companyparticular_comlogo2, options);*/
                 }
             }
         }

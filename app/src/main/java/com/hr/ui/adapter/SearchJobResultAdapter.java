@@ -8,11 +8,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -35,6 +35,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 作者：Colin
  * 日期：2015/12/23 17:22
@@ -46,11 +49,11 @@ import java.util.HashMap;
  * 也就是initData还没有运行的时候系统就自动运行getView了，之后将initData设成static就可以成功了。 但是就不能多个对象用了。
  * 初始化的时候for循环里的长度是从Activity传递过来的集合的长度，而不是Adapter中HashMap的长度..
  */
-public class SearchJobResultAdapter extends BaseAdapter {
-    private static final String TAG = "SearchJobResultAdapter";
-    private static ArrayList<HashMap<String, Object>> dataList;
-    private static Context mContext;
-    private static HashMap<Integer, Boolean> isSelected;
+public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResultAdapter.MyViewHolder> {
+    private  final String TAG = "SearchJobResultAdapter";
+    private  ArrayList<HashMap<String, Object>> dataList;
+    private  Context mContext;
+    private  HashMap<Integer, Boolean> isSelected;
 
     private int is_expire;// 是否过期的标识 0：未过期 1：过期
     private int is_favourite;// 是否已经收藏 0：未收藏 1：收藏
@@ -62,8 +65,6 @@ public class SearchJobResultAdapter extends BaseAdapter {
     private String comLogoFileName;
     private Bitmap drawable;
     private String posterPath;
-    private ViewHolder viewHolder;
-    private ViewHolderImage viewHolderImage;
     private boolean isImage;
     private SharedPreferencesUtils sUtils;
     /**
@@ -74,22 +75,20 @@ public class SearchJobResultAdapter extends BaseAdapter {
      * 纯文字的Item
      */
     final int TYPE_2 = 1;
-    private LayoutInflater inflater;
     private int error_code;
     private Handler handler;
 
+    public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
+        this.dataList = dataList;
 
-    public SearchJobResultAdapter(Context context, ArrayList<HashMap<String, Object>> list) {
-        this.mContext = context;
-        this.dataList = list;
-        inflater = LayoutInflater.from(mContext);
-        isSelected = new HashMap<>();
         initData();
+
+    }
+
+    public SearchJobResultAdapter(Context context) {
+        this.mContext = context;
+        isSelected = new HashMap<>();
         sUtils = new SharedPreferencesUtils(mContext);
-        if (dataList.size() == 0) {
-            dataList = new ArrayList<HashMap<String, Object>>();
-            notifyDataSetChanged();
-        }
     }
 
 
@@ -176,24 +175,120 @@ public class SearchJobResultAdapter extends BaseAdapter {
         }
     };
 
+
     @Override
-    public int getCount() {
-        return dataList.size();
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == TYPE_1) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_searchjob_resultimage, parent, false);
+            return new ViewHolderImage(view);
+        } else {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_searchjob_result, parent, false);
+            return new ViewHolderInfo(view);
+        }
     }
 
     @Override
-    public Object getItem(int position) {
-        return dataList.get(position);
-    }
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        if (holder instanceof ViewHolderImage) {
+            ((ViewHolderImage) holder).tvItemSearchjobimageJobname.setText(dataList.get(position).get("job_name").toString());
+            ((ViewHolderImage) holder).tvItemSearchjobimageCityname.setText(dataList.get(position).get("workplace").toString());
+            ((ViewHolderImage) holder).tvItemSearchjoblvimageCompanyname.setText(dataList.get(position).get("enterprise_name").toString());
+            ((ViewHolderImage) holder).tvItemSearchjoblvimageReleasetime.setText(dataList.get(position).get("issue_date").toString());
+            ((ViewHolderImage) holder).rlItemSearchjoblvimageClick.setTag(dataList.get(position).get("job_id").toString());
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+            StringBuffer sb = new StringBuffer();
+            ((ViewHolderImage) holder).tvItemSearchjoblvimageApplycollection.setVisibility(View.GONE);
+            sb.delete(0, sb.length());
+            sb.append("");
+            if (dataList.get(position).get("is_apply").toString().equals("1")) {
+                sb.append("   已投递");
+            }
+            if (dataList.get(position).get("is_favourite").toString().equals("1")) {
+                sb.append("   已收藏");
+            }
+            if (sb.toString().trim().length() > 0) {
+                ((ViewHolderImage) holder).tvItemSearchjoblvimageApplycollection.setVisibility(View.VISIBLE);
+                ((ViewHolderImage) holder).tvItemSearchjoblvimageApplycollection.setText(sb.toString());
+            }
 
-    @Override
-    public int getViewTypeCount() {
-        return 2;
+//                viewHolderImage.tv_item_searchjoblvimage_releasetime.setText(dataList.get(position).get("is_favourite").toString());
+//                viewHolderImage.tv_item_searchjobimage_companyname.setText(dataList.get(position).get("is_apply").toString());
+            ((ViewHolderImage) holder).rlItemSearchjoblvimageClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (position < dataList.size()) {
+                        String job_id = (String) v.getTag();
+                        // Toast.makeText(context, "文本信息" + url, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mContext, PostParticularsActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("job_id", job_id);
+                        intent.putExtras(bundle);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
+            DownLoadImg(((ViewHolderImage) holder).ivItemSearchjoblvimagePoster);
+
+            if (isSelected.get(position) == null) {
+                isSelected.put(position, false);
+            }
+            ((ViewHolderImage) holder).cbItemSearchjobimageSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        Toast.makeText(mContext, "" + position + isChecked, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mContext, ""+isSelectMap.get(position), Toast.LENGTH_SHORT).show();
+                    isSelected.put(position, isChecked);
+                }
+            });
+            ((ViewHolderImage) holder).cbItemSearchjobimageSelect.setChecked(isSelected.get(position));
+        }
+        if (holder instanceof ViewHolderInfo) {
+            ((ViewHolderInfo) holder).tvItemSearchJobJobName.setText(dataList.get(position).get("job_name").toString());
+            ((ViewHolderInfo) holder).tvItemSearchjobCityname.setText(dataList.get(position).get("workplace").toString());
+            ((ViewHolderInfo) holder).tvItemSearchjobCompanyname.setText(dataList.get(position).get("enterprise_name").toString());
+            ((ViewHolderInfo) holder).tvItemSearchjoblvReleasetime.setText(dataList.get(position).get("issue_date").toString());
+            ((ViewHolderInfo) holder).rlItemSearchjoblvClick.setTag(dataList.get(position).get("job_id").toString());
+            ((ViewHolderInfo) holder).rlItemSearchjoblvClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (position < dataList.size()) {
+                        String job_id = (String) v.getTag();
+                        // Toast.makeText(context, "文本信息" + url, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mContext, PostParticularsActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("job_id", job_id);
+                        intent.putExtras(bundle);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
+            if (isSelected.get(position) == null) {
+                isSelected.put(position, false);
+            }
+
+            StringBuffer sb2 = new StringBuffer();
+            ((ViewHolderInfo) holder).tvItemSearchjoblvApplycollection.setVisibility(View.GONE);
+            sb2.delete(0, sb2.length());
+            sb2.append("");
+
+            if (dataList.get(position).get("is_apply").toString().equals("1")) {
+                sb2.append("   已投递");
+            }
+            if (dataList.get(position).get("is_favourite").toString().equals("1")) {
+                sb2.append("   已收藏");
+            }
+            if (sb2.toString().trim().length() > 0) {
+                ((ViewHolderInfo) holder).tvItemSearchjoblvApplycollection.setVisibility(View.VISIBLE);
+                ((ViewHolderInfo) holder).tvItemSearchjoblvApplycollection.setText(sb2.toString());
+            }
+            ((ViewHolderInfo) holder).cbItemSearchjobSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    isSelected.put(position, isChecked);
+                }
+            });
+            ((ViewHolderInfo) holder).cbItemSearchjobSelect.setChecked(isSelected.get(position));
+        }
     }
 
     @Override
@@ -207,6 +302,11 @@ public class SearchJobResultAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemCount() {
+        return dataList.size();
+    }
+
+   /* @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         int type = getItemViewType(position);
         if (convertView == null) {
@@ -228,7 +328,7 @@ public class SearchJobResultAdapter extends BaseAdapter {
                 case TYPE_2:
                     viewHolder = new ViewHolder();
                     convertView = inflater.inflate(R.layout.item_searchjob_result, null);
-                    viewHolder.tv_item_searchjob_jobname = (TextView) convertView.findViewById(R.id.tv_item_searchjob_jobname);
+                    viewHolder.tv_item_searchjob_jobname = (TextView) convertView.findViewById(R.id.tv_item_searchJob_jobName);
                     viewHolder.tv_item_searchjob_companyname = (TextView) convertView.findViewById(R.id.tv_item_searchjob_companyname);
                     viewHolder.tv_item_searchjob_cityname = (TextView) convertView.findViewById(R.id.tv_item_searchjob_cityname);
                     viewHolder.tv_item_searchjoblv_releasetime = (TextView) convertView.findViewById(R.id.tv_item_searchjoblv_releasetime);
@@ -352,22 +452,66 @@ public class SearchJobResultAdapter extends BaseAdapter {
                 break;
         }
         return convertView;
+    }*/
+
+    class ViewHolderInfo extends MyViewHolder {
+        @Bind(R.id.cb_item_searchjob_select)
+        CheckBox cbItemSearchjobSelect;
+        @Bind(R.id.tv_item_searchJob_jobName)
+        TextView tvItemSearchJobJobName;
+        @Bind(R.id.tv_item_searchjob_companyname)
+        TextView tvItemSearchjobCompanyname;
+        @Bind(R.id.tv_item_searchjob_cityname)
+        TextView tvItemSearchjobCityname;
+        @Bind(R.id.tv_item_searchjoblv_releasetime)
+        TextView tvItemSearchjoblvReleasetime;
+        @Bind(R.id.iv_item_searchjoblv_jobinfo)
+        ImageView ivItemSearchjoblvJobinfo;
+        @Bind(R.id.tv_item_searchjoblv_applycollection)
+        TextView tvItemSearchjoblvApplycollection;
+        @Bind(R.id.rl_item_searchjoblv_click)
+        RelativeLayout rlItemSearchjoblvClick;
+
+        public ViewHolderInfo(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
     }
 
-    class ViewHolder {
-        TextView tv_item_searchjob_jobname, tv_item_searchjoblv_applycollection, tv_item_searchjob_companyname, tv_item_searchjob_cityname, tv_item_searchjoblv_releasetime;
-        CheckBox cb_item_searchjob_select;
-        ImageView iv_item_searchjoblv_jobinfo;
-        RelativeLayout rl_item_searchjoblv_click;
+    class ViewHolderImage extends MyViewHolder {
+        @Bind(R.id.cb_item_searchjobimage_select)
+        CheckBox cbItemSearchjobimageSelect;
+        @Bind(R.id.iv_item_searchjoblvimage_poster)
+        ImageView ivItemSearchjoblvimagePoster;
+        @Bind(R.id.tv_item_searchjobimage_jobname)
+        TextView tvItemSearchjobimageJobname;
+        @Bind(R.id.tv_item_searchjoblvimage_companyname)
+        TextView tvItemSearchjoblvimageCompanyname;
+        @Bind(R.id.tv_item_searchjobimage_cityname)
+        TextView tvItemSearchjobimageCityname;
+        @Bind(R.id.textView28)
+        TextView textView28;
+        @Bind(R.id.tv_item_searchjoblvimage_releasetime)
+        TextView tvItemSearchjoblvimageReleasetime;
+        @Bind(R.id.iv_item_searchjoblvimage_jobinfo)
+        ImageView ivItemSearchjoblvimageJobinfo;
+        @Bind(R.id.tv_item_searchjoblvimage_applycollection)
+        TextView tvItemSearchjoblvimageApplycollection;
+        @Bind(R.id.rl_item_searchjoblvimage_click)
+        RelativeLayout rlItemSearchjoblvimageClick;
+
+        public ViewHolderImage(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
-    class ViewHolderImage {
-        TextView tv_item_searchjobimage_jobname, tv_item_searchjoblvimage_applycollection, tv_item_searchjobimage_companyname, tv_item_searchjobimage_cityname, tv_item_searchjoblvimage_releasetime;
-        CheckBox cb_item_searchjobimage_select;
-        ImageView iv_item_searchjoblvimage_jobinfo, iv_item_searchjoblvimage_poster;
-        RelativeLayout rl_item_searchjoblvimage_click;
-    }
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        public MyViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 //    /**
 //     * 跳转到职位详情页
 //     *
@@ -433,12 +577,12 @@ public class SearchJobResultAdapter extends BaseAdapter {
      *
      * @return
      */
-    public static HashMap<Integer, Boolean> getIsSelected() {
+    public  HashMap<Integer, Boolean> getIsSelected() {
         return isSelected;
     }
 
-    public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
-        SearchJobResultAdapter.isSelected = isSelected;
+    public  void setIsSelected(HashMap<Integer, Boolean> isSelected) {
+        this.isSelected = isSelected;
     }
 
     /**

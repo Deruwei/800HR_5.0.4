@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
 import com.hr.ui.utils.GetDataInfo;
 import com.hr.ui.utils.GetJssonList;
+import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -40,7 +44,7 @@ public class PagerRecruitmentFragment extends Fragment {
     @Bind(R.id.tv_comNoData)
     TextView tvComNoData;
     private View view;
-    private ListView lv_pager_recruitment;
+    private RecyclerView lv_pager_recruitment;
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
@@ -77,9 +81,9 @@ public class PagerRecruitmentFragment extends Fragment {
                     tvComNoData.setVisibility(View.GONE);
                     findAdapter = new FindAdapter(mContext, dataList, 1);
                     lv_pager_recruitment.setAdapter(findAdapter);
-                    lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    findAdapter.setOnItemClick(new OnItemClick() {
                         @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        public void ItemClick(View view, int position) {
                             industry = dataList.get(position);
                             if (industry.getTopic_type() == 1) {// 专题网址
                                 openBrowser(industry.getTopic_url());
@@ -120,7 +124,11 @@ public class PagerRecruitmentFragment extends Fragment {
 
     private void initView() {
        // Log.i("this", dataList.toString());
-        lv_pager_recruitment = (ListView) view.findViewById(R.id.lv_pager_recruitment);
+        lv_pager_recruitment = (RecyclerView) view.findViewById(R.id.lv_pager_recruitment);
+        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lv_pager_recruitment.setLayoutManager(manager);
+        lv_pager_recruitment.addItemDecoration(new SpacesItemDecoration(10));
     }
 
     public void upData() {

@@ -4,41 +4,64 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
+import com.hr.ui.adapter.MyWhoLookMeAdapter;
 import com.hr.ui.model.BrowsedInfo;
+import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.AsyncPersonCenterBrowsed;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 谁看过我的简历
  *
  * @author 800hr:xuebaohua
  */
-public class WhoLookMeActivity extends Activity implements OnClickListener, OnItemClickListener {
+public class WhoLookMeActivity extends Activity {
 
+    @Bind(R.id.iv_lookme_back)
+    ImageView ivLookmeBack;
+    @Bind(R.id.relativeLayout3)
+    RelativeLayout relativeLayout3;
+    @Bind(R.id.listview_search)
+    RecyclerView listviewSearch;
+    @Bind(R.id.sr_whoLookMe)
+    SwipeRefreshLayout srWhoLookMe;
+    @Bind(R.id.rl_hasDataWhoLookMe)
+    RelativeLayout rlHasDataWhoLookMe;
+    @Bind(R.id.tv_nodDataWhoLookMe)
+    TextView tvNodDataWhoLookMe;
     private ListView listview;
     private ArrayList<BrowsedInfo> listBrowsedInfos;// 谁看过我的简历
-    private MyBaseAdpter myBaseAdpter;
+    private MyWhoLookMeAdapter myBaseAdpter;
+    private ArrayList<BrowsedInfo> totalListBrowsedInfos = new ArrayList<>();
     private ImageView iv_lookme_back;
     private boolean isLoadAll = false;// 是否全部加载
     private int index = 1;// 页码索引
     private String page_nums = "";// 总记录数
     private Context mContext = WhoLookMeActivity.this;
+    private LinearLayoutManager manager;
+    private int lastVisibleItem;
 
 
     @Override
@@ -46,15 +69,109 @@ public class WhoLookMeActivity extends Activity implements OnClickListener, OnIt
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_who_look_me);
-        MobclickAgent.onEvent(this,"cv-who-see-me");
-        listview = (ListView) findViewById(R.id.listview_search);
-        listBrowsedInfos = new ArrayList<BrowsedInfo>();
-        myBaseAdpter = new MyBaseAdpter(mContext, listBrowsedInfos);
-        listview.setOnItemClickListener(this);
-        listview.setAdapter(myBaseAdpter);
-        iv_lookme_back = (ImageView) findViewById(R.id.iv_lookme_back);
-        iv_lookme_back.setOnClickListener(this);
+        ButterKnife.bind(this);
+        MobclickAgent.onEvent(this, "cv-who-see-me");
+        initView();
+        initData();
         getData();
+    }
+
+    private void initData() {
+
+        myBaseAdpter = new MyWhoLookMeAdapter(mContext);
+        if(listBrowsedInfos!=null) {
+            myBaseAdpter.setListBrowsedInfos(listBrowsedInfos);
+            if (index == 1) {
+                listviewSearch.setAdapter(myBaseAdpter);
+            } else {
+                myBaseAdpter.notifyDataSetChanged();
+            }
+            myBaseAdpter.setOnItemClick(new OnItemClick() {
+                @Override
+                public void ItemClick(View view, int position) {
+                    if (!NetUtils.checkNet(WhoLookMeActivity.this)) {
+                        return;
+                    }
+                    if (listBrowsedInfos.size() != 0) {
+                        open_detaile(listBrowsedInfos, position);
+                    }
+                }
+            });
+
+        }
+        isVISIBLE();
+    }
+
+    /**
+     * 是否有数据
+     */
+    private void isVISIBLE() {
+        if (listBrowsedInfos!=null) {
+            rlHasDataWhoLookMe.setVisibility(View.VISIBLE);
+            tvNodDataWhoLookMe.setVisibility(View.GONE);
+        } else {
+            rlHasDataWhoLookMe.setVisibility(View.GONE);
+            tvNodDataWhoLookMe.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initView() {
+        manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        listviewSearch.setLayoutManager(manager);
+        listviewSearch.addItemDecoration(new SpacesItemDecoration(5));
+        srWhoLookMe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        totalListBrowsedInfos = new ArrayList<BrowsedInfo>();
+                        listBrowsedInfos.clear();
+                        index = 1;
+                        getData();
+                        myBaseAdpter.notifyDataSetChanged();
+                        srWhoLookMe.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+        //rvChannalcontent根据上拉到页面的最低端来加载下一页
+        listviewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //当滑动到页面的最底端的时候最后一个item的下标+1等于adapter数据的个数，加载下一页
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) == myBaseAdpter
+                        .getItemCount()) {
+                    index++;
+                    srWhoLookMe.setRefreshing(true);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            srWhoLookMe.setRefreshing(true);
+                            getData();
+                            myBaseAdpter.notifyDataSetChanged();
+                            srWhoLookMe.setRefreshing(false);
+                        }
+                    }, 1000);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = manager.findLastVisibleItemPosition();
+            }
+        });
+        srWhoLookMe.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        srWhoLookMe.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        srWhoLookMe.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources()
+                        .getDisplayMetrics()));
+
     }
 
     /**
@@ -62,10 +179,10 @@ public class WhoLookMeActivity extends Activity implements OnClickListener, OnIt
      */
     private void getData() {
         page_nums = "20";
-        new AsyncPersonCenterBrowsed(mContext, listBrowsedInfos, "browsed_list", myBaseAdpter, listview).execute("user_stow.browsed", index++ + "", "20");
+        new AsyncPersonCenterBrowsed(mContext, listBrowsedInfos, "browsed_list", myBaseAdpter, listviewSearch).execute("user_stow.browsed", index + "", "20");
     }
 
-    private class MyBaseAdpter extends BaseAdapter {
+/*    private class MyBaseAdpter extends BaseAdapter {
         ArrayList<BrowsedInfo> listBrowsedInfos;
         Context context;
 
@@ -121,21 +238,10 @@ public class WhoLookMeActivity extends Activity implements OnClickListener, OnIt
         private final class MyHolder {
             TextView company_name, browsed_time, job_place;
         }
-    }
+    }*/
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_lookme_back:
-                finish();
-                break;
-            default:
-                break;
-        }
 
-    }
-
-    @Override
+   /* @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         if (!NetUtils.checkNet(this)) {
             Toast.makeText(this, R.string.no_network, Toast.LENGTH_SHORT).show();
@@ -144,7 +250,7 @@ public class WhoLookMeActivity extends Activity implements OnClickListener, OnIt
         if (listBrowsedInfos.size() != 0) {
             open_detaile(listBrowsedInfos, arg2);
         }
-    }
+    }*/
 
     /**
      * 初始化视图
@@ -153,5 +259,10 @@ public class WhoLookMeActivity extends Activity implements OnClickListener, OnIt
         Intent intent = new Intent(this, CompanyParticularActivity.class);
         intent.putExtra("Enterprise_id", listBrowsedInfos.get(item_Index).getEnterprise_id());
         startActivity(intent);
+    }
+
+    @OnClick(R.id.iv_lookme_back)
+    public void onViewClicked() {
+        finish();
     }
 }

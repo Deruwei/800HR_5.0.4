@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,7 @@ import com.hr.ui.adapter.SearchJobResultRecommendAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.view.custom.MyProgressDialog;
@@ -63,7 +67,7 @@ public class RecommendJobFragment extends Fragment {
     @Bind(R.id.lr_recfragment_job)
     LinearLayout lrRecfragmentJob;
     @Bind(R.id.lv_recommendfragment)
-    ListView lvRecommendfragment;
+    RecyclerView lvRecommendfragment;
     @Bind(R.id.tv_recfragment_login)
     TextView tvRecfragmentLogin;
     @Bind(R.id.tv_gome)
@@ -143,6 +147,10 @@ public class RecommendJobFragment extends Fragment {
         tvRecfragmentText = (TextView) view.findViewById(R.id.tv_recfragment_text);
         tvRecfragmentPlace = (TextView) view.findViewById(R.id.tv_recfragment_place);
         rlRecfragmentEmpty = (RelativeLayout) view.findViewById(R.id.rl_recfragment_empty);
+        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvRecommendfragment.setLayoutManager(manager);
+        lvRecommendfragment.addItemDecoration(new SpacesItemDecoration(5));
 //        tvRecommendfragmentBack = (ImageView) view.findViewById(R.id.iv_recommendfragment_back);
 //        rlRecfragmentFunction = (RelativeLayout) view.findViewById(R.id.rl_recfragment_function);
 //        rlRecfragmentLogin = (RelativeLayout) view.findViewById(R.id.rl_recfragment_login);

@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#EBEBEB"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -79,23 +80,28 @@
             android:layout_alignParentStart="true"
             android:background="#cccccc" />
     </RelativeLayout>
-
-    <com.hr.ui.view.pulltorefresh.PullToRefreshListView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sr_searchJobResult"
+        android:layout_below="@+id/rl_searchjobresult_condition"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lv_searchjobresult_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_searchjobresult_condition"
-        android:background="#fff"
         android:divider="@null"
-        android:scrollbars="none"></com.hr.ui.view.pulltorefresh.PullToRefreshListView>
+        android:scrollbars="none">
+
+    </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/rl_searchjobresult_visible"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignBottom="@+id/lv_searchjobresult_result"
+        android:layout_height="@dimen/dimen_60px"
+        android:layout_alignBottom="@+id/sr_searchJobResult"
         android:alpha="95"
-        android:background="#fff"
+        android:background="#EBEBEB"
         android:orientation="horizontal">
 
         <View

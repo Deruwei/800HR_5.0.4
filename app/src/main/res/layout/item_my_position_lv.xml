@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/white"
+    android:layout_marginLeft="@dimen/dimen_5px"
+    android:layout_marginRight="@dimen/dimen_5px"
+    android:layout_height="wrap_content">
 
     <CheckBox
         android:id="@+id/cb_item_my_position_select"
@@ -27,7 +30,7 @@
 
         <TextView
             android:id="@+id/tv_item_my_position_jobname"
-            android:layout_width="140dp"
+            android:layout_width="@dimen/dimen_140px"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
@@ -35,11 +38,12 @@
             android:textColor="#666666"
             android:textSize="16sp"
             android:layout_alignTop="@+id/tv_item_my_position_cityname"
+            android:layout_marginBottom="@dimen/dimen_5px"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/dimen_5px"
             android:id="@+id/tv_item_my_position_companyname"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
@@ -74,12 +78,14 @@
             android:text="地点"
             android:textColor="#666666"
             android:textSize="14sp"
+            android:layout_marginBottom="@dimen/dimen_5px"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/tv_item_my_positionlv_releasetime"
             android:layout_alignEnd="@+id/tv_item_my_positionlv_releasetime" />
 
         <TextView
             android:id="@+id/textView28"
+            android:layout_marginBottom="@dimen/dimen_5px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_item_my_positionlv_releasetime"
@@ -101,6 +107,7 @@
             android:text="2015.12.23"
             android:textColor="#999999"
             android:textSize="12sp"
+            android:layout_marginBottom="@dimen/dimen_5px"
             android:layout_alignTop="@+id/tv_item_my_position_companyname"
             android:layout_toLeftOf="@+id/iv_item_my_positionlv_jobinfo"
             android:layout_toStartOf="@+id/iv_item_my_positionlv_jobinfo" />

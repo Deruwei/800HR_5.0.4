@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/dimen_5px"
+    android:layout_marginLeft="@dimen/dimen_5px"
     android:background="#fff">
 
     <CheckBox
@@ -25,7 +27,7 @@
         android:layout_toRightOf="@+id/cb_item_searchjob_select">
 
         <TextView
-            android:id="@+id/tv_item_searchjob_jobname"
+            android:id="@+id/tv_item_searchJob_jobName"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
@@ -41,9 +43,9 @@
             android:id="@+id/tv_item_searchjob_companyname"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_item_searchjob_jobname"
-            android:layout_alignStart="@+id/tv_item_searchjob_jobname"
-            android:layout_below="@+id/tv_item_searchjob_jobname"
+            android:layout_alignLeft="@+id/tv_item_searchJob_jobName"
+            android:layout_alignStart="@+id/tv_item_searchJob_jobName"
+            android:layout_below="@+id/tv_item_searchJob_jobName"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="7dp"
             android:ellipsize="end"
@@ -123,10 +125,10 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <View
+    <!--<View
         android:layout_marginLeft="13dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="#ebebeb" />
+        android:background="#ebebeb" />-->
 </RelativeLayout>

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
 import com.hr.ui.utils.GetDataInfo;
 import com.hr.ui.utils.GetJssonList;
+import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 
 import java.util.ArrayList;
@@ -39,7 +43,7 @@ public class PagerCompanyFragment extends Fragment {
     @Bind(R.id.tv_comNoData)
     TextView tvComNoData;
     private View view;
-    private ListView lv_pager_recruitment;
+    private RecyclerView lv_pager_recruitment;
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
@@ -59,21 +63,21 @@ public class PagerCompanyFragment extends Fragment {
                     if(dataList.size()!=0) {
                         findAdapter = new FindAdapter(mContext, dataList, 2);
                         lv_pager_recruitment.setAdapter(findAdapter);
-                        lv_pager_recruitment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                industry = dataList.get(position);
-                                if (industry.getTopic_type() == 1) {// 专题网址
-                                    openBrowser(industry.getTopic_url());
-                                } else if (industry.getTopic_type() == 2) {// 企业详情
-                                    Intent intent = new Intent(mContext,
-                                            CompanyParticularActivity.class);
-                                    intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                    startActivity(intent);
-                                }
-                                totalAdNum(industry.getA_id());
-                            }
-                        });
+                       findAdapter.setOnItemClick(new OnItemClick() {
+                           @Override
+                           public void ItemClick(View view, int position) {
+                               industry = dataList.get(position);
+                               if (industry.getTopic_type() == 1) {// 专题网址
+                                   openBrowser(industry.getTopic_url());
+                               } else if (industry.getTopic_type() == 2) {// 企业详情
+                                   Intent intent = new Intent(mContext,
+                                           CompanyParticularActivity.class);
+                                   intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                   startActivity(intent);
+                               }
+                               totalAdNum(industry.getA_id());
+                           }
+                       });
                         lv_pager_recruitment.setVisibility(View.VISIBLE);
                         tvComNoData.setVisibility(View.GONE);
                     }else{
@@ -116,7 +120,11 @@ public class PagerCompanyFragment extends Fragment {
         service.execute(GetDataInfo.getData(ad_type,getActivity()));
     }
     private void initView() {
-        lv_pager_recruitment = (ListView) view.findViewById(R.id.lv_pager_company);
+        lv_pager_recruitment = (RecyclerView) view.findViewById(R.id.lv_pager_company);
+        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lv_pager_recruitment.setLayoutManager(manager);
+        lv_pager_recruitment.addItemDecoration(new SpacesItemDecoration(10));
     }
 
     public void upData() {

@@ -17,6 +17,7 @@ import com.hr.ui.config.Constants;
 import com.hr.ui.fragment.FindjobFragment;
 import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 
@@ -105,6 +106,8 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                         String city="";
                         if(MyUtils.currentCityZh.length()>0){
                             city=MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1);
+                            MyUtils.selectCityId= ResumeInfoIDToString.getCityID(mContext,city,true);
+                            MyUtils.selectCityZh=city;
                             FindjobFragment.setPlaceText(city);
                         }else{
                             FindjobFragment.setPlaceText("定位失败");
@@ -122,6 +125,8 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                                 .setPlaceText(dataArrayList
                                         .get(position - 1)
                                         .get("value").trim());
+                        MyUtils.selectCityId=dataArrayList.get(position - 1).get("key");
+                        MyUtils.selectCityZh=dataArrayList.get(position - 1).get("value").trim();
 
                         // System.out.println("id:"
                         // + dataArrayList.get(position - 1)
@@ -162,6 +167,11 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                             .setPlaceText(secondArrList
                                     .get(position).get("value")
                                     .trim());
+                    MyUtils.selectCityId=secondArrList.get(position)
+                            .get("key");
+                    MyUtils.selectCityZh=secondArrList
+                            .get(position).get("value")
+                            .trim();
                     toSearchJob();
                 }
             });
