@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hr.ui.R;
+import com.hr.ui.adapter.MyFuncitionSecondAdapter;
+import com.hr.ui.adapter.MyFunctionFirstAdapter;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.GetJssonList;
@@ -59,6 +61,8 @@ public class MySelectFuncitonActivity extends BaseActivity {
     private List<FunctionBean> functionBeenList1=new ArrayList<>();
     //二级菜单的数据
     private List<FunctionBean> functionBeenList2=new ArrayList<>();
+    private MyFunctionFirstAdapter functionFirstAdapter;
+    private MyFuncitionSecondAdapter funcitionSecondAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +94,9 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 functionBeenList1.add(functionBeenList.get(i));
             }else{
                 functionBeenList2.add(functionBeenList.get(i));
+
+
+
             }
         }
         Message message=new Message();

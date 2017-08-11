@@ -16,6 +16,7 @@ import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 
@@ -100,7 +101,7 @@ public class SelectCityRecommendJobActivity extends BaseActivity implements View
                                         View view, int position, long itemId) {
                     if (position == 0) {
                         RecommendJobFragment
-                                .setPlaceId(locationCityID);
+                                .setPlaceId(ResumeInfoIDToString.getCityID(SelectCityRecommendJobActivity.this,MyUtils.currentCityZh,true));
                         RecommendJobFragment.setPlaceText(MyUtils.currentCityZh);
 
                         System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);

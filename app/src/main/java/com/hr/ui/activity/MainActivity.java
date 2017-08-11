@@ -127,7 +127,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private RelativeLayout right_layout;
     private String thirdCode, thirdUid, thirdIndustry, PhoneName, phonePsw, userName, psw;
     private int Industry;
-    private static final int BAIDU_READ_PHONE_STATE =100;
+    /*private static final int BAIDU_READ_PHONE_STATE =100;*/
     private GetBaiduLocation baiduLocation;
     /**
      * Fragment管理器
@@ -147,7 +147,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE} ;
    // 定义一个请求码
 
-    private static final int REQUEST_CONTACTS = 1000;
+   /* private static final int REQUEST_CONTACTS = 1000;*/
     /**
      * 检测网路状态
      */
@@ -175,11 +175,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mReceiver, mFilter);
         baiduLocation=new GetBaiduLocation(this);
-        if (Build.VERSION.SDK_INT>=23){
+        baiduLocation.loadLocation();
+      /*  if (Build.VERSION.SDK_INT>=23){
             showContacts();
         }else{
             baiduLocation.loadLocation();
-        }
+        }*/
         /**
          * 听云
          */
@@ -195,6 +196,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public void onResume() {
         super.onResume();
         whatState();
+
     }
     public void whatState() {
         if (MyUtils.isLogin) {
@@ -585,9 +587,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         fragmentManager = getSupportFragmentManager();
         setTabSelect(0);
     }
-    /**
+/*    *//**
      * 判断获取的权限的返回码
-     */
+     *//*
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -606,24 +608,20 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         }
     }
 
-    /**
+    *//**
      * 动态获取百度地图的定位权限
      *
-     */
+     *//*
     public void showContacts(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(),"没有权限,请手动开启定位权限",Toast.LENGTH_SHORT).show();
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, BAIDU_READ_PHONE_STATE);
-        }else{
-            baiduLocation.loadLocation();
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, BAIDU_READ_PHONE_STATE);
         }
-    }
+        baiduLocation.loadLocation();
+    }*/
 
     /**
      * 存储个人信息的Map

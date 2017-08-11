@@ -96,13 +96,14 @@ public class WelcomeActivity extends BaseActivity {
             tintManager.setStatusBarTintColor(Color.parseColor("#ffffff"));// 通知栏所需颜色
         }
         setContentView(R.layout.activity_welcome);
-        NBSAppAgent.setLicenseKey("d8e0e336e998428bba2d6797b30056ab").withLocationServiceEnabled(true).start(
+        NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(
                 this.getApplicationContext());
         welcomeActivity = WelcomeActivity.this;
 //        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(this);
         sUtils = new SharedPreferencesUtils(WelcomeActivity.this);
         sUtils.setIntValue(Constants.OPPEN_NUM, sUtils.getIntValue(Constants.OPPEN_NUM, 0) + 1);
         initData();
+
         /*goToPermissionActivity();
         if (Build.VERSION.SDK_INT>=23){
             showContacts();

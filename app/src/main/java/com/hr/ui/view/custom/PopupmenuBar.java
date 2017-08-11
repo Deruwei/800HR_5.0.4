@@ -49,8 +49,8 @@ public class PopupmenuBar extends PopupWindow implements View.OnClickListener {
     private HashMap<String, String> map5;
     private HashMap<String, String> map6;
 
-    private String timeStr[] = {"不限", "近一天", "近三天", "近一周", "近一个月", "更早"};
-    private String timeStrIds[] = {"0", "11", "12", "13", "14", "15"};
+    private String timeStr[] = {"不限", "近一天","近两天","近三天", "近一周","近两周" ,"近一个月", "近六周","近两月"};
+    private String timeStrIds[] = {"0", "1", "2", "3", "7", "14","30","42","60"};
     private String comStr[] = {"不限", "1-49人", "50-99人", "100-499人", "500-999人", "1000人以上"};
     private String comStrIds[] = {"0", "12", "13", "14", "15", "16"};
     private String expStr[] = {"不限", "无要求", "应届生", "一年以上", "三年以上", "五年以上", "八年以上"};

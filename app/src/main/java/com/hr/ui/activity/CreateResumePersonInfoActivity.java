@@ -169,6 +169,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 .query_ResumePersonInfo_Toone(resumeLanguageString);
         resumeTitle = dbOperator.query_ResumeTitle_info(resumeIdString,
                 resumeLanguageString);
+
         initSpinnerData();
 
         placeName=MyUtils.currentCityZh;
@@ -339,6 +340,9 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         //电话
         et_createresume_personinfo_phonenum.setText(resumeBaseInfo.getYdphone());
         et_createresume_personinfo_phonenum.setText(MyUtils.userphone);
+        if("".equals(MyUtils.userphone)||MyUtils.userphone==null){
+            et_createresume_personinfo_phonenum.setText(sUtils.getStringValue(Constants.USERPHONE,""));
+        }
 //        if (resumeBaseInfo.getEmailaddress().equals("")) {
 //            et_createresume_personinfo_email.setText(MyUtils.emailAddress);
 //        } else {

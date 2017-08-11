@@ -17,7 +17,7 @@
         android:textColor="@color/grgray"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:text="@string/no_data"
+        android:text="@string/no_dataCompany"
         android:background="@color/white"
         android:layout_marginTop="@dimen/dimen_10px"
         android:visibility="gone"

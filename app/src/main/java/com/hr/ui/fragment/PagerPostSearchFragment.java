@@ -527,11 +527,11 @@ public class PagerPostSearchFragment extends Fragment implements View.OnClickLis
             }
             bundle.putString("funcid", functionId);
         }
-        bundle.putString("areaid", placeId);
+        bundle.putString("areaid", MyUtils.selectCityId);
         bundle.putString(
                 "industry", sUtils.getIntValue(Constants.INDUSTRY, 11) + "");// 默认建筑
         bundle.putString("funcName", tv_post_function.getText().toString());
-        bundle.putString("areaName", cityName);
+        bundle.putString("areaName", MyUtils.selectCityZh);
         Intent intent2 = new Intent(getActivity(), SearchJobResultActivity.class);// 找工作界面
         intent2.putExtras(bundle);
         startActivity(intent2);

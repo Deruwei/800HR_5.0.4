@@ -72,6 +72,8 @@ public class CreateResumeJobExpActivity extends BaseActivity implements View.OnC
                         MainActivity.instanceMain.isLoad = true;
                         MainActivity.instanceMain.newAppResume = false;
                         sendIsApp();
+                        Intent intent=new Intent(CreateResumeJobExpActivity.this,MainActivity.class);
+                        startActivity(intent);
                         finish();
                         break;
                     default:

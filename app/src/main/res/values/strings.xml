@@ -726,6 +726,8 @@
     <string name="about_us">关于</string>
     <string name="noData_whoLookMe">暂无数据，请多投点简历！</string>
     <string name="no_data">品牌招聘暂无数据</string>
+    <string name="no_dataCompany">炫公司暂无数据</string>
+    <string name="no_dataActivity">专题活动暂无数据</string>
     <string name="more_no_exit_app">您的手机未安装此应用，是否马上去下载安装？</string>
     <string name="feedback_contenthint0">Email:请输入您的email</string>
     <string name="feedback_contenthint1">请输入您的反馈意见（500字以内）</string>

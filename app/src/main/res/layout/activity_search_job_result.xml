@@ -1,6 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="#EBEBEB"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -80,11 +81,16 @@
             android:layout_alignParentStart="true"
             android:background="#cccccc" />
     </RelativeLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/sr_searchJobResult"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_below="@+id/rl_searchjobresult_condition"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sr_searchJobResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lv_searchjobresult_result"
         android:layout_width="match_parent"
@@ -98,10 +104,9 @@
     <LinearLayout
         android:id="@+id/rl_searchjobresult_visible"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_60px"
-        android:layout_alignBottom="@+id/sr_searchJobResult"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:alpha="95"
-        android:background="#EBEBEB"
         android:orientation="horizontal">
 
         <View
@@ -144,4 +149,5 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
     </LinearLayout>
-</RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

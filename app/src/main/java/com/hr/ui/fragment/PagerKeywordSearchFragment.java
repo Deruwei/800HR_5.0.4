@@ -179,13 +179,14 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         ad_data = new ArrayList<Industry>();
         rec_data = new ArrayList<Industry>();
         db = new DAO_DBOperator(getActivity());
-        initView();
+
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initView();
         initData();
         updateUI();
     }
@@ -394,10 +395,10 @@ public class PagerKeywordSearchFragment extends Fragment implements View.OnClick
         Bundle bundle = new Bundle();
         bundle.putString("searchword", et_keyword_keyword.getText().toString().trim());
         bundle.putString("wordtype", wordtype);
-        bundle.putString("areaid", placeId);
+        bundle.putString("areaid", MyUtils.selectCityId);
 //        Toast.makeText(getActivity(), placeId + cityName, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getActivity(), "wordtype" + wordtype, Toast.LENGTH_SHORT).show();
-        bundle.putString("areaName", cityName);
+        bundle.putString("areaName", MyUtils.selectCityZh);
         bundle.putString("industry", sUtils.getIntValue(Constants.INDUSTRY, 11) + "");// 默认建筑
         Intent intent2 = new Intent(getActivity(), SearchJobResultActivity.class);// 找工作界面
         intent2.putExtras(bundle);

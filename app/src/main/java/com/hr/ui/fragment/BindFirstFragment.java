@@ -97,7 +97,7 @@ public class BindFirstFragment extends Fragment {
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(), handlerLogin,third_code, third_uid, industry,third_userinfo,"0");
+                AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(),phoneNum,pwdStr, handlerLogin,third_code, third_uid, industry,third_userinfo,"0");
                 asyncBindThird.execute();
             }
         }

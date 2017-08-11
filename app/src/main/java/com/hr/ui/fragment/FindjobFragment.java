@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.activity.ChooseIndustriesActivity;
@@ -42,7 +43,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     private TextView tv_findjob_keyword;
     private ImageView iv_findjob_keyword;
     private TextView tv_findjob_classify,tv_gome, tv_findjob_back;
-    private ImageView iv_findjob_classify;
+    private ImageView iv_findjob_classify,iv_dingwei;
     private static TextView tv_findjob_city;
 
     //    private static ImageView iv_againindustory_back;
@@ -63,6 +64,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
      * 城市名
      */
     private static String cityName;
+    private GetBaiduLocation baiduLocation;
     /**
      * 存放Fragment的集合
      */
@@ -75,14 +77,19 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
             switch (msg.what){
                 case 1:
                     String city= MyUtils.currentCityZh;
-                    if(city.length()>0) {
+                    if(city!=null) {
+                        iv_dingwei.setVisibility(View.GONE);
+                        tv_findjob_city.setVisibility(View.VISIBLE);
                         cityName = city.substring(0, city.length() - 1);
                         MyUtils.selectCityZh=cityName;
                         MyUtils.selectCityId=ResumeInfoIDToString.getCityID(getActivity(),city,true);
-                    }else {
-                        city="定位失败";
+                        setPlaceText(cityName);
+                    }else{
+                        Toast.makeText(getActivity(),"定位失败",Toast.LENGTH_SHORT);
+                        iv_dingwei.setVisibility(View.VISIBLE);
+                        tv_findjob_city.setVisibility(View.GONE);
                     }
-                    setPlaceText(cityName);
+
             }
         }
     };
@@ -104,6 +111,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
         tv_findjob_classify = (TextView) view.findViewById(R.id.tv_findjob_classify);
         tv_findjob_back = (TextView) view.findViewById(R.id.tv_findjob_back);
         tv_gome = (TextView) view.findViewById(R.id.tv_gome);
+        iv_dingwei= (ImageView) view.findViewById(R.id.iv_dingwei);
         iv_findjob_classify = (ImageView) view.findViewById(R.id.iv_findjob_classify);
 
         tv_findjob_classify.setOnClickListener(this);
@@ -111,6 +119,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
         tv_findjob_city.setOnClickListener(this);
         tv_findjob_back.setOnClickListener(this);
         tv_gome.setOnClickListener(this);
+        iv_dingwei.setOnClickListener(this);
 
 //        iv_againindustory_back = (ImageView) view.findViewById(R.id.iv_againindustory_back);
 //        upDataUI();
@@ -137,6 +146,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_findjob, container, false);
+        baiduLocation=new GetBaiduLocation(getActivity());
         return view;
     }
 
@@ -144,8 +154,8 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         initView();
-        initData();
         if(MyUtils.firstIn==true){
+            initData();
             initViewPager();
         }
         if (MyUtils.isLogin) {
@@ -219,11 +229,13 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
 //                tv_findjob_industory.setText("通信英才网");
 //                break;
 //        }
+        getAddress();
+    }
+    private void getAddress(){
         Message message=new Message();
         message.what=1;
-       handler.sendMessage(message);
+        handler.sendMessage(message);
     }
-
     /**
      * 初始化viewpager
      */
@@ -278,15 +290,12 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 vp_findjob.setCurrentItem(0);
                 break;
             case R.id.tv_findjob_city:
-                if(tv_findjob_city.getText().toString().equals("")||tv_findjob_city.getText().equals("定位失败")){
-                    initData();
-                }else {
                     Intent intent1 = new Intent(getActivity(), MainSelectCityToKeywordActivity.class);
                     intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent1.putExtra("value", "选择地点");
                     intent1.putExtra("filter", "place");
                     startActivity(intent1);
-                }
+
                 break;
             case R.id.tv_findjob_back:
                 Intent intent = new Intent(getActivity(), ChooseIndustriesActivity.class);
@@ -295,6 +304,10 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_gome:
                 MainActivity.instanceMain.openD();
+                break;
+            case R.id.iv_dingwei:
+                baiduLocation.loadLocation();
+                getAddress();
                 break;
         }
     }

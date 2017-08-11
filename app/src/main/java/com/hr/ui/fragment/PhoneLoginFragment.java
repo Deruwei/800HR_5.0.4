@@ -218,6 +218,7 @@ public class PhoneLoginFragment extends Fragment {
                 break;
             case R.id.iv_phonelogin_weibo:
                 loginSina();
+                break;
             case R.id.iv_phonelogin_weixin:
                 loginWeixin();
                 break;

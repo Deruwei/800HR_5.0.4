@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/dimen_10px"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:text="@string/no_data"
+        android:text="@string/no_dataActivity"
         android:visibility="gone"
         android:layout_height="@dimen/dimen_50px" />
 </RelativeLayout>

@@ -39,7 +39,7 @@ public class MyLocationListenner implements BDLocationListener {
             sb.append("离线定位成功，离线定位结果也是有效的");
 
         }else{
-            city="定位失败";
+            city="";
             MyUtils.currentCityZh = city;
         }
         Log.i("定位的地址7",city);

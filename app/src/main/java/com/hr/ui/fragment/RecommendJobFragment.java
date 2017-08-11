@@ -27,6 +27,7 @@ import com.hr.ui.activity.SelectCityRecommendJobActivity;
 import com.hr.ui.activity.SelectFunctionRecommendJobActivity;
 import com.hr.ui.adapter.SearchJobResultRecommendAdapter;
 import com.hr.ui.config.Constants;
+import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
@@ -106,6 +107,7 @@ public class RecommendJobFragment extends Fragment {
     private static ArrayList<HashMap<String, Object>> totalList;
     private HashMap<String, Object> hs;
     private ArrayList<HashMap<String, Object>> dataList;
+    private GetBaiduLocation location;
     /**
      * 职能选择集合
      */

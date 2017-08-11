@@ -61,7 +61,7 @@ public class HrApplication extends MobApplication {
         sInstance = this;
         checkNetState(getApplicationContext());
         mContext = getApplicationContext();
-        NBSAppAgent.setLicenseKey("d8e0e336e998428bba2d6797b30056ab").withLocationServiceEnabled(true).start(mContext);
+        NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(mContext);
         SpeechUtility.createUtility(HrApplication.this, "appid=" + getString(R.string.xunfei_app_id));
         initUIL();
     }

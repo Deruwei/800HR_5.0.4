@@ -48,7 +48,7 @@ public class BindSecondFragment extends Fragment {
     EditText etBindloginUserpwd;
     @Bind(R.id.frame_bindlogin_userlogin)
     FrameLayout frameBindloginUserlogin;
-    private String third_code, third_uid, user_name, industry,third_userinfo;
+    private String third_code, third_uid, user_name, industry,third_userinfo,phoneNum,psw;
     private SharedPreferencesUtils sUtils;
     private Handler handlerLogin = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -65,7 +65,7 @@ public class BindSecondFragment extends Fragment {
             switch (msg.what) {
                 case 0:
                     MyUtils.isLogin = true;
-                    AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(), handlerLogin,third_code, third_uid, industry,third_userinfo,"0");
+                    AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(),phoneNum,psw, handlerLogin,third_code, third_uid, industry,third_userinfo,"0");
                     asyncBindThird.execute();
                     break;
                 default:
@@ -117,18 +117,18 @@ public class BindSecondFragment extends Fragment {
      * 确认登录
      */
     private void saveInfo() {
-        String phonenum = etBindloginPhonenum.getText().toString().trim();
-        String phonepwd = etBindloginPhonepwd.getText().toString().trim();
+        phoneNum = etBindloginPhonenum.getText().toString().trim();
+        psw= etBindloginPhonepwd.getText().toString().trim();
         String regExp = "^\\+?(86|086)?(-)?(1[3|4|5|8|7]\\d{9})$";
         Pattern p = Pattern.compile(regExp);
-        Matcher m = p.matcher(phonenum.trim());
-        if (phonenum == null || phonenum.equals("") || !m.find()) {
+        Matcher m = p.matcher(phoneNum.trim());
+        if (phoneNum == null || phoneNum.equals("") || !m.find()) {
             Toast.makeText(getActivity(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-        } else if (phonepwd == null || phonepwd.equals("")) {
+        } else if (psw == null || psw.equals("")) {
             Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
             AsyncNewLoginPhone asyncLogin = new AsyncNewLoginPhone(getActivity(), handler);
-            asyncLogin.execute(phonenum, phonepwd, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+            asyncLogin.execute(phoneNum, psw, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
         }
     }
     /**

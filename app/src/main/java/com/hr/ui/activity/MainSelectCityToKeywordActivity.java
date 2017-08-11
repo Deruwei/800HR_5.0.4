@@ -137,6 +137,7 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                         // 点击的是直辖市或热门城市
                         toSearchJob();
 
+
                     } else {
                         if (dataArrayList.get(position - 1)
                                 .get("value").contains("#")) {

@@ -41,10 +41,12 @@ public class AsyncBindThird {
                             MyUtils.isLogin = true;
                             MyUtils.username= user_name;
                             MyUtils.industryId = industry;
+                            MyUtils.userphone=phoneNum;
                             // 成功登录后记录数据
                             SharedPreferencesUtils sUtils = new SharedPreferencesUtils(context);
                             sUtils.setStringValue(Constants.USERNAME, user_name);
                             sUtils.setStringValue(Constants.PASSWORD, user_pwd);
+                            sUtils.setStringValue(Constants.USERPHONE,phoneNum);
 //                            MyUtils.userphone = user_phone;
 //                            MyUtils.userID = jsonObject.getString("user_id");
 //                            MyUtils.industryId = jsonObject.getString("industry");
@@ -100,12 +102,14 @@ public class AsyncBindThird {
         builderConfirm.create().show();
     }
 
-    public AsyncBindThird(Context context, Handler handler,String third_code, String third_uid, String industry,String third_userinfo,String binding) {
+    public AsyncBindThird(Context context,String phoneNum,String psw, Handler handler,String third_code, String third_uid, String industry,String third_userinfo,String binding) {
         this.context = context;
         this.handler = handler;
         this.third_code=third_code;
         this.third_uid=third_uid;
         this.industry=industry;
+        this.phoneNum=phoneNum;
+        this.user_pwd=psw;
         this.binding=binding;
         this.type="1";
     }
@@ -121,7 +125,8 @@ public class AsyncBindThird {
         this.binding=binding;
         this.type="2";
     }
-
+    private String phoneNum;
+    private String psw;
     private String third_code;
     private String third_uid;
     private String industry;

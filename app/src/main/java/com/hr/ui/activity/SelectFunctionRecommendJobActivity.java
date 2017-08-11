@@ -566,14 +566,15 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.textView.setText(data2.get(position).get("value"));
+            viewHolder.imageview.setBackgroundDrawable(null);
             if (index == 0 && position != 0) {
                 viewHolder.imageview.setBackgroundResource(R.mipmap.jiantou_right);
+            }else{
+
             }
             if (index == 0 && position == 0 || index == 1) {
                 if (selectMap.containsKey(data2.get(position).get("key"))) {
                     viewHolder.imageview.setBackgroundResource(R.mipmap.duihao);
-                } else {
-                    viewHolder.imageview.setBackgroundDrawable(null);
                 }
             }
             return convertView;
