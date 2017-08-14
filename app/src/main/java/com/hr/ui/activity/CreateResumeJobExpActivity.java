@@ -72,8 +72,6 @@ public class CreateResumeJobExpActivity extends BaseActivity implements View.OnC
                         MainActivity.instanceMain.isLoad = true;
                         MainActivity.instanceMain.newAppResume = false;
                         sendIsApp();
-                        Intent intent=new Intent(CreateResumeJobExpActivity.this,MainActivity.class);
-                        startActivity(intent);
                         finish();
                         break;
                     default:
@@ -97,10 +95,10 @@ public class CreateResumeJobExpActivity extends BaseActivity implements View.OnC
 //                            Toast.makeText(mContext, "设置成功", Toast.LENGTH_SHORT).show();
                             sUtils.setStringValue("is_app_resumeid" + MyUtils.userID, resumeAppId);
                             MeFragment.meFragment.execute();
+
                             break;
                         default:
                             Toast.makeText(mContext, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
-                            finish();
                             break;
                     }
                 } catch (Exception e) {

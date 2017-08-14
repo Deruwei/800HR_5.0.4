@@ -78,17 +78,19 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 case 1:
                     String city= MyUtils.currentCityZh;
                     if(city!=null) {
-                        iv_dingwei.setVisibility(View.GONE);
-                        tv_findjob_city.setVisibility(View.VISIBLE);
-                        cityName = city.substring(0, city.length() - 1);
-                        MyUtils.selectCityZh=cityName;
-                        MyUtils.selectCityId=ResumeInfoIDToString.getCityID(getActivity(),city,true);
-                        setPlaceText(cityName);
+                        if(city.length()!=0) {
+                            iv_dingwei.setVisibility(View.GONE);
+                            tv_findjob_city.setVisibility(View.VISIBLE);
+                            cityName = city.substring(0, city.length() - 1);
+                            MyUtils.selectCityZh = cityName;
+                            MyUtils.selectCityId = ResumeInfoIDToString.getCityID(getActivity(), city, true);
+
+                        }
                     }else{
-                        Toast.makeText(getActivity(),"定位失败",Toast.LENGTH_SHORT);
-                        iv_dingwei.setVisibility(View.VISIBLE);
-                        tv_findjob_city.setVisibility(View.GONE);
+                        cityName="定位失败";
                     }
+                    setPlaceText(cityName);
+                    break;
 
             }
         }
@@ -290,12 +292,13 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 vp_findjob.setCurrentItem(0);
                 break;
             case R.id.tv_findjob_city:
+                baiduLocation.loadLocation();
+                getAddress();
                     Intent intent1 = new Intent(getActivity(), MainSelectCityToKeywordActivity.class);
                     intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent1.putExtra("value", "选择地点");
                     intent1.putExtra("filter", "place");
                     startActivity(intent1);
-
                 break;
             case R.id.tv_findjob_back:
                 Intent intent = new Intent(getActivity(), ChooseIndustriesActivity.class);
@@ -306,8 +309,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 MainActivity.instanceMain.openD();
                 break;
             case R.id.iv_dingwei:
-                baiduLocation.loadLocation();
-                getAddress();
+
                 break;
         }
     }

@@ -60,29 +60,31 @@ public class PagerCompanyFragment extends Fragment {
 
                     dataList=new ArrayList<>();
                     dataList=GetJssonList.getDazzleJson(ad_type,json_result);
-                    if(dataList.size()!=0) {
-                        findAdapter = new FindAdapter(mContext, dataList, 2);
-                        lv_pager_recruitment.setAdapter(findAdapter);
-                       findAdapter.setOnItemClick(new OnItemClick() {
-                           @Override
-                           public void ItemClick(View view, int position) {
-                               industry = dataList.get(position);
-                               if (industry.getTopic_type() == 1) {// 专题网址
-                                   openBrowser(industry.getTopic_url());
-                               } else if (industry.getTopic_type() == 2) {// 企业详情
-                                   Intent intent = new Intent(mContext,
-                                           CompanyParticularActivity.class);
-                                   intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                   startActivity(intent);
-                               }
-                               totalAdNum(industry.getA_id());
-                           }
-                       });
-                        lv_pager_recruitment.setVisibility(View.VISIBLE);
-                        tvComNoData.setVisibility(View.GONE);
-                    }else{
-                        lv_pager_recruitment.setVisibility(View.GONE);
-                        tvComNoData.setVisibility(View.VISIBLE);
+                    if(dataList!=null) {
+                        if (dataList.size() != 0) {
+                            findAdapter = new FindAdapter(mContext, dataList, 2);
+                            lv_pager_recruitment.setAdapter(findAdapter);
+                            findAdapter.setOnItemClick(new OnItemClick() {
+                                @Override
+                                public void ItemClick(View view, int position) {
+                                    industry = dataList.get(position);
+                                    if (industry.getTopic_type() == 1) {// 专题网址
+                                        openBrowser(industry.getTopic_url());
+                                    } else if (industry.getTopic_type() == 2) {// 企业详情
+                                        Intent intent = new Intent(mContext,
+                                                CompanyParticularActivity.class);
+                                        intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                        startActivity(intent);
+                                    }
+                                    totalAdNum(industry.getA_id());
+                                }
+                            });
+                            lv_pager_recruitment.setVisibility(View.VISIBLE);
+                            tvComNoData.setVisibility(View.GONE);
+                        } else {
+                            lv_pager_recruitment.setVisibility(View.GONE);
+                            tvComNoData.setVisibility(View.VISIBLE);
+                        }
                     }
             } else {
 //                Message message = Message.obtain();

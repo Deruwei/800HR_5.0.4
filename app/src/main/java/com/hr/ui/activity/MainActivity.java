@@ -817,7 +817,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 intentResume2.putExtra("resumeLanguage", "zh");
                 intentResume2.putExtra("isCHS", true);
                 startActivity(intentResume2);
-                finish();
             }
         } else {
             Toast.makeText(mContext, "无网络,请稍候重试", Toast.LENGTH_SHORT).show();

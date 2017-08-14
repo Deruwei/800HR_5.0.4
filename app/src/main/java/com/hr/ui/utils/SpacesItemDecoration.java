@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ * 设置RecyclerView每个Item的间距
  * Created by wdr on 2017/8/8.
  */
+
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 

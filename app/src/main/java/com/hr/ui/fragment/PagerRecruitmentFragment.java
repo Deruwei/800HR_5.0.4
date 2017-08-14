@@ -76,32 +76,35 @@ public class PagerRecruitmentFragment extends Fragment {
                 // 1001 成功 1002失败
                 dataList=new ArrayList<>();
                 dataList= GetJssonList.getSpecialJson(ad_type,json_result);
-                if(dataList.size()!=0) {
-                    lv_pager_recruitment.setVisibility(View.VISIBLE);
-                    tvComNoData.setVisibility(View.GONE);
-                    findAdapter = new FindAdapter(mContext, dataList, 1);
-                    lv_pager_recruitment.setAdapter(findAdapter);
-                    findAdapter.setOnItemClick(new OnItemClick() {
-                        @Override
-                        public void ItemClick(View view, int position) {
-                            industry = dataList.get(position);
-                            if (industry.getTopic_type() == 1) {// 专题网址
-                                openBrowser(industry.getTopic_url());
+                if(dataList!=null) {
+                    if (dataList.size() != 0) {
+                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                        tvComNoData.setVisibility(View.GONE);
+                        findAdapter = new FindAdapter(mContext, dataList, 1);
+                        lv_pager_recruitment.setAdapter(findAdapter);
+                        findAdapter.setOnItemClick(new OnItemClick() {
+                            @Override
+                            public void ItemClick(View view, int position) {
+                                industry = dataList.get(position);
+                                if (industry.getTopic_type() == 1) {// 专题网址
+                                    openBrowser(industry.getTopic_url());
 
-                            } else if (industry.getTopic_type() == 2) {// 企业详情
-                                Intent intent = new Intent(mContext, CompanyParticularActivity.class);
-                                intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                startActivity(intent);
+                                } else if (industry.getTopic_type() == 2) {// 企业详情
+                                    Intent intent = new Intent(mContext, CompanyParticularActivity.class);
+                                    intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                    startActivity(intent);
+                                }
+                                totalAdNum(industry.getA_id());
                             }
-                            totalAdNum(industry.getA_id());
-                        }
-                    });
-                    tvComNoData.setVisibility(View.GONE);
-                    lv_pager_recruitment.setVisibility(View.VISIBLE);
-                }else{
-                    tvComNoData.setVisibility(View.VISIBLE);
-                    lv_pager_recruitment.setVisibility(View.GONE);
+                        });
+                        tvComNoData.setVisibility(View.GONE);
+                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                    } else {
+                        tvComNoData.setVisibility(View.VISIBLE);
+                        lv_pager_recruitment.setVisibility(View.GONE);
+                    }
                 }
+
             }
         }
     };

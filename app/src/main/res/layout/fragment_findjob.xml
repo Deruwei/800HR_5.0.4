@@ -33,10 +33,10 @@
             <ImageView
                 android:id="@+id/iv_dingwei"
                 android:src="@mipmap/dingwei"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_findjob_city"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

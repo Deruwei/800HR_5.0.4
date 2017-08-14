@@ -81,7 +81,7 @@
             android:layout_alignParentStart="true"
             android:background="#cccccc" />
     </RelativeLayout>
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_below="@+id/rl_searchjobresult_condition"
         android:layout_width="match_parent"
@@ -89,8 +89,9 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sr_searchJobResult"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_searchjobresult_visible"
+        >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lv_searchjobresult_result"
         android:layout_width="match_parent"
@@ -102,10 +103,10 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:layout_alignParentBottom="true"
         android:id="@+id/rl_searchjobresult_visible"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/dimen_60px"
         android:alpha="95"
         android:orientation="horizontal">
 
@@ -149,5 +150,5 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
     </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

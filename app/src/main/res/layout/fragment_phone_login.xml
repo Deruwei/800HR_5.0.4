@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/dimen_10px"
     tools:context="com.hr.ui.fragment.PhoneLoginFragment">
 
     <LinearLayout
@@ -67,7 +68,7 @@
                 android:id="@+id/et_phonelogin_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/dimen_10px"
                 android:layout_toRightOf="@+id/tv_phonelogin_password"
                 android:background="@null"
                 android:hint="请输入密码"
@@ -102,13 +103,13 @@
                 android:layout_gravity="center"
                 android:text="登录"
                 android:textColor="#fff"
-                android:textSize="22sp" />
+                android:textSize="@dimen/text_size_20" />
         </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/dimen_25px"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/frame_phonelogin_phonelogin"
@@ -117,8 +118,8 @@
 
             <ImageView
                 android:id="@+id/iv_phonelogin_auto"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
@@ -138,7 +139,7 @@
                 android:layout_toRightOf="@+id/iv_phonelogin_auto"
                 android:text="自动登录"
                 android:textColor="#666666"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_size_15" />
 
             <TextView
                 android:id="@+id/tv_phonelogin_findpwd"
@@ -151,13 +152,13 @@
                 android:layout_marginRight="38dp"
                 android:text="找回密码"
                 android:textColor="#666666"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_size_15" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relative_phonelogin_regist"
-            android:layout_width="111dp"
-            android:layout_height="45dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
             android:layout_above="@+id/imageView9"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
@@ -166,11 +167,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:text="免费注册"
                 android:textColor="#F7931E"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_16"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <ImageView
@@ -231,8 +232,8 @@
 
                 <ImageView
                     android:id="@+id/iv_phonelogin_qq"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="@dimen/dimen_40px"
+                    android:layout_height="@dimen/dimen_40px"
                     android:src="@mipmap/qq" />
 
                 <TextView
@@ -240,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:text="QQ"
                     android:textColor="#666666"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_15" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearLayouweixin"
@@ -252,8 +253,8 @@
 
                 <ImageView
                     android:id="@+id/iv_phonelogin_weixin"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="@dimen/dimen_40px"
+                    android:layout_height="@dimen/dimen_40px"
                     android:src="@mipmap/weixinlogin" />
 
                 <TextView
@@ -261,7 +262,7 @@
                     android:layout_height="wrap_content"
                     android:text="微信"
                     android:textColor="#666666"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_15" />
             </LinearLayout>
 
             <LinearLayout
@@ -273,8 +274,8 @@
 
                 <ImageView
                     android:id="@+id/iv_phonelogin_weibo"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="@dimen/dimen_40px"
+                    android:layout_height="@dimen/dimen_40px"
                     android:src="@mipmap/xinlang" />
 
                 <TextView
@@ -282,7 +283,7 @@
                     android:layout_height="wrap_content"
                     android:text="微博"
                     android:textColor="#666666"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_15" />
             </LinearLayout>
         </LinearLayout>
 
@@ -301,7 +302,7 @@
                 android:layout_centerVertical="true"
                 android:text="企业招聘注册  >"
                 android:textColor="#00B7EE"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_16" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

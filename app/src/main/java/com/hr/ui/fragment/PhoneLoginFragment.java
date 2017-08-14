@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.activity.CompanyRegisterActivity;
+import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.NewFindPwdActivity;
 import com.hr.ui.activity.NewPhoneRegisterActivity;
 import com.hr.ui.config.Constants;

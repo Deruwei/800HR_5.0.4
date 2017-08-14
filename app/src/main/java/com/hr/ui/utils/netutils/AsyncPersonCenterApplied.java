@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class AsyncPersonCenterApplied {
 
 					JSONObject jsonObject = new JSONObject(json);
 					// System.out.println("我申请的职位：" + jsonObject);
+					Log.i("我申请的职位",jsonObject.toString());
 					int error_code = jsonObject.getInt("error_code");
 					switch (error_code) {
 					case 0:// 请求成功

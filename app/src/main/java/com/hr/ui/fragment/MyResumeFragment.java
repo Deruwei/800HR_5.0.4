@@ -1793,9 +1793,16 @@ public class MyResumeFragment extends Fragment {
             e.printStackTrace();
         }
         //网络没有
-        if (!isHaveAppResume&&listResumeIsApp.size()!=1) {
+        if (!isHaveAppResume&&listResumeIsApp.size()>1) {
             chooseIsApp();
         }else{
+            if(Integer.parseInt(listResumeIsApp.get(0).getFill_scale())>=60&&isRefresh==true){
+                sUtils.setStringValue("is_app_resumeid" + resumeID, listResumeIsApp.get(0).getResume_id());
+                resumeID = listResumeIsApp.get(0).getResume_id();
+                resumeType = listResumeIsApp.get(0).getResume_type();
+                sendIsApp();
+            }
+            isRefresh = false;
             refreshResume();
         }
         //本地有

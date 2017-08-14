@@ -31,6 +31,7 @@ import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.server.RegisterCodeTimerService;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.NoDoubleClickListener;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncNewPhoneRegister;
 import com.hr.ui.utils.netutils.AsyncNewPhoneRegisterAutoCode;
@@ -75,10 +76,44 @@ public class NewPhoneRegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_phone_register);
         ButterKnife.bind(this);
+        initView();
         sharedPreferencedUtils = new SharedPreferencesUtils(this);
         industryID = sharedPreferencedUtils.getIntValue(Constants.INDUSTRY, 0);
         btPhoneregisterAuthcode.onCreate(savedInstanceState);
         btPhoneregisterAuthcode.setTextAfter("s后重新获取").setTextBefore("获取验证码").setLenght(60 * 1000);
+    }
+
+    private void initView() {
+        framePhoneregisterLogin.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                token = etPhoneregisterAuthcode.getText().toString().trim();
+                pwdStr = etPhoneregisterPassword.getText().toString().trim();
+                phoneNum = etPhoneregisterUsername.getText().toString().trim();
+                Pattern pattern = Pattern.compile("^[_.@a-zA-Z0-9]+$");
+                Matcher matcher1 = pattern.matcher(pwdStr);
+                String regExp = "^\\+?(86|086)?(-)?(1[3|4|5|8|7]\\d{9})$";
+                Pattern p = Pattern.compile(regExp);
+                Matcher m = p.matcher(phoneNum.trim());
+                if (phoneNum.equals("") || !m.find()) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                } else if (token.equals("")) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
+                } else if (pwdStr.equals("")) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                } else if (pwdStr.trim().length() > 25 || pwdStr.trim().length() < 6) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入6-25位密码", Toast.LENGTH_SHORT).show();
+                } else if (!matcher1.find()) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "密码只能输入数字和字母", Toast.LENGTH_SHORT).show();
+                } else if (!isCheck) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "您未同意注册协议", Toast.LENGTH_LONG).show();
+                } else {
+                    AsyncNewPhoneRegister asyncNewRegister = new AsyncNewPhoneRegister(NewPhoneRegisterActivity.this, handler);
+                    asyncNewRegister.execute(phoneNum, pwdStr, industryID + "", token);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -94,7 +129,6 @@ public class NewPhoneRegisterActivity extends Activity {
             }
         }
 
-        ;
     };
     private Handler handlerPhone = new Handler() {
         @Override
@@ -165,32 +199,6 @@ public class NewPhoneRegisterActivity extends Activity {
                 Intent intentUserAgreement = new Intent(this, UserAgreementActivity.class);
                 intentUserAgreement.putExtra("userOrCom", "1");
                 startActivity(intentUserAgreement);
-                break;
-            case R.id.frame_phoneregister_login:
-                token = etPhoneregisterAuthcode.getText().toString().trim();
-                pwdStr = etPhoneregisterPassword.getText().toString().trim();
-                phoneNum = etPhoneregisterUsername.getText().toString().trim();
-                Pattern pattern = Pattern.compile("^[_.@a-zA-Z0-9]+$");
-                Matcher matcher1 = pattern.matcher(pwdStr);
-                String regExp = "^\\+?(86|086)?(-)?(1[3|4|5|8|7]\\d{9})$";
-                Pattern p = Pattern.compile(regExp);
-                Matcher m = p.matcher(phoneNum.trim());
-                if (phoneNum.equals("") || !m.find()) {
-                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                } else if (token.equals("")) {
-                    Toast.makeText(this, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
-                } else if (pwdStr.equals("")) {
-                    Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-                } else if (pwdStr.trim().length() > 25 || pwdStr.trim().length() < 6) {
-                    Toast.makeText(this, "请输入6-25位密码", Toast.LENGTH_SHORT).show();
-                } else if (!matcher1.find()) {
-                    Toast.makeText(this, "密码只能输入数字和字母", Toast.LENGTH_SHORT).show();
-                } else if (!isCheck) {
-                    Toast.makeText(this, "您未同意注册协议", Toast.LENGTH_LONG).show();
-                } else {
-                    AsyncNewPhoneRegister asyncNewRegister = new AsyncNewPhoneRegister(NewPhoneRegisterActivity.this, handler);
-                    asyncNewRegister.execute(phoneNum, pwdStr, industryID + "", token);
-                }
                 break;
         }
     }
