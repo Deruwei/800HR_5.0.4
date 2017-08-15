@@ -34,7 +34,7 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class BindSecondFragment extends Fragment {
+public class BindSecondFragment extends BaseFragment{
 
     @Bind(R.id.et_bindlogin_phonenum)
     EditText etBindloginPhonenum;

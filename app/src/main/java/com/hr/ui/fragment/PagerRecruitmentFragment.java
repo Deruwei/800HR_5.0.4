@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PagerRecruitmentFragment extends Fragment {
+public class PagerRecruitmentFragment extends BaseFragment {
     @Bind(R.id.tv_comNoData)
     TextView tvComNoData;
     private View view;

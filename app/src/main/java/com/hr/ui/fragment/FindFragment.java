@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.BaseFragmentActivity;
 import com.hr.ui.activity.ChooseIndustriesActivity;
 import com.hr.ui.activity.MainActivity;
 import com.hr.ui.adapter.FindPagerAdapter;
@@ -24,6 +25,7 @@ import com.hr.ui.utils.GetDataInfo;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -36,7 +38,7 @@ import java.util.List;
 /**
  * 发现Fragment
  */
-public class FindFragment extends Fragment implements View.OnClickListener {
+public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = "FindFragment";
     private View view;

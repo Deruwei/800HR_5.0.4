@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * 品牌招聘
  */
-public class PagerActivityFragment extends Fragment {
+public class PagerActivityFragment extends BaseFragment {
 
     @Bind(R.id.tv_actNoData)
     TextView tvActNoData;

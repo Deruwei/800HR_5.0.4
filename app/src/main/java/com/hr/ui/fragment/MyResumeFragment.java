@@ -120,7 +120,7 @@ import static android.content.Context.WINDOW_SERVICE;
 /**
  * 简历预览页面
  */
-public class MyResumeFragment extends Fragment {
+public class MyResumeFragment extends BaseFragment {
 
     private static final String TAG = "PreviewResumeActivity";
 //    private Context mContext = getActivity();

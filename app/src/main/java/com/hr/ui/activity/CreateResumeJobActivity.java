@@ -117,7 +117,6 @@ public class CreateResumeJobActivity extends BaseActivity {
                         MainActivity.instanceMain.isLoad = true;
                         MainActivity.instanceMain.newAppResume = false;
                         sendIsApp();
-                        finish();
                         break;
                     default:
                         break;

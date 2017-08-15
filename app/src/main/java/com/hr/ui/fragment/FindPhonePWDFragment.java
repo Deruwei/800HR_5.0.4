@@ -55,7 +55,7 @@ import static android.content.Context.WINDOW_SERVICE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FindPhonePWDFragment extends Fragment {
+public class FindPhonePWDFragment extends BaseFragment {
 
 
     @Bind(R.id.et_findphonepwd_username)

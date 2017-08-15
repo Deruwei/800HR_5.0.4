@@ -43,7 +43,7 @@ import cn.sharesdk.wechat.friends.Wechat;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserNameLoginFragment extends Fragment {
+public class UserNameLoginFragment extends BaseFragment {
 
     @Bind(R.id.et_userlogin_username)
     EditText etUserloginUsername;

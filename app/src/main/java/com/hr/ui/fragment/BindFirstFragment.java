@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.BaseActivity;
 import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.NewPhoneRegisterActivity;
 import com.hr.ui.activity.VerifyPhoneNumStateActivity;
@@ -56,7 +57,7 @@ import static android.content.Context.WINDOW_SERVICE;
 /**
  */
 @SuppressLint("ValidFragment")
-public class BindFirstFragment extends Fragment {
+public class BindFirstFragment extends BaseFragment {
 
 
     @Bind(R.id.et_firstbind_username)

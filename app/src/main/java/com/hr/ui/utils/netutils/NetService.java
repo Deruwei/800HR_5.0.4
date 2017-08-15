@@ -150,120 +150,127 @@ public class NetService {
      * 启动任务
      */
     public void execute(final HashMap<String, String> requestParams) {
-        try {
-            message = new Message();
-            if (dialog != null && !dialog.isShowing()) {
-                dialog.show();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        MyUtils.ableInternet = NetUtils.checkNet(context);
-        if (!MyUtils.ableInternet) {
-            dialog.dismiss();
-            message.obj = "{error_code:11}";
-            message.what = 0;
-            handler.sendMessage(message);
-            return;
-        }
-        System.out.println("请求字段：" + requestParams.toString());
-        mQueue =  HrApplication.getInstance().getRequestQueue();;
-        /**
-         * 发布版本的真实地址 SERVER_URL，把NetService类中的TEST_SERVER_URL改为SERVER_URL
-         */
-        NetRequest<String> request = new NetRequest<String>(Method.POST,
-                Constants.SERVER_URL, new Listener<String>() {
-            @Override
-            public void onResponse(String arg0) {
-                // listRequestQueues.remove(mQueue);
-                System.out.println("请求结果：" + arg0);
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
+        if(context!=null) {
+            try {
+                message = new Message();
+                if (dialog != null && !dialog.isShowing()&&context!=null) {
+                    dialog.show();
                 }
-                try {
-                    JSONObject jsonObject = new JSONObject(arg0);
-                    String error_code = jsonObject.getString("error_code");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            MyUtils.ableInternet = NetUtils.checkNet(context);
+            if (!MyUtils.ableInternet) {
+                dialog.dismiss();
+                message.obj = "{error_code:11}";
+                message.what = 0;
+                handler.sendMessage(message);
+                return;
+            }
+            System.out.println("请求字段：" + requestParams.toString());
+            mQueue = HrApplication.getInstance().getRequestQueue();
+            ;
+            /**
+             * 发布版本的真实地址 SERVER_URL，把NetService类中的TEST_SERVER_URL改为SERVER_URL
+             */
+            NetRequest<String> request = new NetRequest<String>(Method.POST,
+                    Constants.SERVER_URL, new Listener<String>() {
+                @Override
+                public void onResponse(String arg0) {
+                    // listRequestQueues.remove(mQueue);
+                    System.out.println("请求结果：" + arg0);
+                    if (dialog != null && dialog.isShowing()||context==null) {
+                        dialog.dismiss();
+                    }
+                    try {
+                        JSONObject jsonObject = new JSONObject(arg0);
+                        String error_code = jsonObject.getString("error_code");
                             /*
                              * sessionkey过期处理
 							 */
-                    if ("203".equals(error_code) || "204".equals(error_code) || ("205".equals(error_code) && reconnecting == false)
-                            || ("205.2".equals(error_code) && reconnecting == false)) {
-                        tempContext = context;
-                        tempHandler = handler;
-                        tempRequestParams = requestParams;
-                        reconnecting = true;
-                        HashMap<String, String> requestParams = initReconnectParams(context);
-                        NetService service = new NetService(context, testHandler, false);
-                        service.execute(requestParams);
-                        return;
-                    } else if ("303".equals(error_code)) {// 用户未登录问题
-                        SharedPreferencesUtils utils = new SharedPreferencesUtils(context);
-                        utils.setBooleanValue(Constants.AUTO_LOGIN, false);
-                        testHandler.sendEmptyMessage(303);
-                        return;
+                        if ("203".equals(error_code) || "204".equals(error_code) || ("205".equals(error_code) && reconnecting == false)
+                                || ("205.2".equals(error_code) && reconnecting == false)) {
+                            tempContext = context;
+                            tempHandler = handler;
+                            tempRequestParams = requestParams;
+                            reconnecting = true;
+                            HashMap<String, String> requestParams = initReconnectParams(context);
+                            NetService service = new NetService(context, testHandler, false);
+                            service.execute(requestParams);
+                            return;
+                        } else if ("303".equals(error_code)) {// 用户未登录问题
+                            SharedPreferencesUtils utils = new SharedPreferencesUtils(context);
+                            utils.setBooleanValue(Constants.AUTO_LOGIN, false);
+                            testHandler.sendEmptyMessage(303);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+                        reconnecting = false;
+                        message.obj = arg0;
+                        message.what = 0;
+                        handler.sendMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                try {
-                    reconnecting = false;
-                    message.obj = arg0;
-                    message.what = 0;
-                    handler.sendMessage(message);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new ErrorListener() {
+            }, new ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError arg0) {
-                // listRequestQueues.remove(mQueue);
-                // ***输出错误信息***//
-                // AuthFailureError：如果在做一个HTTP的身份验证，可能会发生这个错误。
-                // NetworkError：Socket关闭，服务器宕机，DNS错误都会产生这个错误。
-                // NoConnectionError：和NetworkError类似，这个是客户端没有网络连接。
-                // ParseError：在使用JsonObjectRequest或JsonArrayRequest时，如果接收到的JSON是畸形，会产生异常。
-                // SERVERERROR：服务器的响应的一个错误，最有可能的4xx或5xx HTTP状态代码。
-                // TimeoutError：Socket超时，服务器太忙或网络延迟会产生这个异常。默认情况下，Volley的超时时间为2.5秒。如果得到这个错误可以使用RetryPolicy。
-                NetworkResponse response = arg0.networkResponse;
+                @Override
+                public void onErrorResponse(VolleyError arg0) {
+                    // listRequestQueues.remove(mQueue);
+                    // ***输出错误信息***//
+                    // AuthFailureError：如果在做一个HTTP的身份验证，可能会发生这个错误。
+                    // NetworkError：Socket关闭，服务器宕机，DNS错误都会产生这个错误。
+                    // NoConnectionError：和NetworkError类似，这个是客户端没有网络连接。
+                    // ParseError：在使用JsonObjectRequest或JsonArrayRequest时，如果接收到的JSON是畸形，会产生异常。
+                    // SERVERERROR：服务器的响应的一个错误，最有可能的4xx或5xx HTTP状态代码。
+                    // TimeoutError：Socket超时，服务器太忙或网络延迟会产生这个异常。默认情况下，Volley的超时时间为2.5秒。如果得到这个错误可以使用RetryPolicy。
+                    NetworkResponse response = arg0.networkResponse;
 //                System.out.println("错误信息：" + arg0.toString());
-                if (response != null) {
-                    switch (response.statusCode) {
-                        case 404:
-                            break;
-                        case 422:
-                            break;
-                        case 401:
-                            break;
-                        default:
-                            break;
+                    if (response != null) {
+                        switch (response.statusCode) {
+                            case 404:
+                                break;
+                            case 422:
+                                break;
+                            case 401:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (dialog != null && dialog.isShowing()||context==null) {
+                        dialog.dismiss();
+                    }
+                    try {
+                        message.obj = arg0;
+                        message.what = -1;
+                        handler.sendMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-                try {
-                    message.obj = arg0;
-                    message.what = -1;
-                    handler.sendMessage(message);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, requestParams) {
+            }, requestParams) {
 
-            @Override
-            protected String parseNetworkResponseDelegate(String jsonString) {
-                return jsonString;
+                @Override
+                protected String parseNetworkResponseDelegate(String jsonString) {
+                    return jsonString;
+                }
+            };
+            // 如果失败，3s后自动重新请求
+            request.setRetryPolicy(new DefaultRetryPolicy(3 * 1000, 3, 1.0f));
+            mQueue.add(request);
+            mQueue.start();
+            // System.out.println("超时时间：" + request.getTimeoutMs());
+            // listRequestQueues.add(mQueue);
+        }else{
+            if(dialog!=null) {
+                dialog.dismiss();
             }
-        };
-        // 如果失败，3s后自动重新请求
-        request.setRetryPolicy(new DefaultRetryPolicy(3 * 1000, 3, 1.0f));
-        mQueue.add(request);
-        mQueue.start();
-        // System.out.println("超时时间：" + request.getTimeoutMs());
-        // listRequestQueues.add(mQueue);
+        }
     }
 
     /**

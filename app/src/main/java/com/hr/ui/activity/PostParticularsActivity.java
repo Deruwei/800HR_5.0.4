@@ -13,9 +13,13 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -84,6 +88,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     private DownLoadImg dLoadImg;
     private long currTime = 0;// 分享的点击时间
     private int error_code;
+    private PopupWindow popupWindow;
     /**
      * 是否收藏 是否已经收藏，0没有；1有（如果是未登录用户此处为0）
      */
@@ -206,7 +211,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 posterPath = resultPostMap.get("posterimg").toString();
                 if (!posterPath.equals("")) {
                     ll_postparticular_poster.setVisibility(View.VISIBLE);
-                    DownLoadImg();
+                  DownLoadImg();
                 }
                 is_favourite = resultPostMap.get("is_favourite");
                 is_apply = resultPostMap.get("is_apply");
@@ -399,11 +404,10 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
 //                    + posterPath.substring(posterPath.lastIndexOf("/") + 1);
             if (FileUtil.isFileExist(comLogoFileName)) {
                 drawable = BitmapFactory.decodeFile(comLogoFileName);
-                showImg(drawable);
+                initPopupWindows(drawable);
             } else {// 下载海报
-                Glide.with(this).load(posterPath).into(iv_postparticular_comlogo2);
-                /*dLoadImg = new DownLoadImg(iv_postparticular_comlogo2);
-                dLoadImg.execute(posterPath);*/
+                dLoadImg = new DownLoadImg(iv_postparticular_comlogo2);
+                dLoadImg.execute(posterPath);
             }
         }
     }
@@ -412,7 +416,9 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_postparticular_poster:
-                showImg(drawable);
+                if(popupWindow!=null&&posterPath!=null) {
+                    initPopupWindows(drawable);
+                }
                 break;
             case R.id.iv_postparticulars_back:
                 finish();
@@ -557,12 +563,36 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         protected void onPostExecute(Bitmap result) {
             // TODO Auto-generated method stub
             if (result != null) {
-                showImg(result);
+                initPopupWindows(result);
             }
             super.onPostExecute(result);
         }
     }
-
+   private void  initPopupWindows(Bitmap res){
+       //设置contentView
+       View contentView = LayoutInflater.from(this).inflate(R.layout.poster_dialog_background, null);
+       popupWindow = new PopupWindow(contentView,
+               LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
+       popupWindow.setContentView(contentView);
+       ImageView closeBtn = (ImageView) contentView .findViewById(R.id.close_btn);
+       ll_viewArea = (LinearLayout) contentView .findViewById(R.id.ll_viewArea);
+       closeBtn.setVisibility(View.GONE);
+       parm = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT ,LinearLayout.LayoutParams.MATCH_PARENT);
+       parm.gravity = Gravity.CENTER;
+       // 自定义布局控件，用来初始化并存放自定义imageView
+       viewArea = new ViewArea(PostParticularsActivity.this, res);
+       ll_viewArea.addView(viewArea, parm);
+       //设置各个控件的点击响应
+       ll_viewArea .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+       //显示PopupWindow
+       View rootview = LayoutInflater.from(this).inflate(R.layout.activity_post_particulars, null);
+       popupWindow.showAtLocation(rootview, Gravity.CENTER, 0, 0);
+   }
     /**
      * 弹出自定义 Dialog
      */

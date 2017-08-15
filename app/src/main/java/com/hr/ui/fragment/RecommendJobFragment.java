@@ -50,7 +50,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RecommendJobFragment extends Fragment {
+public class RecommendJobFragment extends BaseFragment {
 
     public static TextView tvRecfragmentPlace, tvRecfragmentFunction, tvRecfragmentText;
 
@@ -466,8 +466,12 @@ public class RecommendJobFragment extends Fragment {
 
                     } else {
                         if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
-
+                            funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
+                            areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
+                            loadNetData();
                         } else {
+                            lvRecommendfragment.setVisibility(View.GONE);
+                            rlRecfragmentEmpty.setVisibility(View.GONE);
                             lrRecfragmentJob.setVisibility(View.VISIBLE);
                         }
                     }

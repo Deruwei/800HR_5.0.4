@@ -16,6 +16,7 @@ public class ViewArea extends FrameLayout
     private int imgW;
     private int imgH;
     private TouchView touchView;
+    private int bitmapW,bitmapH;
 
 
     // private DisplayMetrics dm;
@@ -31,11 +32,13 @@ public class ViewArea extends FrameLayout
 
         // 这里的宽高要和xml中的LinearLayout大小一致，如果要指定大小。
         // xml中LinearLayout的宽高一定要用px像素单位，因为这里的宽高是像素，用dp会有误差！
-        imgDisplayW = ((Activity) context).getWindowManager().getDefaultDisplay().getWidth();
-        imgDisplayH = ((Activity) context).getWindowManager().getDefaultDisplay().getHeight();
+        bitmapH=resId.getHeight();
+        bitmapW=resId.getWidth();
+        imgDisplayW = ((Activity) context).getWindowManager().getDefaultDisplay().getWidth()/10*8;
+        imgDisplayH = ((Activity) context).getWindowManager().getDefaultDisplay().getHeight()/10*8;
 
         // 这句就是我们的自定义ImageView
-        touchView = new TouchView(context, imgDisplayW, imgDisplayH);
+        touchView = new TouchView(context, bitmapW, bitmapH);
 
         // 给我们的自定义imageView设置要显示的图片
         // touchView.setImageResource(resId);

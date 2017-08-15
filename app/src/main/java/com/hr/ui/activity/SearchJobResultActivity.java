@@ -32,6 +32,7 @@ import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.Async_SetRobJob;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.tools.LogTools;
+import com.hr.ui.utils.tools.PushAliasString;
 import com.hr.ui.view.custom.MyProgressDialog;
 import com.hr.ui.view.custom.PopupmenuBar;
 import com.hr.ui.view.pulltorefresh.PullToRefreshListView;
@@ -164,7 +165,7 @@ public class SearchJobResultActivity extends Activity  {
                 if (msg.arg1 == 0) {// 成功获取数据
                     if(dataList!=null&&dataList.size()!=0){
                     totalList.addAll(dataList);
-                        Log.i("页码的总数",totalList.size()+"");
+                       /* Log.i("页码的总数",totalList.size()+"");*/
                     if (totalIsSelect.size() == 0) {
                         for (int i = 0; i < totalList.size(); i++) {
                             totalIsSelect.put(i, false);
@@ -174,7 +175,6 @@ public class SearchJobResultActivity extends Activity  {
                             totalIsSelect.put(i, false);
                         }
                     }
-                    refreshInfo();
                         sjrAdapter.setDataList(totalList);
                         // 通知适配器更新数据
                         if (pageNum == 1) {
@@ -435,6 +435,7 @@ public class SearchJobResultActivity extends Activity  {
             LogTools.i(TAG, "====jsonObject" + jsonObject.toString());
             error_code = jsonObject.getInt("error_code");
             jobNum = jsonObject.getString("totals");
+            refreshInfo();
             if (error_code != 0) {
                 return error_code;
             }
@@ -480,6 +481,7 @@ public class SearchJobResultActivity extends Activity  {
             } else {
                 tvSearchjobresultJobnum.setText("为您找到" + jobNum + "个职位");
             }
+            Log.i("工作的数量",jobNum+"");
             if (jobNum.equals("0")) {
                 srSearchJobResult.setVisibility(View.GONE);
                 rlSearchjobresultVisible.setVisibility(View.GONE);
@@ -616,6 +618,7 @@ public class SearchJobResultActivity extends Activity  {
 //    }
 
     private void saveData() {
+        MyUtils.ALIAS=PushAliasString.getDeviceId(this);
         // 验证信息
         if (MyUtils.ALIAS == null || MyUtils.ALIAS.length() == 0) {
             Toast.makeText(SearchJobResultActivity.this, "手机IMEI获取失败", Toast.LENGTH_SHORT)

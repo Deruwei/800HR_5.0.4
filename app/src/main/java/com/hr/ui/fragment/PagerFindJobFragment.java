@@ -12,7 +12,7 @@ import com.hr.ui.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PagerFindJobFragment extends Fragment {
+public class PagerFindJobFragment extends BaseFragment {
 
 
     public PagerFindJobFragment() {

@@ -60,7 +60,7 @@ import java.util.HashMap;
  * 关键词搜索页面
  * A simple {@link Fragment} subclass.
  */
-public class PagerKeywordSearchFragment extends Fragment implements View.OnClickListener {
+public class PagerKeywordSearchFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = "PagerKeywordSearchFragment";
     private PopupWindow pop;

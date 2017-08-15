@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PagerCompanyFragment extends Fragment {
+public class PagerCompanyFragment extends BaseFragment{
 
     @Bind(R.id.tv_comNoData)
     TextView tvComNoData;
@@ -57,7 +57,7 @@ public class PagerCompanyFragment extends Fragment {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 json_result = (String) msg.obj;
-
+                //Log.i("json的数据",json_result);
                     dataList=new ArrayList<>();
                     dataList=GetJssonList.getDazzleJson(ad_type,json_result);
                     if(dataList!=null) {

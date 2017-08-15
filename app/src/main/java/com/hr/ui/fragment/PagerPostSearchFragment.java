@@ -55,7 +55,7 @@ import java.util.Set;
  * 职位搜索
  * A simple {@link Fragment} subclass.
  */
-public class PagerPostSearchFragment extends Fragment implements View.OnClickListener {
+public class PagerPostSearchFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = "PagerPostSearchFragment";
     private View view;
     private RelativeLayout rl_post_function;
