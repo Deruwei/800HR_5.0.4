@@ -82,6 +82,7 @@ public class RecommendJobFragment extends BaseFragment {
     private String industry;
     private SearchJobResultRecommendAdapter sjrAdapter;
     private MyProgressDialog dialog;
+    private NetService service;
     /**
      * 网络获取的json数据集合
      */
@@ -106,7 +107,7 @@ public class RecommendJobFragment extends BaseFragment {
      */
     private static ArrayList<HashMap<String, Object>> totalList;
     private HashMap<String, Object> hs;
-    private ArrayList<HashMap<String, Object>> dataList;
+    private ArrayList<HashMap<String, Object>> dataList=new ArrayList<>();
     private GetBaiduLocation location;
     /**
      * 职能选择集合
@@ -133,8 +134,12 @@ public class RecommendJobFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        initData();
-        initView();
+        if(MyUtils.canReflesh==true) {
+            MyUtils.canReflesh=false;
+            initData();
+            initView();
+
+        }
     }
 
     private void initData() {
@@ -180,6 +185,9 @@ public class RecommendJobFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        if(dialog!=null&&dialog.isShowing()){
+            dialog.dismiss();
+        }
     }
 
     @OnClick({R.id.tv_gome, R.id.tv_recommendfragment_back, R.id.rl_recfragment_function, R.id.rl_recfragment_place, R.id.bt_recfragment_submit, R.id.rl_recfragment_login})
@@ -341,6 +349,7 @@ public class RecommendJobFragment extends BaseFragment {
                     // 1001 成功 1002失败
                    /* Message msg0 = new Message();
                     msg0.what = 1001;*/
+                   dataList=new ArrayList<>();
                     dataList = GetJssonList.searchResult_json(json_result);// 状态码
                     if(dataList!=null&&dataList.size()!=0) {
                         totalList.addAll(dataList);
@@ -362,7 +371,7 @@ public class RecommendJobFragment extends BaseFragment {
                     msg1.what = 1002;
                     myhandler.sendMessage(msg1);*//*
                 }*/
-                if (dialog != null && dialog.isShowing()) {
+                if (dialog != null && dialog.isShowing()||getActivity()==null) {
                     dialog.dismiss();
                 }
             }/* else {
@@ -441,7 +450,7 @@ public class RecommendJobFragment extends BaseFragment {
      * 加载数据
      */
     public void loadNetData() {
-        NetService service = new NetService(getActivity(), handlerService);
+        service = new NetService(getActivity(), handlerService);
         service.execute(getData(1));
     }
 
@@ -456,7 +465,15 @@ public class RecommendJobFragment extends BaseFragment {
                     if (jsonObjectJobIntension.getString("error_code").trim().equals("0")) {
                         JSONObject jsonorder_info = jsonObjectJobIntension.getJSONObject("order_info");
                         if(!jsonorder_info.toString().contains("func")||!jsonorder_info.toString().contains("workarea")){
-                            lrRecfragmentJob.setVisibility(View.VISIBLE);
+                            if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
+                                funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
+                                areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
+                                loadNetData();
+                            } else {
+                                lvRecommendfragment.setVisibility(View.GONE);
+                                rlRecfragmentEmpty.setVisibility(View.GONE);
+                                lrRecfragmentJob.setVisibility(View.VISIBLE);
+                            }
                         }else{
                             lrRecfragmentJob.setVisibility(View.GONE);
                             funcid = jsonorder_info.getString("func");
@@ -465,15 +482,7 @@ public class RecommendJobFragment extends BaseFragment {
                         }
 
                     } else {
-                        if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
-                            funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
-                            areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
-                            loadNetData();
-                        } else {
-                            lvRecommendfragment.setVisibility(View.GONE);
-                            rlRecfragmentEmpty.setVisibility(View.GONE);
-                            lrRecfragmentJob.setVisibility(View.VISIBLE);
-                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -492,6 +501,9 @@ public class RecommendJobFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        if(dialog.isShowing()){
+            dialog.dismiss();
+        }
     }
 
     /**
@@ -546,4 +558,5 @@ public class RecommendJobFragment extends BaseFragment {
         }
         return error_code;
     }*/
+
 }

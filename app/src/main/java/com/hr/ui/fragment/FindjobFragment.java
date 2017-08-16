@@ -147,13 +147,14 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_findjob, container, false);
         baiduLocation = new GetBaiduLocation(getActivity());
+        initView();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initView();
+
         if (MyUtils.firstIn == true) {
             initData();
             initViewPager();

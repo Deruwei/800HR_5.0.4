@@ -16,6 +16,7 @@ import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
+import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.model.ResumeOrder;
 import com.hr.ui.model.ResumeTitle;
@@ -520,7 +521,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
      * 保存数据
      */
     private void saveToDB() {
-
+        MyUtils.canResumeReflesh=true;
         if (isCHS) {// zh
             if (tv_resume_joborder_position.getText().toString().length() == 0 || tv_resume_joborder_position.getText().toString().equals("请选择职位")) {
                 Toast.makeText(this, "请选择期望职位", Toast.LENGTH_SHORT).show();
@@ -652,6 +653,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(this, dbOperator,
                         resumeIdString, resumeLanguageString);
                 uploadData(resumeIdString);
+                MyUtils.canReflesh=true;
 //                MyResumeActivity.myResumeActivity.shouldUpdate = true;
                 // 刷新简历完整度
 //                finish();

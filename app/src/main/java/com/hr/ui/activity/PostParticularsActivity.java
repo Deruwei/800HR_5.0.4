@@ -199,7 +199,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 tv_postparticular_postparticular.setText(resultPostMap.get("synopsis"));
                 tv_postparticular_comname.setText(resultPostMap.get("enterprise_name"));
                 tv_postparticular_city.setText(resultPostMap.get("workplace"));
-                if (resultPostMap.get("email").equals("")) {
+                if ("".equals(resultPostMap.get("email"))) {
                     tv_postparticular_email.setText("企业邮箱：" + "保密");
                 } else {
                     tv_postparticular_email.setText("企业邮箱：" + resultPostMap.get("email"));
@@ -207,22 +207,22 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
 
                 comId = resultPostMap.get("enterprise_id");
                 loadComNetData();
-                Log.i(TAG, "=====poster" + resultPostMap.get("posterimg").toString());
+                //Log.i(TAG, "=====poster" + resultPostMap.get("posterimg").toString());
                 posterPath = resultPostMap.get("posterimg").toString();
-                if (!posterPath.equals("")) {
+                if (!"".equals(posterPath)) {
                     ll_postparticular_poster.setVisibility(View.VISIBLE);
                   DownLoadImg();
                 }
                 is_favourite = resultPostMap.get("is_favourite");
                 is_apply = resultPostMap.get("is_apply");
                 is_expire = resultPostMap.get("is_expire");
-                if (is_favourite.equals("0")) {
+                if ("0".equals(is_favourite)) {
                     bt_postparticulars_collect.setText("收藏该职位");
                 } else {
                     bt_postparticulars_collect.setText("取消收藏");
                 }
 
-                if (is_apply.equals("0")) {
+                if ("0".equals(is_apply)) {
                     bt_postparticulars_send.setText("投递该职位");
                 } else {
                     bt_postparticulars_send.setText("已投递");
@@ -397,7 +397,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
      * 下载海报
      */
     private void DownLoadImg() {
-        if (!posterPath.equals("") && posterPath != null) {
+        if (!"".equals(posterPath)&& posterPath != null) {
             comLogoFileName = FileUtil.getRootDir() + "/800HR/Poster/"
                     + posterPath.substring(posterPath.lastIndexOf("/") + 1);
 //            comLogoFileName = FileUtil.getRootDir() + Constants.IMAGE_ROOTPATH
@@ -461,7 +461,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     mobilUrl = MobileUrl.getJobUrl(resultPostMap.get("job_id"));
                 }
 
-                System.out.println("mobilUrl==" + mobilUrl);
+                //System.out.println("mobilUrl==" + mobilUrl);
                 text = text + " " + mobilUrl;
                 // text是分享文本，所有平台都需要这个字段
                 oks.setText(text);
@@ -493,7 +493,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         if (MyUtils.isLogin) {
 //            Toast.makeText(this, resultPostMap.get("is_expire"), Toast.LENGTH_SHORT).show();
             if (is_apply != null) {
-                if (is_apply.equals("0")) {
+                if ("0".equals(is_apply)) {
                     //没有申请
                     HashMap<String, String> requestParams = new HashMap<String, String>();
                     requestParams.put("method", "job.apply");
@@ -522,7 +522,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
      */
     private void collectJob() {
         if (MyUtils.isLogin) {
-            if (is_favourite.equals("0")) {
+            if ("0".equals(is_favourite)) {
                 HashMap<String, String> requestParams = new HashMap<String, String>();
                 requestParams.put("method", "job.favour");
                 requestParams.put("job_id", jobId);

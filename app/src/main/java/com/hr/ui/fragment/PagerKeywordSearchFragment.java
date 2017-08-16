@@ -179,15 +179,14 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
         ad_data = new ArrayList<Industry>();
         rec_data = new ArrayList<Industry>();
         db = new DAO_DBOperator(getActivity());
-
+        initView();
+        initData();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initView();
-        initData();
         updateUI();
     }
 

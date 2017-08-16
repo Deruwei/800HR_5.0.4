@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
 import com.hr.ui.R;
 import com.hr.ui.activity.CompanyRegisterActivity;
 import com.hr.ui.activity.MainActivity;
@@ -147,6 +148,7 @@ public class PhoneLoginFragment extends BaseFragment {
     }
 
     private void initData() {
+        MyUtils.canReflesh=true;
         sUtils = new SharedPreferencesUtils(getActivity());
         isAutoLogin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, false);
         usernameString = sUtils.getStringValue(Constants.USERPHONE, null);

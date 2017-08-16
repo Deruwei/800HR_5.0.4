@@ -82,6 +82,7 @@ public class ResumeSelfAssessActivity extends BaseResumeActivity implements View
     }
 
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         String inputString = et_resume_selfassess
                 .getText().toString();
         if (inputString.trim().equals("")) {
@@ -107,6 +108,7 @@ public class ResumeSelfAssessActivity extends BaseResumeActivity implements View
             }
         } else {// 修改自我评价
             // 更新信息到数据库
+            MyUtils.canResumeReflesh=true;
             boolean updateResult = dbOperator
                     .update_ResumeTome(resumeAssessInfo);
             if (updateResult) {

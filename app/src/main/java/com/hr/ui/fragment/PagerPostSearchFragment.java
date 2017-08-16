@@ -198,13 +198,13 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
         rec_data = new ArrayList<Industry>();
         db = new DAO_DBOperator(getActivity());
         initView();
+        initData();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initData();
         updateUI();
     }
 

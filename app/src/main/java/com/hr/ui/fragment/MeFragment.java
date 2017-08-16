@@ -391,7 +391,6 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        refreshData();
     }
 
     public void refreshData() {
@@ -429,6 +428,7 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
         sUtils = new SharedPreferencesUtils(getActivity());
         initView();
         initUIL();
+        refreshData();
         return view;
     }
 

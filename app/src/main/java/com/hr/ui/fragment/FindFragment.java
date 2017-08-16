@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * 发现Fragment
  */
-public class FindFragment extends BaseFragment implements View.OnClickListener {
+public class FindFragment extends LazyLoadFragment implements View.OnClickListener {
 
     private static final String TAG = "FindFragment";
     private View view;
@@ -149,6 +149,16 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         /*loadNetMsg();*/
         initViewPager();
         return view;
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_find;
+    }
+
+    @Override
+    protected void lazyLoad() {
+
     }
 
     @Override

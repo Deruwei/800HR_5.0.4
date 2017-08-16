@@ -1,5 +1,6 @@
 package com.hr.ui.utils.netutils;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -51,7 +52,7 @@ public class NetService {
     private Context context;
     private Handler handler;
     private Message message;
-    private MyProgressDialog dialog;
+    private  MyProgressDialog dialog;
     private static boolean reconnecting = false;// 是否启动了重连机制
     /**
      * 输出网络访问时间
@@ -130,7 +131,6 @@ public class NetService {
     public NetService(Context context, final Handler handler) {
         this.context = context;
         this.handler = handler;
-        dialog = new MyProgressDialog(context);
     }
 
     /**
@@ -151,9 +151,10 @@ public class NetService {
      */
     public void execute(final HashMap<String, String> requestParams) {
         if(context!=null) {
+            dialog=new MyProgressDialog(context);
             try {
                 message = new Message();
-                if (dialog != null && !dialog.isShowing()&&context!=null) {
+                if (dialog != null ) {
                     dialog.show();
                 }
             } catch (Exception e) {
@@ -167,7 +168,7 @@ public class NetService {
                 handler.sendMessage(message);
                 return;
             }
-            System.out.println("请求字段：" + requestParams.toString());
+            //System.out.println("请求字段：" + requestParams.toString());
             mQueue = HrApplication.getInstance().getRequestQueue();
             ;
             /**
@@ -178,8 +179,8 @@ public class NetService {
                 @Override
                 public void onResponse(String arg0) {
                     // listRequestQueues.remove(mQueue);
-                    System.out.println("请求结果：" + arg0);
-                    if (dialog != null && dialog.isShowing()||context==null) {
+                    //System.out.println("请求结果：" + arg0);
+                    if (dialog != null && dialog.isShowing()) {
                         dialog.dismiss();
                     }
                     try {
@@ -242,7 +243,7 @@ public class NetService {
                                 break;
                         }
                     }
-                    if (dialog != null && dialog.isShowing()||context==null) {
+                    if (dialog != null && dialog.isShowing()) {
                         dialog.dismiss();
                     }
                     try {
@@ -260,6 +261,9 @@ public class NetService {
                     return jsonString;
                 }
             };
+            if(context==null){
+                dialog.dismiss();
+            }
             // 如果失败，3s后自动重新请求
             request.setRetryPolicy(new DefaultRetryPolicy(3 * 1000, 3, 1.0f));
             mQueue.add(request);
@@ -457,5 +461,9 @@ public class NetService {
         FileInputStream in = context.openFileInput(filename);
         return NetUtils.readAsString(in, Constants.ENCODE);
     }
-
+    public  void closeDialog(){
+        if(dialog!=null&&dialog.isShowing()){
+            dialog.dismiss();
+        }
+    }
 }

@@ -115,6 +115,12 @@ public class ChooseIndustriesActivity extends BaseActivity implements View.OnCli
         sUtils.setBooleanValue(Constants.IS_CHOOSEINDUSTRY, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyUtils.canReflesh=true;
+    }
+
     private void initData() {
 
         sUtils = new SharedPreferencesUtils(mContext);

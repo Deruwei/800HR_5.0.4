@@ -1,9 +1,12 @@
 package com.hr.ui.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+
+import com.hr.ui.utils.netutils.NetService;
 import com.networkbench.agent.impl.NBSAppAgent;
 import android.os.Build;
 import android.os.Bundle;
@@ -146,4 +149,9 @@ public class WelcomeActivity extends BaseActivity {
             Toast.makeText(this,"请手动获取手机定位权限",Toast.LENGTH_SHORT).show();
         }
     }*/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

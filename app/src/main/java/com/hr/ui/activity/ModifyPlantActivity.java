@@ -164,6 +164,7 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         }
     }
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         if (etResumeItemModifytrainComname.getText()
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入培训机构名称", Toast.LENGTH_LONG).show();
@@ -274,6 +275,7 @@ public class ModifyPlantActivity extends BaseResumeActivity {
             }
         } else {// 修改后保存
             // 更新到数据库
+            MyUtils.canResumeReflesh=true;
             boolean resultUpdate = dbOperator.update_ResumeTraining(resumePlant);
             if (resultUpdate) {
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator, resumeId, resumeLanguage);

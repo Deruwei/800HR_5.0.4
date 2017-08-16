@@ -143,6 +143,7 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
      * 保存数据
      */
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         String languageNameIdString = spResumeModifylanguageLangname.getSelectedId();
         String readlevelIdString = spResumeModifylanguageReadLevel.getSelectedId();
         String speaklevelString = spResumeModifylanguageSpeakLevel.getSelectedId();
@@ -162,6 +163,7 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
             }
         } else {// 修改后保存
             // 更新到数据库
+            MyUtils.canResumeReflesh=true;
             boolean resultUpdate = dbOperator.update_ResumeLanguageLevel(resumeLanguageLevel);
             if (resultUpdate) {
                 ResumeIsUpdateOperator.setBaseInfoIsUpdate(context, dbOperator, resumeLanguage);

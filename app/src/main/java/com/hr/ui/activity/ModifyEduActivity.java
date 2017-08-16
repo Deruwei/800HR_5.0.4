@@ -156,6 +156,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
     }
 
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         if (etResumeItemNewresumeeduSchoolname.getText().toString().trim()
                 .length() == 0) {
             Toast.makeText(context, "请输入学校名称", Toast.LENGTH_LONG).show();
@@ -247,6 +248,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
             boolean resultUpdate = dbOperator.update_ResumeEducation(resumeEducation);
             // System.out.println("传入DB的内容：" + resumeEducation.toString());
             if (resultUpdate) {
+                MyUtils.canResumeReflesh=true;
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator, resumeId, resumeLanguage);
                 next();
             } else {

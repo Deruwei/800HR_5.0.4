@@ -178,6 +178,7 @@ public class ModifyExpActivity extends BaseResumeActivity {
     }
 
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         if (etResumeItemNewjobexpComname.getText()
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入公司名称", Toast.LENGTH_LONG).show();
@@ -306,6 +307,7 @@ public class ModifyExpActivity extends BaseResumeActivity {
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator,
                         resumeId, resumeLanguage);
                 next();
+                MyUtils.canResumeReflesh=true;
             } else {
                 Toast.makeText(context, "编辑失败", Toast.LENGTH_SHORT).show();
             }

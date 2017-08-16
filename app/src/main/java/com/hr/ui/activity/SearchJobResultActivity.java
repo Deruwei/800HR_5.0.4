@@ -683,4 +683,12 @@ public class SearchJobResultActivity extends Activity  {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dialog!=null&&dialog.isShowing()){
+            dialog.dismiss();
+        }
+    }
 }

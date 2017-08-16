@@ -104,6 +104,7 @@ public class ModifySkillActivity extends BaseResumeActivity {
     * 保存数据
     */
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         if (etResumeItemModifyskillSkillname.getText()
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入技能名称", Toast.LENGTH_LONG).show();
@@ -138,6 +139,7 @@ public class ModifySkillActivity extends BaseResumeActivity {
             }
         } else {// 修改后保存
             // 更新到数据库
+            MyUtils.canResumeReflesh=true;
             boolean resultUpdate = dbOperator.update_ResumeSkill(resumeSkill);
             if (resultUpdate) {
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator, resumeId, resumeLanguage);

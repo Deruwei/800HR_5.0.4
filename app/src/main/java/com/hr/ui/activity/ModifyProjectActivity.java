@@ -108,6 +108,7 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         }
     }
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         if (etResumeItemModifyprojectProjectame.getText()
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入项目名称", Toast.LENGTH_LONG).show();
@@ -216,6 +217,7 @@ public class ModifyProjectActivity extends BaseResumeActivity {
                 Toast.makeText(context, "编辑失败", Toast.LENGTH_SHORT).show();
             }
         } else {// 修改后保存
+            MyUtils.canResumeReflesh=true;
             // 更新到数据库
             boolean resultUpdate = dbOperator
                     .update_Resumeitem(resumeProject);

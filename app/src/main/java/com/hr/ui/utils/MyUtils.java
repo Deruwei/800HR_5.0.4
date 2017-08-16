@@ -20,6 +20,9 @@ public class MyUtils extends HrApplication {
     public static String userphone = "";// 用户名
     public static String userID = "";// 用户id
     public static String userJob = "";// 职位
+    public static boolean canReflesh = true;// 期望职位是否可以刷新
+    public static boolean canResumeReflesh= false;// 我的简历是否可以刷新
+    public static boolean canMeReflesh= false;// 抽屉是否可以刷新
 
     public static String industryId;// 行业
     public static double latitude;// 当前经纬度

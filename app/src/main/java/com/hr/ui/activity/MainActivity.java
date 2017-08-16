@@ -322,14 +322,19 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                MeFragment.meFragment.refreshData();
+                if(MyUtils.canMeReflesh==false) {
+                    MeFragment.newAppResume = true;
+                    MeFragment.isLoad = true;
+                    MeFragment.meFragment.refreshData();
+                    MyUtils.canMeReflesh=true;
+                }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 if (!MyResumeFragment.isRefresh) {
                     MyResumeFragment.isRefresh = true;
-                    MyResumeFragment.myResumeFragment.getData();
+                    /*MyResumeFragment.myResumeFragment.getData();*/
                 } else {
 
                 }

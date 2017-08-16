@@ -241,7 +241,18 @@ public class MyResumeFragment extends BaseFragment {
         myResumeFragment = MyResumeFragment.this;
         initData();
         initUIL();
+        getData();
         initView();
+        if (MyUtils.isLogin) {
+
+            if (HrApplication.isPhoneState) {
+                HrApplication.isPhoneState = false;
+                AsyncPhoneStates asyncPhoneStates = new AsyncPhoneStates(getActivity(), handlerPhone);
+                asyncPhoneStates.execute();
+            } else {
+                getData();
+            }
+        }
         return fragmentView;
     }
 
@@ -267,16 +278,13 @@ public class MyResumeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (MyUtils.isLogin) {
-            if (HrApplication.isPhoneState) {
-                HrApplication.isPhoneState = false;
-                AsyncPhoneStates asyncPhoneStates = new AsyncPhoneStates(getActivity(), handlerPhone);
-                asyncPhoneStates.execute();
-            } else {
-                getData();
-            }
+        MyUtils.canMeReflesh=false;
+        if(MyUtils.canResumeReflesh==true) {
+            MyUtils.canResumeReflesh=false;
+            getData();
+
         }
-//        upDateUI();
+//
     }
 
 

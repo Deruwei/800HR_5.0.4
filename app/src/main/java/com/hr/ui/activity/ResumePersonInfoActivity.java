@@ -418,6 +418,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
              * 保存数据
              */
     private void saveData() {
+        MyUtils.canResumeReflesh=true;
         if (isCHS) {
             if (et_resume_personinfo_name.getText().toString().trim().length() == 0) {
                 Toast.makeText(mContext, "请输入姓名",
