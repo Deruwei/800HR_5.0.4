@@ -41,12 +41,13 @@
         android:layout_height="0.5dp"
         android:background="#d3d3d3" />
 
-    <com.hr.ui.view.custom.ScrollViewContainer
+    <com.hr.ui.view.custom.PullUpToLoadMore
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rl_postparticulars_visible"
         android:layout_below="@+id/rl_postparticulars_top">
 
-        <ScrollView
+        <com.hr.ui.view.custom.MyScrollView
             android:id="@+id/sl_postparticular1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -65,11 +66,11 @@
 
                     <ImageView
                         android:id="@+id/iv_postparticular_comlogo"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/dimen_40px"
+                        android:layout_height="@dimen/dimen_40px"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="47dp"
+                        android:layout_marginTop="@dimen/dimen_45px"
                         android:src="@mipmap/logo_gongsi" />
 
                     <TextView
@@ -80,10 +81,12 @@
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
                         android:text="职位"
+                        android:layout_marginTop="@dimen/dimen_5px"
                         android:textColor="#333333"
                         android:textSize="17sp" />
 
                     <TextView
+                        android:layout_marginTop="@dimen/dimen_5px"
                         android:id="@+id/tv_postparticular_comname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -95,8 +98,10 @@
                         android:textColor="#666666"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="350dp"
+                    <View
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_above="@+id/linearLayout3"
                         android:layout_centerHorizontal="true"
@@ -129,6 +134,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:layout_marginTop="@dimen/dimen_5px"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_postparticular_edu"
@@ -163,6 +169,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:layout_marginTop="@dimen/dimen_5px"
                                 android:id="@+id/textView63"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -199,6 +206,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:layout_marginTop="@dimen/dimen_5px"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_postparticular_sal"
@@ -236,6 +244,7 @@
                             <!--android:maxEms="5"-->
 
                             <TextView
+                                android:layout_marginTop="@dimen/dimen_5px"
                                 android:id="@+id/textView26"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -338,77 +347,40 @@
                         android:id="@+id/view"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/textView29"
-                        android:layout_alignStart="@+id/textView29"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:layout_below="@+id/textView29"
                         android:layout_marginTop="9dp"
                         android:background="#EBEBEB" />
 
                     <TextView
                         android:id="@+id/tv_postparticular_postparticular"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/view"
-                        android:layout_alignStart="@+id/view"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
                         android:layout_below="@+id/view"
-                        android:layout_marginTop="10dp"
-                        android:minHeight="300dp"
-                        android:padding="10dp"
+                        android:layout_marginTop="@dimen/dimen_20px"
+                        android:lineSpacingMultiplier="1.2"
                         android:textColor="#666666"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_postparticular_email"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/view"
-                        android:layout_alignStart="@+id/view"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:layout_below="@+id/tv_postparticular_postparticular"
-                        android:layout_marginTop="10dp"
-                        android:minHeight="50dp"
-                        android:padding="10dp"
+                        android:layout_marginTop="@dimen/dimen_10px"
                         android:textColor="#666666"
+                        android:layout_marginBottom="@dimen/dimen_20px"
                         android:textSize="14sp" />
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="#EBEBEB"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"
-                        android:background="#CCCCCC" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  继续拖动  " />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/xia" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  公司详情 " />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"
-                        android:background="#CCCCCC" />
-                </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </com.hr.ui.view.custom.MyScrollView>
 
-        <ScrollView
+        <com.hr.ui.view.custom.MyScrollView
             android:id="@+id/sl_postparticular2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -416,17 +388,14 @@
             android:scrollbars="none">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#fff"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#fff" />
-
                 <LinearLayout
+                    android:id="@id/id_expand_ll"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="#EBEBEB"
@@ -436,62 +405,76 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
                         android:layout_weight="1"
                         android:background="#CCCCCC" />
 
                     <TextView
+                        android:id="@id/id_srcoll_tv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  下拉返回  " />
+                        android:text="@string/xiala" />
 
                     <ImageView
+                        android:id="@id/id_srcoll_iv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/shang" />
+                        android:src="@mipmap/xia" />
 
                     <TextView
+                        android:id="@id/id_srcoll_tv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  职位详情 " />
+                        android:text="@string/companyinfo" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
                         android:layout_weight="1"
                         android:background="#CCCCCC" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#fff" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="wrap_content"
                     android:background="#fff">
 
                     <ImageView
                         android:id="@+id/iv_postparticular_comlogo2"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/dimen_40px"
+                        android:layout_height="@dimen/dimen_40px"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="28dp"
+                        android:layout_marginTop="@dimen/dimen_20px"
                         android:src="@mipmap/logo_gongsi" />
 
                     <TextView
                         android:id="@+id/tv_postparticular_comname2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_postparticular_comlogo2"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginTop="@dimen/dimen_5px"
                         android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
                         android:text="公司名"
                         android:textColor="#333333"
                         android:textSize="17sp" />
 
                     <View
                         android:id="@+id/relativeLayout4"
-                        android:layout_width="360dp"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/tv_postparticular_comname2"
                         android:layout_centerHorizontal="true"
@@ -513,6 +496,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:layout_marginTop="@dimen/dimen_5px"
                         android:id="@+id/textView32"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -524,6 +508,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:layout_marginTop="@dimen/dimen_5px"
                         android:id="@+id/textView31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -546,6 +531,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:layout_marginTop="@dimen/dimen_5px"
                         android:id="@+id/tv_postparticular_scale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -557,6 +543,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:layout_marginBottom="@dimen/dimen_20px"
                         android:id="@+id/tv_postparticular_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -570,7 +557,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="9dp"
+                    android:layout_height="@dimen/dimen_10px"
                     android:background="#F6F6F6" />
 
                 <RelativeLayout
@@ -583,73 +570,86 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignTop="@+id/tv_post_particulars_unfold"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="@dimen/dimen_10px"
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:text="公司介绍"
                         android:textColor="#333333"
-                        android:textSize="20sp" />
-
+                        android:textSize="@dimen/text_size_18" />
+                   <!-- <RelativeLayout
+                        android:layout_marginTop="@dimen/dimen_10px"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <ImageView
+                        android:layout_marginTop="@dimen/dimen_14px"
                         android:id="@+id/imageView38"
-                        android:layout_width="8dp"
-                        android:layout_height="5dp"
-                        android:layout_alignBottom="@+id/tv_post_particulars_unfold"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="7dp"
+                        android:layout_width="@dimen/dimen_10px"
+                        android:layout_height="@dimen/dimen_10px"
                         android:layout_marginRight="7dp"
-                        android:layout_toLeftOf="@+id/tv_post_particulars_unfold"
-                        android:layout_toStartOf="@+id/tv_post_particulars_unfold"
                         android:src="@mipmap/zhinengxuanze_xiala" />
 
                     <TextView
-                        android:id="@+id/tv_post_particulars_unfold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginEnd="45dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:id="@id/id_expand_textview"
                         android:text="展开"
                         android:textColor="#F39D0D"
-                        android:textSize="16sp" />
-
+                        android:textSize="@dimen/text_size_16" />
+                    </RelativeLayout>-->
                     <View
                         android:id="@+id/view2"
-                        android:layout_width="360dp"
+                        android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/textView34"
-                        android:layout_alignStart="@+id/textView34"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:layout_below="@+id/textView34"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="10dp"
                         android:background="#EBEBEB" />
-
-                    <TextView
-                        android:id="@+id/tv_postparticular_comparticular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/view2"
-                        android:layout_alignStart="@+id/view2"
+                    <com.hr.ui.view.custom.ExpandableTextView
+                        android:layout_marginTop="@dimen/dimen_20px"
+                        android:layout_marginBottom="@dimen/dimen_20px"
+                        android:layout_width="match_parent"
+                        android:id="@+id/expand_tv"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
                         android:layout_below="@+id/view2"
-                        android:maxLines="7"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@id/id_source_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.2"
                         android:text="内容详情"
                         android:textColor="#666666"
                         android:textSize="14sp" />
+                        <LinearLayout
+                            android:id="@id/id_expand_rl"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="@dimen/dimen_10px"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@id/id_expand_imageview"
+                            android:layout_marginTop="@dimen/dimen_4px"
+                            android:layout_width="@dimen/dimen_10px"
+                            android:layout_height="@dimen/dimen_10px"
+                            android:layout_marginRight="7dp"
+                            android:src="@mipmap/zhinengxuanze_xiala" />
+                        <TextView
+                            android:id="@id/id_expand_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="展开"
+                            android:textColor="#F39D0D"
+                            android:textSize="@dimen/text_size_16" />
+                        </LinearLayout>
+                    </com.hr.ui.view.custom.ExpandableTextView>
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="#fff" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="13dp"
+                    android:layout_height="@dimen/dimen_10px"
                     android:background="#F6F6F6" />
 
                 <RelativeLayout
@@ -684,20 +684,22 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="13dp"
+                    android:layout_height="1dp"
                     android:background="#F6F6F6" />
             </LinearLayout>
-        </ScrollView>
-    </com.hr.ui.view.custom.ScrollViewContainer>
+        </com.hr.ui.view.custom.MyScrollView>
+    </com.hr.ui.view.custom.PullUpToLoadMore>
 
     <LinearLayout
         android:id="@+id/rl_postparticulars_visible"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/dimen_50px"
         android:background="#fff"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <View
             android:layout_width="0dp"
@@ -707,7 +709,7 @@
         <Button
             android:id="@+id/bt_postparticulars_collect"
             style="@style/bt_orange_two"
-            android:background="@drawable/linear_yuanhu_button"
+            android:background="@drawable/linear_select_gray"
             android:text="收藏该职位"
             android:textColor="#fff" />
 
@@ -719,7 +721,7 @@
         <Button
             android:id="@+id/bt_postparticulars_send"
             style="@style/bt_orange_two"
-            android:background="@drawable/linear_yuanhu_button"
+            android:background="@drawable/linear_select_gray"
             android:text="投递该职位"
             android:textColor="#fff" />
 
