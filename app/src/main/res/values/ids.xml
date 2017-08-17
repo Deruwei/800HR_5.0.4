@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 原始textview -->
+    <item name="id_source_textview" type="id"></item>
+    <!-- 收起展开按钮relativeLayout -->
+    <item name="id_expand_rl" type="id"></item>
+    <!-- 收起展开按钮textview -->
+    <item name="id_expand_textview" type="id"></item>
+    <!-- 收起展开按钮imageView -->
+    <item name="id_expand_imageview" type="id"></item>
+    <!-- 下滑SrcollView中的textview -->
+    <item name="id_srcoll_tv1" type="id"></item>
+    <item name="id_srcoll_tv2" type="id"></item>
+    <!-- 下滑SrcollView中的Imageview -->
+    <item name="id_srcoll_iv1" type="id"></item>
+
+    <!-- 收起展开按钮LinearLayout -->
+    <item name="id_expand_ll" type="id"></item>
+</resources>

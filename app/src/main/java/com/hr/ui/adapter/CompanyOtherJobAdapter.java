@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hr.ui.R;
 import com.hr.ui.activity.OtherPostParticularsActivity;
+import com.hr.ui.activity.PostParticularsActivity;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class CompanyOtherJobAdapter extends RecyclerView.Adapter<CompanyOtherJob
     @Override
     public void onClick(View v) {
         String job_id = (String) v.getTag();
-        Intent intent = new Intent(mContext, OtherPostParticularsActivity.class);
+        Intent intent = new Intent(mContext, PostParticularsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("job_id", job_id);
         intent.putExtras(bundle);

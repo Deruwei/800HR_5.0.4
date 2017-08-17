@@ -45,6 +45,14 @@ public abstract class LazyLoadFragment extends BaseFragment {
         isCanLoadData();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //第一个fragment会调用
+        if (getUserVisibleHint())
+            lazyLoad();
+    }
+
     /**
      * 是否可以加载数据
      * 可以加载数据的条件：

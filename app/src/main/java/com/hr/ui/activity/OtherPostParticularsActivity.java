@@ -229,7 +229,7 @@ public class OtherPostParticularsActivity extends BaseActivity implements View.O
                 tv_postparticular_nature.setText(resultComMap.get("company_type"));
                 tv_postparticular_place.setText(resultComMap.get("address"));
                 tv_postparticular_scale.setText(resultComMap.get("stuff_munber"));
-                tv_postparticular_comparticular.setText(resultComMap.get("synopsis"));
+                /*tv_postparticular_comparticular.setText(resultComMap.get("synopsis"));*/
 
                 logoUrl = resultComMap.get("ent_logo").toString();
                 if (!logoUrl.equals("")) {
@@ -338,9 +338,9 @@ public class OtherPostParticularsActivity extends BaseActivity implements View.O
         tv_postparticular_nature = (TextView) findViewById(R.id.tv_postparticular_nature);
         tv_postparticular_scale = (TextView) findViewById(R.id.tv_postparticular_scale);
         tv_postparticular_place = (TextView) findViewById(R.id.tv_postparticular_place);
-        tv_postparticular_comparticular = (TextView) findViewById(R.id.tv_postparticular_comparticular);
+        /*tv_postparticular_comparticular = (TextView) findViewById(R.id.tv_postparticular_comparticular);*/
         rl_postparticular_clickother = (RelativeLayout) findViewById(R.id.rl_postparticular_clickother);
-        tv_post_particulars_unfold = (TextView) findViewById(R.id.tv_post_particulars_unfold);
+       /* tv_post_particulars_unfold = (TextView) findViewById(R.id.tv_post_particulars_unfold);*/
 
         bt_postparticulars_send = (Button) findViewById(R.id.bt_postparticulars_send);
         bt_postparticulars_collect = (Button) findViewById(R.id.bt_postparticulars_collect);
@@ -352,7 +352,7 @@ public class OtherPostParticularsActivity extends BaseActivity implements View.O
         iv_postparticulars_share.setOnClickListener(this);
         bt_postparticulars_collect.setOnClickListener(this);
         bt_postparticulars_send.setOnClickListener(this);
-        tv_post_particulars_unfold.setOnClickListener(this);
+        /*tv_post_particulars_unfold.setOnClickListener(this);*/
         rl_postparticular_clickother.setOnClickListener(this);
         rl_postparticular_clickother.setVisibility(View.GONE);
     }
@@ -412,7 +412,7 @@ public class OtherPostParticularsActivity extends BaseActivity implements View.O
             case R.id.bt_postparticulars_send:
                 applyJob();
                 break;
-            case R.id.tv_post_particulars_unfold:
+         /*   case R.id.tv_post_particulars_unfold:
                 if (tv_post_particulars_unfold.getText().equals("展开")) {
                     tv_post_particulars_unfold.setText("收起");
                     ViewUtils.expandTextView(tv_postparticular_comparticular);
@@ -420,7 +420,7 @@ public class OtherPostParticularsActivity extends BaseActivity implements View.O
                     tv_post_particulars_unfold.setText("展开");
                     ViewUtils.expandTextView(tv_postparticular_comparticular);
                 }
-                break;
+                break;*/
             case R.id.rl_postparticular_clickother:
                 Intent intent = new Intent(OtherPostParticularsActivity.this, CompanyOtherJobActivity.class);
                 intent.putExtra("enterprise_id", comId);

@@ -501,7 +501,7 @@ public class RecommendJobFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        if(dialog.isShowing()){
+        if(dialog!=null&&dialog.isShowing()){
             dialog.dismiss();
         }
     }

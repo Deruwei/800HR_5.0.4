@@ -8,12 +8,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -39,6 +42,8 @@ import com.hr.ui.utils.netutils.AsyncPositionDetail;
 import com.hr.ui.utils.netutils.Async_DeleteCollectPostion;
 import com.hr.ui.utils.netutils.DownImg;
 import com.hr.ui.utils.netutils.NetService;
+import com.hr.ui.view.custom.ExpandableTextView;
+import com.hr.ui.view.custom.MyScrollView;
 import com.hr.ui.view.custom.PosterDialog;
 import com.hr.ui.view.custom.ViewArea;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -63,7 +68,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     private ImageView iv_postparticulars_back;
     private TextView tv_post_particulars_unfold;
     private ImageView iv_postparticulars_share;
-    private ScrollView sl_postparticular1;
+    private MyScrollView sl_postparticular1;
     private ImageView iv_postparticular_comlogo;
     private TextView tv_postparticular_postname;
     private TextView tv_postparticular_comname;
@@ -73,7 +78,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     private TextView tv_postparticular_city;
     private TextView tv_postparticular_releasetime;
     private TextView tv_postparticular_postparticular;
-    private ScrollView sl_postparticular2;
+    private MyScrollView sl_postparticular2;
     private ImageView iv_postparticular_comlogo2;
     private TextView tv_postparticular_comname2;
     private TextView tv_postparticular_nature;
@@ -101,7 +106,10 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     private LinearLayout ll_viewArea;
     private LinearLayout.LayoutParams parm;
     private ViewArea viewArea;
+    private ImageView iv_xiala;
     private PosterDialog.Builder posterDialog;
+    private ExpandableTextView expandableTextView;
+    private boolean isExpanded;
 
     /**
      * UIL配置信息
@@ -158,6 +166,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                         case 0:// 成功
                             is_favourite = "1";
                             bt_postparticulars_collect.setText("取消收藏");
+                            bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
                             if (handlerSend != null) {
                                 Message message = handlerSend.obtainMessage();
                                 message.what = 0;
@@ -197,6 +206,23 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 tv_postparticular_releasetime.setText(resultPostMap.get("issue_date"));
                 tv_postparticular_exp.setText(resultPostMap.get("workyear"));
                 tv_postparticular_postparticular.setText(resultPostMap.get("synopsis"));
+               /* ViewTreeObserver vto2 = tv_postparticular_postparticular.getViewTreeObserver();
+                vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        TextPaint mTextPaint = tv_postparticular_postparticular.getPaint();
+                        mTextPaint.setTextSize(tv_postparticular_postparticular.getTextSize());
+                        int mTextViewWidth = (int) mTextPaint.measureText(resultPostMap.get("synopsis"));
+                        tv_postparticular_postparticular.setText(resultPostMap.get("synopsis"));
+                        if (mTextViewWidth < tv_postparticular_postparticular.getWidth()*8) {//超出一行
+                            iv_xiala.setVisibility(View.GONE);
+                            tv_post_particulars_unfold.setVisibility(View.GONE);
+                        } else {
+                            iv_xiala.setVisibility(View.VISIBLE);
+                            tv_post_particulars_unfold.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });*/
                 tv_postparticular_comname.setText(resultPostMap.get("enterprise_name"));
                 tv_postparticular_city.setText(resultPostMap.get("workplace"));
                 if ("".equals(resultPostMap.get("email"))) {
@@ -218,14 +244,18 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 is_expire = resultPostMap.get("is_expire");
                 if ("0".equals(is_favourite)) {
                     bt_postparticulars_collect.setText("收藏该职位");
+                    bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
                 } else {
                     bt_postparticulars_collect.setText("取消收藏");
+                    bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
                 }
 
                 if ("0".equals(is_apply)) {
                     bt_postparticulars_send.setText("投递该职位");
+                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
                 } else {
                     bt_postparticulars_send.setText("已投递");
+                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
                 }
             }
         }
@@ -238,8 +268,8 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 tv_postparticular_nature.setText(resultComMap.get("company_type"));
                 tv_postparticular_place.setText(resultComMap.get("address"));
                 tv_postparticular_scale.setText(resultComMap.get("stuff_munber"));
-                tv_postparticular_comparticular.setText(resultComMap.get("synopsis"));
-
+                //tv_postparticular_comparticular.setText(resultComMap.get("synopsis"));
+                expandableTextView.setText(resultComMap.get("synopsis"),true);
                 logoUrl = resultComMap.get("ent_logo").toString();
                 if (!logoUrl.equals("")) {
                     imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo, options);
@@ -262,6 +292,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     switch (error_code) {
                         case 0:// 成功
                             bt_postparticulars_send.setText("已投递");
+                            bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
                             if (handlerSend != null) {
                                 Message message = handler.obtainMessage();
                                 message.what = 0;
@@ -337,8 +368,9 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         iv_postparticular_comlogo2 = (ImageView) findViewById(R.id.iv_postparticular_comlogo2);
         iv_postparticular_comlogo = (ImageView) findViewById(R.id.iv_postparticular_comlogo);
 
-        sl_postparticular1 = (ScrollView) findViewById(R.id.sl_postparticular1);
-        sl_postparticular2 = (ScrollView) findViewById(R.id.sl_postparticular2);
+        sl_postparticular1 = (MyScrollView) findViewById(R.id.sl_postparticular1);
+        sl_postparticular2 = (MyScrollView) findViewById(R.id.sl_postparticular2);
+        /*iv_xiala= (ImageView) findViewById(R.id.imageView38);*/
 
         tv_postparticular_postname = (TextView) findViewById(R.id.tv_postparticular_postname);
         tv_postparticular_comname = (TextView) findViewById(R.id.tv_postparticular_comname);
@@ -353,12 +385,13 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         tv_postparticular_nature = (TextView) findViewById(R.id.tv_postparticular_nature);
         tv_postparticular_scale = (TextView) findViewById(R.id.tv_postparticular_scale);
         tv_postparticular_place = (TextView) findViewById(R.id.tv_postparticular_place);
-        tv_postparticular_comparticular = (TextView) findViewById(R.id.tv_postparticular_comparticular);
+        /*tv_postparticular_comparticular = (TextView) findViewById(R.id.tv_postparticular_comparticular);*/
         rl_postparticular_clickother = (RelativeLayout) findViewById(R.id.rl_postparticular_clickother);
-        tv_post_particulars_unfold = (TextView) findViewById(R.id.tv_post_particulars_unfold);
+       /* tv_post_particulars_unfold = (TextView) findViewById(R.id.tv_post_particulars_unfold);*/
 
         bt_postparticulars_send = (Button) findViewById(R.id.bt_postparticulars_send);
         bt_postparticulars_collect = (Button) findViewById(R.id.bt_postparticulars_collect);
+        expandableTextView= (ExpandableTextView) findViewById(R.id.expand_tv);
 
         ll_postparticular_poster = (LinearLayout) findViewById(R.id.ll_postparticular_poster);
 
@@ -367,7 +400,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         iv_postparticulars_share.setOnClickListener(this);
         bt_postparticulars_collect.setOnClickListener(this);
         bt_postparticulars_send.setOnClickListener(this);
-        tv_post_particulars_unfold.setOnClickListener(this);
+       /* tv_post_particulars_unfold.setOnClickListener(this);*/
         rl_postparticular_clickother.setOnClickListener(this);
 
     }
@@ -429,15 +462,25 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
             case R.id.bt_postparticulars_send:
                 applyJob();
                 break;
-            case R.id.tv_post_particulars_unfold:
-                if (tv_post_particulars_unfold.getText().equals("展开")) {
-                    tv_post_particulars_unfold.setText("收起");
-                    ViewUtils.expandTextView(tv_postparticular_comparticular);
-                } else {
-                    tv_post_particulars_unfold.setText("展开");
-                    ViewUtils.expandTextView(tv_postparticular_comparticular);
-                }
-                break;
+          /*  case R.id.tv_post_particulars_unfold:
+                    if (tv_post_particulars_unfold.getText().equals("展开")) {
+                        tv_post_particulars_unfold.setText("收起");
+                        expandableTextView.setListener(new ExpandableTextView.OnExpandStateChangeListener() {
+                            @Override
+                            public void onExpandStateChanged(boolean isExpanded1) {
+                               isExpanded=isExpanded1;
+                            }
+                        });
+                    } else {
+                        tv_post_particulars_unfold.setText("展开");
+                        expandableTextView.setListener(new ExpandableTextView.OnExpandStateChangeListener() {
+                            @Override
+                            public void onExpandStateChanged(boolean isExpanded1) {
+                                isExpanded=isExpanded1;
+                            }
+                        });
+                    }
+                break;*/
             case R.id.rl_postparticular_clickother:
                 Intent intent = new Intent(PostParticularsActivity.this, CompanyOtherJobActivity.class);
                 intent.putExtra("enterprise_id", comId);
@@ -530,6 +573,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 service.execute(requestParams);
             } else {
                 new Async_DeleteCollectPostion(mContext, bt_postparticulars_collect, null, null, -1, null).execute("user_stow.delefavourite", jobId, "");
+                bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
             }
         } else {
             Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();

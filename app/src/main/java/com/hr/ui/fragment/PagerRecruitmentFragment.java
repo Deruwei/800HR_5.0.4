@@ -8,18 +8,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.BaseActivity;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
@@ -43,13 +42,18 @@ import butterknife.ButterKnife;
 public class PagerRecruitmentFragment extends BaseFragment {
     @Bind(R.id.tv_comNoData)
     TextView tvComNoData;
+    @Bind(R.id.lv_pager_recruitment)
+    RecyclerView lvPagerRecruitment;
     private View view;
-    private RecyclerView lv_pager_recruitment;
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
     private int ad_type;
     private String json_result;
+    //控件是否已经初始化
+    private boolean isCreateView = false;
+    //是否已经加载过数据
+    private boolean isLoadData = false;
 
     /**
      * 品牌招聘对象
@@ -59,29 +63,32 @@ public class PagerRecruitmentFragment extends BaseFragment {
     @SuppressLint("ValidFragment")
     public PagerRecruitmentFragment(Context context, int ad_type) {
         this.mContext = context;
-       this.ad_type=ad_type;
+        this.ad_type = ad_type;
     }
+
     @Subscribe
-    public void onEvent(ArrayList<Industry> dataList){
-        this.dataList=dataList;
+    public void onEvent(ArrayList<Industry> dataList) {
+        this.dataList = dataList;
     }
+
     @SuppressLint("ValidFragment")
     public PagerRecruitmentFragment() {
 
     }
+
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 json_result = (String) msg.obj;
                 // 1001 成功 1002失败
-                dataList=new ArrayList<>();
-                dataList= GetJssonList.getSpecialJson(ad_type,json_result);
-                if(dataList!=null) {
+                dataList = new ArrayList<>();
+                dataList = GetJssonList.getSpecialJson(ad_type, json_result);
+                if (dataList != null) {
                     if (dataList.size() != 0) {
-                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                        lvPagerRecruitment.setVisibility(View.VISIBLE);
                         tvComNoData.setVisibility(View.GONE);
                         findAdapter = new FindAdapter(mContext, dataList, 1);
-                        lv_pager_recruitment.setAdapter(findAdapter);
+                        lvPagerRecruitment.setAdapter(findAdapter);
                         findAdapter.setOnItemClick(new OnItemClick() {
                             @Override
                             public void ItemClick(View view, int position) {
@@ -98,40 +105,57 @@ public class PagerRecruitmentFragment extends BaseFragment {
                             }
                         });
                         tvComNoData.setVisibility(View.GONE);
-                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                        lvPagerRecruitment.setVisibility(View.VISIBLE);
                     } else {
                         tvComNoData.setVisibility(View.VISIBLE);
-                        lv_pager_recruitment.setVisibility(View.GONE);
+                        lvPagerRecruitment.setVisibility(View.GONE);
                     }
                 }
 
             }
         }
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_recruitment, container, false);
         ButterKnife.bind(this, view);
         initView();
-        loadNetMsg();
+        isCreateView = true;
         return view;
     }
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isCreateView) {
+            lazyLoad();
+        }
+    }
+    private void lazyLoad() {
+        //如果没有加载过就加载，否则就不再加载了
+      loadNetMsg();
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //第一个fragment会调用
+        if (getUserVisibleHint())
+            lazyLoad();
+    }
     /**
      * 向服务器请求数据
      */
     public void loadNetMsg() {
         NetService service = new NetService(getActivity(), handlerService);
-        service.execute(GetDataInfo.getData(ad_type,getActivity()));
+        service.execute(GetDataInfo.getData(ad_type, getActivity()));
     }
 
     private void initView() {
-       // Log.i("this", dataList.toString());
-        lv_pager_recruitment = (RecyclerView) view.findViewById(R.id.lv_pager_recruitment);
-        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        // Log.i("this", dataList.toString());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        lv_pager_recruitment.setLayoutManager(manager);
-        lv_pager_recruitment.addItemDecoration(new SpacesItemDecoration(10));
+        lvPagerRecruitment.setLayoutManager(manager);
+        lvPagerRecruitment.addItemDecoration(new SpacesItemDecoration(10));
     }
 
     public void upData() {
@@ -166,4 +190,6 @@ public class PagerRecruitmentFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+
 }

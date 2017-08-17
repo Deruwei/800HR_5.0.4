@@ -7,18 +7,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.BaseActivity;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
@@ -32,7 +30,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,13 +41,18 @@ public class PagerActivityFragment extends BaseFragment {
 
     @Bind(R.id.tv_actNoData)
     TextView tvActNoData;
+    @Bind(R.id.lv_pager_activity)
+    RecyclerView lvPagerActivity;
     private View view;
-    private RecyclerView lv_pager_recruitment;
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
     private int ad_type;
     private String json_result;
+    //控件是否已经初始化
+    private boolean isCreateView = false;
+    //是否已经加载过数据
+    private boolean isLoadData = false;
     /**
      * 品牌招聘对象
      */
@@ -59,12 +61,12 @@ public class PagerActivityFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 json_result = (String) msg.obj;
-                dataList=new ArrayList<>();
-                dataList= GetJssonList.getEnterpriseJson(ad_type,json_result);
-                if(dataList!=null) {
+                dataList = new ArrayList<>();
+                dataList = GetJssonList.getEnterpriseJson(ad_type, json_result);
+                if (dataList != null) {
                     if (dataList.size() != 0) {
                         findAdapter = new FindAdapter(mContext, dataList, 2);
-                        lv_pager_recruitment.setAdapter(findAdapter);
+                        lvPagerActivity.setAdapter(findAdapter);
                         findAdapter.setOnItemClick(new OnItemClick() {
                             @Override
                             public void ItemClick(View view, int position) {
@@ -81,10 +83,10 @@ public class PagerActivityFragment extends BaseFragment {
                                 totalAdNum(industry.getA_id());
                             }
                         });
-                        lv_pager_recruitment.setVisibility(View.VISIBLE);
+                        lvPagerActivity.setVisibility(View.VISIBLE);
                         tvActNoData.setVisibility(View.GONE);
                     } else {
-                        lv_pager_recruitment.setVisibility(View.GONE);
+                        lvPagerActivity.setVisibility(View.GONE);
                         tvActNoData.setVisibility(View.VISIBLE);
                     }
                 }
@@ -102,15 +104,16 @@ public class PagerActivityFragment extends BaseFragment {
      */
     public void loadNetMsg() {
         NetService service = new NetService(getActivity(), handlerService);
-        service.execute(GetDataInfo.getData(ad_type,getActivity()));
+        service.execute(GetDataInfo.getData(ad_type, getActivity()));
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_activity, container, false);
         ButterKnife.bind(this, view);
         initView();
-        loadNetMsg();
+        isCreateView = true;
         return view;
     }
 
@@ -122,21 +125,39 @@ public class PagerActivityFragment extends BaseFragment {
     @SuppressLint("ValidFragment")
     public PagerActivityFragment(Context context, int ad_type) {
         this.mContext = context;
-       this.ad_type=ad_type;
-    }
-    @Subscribe
-    public void onEvent(ArrayList<Industry> dataList){
-        this.dataList=dataList;
-    }
-    private void initView() {
-        lv_pager_recruitment = (RecyclerView) view.findViewById(R.id.lv_pager_activity);
-       // Log.i("this", dataList.toString());
-        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        lv_pager_recruitment.setLayoutManager(manager);
-        lv_pager_recruitment.addItemDecoration(new SpacesItemDecoration(10));
+        this.ad_type = ad_type;
     }
 
+    @Subscribe
+    public void onEvent(ArrayList<Industry> dataList) {
+        this.dataList = dataList;
+    }
+
+    private void initView() {
+        // Log.i("this", dataList.toString());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvPagerActivity.setLayoutManager(manager);
+        lvPagerActivity.addItemDecoration(new SpacesItemDecoration(10));
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isCreateView) {
+            lazyLoad();
+        }
+    }
+    private void lazyLoad() {
+        //如果没有加载过就加载，否则就不再加载了
+            loadNetMsg();
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //第一个fragment会调用
+        if (getUserVisibleHint())
+            lazyLoad();
+    }
     public void upData() {
         findAdapter.notifyDataSetChanged();
     }
@@ -169,4 +190,5 @@ public class PagerActivityFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
 }

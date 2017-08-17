@@ -174,7 +174,7 @@ public class CreateResumeJobActivity extends BaseActivity {
         tvResumeItemResumejobSave.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                if ("".equals(resumeType)) {
+                if (!"".equals(resumeType)) {
                     if ("1".equals(resumeType)) {
                         saveData();
                     } else {
@@ -553,7 +553,6 @@ public class CreateResumeJobActivity extends BaseActivity {
     }
 
     private void ago() {
-
         Intent intent = new Intent(mContext, CreateResumeEduActivity.class);
         if (resumeIdString != null) {
             intent.putExtra("resumeId", resumeIdString);

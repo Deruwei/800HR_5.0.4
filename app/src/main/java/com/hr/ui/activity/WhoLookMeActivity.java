@@ -58,7 +58,6 @@ public class WhoLookMeActivity extends Activity {
     RelativeLayout rlHasDataWhoLookMe;
     @Bind(R.id.tv_nodDataWhoLookMe)
     TextView tvNodDataWhoLookMe;
-    private ListView listview;
     private ArrayList<BrowsedInfo> listBrowsedInfos=new ArrayList<>();// 谁看过我的简历
     private MyWhoLookMeAdapter myBaseAdpter;
     private ArrayList<BrowsedInfo> totalListBrowsedInfos = new ArrayList<>();
@@ -132,7 +131,6 @@ public class WhoLookMeActivity extends Activity {
 
     private void initData() {
 
-        myBaseAdpter = new MyWhoLookMeAdapter(mContext);
         if(listBrowsedInfos!=null) {
             myBaseAdpter.setListBrowsedInfos(listBrowsedInfos);
             if (index == 1) {
@@ -160,7 +158,7 @@ public class WhoLookMeActivity extends Activity {
      * 是否有数据
      */
     private void isVISIBLE() {
-        if (listBrowsedInfos!=null) {
+        if (listBrowsedInfos!=null&&!"".equals(listBrowsedInfos)&&listBrowsedInfos.size()!=0) {
             rlHasDataWhoLookMe.setVisibility(View.VISIBLE);
             tvNodDataWhoLookMe.setVisibility(View.GONE);
         } else {
@@ -170,6 +168,7 @@ public class WhoLookMeActivity extends Activity {
     }
 
     private void initView() {
+        myBaseAdpter=new MyWhoLookMeAdapter(WhoLookMeActivity.this);
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         listviewSearch.setLayoutManager(manager);

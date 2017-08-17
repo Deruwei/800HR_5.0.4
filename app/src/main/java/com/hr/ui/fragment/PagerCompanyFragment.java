@@ -8,18 +8,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.BaseActivity;
+import com.hr.ui.activity.BaseFragmentActivity;
 import com.hr.ui.activity.CompanyParticularActivity;
 import com.hr.ui.adapter.FindAdapter;
 import com.hr.ui.model.Industry;
@@ -38,17 +38,22 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PagerCompanyFragment extends BaseFragment{
+public class PagerCompanyFragment extends BaseFragment {
 
     @Bind(R.id.tv_comNoData)
     TextView tvComNoData;
+    @Bind(R.id.lv_pager_company)
+    RecyclerView lvPagerCompany;
     private View view;
-    private RecyclerView lv_pager_recruitment;
     private FindAdapter findAdapter;
     private Context mContext;
     private ArrayList<Industry> dataList;
-    private int  ad_type;
+    private int ad_type;
     private String json_result;
+    //控件是否已经初始化
+    private boolean isCreateView = false;
+    //是否已经加载过数据
+    private boolean isLoadData = false;
     /**
      * 品牌招聘对象
      */
@@ -58,34 +63,34 @@ public class PagerCompanyFragment extends BaseFragment{
             if (msg.what == 0) {
                 json_result = (String) msg.obj;
                 //Log.i("json的数据",json_result);
-                    dataList=new ArrayList<>();
-                    dataList=GetJssonList.getDazzleJson(ad_type,json_result);
-                    if(dataList!=null) {
-                        if (dataList.size() != 0) {
-                            findAdapter = new FindAdapter(mContext, dataList, 2);
-                            lv_pager_recruitment.setAdapter(findAdapter);
-                            findAdapter.setOnItemClick(new OnItemClick() {
-                                @Override
-                                public void ItemClick(View view, int position) {
-                                    industry = dataList.get(position);
-                                    if (industry.getTopic_type() == 1) {// 专题网址
-                                        openBrowser(industry.getTopic_url());
-                                    } else if (industry.getTopic_type() == 2) {// 企业详情
-                                        Intent intent = new Intent(mContext,
-                                                CompanyParticularActivity.class);
-                                        intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                        startActivity(intent);
-                                    }
-                                    totalAdNum(industry.getA_id());
+                dataList = new ArrayList<>();
+                dataList = GetJssonList.getDazzleJson(ad_type, json_result);
+                if (dataList != null) {
+                    if (dataList.size() != 0) {
+                        findAdapter = new FindAdapter(mContext, dataList, 2);
+                        lvPagerCompany.setAdapter(findAdapter);
+                        findAdapter.setOnItemClick(new OnItemClick() {
+                            @Override
+                            public void ItemClick(View view, int position) {
+                                industry = dataList.get(position);
+                                if (industry.getTopic_type() == 1) {// 专题网址
+                                    openBrowser(industry.getTopic_url());
+                                } else if (industry.getTopic_type() == 2) {// 企业详情
+                                    Intent intent = new Intent(mContext,
+                                            CompanyParticularActivity.class);
+                                    intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                    startActivity(intent);
                                 }
-                            });
-                            lv_pager_recruitment.setVisibility(View.VISIBLE);
-                            tvComNoData.setVisibility(View.GONE);
-                        } else {
-                            lv_pager_recruitment.setVisibility(View.GONE);
-                            tvComNoData.setVisibility(View.VISIBLE);
-                        }
+                                totalAdNum(industry.getA_id());
+                            }
+                        });
+                        lvPagerCompany.setVisibility(View.VISIBLE);
+                        tvComNoData.setVisibility(View.GONE);
+                    } else {
+                        lvPagerCompany.setVisibility(View.GONE);
+                        tvComNoData.setVisibility(View.VISIBLE);
                     }
+                }
             } else {
 //                Message message = Message.obtain();
 //                message.what = 1002;
@@ -93,10 +98,11 @@ public class PagerCompanyFragment extends BaseFragment{
             }
         }
     };
+
     @SuppressLint("ValidFragment")
     public PagerCompanyFragment(Context context, int ad_type) {
         this.mContext = context;
-       this.ad_type=ad_type;
+        this.ad_type = ad_type;
 
     }
 
@@ -111,24 +117,42 @@ public class PagerCompanyFragment extends BaseFragment{
         view = inflater.inflate(R.layout.fragment_pager_company, container, false);
         ButterKnife.bind(this, view);
         initView();
-        loadNetMsg();
+        isCreateView = true;
         return view;
     }
+
     /**
      * 向服务器请求数据
      */
     public void loadNetMsg() {
         NetService service = new NetService(getActivity(), handlerService);
-        service.execute(GetDataInfo.getData(ad_type,getActivity()));
-    }
-    private void initView() {
-        lv_pager_recruitment = (RecyclerView) view.findViewById(R.id.lv_pager_company);
-        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        lv_pager_recruitment.setLayoutManager(manager);
-        lv_pager_recruitment.addItemDecoration(new SpacesItemDecoration(10));
+        service.execute(GetDataInfo.getData(ad_type, getActivity()));
     }
 
+    private void initView() {
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        lvPagerCompany.setLayoutManager(manager);
+        lvPagerCompany.addItemDecoration(new SpacesItemDecoration(10));
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isCreateView) {
+            lazyLoad();
+        }
+    }
+    protected void lazyLoad() {
+        //加载数据操作
+        loadNetMsg();
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //第一个fragment会调用
+        if (getUserVisibleHint())
+            lazyLoad();
+    }
     public void upData() {
         findAdapter.notifyDataSetChanged();
     }
@@ -161,4 +185,5 @@ public class PagerCompanyFragment extends BaseFragment{
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
 }

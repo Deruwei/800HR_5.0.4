@@ -233,7 +233,7 @@ public class MyPositionActivity extends BaseActivity {
      * 是否有数据
      */
     private void isVISIBLE() {
-        if (listapplied!=null) {
+        if (listapplied!=null&&!"".equals(listapplied)&&listapplied.size()!=0) {
             rlHasDataApplyJob.setVisibility(View.VISIBLE);
             rlNoDataApplyJob.setVisibility(View.GONE);
         } else {
@@ -275,7 +275,7 @@ public class MyPositionActivity extends BaseActivity {
         isLoadAll = false;*/
         Log.i("申请的数据",listapplied.toString());
         positionAdpter = new MyPositionAdapter(this);
-        if(listapplied!=null) {
+        if(listapplied!=null&&!"".equals(listapplied)) {
             positionAdpter.setListapplied(listapplied);
             if(index==1) {
                 Log.i("申请的数据1",listapplied.toString());

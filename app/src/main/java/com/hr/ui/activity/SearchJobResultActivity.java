@@ -85,7 +85,7 @@ public class SearchJobResultActivity extends Activity  {
     private ArrayList<HashMap<String, Object>> dataList;
     private int firstNumm = 0;
 
-    private MyProgressDialog dialog;
+   /* private MyProgressDialog dialog;*/
     /**
      * popupwondow
      */
@@ -208,9 +208,9 @@ public class SearchJobResultActivity extends Activity  {
                 Toast.makeText(SearchJobResultActivity.this, "连接服务器超时", Toast.LENGTH_SHORT)
                         .show();
             }
-            if (dialog != null && dialog.isShowing()) {
+           /* if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
-            }
+            }*/
         }
 
         ;
@@ -355,10 +355,10 @@ public class SearchJobResultActivity extends Activity  {
     }
 
     public void getFiltrate(HashMap<String, String> map, HashMap<String, String> map2) {
-        dialog = new MyProgressDialog(this);
+      /*  dialog = new MyProgressDialog(this);
         if (dialog != null && !dialog.isShowing()) {
             dialog.show();
-        }
+        }*/
         titledataHashMap.clear();
         totalList.clear();
         totalIsSelect.clear();
@@ -418,7 +418,7 @@ public class SearchJobResultActivity extends Activity  {
      */
     public void loadNetData() {
         service = new NetService(this, handlerService);
-        Log.i("页码",pageNum+"");
+       // Log.i("页码",pageNum+"");
         service.execute(getData(pageNum));
     }
 
@@ -684,11 +684,11 @@ public class SearchJobResultActivity extends Activity  {
         }
     }
 
-    @Override
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
         if(dialog!=null&&dialog.isShowing()){
             dialog.dismiss();
         }
-    }
+    }*/
 }
