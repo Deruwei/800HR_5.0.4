@@ -186,17 +186,16 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
          */
 //        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(mContext);
         instanceMain = MainActivity.this;
+       /* isLogin();*/
         isLogin();
         initView();
         initData();
-
 
     }
     @Override
     public void onResume() {
         super.onResume();
         whatState();
-
     }
     public void whatState() {
         if (MyUtils.isLogin) {

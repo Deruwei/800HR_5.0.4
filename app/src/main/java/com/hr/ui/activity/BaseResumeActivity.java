@@ -133,4 +133,12 @@ public class BaseResumeActivity extends BaseActivity {
             finish();
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(beautifulDialog!=null&&beautifulDialog.create().isShowing()){
+            beautifulDialog.create().dismiss();
+        }
+    }
 }

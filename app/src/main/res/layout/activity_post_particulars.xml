@@ -55,9 +55,9 @@
             android:scrollbars="none">
 
             <LinearLayout
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#fff"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -368,7 +368,7 @@
                     <TextView
                         android:id="@+id/tv_postparticular_email"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/dimen_10px"
                         android:layout_marginLeft="@dimen/dimen_10px"
                         android:layout_below="@+id/tv_postparticular_postparticular"
@@ -391,7 +391,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#fff"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -709,7 +709,7 @@
         <Button
             android:id="@+id/bt_postparticulars_collect"
             style="@style/bt_orange_two"
-            android:background="@drawable/linear_select_gray"
+            android:background="@drawable/linear_yuanhu_button"
             android:text="收藏该职位"
             android:textColor="#fff" />
 
@@ -721,7 +721,7 @@
         <Button
             android:id="@+id/bt_postparticulars_send"
             style="@style/bt_orange_two"
-            android:background="@drawable/linear_select_gray"
+            android:background="@drawable/linear_yuanhu_button"
             android:text="投递该职位"
             android:textColor="#fff" />
 

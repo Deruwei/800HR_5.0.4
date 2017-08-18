@@ -165,8 +165,8 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     switch (error_code) {
                         case 0:// 成功
                             is_favourite = "1";
-                            bt_postparticulars_collect.setText("取消收藏");
-                            bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
+                            bt_postparticulars_collect.setText("已收藏");
+                            bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
                             if (handlerSend != null) {
                                 Message message = handlerSend.obtainMessage();
                                 message.what = 0;
@@ -205,7 +205,9 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 tv_postparticular_sal.setText(resultPostMap.get("salary"));
                 tv_postparticular_releasetime.setText(resultPostMap.get("issue_date"));
                 tv_postparticular_exp.setText(resultPostMap.get("workyear"));
-                tv_postparticular_postparticular.setText(resultPostMap.get("synopsis"));
+                String str=resultPostMap.get("synopsis");
+                Log.i("职位的信息",str);
+                tv_postparticular_postparticular.setText(str);
                /* ViewTreeObserver vto2 = tv_postparticular_postparticular.getViewTreeObserver();
                 vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -244,18 +246,18 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 is_expire = resultPostMap.get("is_expire");
                 if ("0".equals(is_favourite)) {
                     bt_postparticulars_collect.setText("收藏该职位");
-                    bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
-                } else {
-                    bt_postparticulars_collect.setText("取消收藏");
                     bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
+                } else {
+                    bt_postparticulars_collect.setText("已收藏");
+                    bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
                 }
 
                 if ("0".equals(is_apply)) {
                     bt_postparticulars_send.setText("投递该职位");
-                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
+                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
                 } else {
                     bt_postparticulars_send.setText("已投递");
-                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
+                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
                 }
             }
         }
@@ -292,7 +294,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     switch (error_code) {
                         case 0:// 成功
                             bt_postparticulars_send.setText("已投递");
-                            bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
+                            bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
                             if (handlerSend != null) {
                                 Message message = handler.obtainMessage();
                                 message.what = 0;
@@ -573,7 +575,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 service.execute(requestParams);
             } else {
                 new Async_DeleteCollectPostion(mContext, bt_postparticulars_collect, null, null, -1, null).execute("user_stow.delefavourite", jobId, "");
-                bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
+                bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
             }
         } else {
             Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();

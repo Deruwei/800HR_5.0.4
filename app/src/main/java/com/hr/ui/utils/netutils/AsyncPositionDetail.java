@@ -3,6 +3,7 @@ package com.hr.ui.utils.netutils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
@@ -28,6 +29,7 @@ public class AsyncPositionDetail {
 					//System.out.println("职位详情" + json);
 					JSONObject jsonObject = new JSONObject(json);
 					int error_code = jsonObject.getInt("error_code");
+					Log.i("json的数据",jsonObject.toString());
 					switch (error_code) {
 					case 0:// 成功
 						JSONObject jsonObject2 = jsonObject

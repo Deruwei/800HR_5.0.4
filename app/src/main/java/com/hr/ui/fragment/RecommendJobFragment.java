@@ -81,7 +81,7 @@ public class RecommendJobFragment extends BaseFragment {
     private SharedPreferencesUtils sUtils;
     private String industry;
     private SearchJobResultRecommendAdapter sjrAdapter;
-    private MyProgressDialog dialog;
+    /*private MyProgressDialog dialog;*/
     private NetService service;
     /**
      * 网络获取的json数据集合
@@ -146,7 +146,7 @@ public class RecommendJobFragment extends BaseFragment {
         sUtils = new SharedPreferencesUtils(getActivity());
         industry = sUtils.getIntValue(Constants.INDUSTRY, 11) + "";
         totalList = new ArrayList<>();
-        dialog = new MyProgressDialog(getActivity());
+        /*dialog = new MyProgressDialog(getActivity());*/
         functionSelectMap.clear();
     }
     public void initView() {
@@ -185,9 +185,9 @@ public class RecommendJobFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        if(dialog!=null&&dialog.isShowing()){
+      /*  if(dialog!=null&&dialog.isShowing()){
             dialog.dismiss();
-        }
+        }*/
     }
 
     @OnClick({R.id.tv_gome, R.id.tv_recommendfragment_back, R.id.rl_recfragment_function, R.id.rl_recfragment_place, R.id.bt_recfragment_submit, R.id.rl_recfragment_login})
@@ -371,9 +371,9 @@ public class RecommendJobFragment extends BaseFragment {
                     msg1.what = 1002;
                     myhandler.sendMessage(msg1);*//*
                 }*/
-                if (dialog != null && dialog.isShowing()||getActivity()==null) {
+               /* if (dialog != null && dialog.isShowing()||getActivity()==null) {
                     dialog.dismiss();
-                }
+                }*/
             }/* else {
                 Message msg1 = new Message();
                 msg1.what = 1002;
@@ -497,13 +497,18 @@ public class RecommendJobFragment extends BaseFragment {
 
     };
 
+   /* @Override
+    public void onPause() {
+        super.onPause();
+        if(dialog!=null&&dialog.isShowing()){
+            dialog.dismiss();
+        }
+    }*/
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        if(dialog!=null&&dialog.isShowing()){
-            dialog.dismiss();
-        }
     }
 
     /**

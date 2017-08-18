@@ -86,7 +86,7 @@ public class CreateResumeJobActivity extends BaseActivity {
     @Bind(R.id.lr_jobactivity)
     LinearLayout lrJobactivity;
     private Context mContext = CreateResumeJobActivity.this;
-    public static CreateResumeJobActivity createResumeJobActivity;
+    public  static CreateResumeJobActivity createResumeJobActivity;
     private SharedPreferencesUtils sUtils;
     private DAO_DBOperator dbOperator;
     private boolean isCHS;
@@ -112,11 +112,12 @@ public class CreateResumeJobActivity extends BaseActivity {
                         Toast.makeText(mContext, "简历上传失败", Toast.LENGTH_SHORT).show();
                         break;
                     case 0:// 中文简历已上传成功
-                        Toast.makeText(mContext, "新建完毕", Toast.LENGTH_SHORT).show();
-                        MainActivity.instanceMain.execute();
+                        MyUtils.canReflesh=true;
                         MainActivity.instanceMain.isLoad = true;
                         MainActivity.instanceMain.newAppResume = false;
-                        sendIsApp();
+                        goMainActivity();
+                        /*sendIsApp();*/
+                        Toast.makeText(mContext, "新建完毕", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -138,10 +139,12 @@ public class CreateResumeJobActivity extends BaseActivity {
                         case 0:// 成功
 //                            Toast.makeText(mContext, "设置成功", Toast.LENGTH_SHORT).show();
                             sUtils.setStringValue("is_app_resumeid" + MyUtils.userID, resumeAppId);
+                            Log.i("简历的状态----------------","设置为默认简历成功");
 //                            MeFragment.meFragment.execute();
                             goMainActivity();
                             break;
                         default:
+                            Log.i("简历的状态----------------","设置为默认简历失败");
                             Toast.makeText(mContext, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
                             goMainActivity();
                             break;
@@ -151,6 +154,7 @@ public class CreateResumeJobActivity extends BaseActivity {
 //                    Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
                 }
             } else {
+                Log.i("简历的状态----------------","没有到达");
 //                Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
             }
         }

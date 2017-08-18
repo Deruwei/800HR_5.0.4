@@ -5,8 +5,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.NewBindActivity;
 import com.hr.ui.config.Constants;
+import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
@@ -55,6 +57,8 @@ public class AsyncNewPhoneRegister {
                             message.what = 0;
                             handler.sendMessage(message);
                             NewBindActivity.newBindActivity.finish();
+                            RecommendJobFragment.recommendJobFragment.initView();
+                            MainActivity.instanceMain.refreshBaseInfo();
                             break;
                         case 201:
                             Toast.makeText(context, "请输入正确的验证码", Toast.LENGTH_SHORT).show();

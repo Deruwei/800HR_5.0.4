@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class PullUpToLoadMore extends ViewGroup {
     public static String TAG = PullUpToLoadMore.class.getName();
     TextView tv1,tv2;
     ImageView iv1;
+    LinearLayout ll_srcoll;
     MyScrollView topScrollView, bottomScrollView;
     VelocityTracker velocityTracker = VelocityTracker.obtain();
     Scroller scroller = new Scroller(getContext());
@@ -28,7 +30,7 @@ public class PullUpToLoadMore extends ViewGroup {
     int position1Y;
     int lastY;
     public int scaledTouchSlop;//最小滑动距离
-    int speed = 200;
+    int speed = 300;
     boolean isIntercept;
 
     public boolean bottomScrollVIewIsInTop = false;
@@ -56,6 +58,7 @@ public class PullUpToLoadMore extends ViewGroup {
             public void run() {
                 topScrollView = (MyScrollView) getChildAt(0);
                 bottomScrollView = (MyScrollView) getChildAt(1);
+                ll_srcoll= (LinearLayout) bottomScrollView.findViewById(R.id.id_expand_ll);
                 iv1= (ImageView) bottomScrollView.findViewById(R.id.id_srcoll_iv1);
                 tv1= (TextView) bottomScrollView.findViewById(R.id.id_srcoll_tv1);
                 tv2= (TextView) bottomScrollView.findViewById(R.id.id_srcoll_tv2);
@@ -125,6 +128,7 @@ public class PullUpToLoadMore extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+
         int y = (int) ev.getY();
 
         switch (ev.getAction()) {
@@ -156,11 +160,11 @@ public class PullUpToLoadMore extends ViewGroup {
 
                     //判断是否是向下滑动和是否在第二屏
                     if (dy < 0 && currPosition == 1) {
-
                         iv1.setImageResource(R.mipmap.xia );
                         tv1.setText(R.string.xiala);
                         tv2.setText(R.string.companyinfo);
                         if (Math.abs(dy) >= scaledTouchSlop) {
+                            ll_srcoll.setVisibility(VISIBLE);
                             iv1.setImageResource(R.mipmap.shang );
                             tv1.setText(R.string.shangla);
                             tv2.setText(R.string.jobinfo);
@@ -177,6 +181,7 @@ public class PullUpToLoadMore extends ViewGroup {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int y = (int) event.getY();
+
         velocityTracker.addMovement(event);
 
         switch (event.getAction()) {
@@ -199,17 +204,17 @@ public class PullUpToLoadMore extends ViewGroup {
 
                 if (currPosition == 0) {
                     if (yVelocity < 0 && yVelocity < -speed) {
-                        smoothScroll(position1Y);
+                        smoothScroll(position1Y,1);
                         currPosition = 1;
                     } else {
-                        smoothScroll(0);
+                        smoothScroll(0,0);
                     }
                 } else {
                     if (yVelocity > 0 && yVelocity > speed) {
-                        smoothScroll(0);
+                        smoothScroll(0,0);
                         currPosition = 0;
                     } else {
-                        smoothScroll(position1Y);
+                        smoothScroll(position1Y,1);
                     }
                 }
                 break;
@@ -238,16 +243,26 @@ public class PullUpToLoadMore extends ViewGroup {
 
 
     //通过Scroller实现弹性滑动
-    private void smoothScroll(int tartY) {
-        int dy = tartY - getScrollY();
-        scroller.startScroll(getScrollX(), getScrollY(), 0, dy);
+    private void smoothScroll(int tartY,int type) {
+        int dy;
+        if(type==0) {
+            ll_srcoll.setVisibility(VISIBLE);
+             dy = tartY - getScrollY() ;
+            scroller.startScroll(getScrollX(), getScrollY(), 0, dy);
+
+        }else{
+            dy = tartY - getScrollY();
+            //第二个参数是代表可以滑动的，第四个是代表滑动到的距离
+            scroller.startScroll(getScrollX(), getScrollY(), 0, dy);
+            ll_srcoll.setVisibility(GONE);
+        }
         invalidate();
     }
 
 
     //滚动到顶部
     public void scrollToTop(){
-        smoothScroll(0);
+        smoothScroll(0,0);
         currPosition=0;
         topScrollView.smoothScrollTo(0,0);
     }
