@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.hr.ui.R;
 import com.hr.ui.adapter.SearchJobResultAdapter;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.Async_SetRobJob;
 import com.hr.ui.utils.netutils.NetService;
@@ -96,7 +97,7 @@ public class SearchJobResultActivity extends Activity  {
     private static ArrayList<HashMap<String, Object>> totalList;
     private HashMap<String, Object> hs;
     private HashMap<Integer, Boolean> totalIsSelect;
-    private HashMap<String, String> setVoicehashMap;
+    private boolean first;
     /**
      * 当前第几页
      */
@@ -134,6 +135,7 @@ public class SearchJobResultActivity extends Activity  {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                srSearchJobResult.setRefreshing(false);
                 json_result = (String) msg.obj;
                 try {
                     // 1001 成功 1002失败
@@ -150,13 +152,14 @@ public class SearchJobResultActivity extends Activity  {
                     myhandler.sendMessage(msg1);
                 }
             } else {
+                srSearchJobResult.setRefreshing(false);
                 Message msg1 = new Message();
                 msg1.what = 1002;
                 myhandler.sendMessage(msg1);
             }
         }
 
-        ;
+
     };
     // 更新UI
     private Handler myhandler = new Handler() {
@@ -243,12 +246,12 @@ public class SearchJobResultActivity extends Activity  {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        srSearchJobResult.setRefreshing(true);
                         totalList = new ArrayList<HashMap<String, Object>>();
                         pageNum = 1;
                         loadNetData();
-                        srSearchJobResult.setRefreshing(false);
                     }
-                }, 2000);
+                }, 0);
             }
         });
         //rvChannalcontent根据上拉到页面的最低端来加载下一页
@@ -259,15 +262,14 @@ public class SearchJobResultActivity extends Activity  {
                 //当滑动到页面的最底端的时候最后一个item的下标+1等于adapter数据的个数，加载下一页
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) == sjrAdapter
                         .getItemCount()) {
-                    pageNum++;
                     srSearchJobResult.setRefreshing(true);
+                    pageNum++;
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loadNetData();
-                            srSearchJobResult.setRefreshing(false);
                         }
-                    }, 2000);
+                    }, 0);
                 }
             }
 
@@ -417,6 +419,9 @@ public class SearchJobResultActivity extends Activity  {
      * 加载数据
      */
     public void loadNetData() {
+        if(first==false){
+            srSearchJobResult.setRefreshing(true);
+        }
         service = new NetService(this, handlerService);
        // Log.i("页码",pageNum+"");
         service.execute(getData(pageNum));

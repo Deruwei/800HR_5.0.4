@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.CompanyOtherJobAdapter;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.view.pulltorefresh.PullToRefreshBase;
@@ -47,7 +48,6 @@ public class CompanyOtherJobActivity extends BaseActivity {
     SwipeRefreshLayout srCompanyother;
     private CompanyOtherJobAdapter comAdapter;
     private ArrayList<HashMap<String, Object>> dataList;
-    private int firstNumm = 0;
     /**
      * 总数据
      */
@@ -64,7 +64,7 @@ public class CompanyOtherJobActivity extends BaseActivity {
     /**
      * ResultListView
      */
-    private ListView resultListView;
+    private boolean fisrt;
     /**
      * 网络获取的json数据集合
      */
@@ -110,6 +110,7 @@ public class CompanyOtherJobActivity extends BaseActivity {
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
                     // 通知适配器更新数据
+                    srCompanyother.setRefreshing(false);
                     if (dataList.size() != 0&&dataList!=null) {
                         totalList.addAll(dataList);
                         comAdapter.setDataList(totalList);
@@ -123,6 +124,7 @@ public class CompanyOtherJobActivity extends BaseActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 } else if (msg.arg1 == 206) {//
+                    srCompanyother.setRefreshing(false);
                     Toast.makeText(CompanyOtherJobActivity.this, "执行失败",
                             Toast.LENGTH_SHORT).show();
                     try {
@@ -132,13 +134,17 @@ public class CompanyOtherJobActivity extends BaseActivity {
                     }
 
                 } else if (msg.arg1 == 11) {
+                    srCompanyother.setRefreshing(false);
                     Toast.makeText(CompanyOtherJobActivity.this,
                             getString(R.string.error_notnet),
                             Toast.LENGTH_SHORT).show();
                 } else {// 获取数据失败
+                    srCompanyother.setRefreshing(false);
                 }
             } else if (msg.what == 1002) {// 无响应或抛异常
+                srCompanyother.setRefreshing(false);
             } else if (msg.what == 1003) {
+                srCompanyother.setRefreshing(false);
                 Toast.makeText(CompanyOtherJobActivity.this, "连接服务器超时", Toast.LENGTH_SHORT)
                         .show();
             }
@@ -152,6 +158,7 @@ public class CompanyOtherJobActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_other_job);
         ButterKnife.bind(this);
+        fisrt=false;
         getCompanyData();
         initView();
         initData();
@@ -175,7 +182,6 @@ public class CompanyOtherJobActivity extends BaseActivity {
                         pageNum = 1;
                         loadNetData();
                         comAdapter.notifyDataSetChanged();
-                        srCompanyother.setRefreshing(false);
                     }
                 },1000);
             }
@@ -188,15 +194,13 @@ public class CompanyOtherJobActivity extends BaseActivity {
                 //当滑动到页面的最底端的时候最后一个item的下标+1等于adapter数据的个数，加载下一页
                 if(newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) ==comAdapter
                         .getItemCount()){
-                    pageNum++;
                     srCompanyother.setRefreshing(true);
+                    pageNum++;
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            srCompanyother.setRefreshing(true);
                             loadNetData();
                             comAdapter.notifyDataSetChanged();
-                            srCompanyother.setRefreshing(false);
                         }
                     },1000);
                 }
@@ -240,7 +244,7 @@ public class CompanyOtherJobActivity extends BaseActivity {
     private HashMap<String, String> getData(int pageIndex) {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("method", "job.alljobs");
-        params.put("page_nums", "100");
+        params.put("page_nums", "20");
         params.put("page", pageNum + "");
         params.put("enterprise_id", enterprise_id);
         return params;
@@ -250,6 +254,10 @@ public class CompanyOtherJobActivity extends BaseActivity {
      * 加载数据
      */
     public void loadNetData() {
+        if(fisrt==false) {
+            fisrt=true;
+            srCompanyother.setRefreshing(true);
+        }
         NetService service = new NetService(this, handlerService);
         service.execute(getData(pageNum));
     }

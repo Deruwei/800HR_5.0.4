@@ -30,6 +30,7 @@ import com.hr.ui.config.Constants;
 import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
@@ -102,6 +103,7 @@ public class RecommendJobFragment extends BaseFragment {
      * 城市ID
      */
     private static String areaid;
+    private RefleshDialogUtils dialogUtils;
     /**
      * 总数据
      */
@@ -128,6 +130,7 @@ public class RecommendJobFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_recommend_job, null);
         ButterKnife.bind(this, view);
+        dialogUtils=new RefleshDialogUtils(getActivity());
         return view;
     }
 
@@ -344,11 +347,8 @@ public class RecommendJobFragment extends BaseFragment {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 json_result = (String) msg.obj;
-               /* try {*/
-                    // 1001 成功 1002失败
-                   /* Message msg0 = new Message();
-                    msg0.what = 1001;*/
                    dataList=new ArrayList<>();
                     dataList = GetJssonList.searchResult_json(json_result);// 状态码
                     if(dataList!=null&&dataList.size()!=0) {
@@ -363,93 +363,18 @@ public class RecommendJobFragment extends BaseFragment {
                         lvRecommendfragment.setVisibility(View.GONE);
                         rlRecfragmentEmpty.setVisibility(View.VISIBLE);
                     }
-                  /*  Log.d("msg0.arg1", msg0.arg1 + "");
-                    myhandler.sendMessage(msg0);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                  *//*  Message msg1 = new Message();
-                    msg1.what = 1002;
-                    myhandler.sendMessage(msg1);*//*
-                }*/
-               /* if (dialog != null && dialog.isShowing()||getActivity()==null) {
-                    dialog.dismiss();
-                }*/
-            }/* else {
-                Message msg1 = new Message();
-                msg1.what = 1002;
-                myhandler.sendMessage(msg1);
-            }*/
+            }else{
+                dialogUtils.dismissDialog();
+            }
         }
 
 
     };
-  /*  // 更新UI
-    private Handler myhandler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == 1001) {
-                if (msg.arg1 == 0) {// 成功获取数据
-                    // 通知适配器更新数据
-                    updateUI(totalList);
-                } else if (msg.arg1 == 206) {//
-                    Toast.makeText(getActivity(), "执行失败", Toast.LENGTH_SHORT).show();
-                 *//*   try {
-//                        progressBar.setVisibility(View.GONE);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }*//*
-
-                } else if (msg.arg1 == 11) {
-                    Toast.makeText(getActivity(), getString(R.string.error_notnet), Toast.LENGTH_SHORT).show();
-                } else {// 获取数据失败
-                }
-            } else if (msg.what == 1002) {// 无响应或抛异常
-//                Toast.makeText(getActivity(), "网络不稳定", Toast.LENGTH_SHORT).show();
-            } else if (msg.what == 1003) {
-//                Toast.makeText(getActivity(), "网络不稳定", Toast.LENGTH_SHORT).show();
-            }
-            if (dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-            }
-        }
-
-        ;
-    };*/
-
-    /*private void updateUI(ArrayList<HashMap<String, Object>> totalList1) {
-        Message message=new Message();
-       if(totalList1!=null&&totalList1.size()!=0){
-           message.what=0;
-           message.obj=totalList1;
-       }else{
-           message.what=1;
-       }
-       refleshUIHandler.sendMessage(message);
-
-    }
-    private Handler refleshUIHandler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 0:
-                    totalList= (ArrayList<HashMap<String, Object>>) msg.obj;
-                    sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
-                    lvRecommendfragment.setAdapter(sjrAdapter);
-                    lrRecfragmentJob.setVisibility(View.GONE);
-                    lvRecommendfragment.setVisibility(View.VISIBLE);
-                    rlRecfragmentEmpty.setVisibility(View.GONE);
-                    break;
-                case 1:
-                    lrRecfragmentJob.setVisibility(View.GONE);
-                    lvRecommendfragment.setVisibility(View.GONE);
-                    rlRecfragmentEmpty.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-    };*/
     /**
      * 加载数据
      */
     public void loadNetData() {
+        dialogUtils.showDialog();
         service = new NetService(getActivity(), handlerService);
         service.execute(getData(1));
     }
@@ -458,6 +383,7 @@ public class RecommendJobFragment extends BaseFragment {
         public void handleMessage(Message msg) {
 //            Toast.makeText(getActivity(), "发送数据完毕" + msg.what, Toast.LENGTH_SHORT).show();
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 json_resultJobIntension = (String) msg.obj;
                 try {
                     JSONObject jsonObjectJobIntension = new JSONObject(json_resultJobIntension);
@@ -487,11 +413,9 @@ public class RecommendJobFragment extends BaseFragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }/* else {
-                Message msg1 = new Message();
-                msg1.what = 1002;
-                myhandler.sendMessage(msg1);
-            }*/
+            }else{
+                dialogUtils.dismissDialog();
+            }
         }
 
 
@@ -509,6 +433,7 @@ public class RecommendJobFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        dialogUtils.dismissDialog();
     }
 
     /**
@@ -517,6 +442,7 @@ public class RecommendJobFragment extends BaseFragment {
     public void loadJobIntension() {
         HashMap<String, String> paramsJobIntension = new HashMap<String, String>();
         paramsJobIntension.put("method", "user_resume.orderget");
+        dialogUtils.showDialog();
         NetService service = new NetService(getActivity(), handlerJobIntension);
         service.execute(paramsJobIntension);
     }

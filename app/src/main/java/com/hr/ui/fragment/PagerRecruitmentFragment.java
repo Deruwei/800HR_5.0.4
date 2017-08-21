@@ -25,6 +25,7 @@ import com.hr.ui.model.Industry;
 import com.hr.ui.utils.GetDataInfo;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 
@@ -54,6 +55,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
     private boolean isCreateView = false;
     //是否已经加载过数据
     private boolean isLoadData = false;
+    private RefleshDialogUtils dialogUtils;
 
     /**
      * 品牌招聘对象
@@ -79,6 +81,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 json_result = (String) msg.obj;
                 // 1001 成功 1002失败
                 dataList = new ArrayList<>();
@@ -112,6 +115,8 @@ public class PagerRecruitmentFragment extends BaseFragment {
                     }
                 }
 
+            }else{
+                dialogUtils.dismissDialog();
             }
         }
     };
@@ -120,6 +125,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_recruitment, container, false);
         ButterKnife.bind(this, view);
+        dialogUtils=new RefleshDialogUtils(getActivity());
         initView();
         isCreateView = true;
         return view;
@@ -146,6 +152,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
      * 向服务器请求数据
      */
     public void loadNetMsg() {
+        dialogUtils.showDialog();
         NetService service = new NetService(getActivity(), handlerService);
         service.execute(GetDataInfo.getData(ad_type, getActivity()));
     }
@@ -189,6 +196,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        dialogUtils.dismissDialog();
     }
 
 

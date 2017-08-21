@@ -64,7 +64,7 @@ public class WhoLookMeActivity extends Activity {
     private ImageView iv_lookme_back;
     private boolean isLoadAll = false;// 是否全部加载
     private int index = 1;// 页码索引
-    private String page_nums = "";// 总记录数
+    private boolean fisrt;// 总记录数
     private Context mContext = WhoLookMeActivity.this;
     private LinearLayoutManager manager;
     private int lastVisibleItem;
@@ -72,6 +72,7 @@ public class WhoLookMeActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                srWhoLookMe.setRefreshing(false);
                 String json = (String) msg.obj;
                 try {
                     // System.out.println("AsyncPersonCenterBrowsed" + json +
@@ -82,7 +83,7 @@ public class WhoLookMeActivity extends Activity {
                         case 0:// 请求成功
                             JSONArray jsonArray = jsonObject
                                     .getJSONArray("browsed_list");
-                            Log.i("我申请的职位2",jsonArray.toString());
+                           /* Log.i("我申请的职位2",jsonArray.toString());*/
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject2 =jsonArray.getJSONObject(i);
                                     BrowsedInfo browsedInfo = new BrowsedInfo();
@@ -113,6 +114,7 @@ public class WhoLookMeActivity extends Activity {
                     e.printStackTrace();
                 }
             } else {
+                srWhoLookMe.setRefreshing(false);
             }
         }
     };
@@ -184,7 +186,6 @@ public class WhoLookMeActivity extends Activity {
                         index = 1;
                         loadNetData();
                         myBaseAdpter.notifyDataSetChanged();
-                        srWhoLookMe.setRefreshing(false);
                     }
                 }, 1000);
             }
@@ -205,7 +206,6 @@ public class WhoLookMeActivity extends Activity {
                             srWhoLookMe.setRefreshing(true);
                             loadNetData();
                             myBaseAdpter.notifyDataSetChanged();
-                            srWhoLookMe.setRefreshing(false);
                         }
                     }, 1000);
                 }
@@ -231,6 +231,9 @@ public class WhoLookMeActivity extends Activity {
      * 获取数据
      */
     public void loadNetData() {
+        if(fisrt==false) {
+            srWhoLookMe.setRefreshing(true);
+        }
         NetService service = new NetService(this, handlerService);
         service.execute(getData("user_stow.browsed", index + "", "20"));
     }

@@ -69,10 +69,13 @@ public class MyPositionActivity extends BaseActivity {
     public static boolean isLoading;*/
     private int lastVisibleItem;
     private LinearLayoutManager manager;
+    //是否是第一次加载数据
+    private boolean fisrt;
     private Handler handlerService=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                srPosition.setRefreshing(false);
                 String json = (String) msg.obj;
                 try {
 
@@ -158,6 +161,8 @@ public class MyPositionActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else{
+                srPosition.setRefreshing(false);
             }
         }
     };
@@ -188,7 +193,6 @@ public class MyPositionActivity extends BaseActivity {
                         index = 1;
                        loadNetData();
                         positionAdpter.notifyDataSetChanged();
-                        srPosition.setRefreshing(false);
                     }
                 }, 1000);
             }
@@ -209,7 +213,6 @@ public class MyPositionActivity extends BaseActivity {
                             srPosition.setRefreshing(true);
                             loadNetData();
                             positionAdpter.notifyDataSetChanged();
-                            srPosition.setRefreshing(false);
                         }
                     }, 1000);
                 }
@@ -253,6 +256,10 @@ public class MyPositionActivity extends BaseActivity {
                 .execute("user_stow.applied", index+"", "20");
     }*/
     public void loadNetData() {
+        if(fisrt==false){
+            fisrt=true;
+            srPosition.setRefreshing(true);
+        }
         NetService service = new NetService(this, handlerService);
         service.execute(getData("user_stow.applied", index+"", "20"));
     }

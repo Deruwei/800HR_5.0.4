@@ -39,6 +39,7 @@ import com.hr.ui.model.ResumeProject;
 import com.hr.ui.model.ResumeSkill;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.DataUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.ResumeComplete;
@@ -120,6 +121,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
      */
     private int isAppPosition;
     private boolean isHaveAppResume;
+    private RefleshDialogUtils dialogUtils;
     private BeautifulDialog.Builder builderRef;
     /**
      * 管理简历预览跳转
@@ -130,7 +132,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
      */
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            int msgInt = msg.arg1;
+            dialogUtils.dismissDialog();
             resumeTitle = dbOperator.query_ResumeTitle_info(resumeId, "zh");
             canUpdate = true;
             upDataAll();
@@ -141,13 +143,14 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
      */
     private Handler handlerUpdateResume = new Handler() {
         public void handleMessage(Message msg) {
-            int msgInt = msg.arg1;
+            dialogUtils.dismissDialog();
             executeRefresh();
         }
     };
     private Handler handlerIsApp = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 String json = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(json);
@@ -169,6 +172,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
                 }
             } else {
+                dialogUtils.dismissDialog();
                 Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
             }
         }
@@ -247,6 +251,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_resume);
         MobclickAgent.onEvent(this,"cv-mycv");
+        dialogUtils=new RefleshDialogUtils(this);
         myResumeActivity = MyResumeActivity.this;
         dbOperator = new DAO_DBOperator(mContext);
         listResume = new ArrayList<ResumeList>();
@@ -594,6 +599,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.tv_morepopup_updateresume:
                 popwindowMoreSetting.dismiss();
+                dialogUtils.showDialog();
                 AsyncResumeUpgrade asyncResumeUpgrade = new AsyncResumeUpgrade(mContext, handlerUpdateResume);
                 asyncResumeUpgrade.execute(resumeId, "zh");
                 break;
@@ -662,6 +668,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
      * 从本地 获取简历列表
      */
     public void getResumeList() {
+        dialogUtils.showDialog();
         AsyncGetResumeList asyncGetResumeList = new AsyncGetResumeList(mContext);
         asyncGetResumeList.execute();
     }
@@ -670,6 +677,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
      * 刷新简历
      */
     private void refreshResume() {
+        dialogUtils.showDialog();
         AsyncResumeCenterGetResumesDetail resumesDetail = new AsyncResumeCenterGetResumesDetail(mContext, handler, resumeId, "zh");
         resumesDetail.execute();
     }
@@ -731,6 +739,7 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
             requestParams.put("method", "user_resume.setisapp");
             requestParams.put("resume_id", resumeId);
             requestParams.put("is_app", "1");
+            dialogUtils.showDialog();
             NetService service = new NetService(mContext, handlerIsApp);
             service.execute(requestParams);
 
@@ -739,15 +748,23 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dialogUtils.dismissDialog();
+        builderRef.create().dismiss();
+
+    }
+
     /**
      * 获取简历列表信息
      */
     private class AsyncGetResumeList {
         private Context context;
-        private MyProgressDialog dialog;
         private Handler handService = new Handler() {
             public void handleMessage(Message msg) {
                 if (msg.what == 0) {
+                    dialogUtils.dismissDialog();
                     final String jsonString = (String) msg.obj;
                     new Thread(new Runnable() {
                         public void run() {
@@ -890,15 +907,11 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
                         }
                     }).start();
                 } else if (msg.what == LOADING_RESUMELIST) {
-                    if (dialog != null && dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
 //                    isAppResume();
+                    dialogUtils.dismissDialog();
                     initIsApp();
                 } else if (msg.what == -1) {
-                    if (dialog != null && dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
+                    dialogUtils.dismissDialog();
                     Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(msg.arg1), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -908,10 +921,6 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
 
         public AsyncGetResumeList(Context context) {
             this.context = context;
-            this.dialog = new MyProgressDialog(context);
-            if (dialog == null) {
-                dialog = new MyProgressDialog(MyResumeActivity.this);
-            }
         }
 
         protected void execute() {

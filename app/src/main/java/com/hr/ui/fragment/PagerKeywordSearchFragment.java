@@ -36,6 +36,7 @@ import com.hr.ui.model.Industry;
 import com.hr.ui.model.KeyWorldHistory;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
@@ -105,6 +106,8 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
     private  String placeId;
     private int industry_id;
 
+    private RefleshDialogUtils dialogUtils;
+
 
     /**
      * 更新UI
@@ -115,7 +118,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
                 if (msg.what == 1001) {// 获取数据成功
                     if (msg.arg1 == 0) {// 数据获取成功，并解析没有错误
                         if (rec_data != null && rec_data.size() > 0) {
-                            Log.i("广告的数据",rec_data.toString());
+                            /*Log.i("广告的数据",rec_data.toString());*/
                             industryRecAdapter = new IndustryRecKeywordAdapter(getActivity(), rec_data);
                             lv_keyword_advertistment.setAdapter(industryRecAdapter);
                             industryRecAdapter.setOnItemClick(new OnItemClick() {
@@ -148,14 +151,15 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 json_result = (String) msg.obj;
-                Log.i("SearchJobActivity", "======== json_result" + json_result.toString());
+               /* Log.i("SearchJobActivity", "======== json_result" + json_result.toString());*/
                 // 1001 成功 1002失败
                 Message message = Message.obtain();
                 try {
                     message.what = 1001;
                     message.arg1 = json();
-                    Log.i("SearchJobActivity", "======== message.arg1" + message.arg1);
+                   /* Log.i("SearchJobActivity", "======== message.arg1" + message.arg1);*/
                     handlerUI.sendMessage(message);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -163,19 +167,19 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
                     handlerUI.sendMessage(message);
                 }
             } else {
+                dialogUtils.dismissDialog();
                 Message message = Message.obtain();
                 message.what = 1002;
                 handlerUI.sendMessage(message);
             }
         }
-
-        ;
     };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_keyword_search, container, false);
+        dialogUtils=new RefleshDialogUtils(getActivity());
         ad_data = new ArrayList<Industry>();
         rec_data = new ArrayList<Industry>();
         db = new DAO_DBOperator(getActivity());
@@ -335,6 +339,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
      */
     private void initData() {
         // 首先加载企业推荐数据
+        dialogUtils.showDialog();
         NetService service = new NetService(getActivity(), handlerService);
         service.execute(getData(3));
     }
@@ -688,4 +693,9 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dialogUtils.dismissDialog();
+    }
 }

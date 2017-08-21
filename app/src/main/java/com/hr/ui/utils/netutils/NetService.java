@@ -150,19 +150,13 @@ public class NetService {
      * 启动任务
      */
     public void execute(final HashMap<String, String> requestParams) {
-        if(context!=null) {
-            dialog=new MyProgressDialog(context);
             try {
                 message = new Message();
-                if (dialog != null ) {
-                    dialog.show();
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             MyUtils.ableInternet = NetUtils.checkNet(context);
             if (!MyUtils.ableInternet) {
-                dialog.dismiss();
                 message.obj = "{error_code:11}";
                 message.what = 0;
                 handler.sendMessage(message);
@@ -180,9 +174,6 @@ public class NetService {
                 public void onResponse(String arg0) {
                     // listRequestQueues.remove(mQueue);
                     //System.out.println("请求结果：" + arg0);
-                    if (dialog != null && dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
                     try {
                         JSONObject jsonObject = new JSONObject(arg0);
                         String error_code = jsonObject.getString("error_code");
@@ -243,9 +234,6 @@ public class NetService {
                                 break;
                         }
                     }
-                    if (dialog != null && dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
                     try {
                         message.obj = arg0;
                         message.what = -1;
@@ -261,20 +249,12 @@ public class NetService {
                     return jsonString;
                 }
             };
-            if(context==null){
-                dialog.dismiss();
-            }
             // 如果失败，3s后自动重新请求
             request.setRetryPolicy(new DefaultRetryPolicy(3 * 1000, 3, 1.0f));
             mQueue.add(request);
             mQueue.start();
             // System.out.println("超时时间：" + request.getTimeoutMs());
             // listRequestQueues.add(mQueue);
-        }else{
-            if(dialog!=null) {
-                dialog.dismiss();
-            }
-        }
     }
 
     /**
@@ -460,10 +440,5 @@ public class NetService {
             IOException {
         FileInputStream in = context.openFileInput(filename);
         return NetUtils.readAsString(in, Constants.ENCODE);
-    }
-    public  void closeDialog(){
-        if(dialog!=null&&dialog.isShowing()){
-            dialog.dismiss();
-        }
     }
 }

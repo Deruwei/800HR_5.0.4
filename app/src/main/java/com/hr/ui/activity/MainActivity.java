@@ -54,6 +54,7 @@ import com.hr.ui.utils.MyLocationListenner;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.PermissionCheck;
 import com.hr.ui.utils.PermissionHelper;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncLogin;
 import com.hr.ui.utils.netutils.AsyncNewAutoLoginPhone;
@@ -141,7 +142,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     public MyResumeFragment meFragment;
     private SharedPreferencesUtils sUtils;
     private RecommendJobFragment recommendJobFragment;
-    private PermissionHelper helper;
+    private RefleshDialogUtils dialogUtils;
 //    private boolean isDrawer = false;
     private static final String[] PERMISSIONS_CONTACT = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE} ;
@@ -162,6 +163,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+                    dialogUtils.dismissDialog();
                     break;
             }
         }
@@ -174,6 +176,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         setContentView(R.layout.activity_main);
         mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mReceiver, mFilter);
+        dialogUtils=new RefleshDialogUtils(this);
         baiduLocation=new GetBaiduLocation(this);
         baiduLocation.loadLocation();
       /*  if (Build.VERSION.SDK_INT>=23){
@@ -234,17 +237,20 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
              */
             if (sUtils.getBooleanValue(Constants.AUTO_LOGIN, false)) {
                 if (sUtils.getStringValue("autoLoginThired", "0").equals("1")) {
+                    dialogUtils.showDialog();
                     IsBind isBindSina = new IsBind(thirdCode, thirdUid, MainActivity.this, thirdIndustry, "");
                     isBindSina.execute();
 //                    Toast.makeText(mContext,"     isBindSina.execute();",Toast.LENGTH_SHORT).show();
                 } else if (sUtils.getStringValue("autoLoginThired", "0").equals("2")) {
 //                    Toast.makeText(mContext,"      asyncLogin.execute;",Toast.LENGTH_SHORT).show();
                     if (!"".equals(PhoneName) && !"".equals(psw)) {
+                        dialogUtils.showDialog();
                         AsyncNewAutoLoginPhone asyncLogin = new AsyncNewAutoLoginPhone(mContext, handler);
                         asyncLogin.execute(PhoneName, psw, Industry + "");
                     }
                 } else {
                     if (!"".equals(userName) && !"".equals(psw)) {
+                        dialogUtils.showDialog();
                         AsyncLogin asyncLogin = new AsyncLogin(mContext, handler);
                         asyncLogin.execute(userName, psw, Industry + "");
                     }
@@ -436,6 +442,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mReceiver);
+        dialogUtils.dismissDialog();
     }
 
     /**
@@ -678,6 +685,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             //Log.i("=========加载数据", "1");
             HashMap<String, String> requestParams = new HashMap<String, String>();
             requestParams.put("method", "user_resume.resumelist");
+            dialogUtils.showDialog();
             NetService service = new NetService(mContext, handlerRefresh);
             service.execute(requestParams);
         } catch (Exception e) {
@@ -692,6 +700,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 final String jsonString = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(jsonString);
@@ -806,6 +815,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }else{
+                dialogUtils.dismissDialog();
             }
         }
     };

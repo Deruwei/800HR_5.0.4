@@ -196,6 +196,9 @@ public class GetJssonList {
                 String[] arr=s.split(":");
                 String id=arr[0].substring(arr[0].indexOf("\"")+1,arr[0].lastIndexOf("\""));
                 String name=arr[1].substring(arr[1].indexOf("\"")+1,arr[1].lastIndexOf("\""));
+                if(name.indexOf("\\")!=-1){
+                    name=name.replaceAll("\\\\","");
+                }
                 functionBean.setId(id);
                 functionBean.setName(name);
                 functionBean.setSelect(false);

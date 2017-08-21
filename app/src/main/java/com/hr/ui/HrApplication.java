@@ -65,9 +65,6 @@ public class HrApplication extends MobApplication {
         /*NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(mContext);*/
         SpeechUtility.createUtility(HrApplication.this, "appid=" + getString(R.string.xunfei_app_id));
         initUIL();
-        if (DexposedBridge.canDexposed(this)) {
-
-        }
     }
     public static synchronized HrApplication getInstance() {
         return sInstance;

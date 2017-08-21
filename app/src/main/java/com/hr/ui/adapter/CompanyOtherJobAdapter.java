@@ -70,7 +70,7 @@ public class CompanyOtherJobAdapter extends RecyclerView.Adapter<CompanyOtherJob
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return  dataList==null ? 0 : dataList.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -221,6 +221,10 @@
             android:name=".activity.SelectFunctionActivity"
             android:label="@string/title_activity_select_function"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MySelectFuncitonActivity"
+            android:label="@string/title_my_select_function"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.PermissionActivity"
             android:label="@string/title_activity_permission"
             android:screenOrientation="portrait"

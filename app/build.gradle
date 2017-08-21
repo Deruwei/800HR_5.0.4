@@ -83,6 +83,4 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
-    provided files('libs/dexposedbridge.jar')
-    provided files('libs/patchloader.jar')
 }

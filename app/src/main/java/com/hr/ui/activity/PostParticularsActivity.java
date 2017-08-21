@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.FileUtil;
 import com.hr.ui.utils.datautils.MobileUrl;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
@@ -153,6 +154,8 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
      */
     private String logoUrl;
 
+    private RefleshDialogUtils dialogUtils;
+
     private Handler handlerSend;
     public Handler handlerCollectJob = new Handler() {
         @Override
@@ -197,6 +200,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg != null) {
+                dialogUtils.dismissDialog();
 //                onCreate(null);// 刷新页面
                 resultPostMap = (HashMap<String, String>) msg.obj;
                 tv_postparticular_postname.setText(resultPostMap.get("job_name"));
@@ -259,12 +263,15 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     bt_postparticulars_send.setText("已投递");
                     bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
                 }
+            }else{
+                dialogUtils.dismissDialog();
             }
         }
     };
     Handler handlerForCom = new Handler() {
         public void handleMessage(Message msg) {
             if (msg != null) {
+                dialogUtils.dismissDialog();
                 resultComMap = (HashMap<String, String>) msg.obj;
                 tv_postparticular_comname2.setText(resultComMap.get("enterprise_name"));
                 tv_postparticular_nature.setText(resultComMap.get("company_type"));
@@ -277,6 +284,8 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo, options);
                     imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo2, options);
                 }
+            }else{
+                dialogUtils.dismissDialog();
             }
         }
     };
@@ -328,6 +337,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_particulars);
         MobclickAgent.onEvent(this, " job-show-job-info");
+        dialogUtils=new RefleshDialogUtils(this);
 //        initView();
 //        initData();
 //        initUIL();
@@ -344,6 +354,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dialogUtils.dismissDialog();
     }
     /**
      * 初始化UIL
@@ -418,6 +429,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
      * 加载职位详情数据
      */
     private void loadPostNetData() {
+        dialogUtils.showDialog();
         new AsyncPositionDetail(this, handler).execute("job.jobinfo", jobId);
     }
 
@@ -425,6 +437,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
      * 加载公司详情数据
      */
     private void loadComNetData() {
+        dialogUtils.showDialog();
         new AsyncCompanyIntroduce(this, handlerForCom).execute("job.enterprise", comId);
     }
 
@@ -639,10 +652,10 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
        View rootview = LayoutInflater.from(this).inflate(R.layout.activity_post_particulars, null);
        popupWindow.showAtLocation(rootview, Gravity.CENTER, 0, 0);
    }
-    /**
+  /*  *//**
      * 弹出自定义 Dialog
      */
-    private void showImg(Bitmap res) {
+/*    private void showImg(Bitmap res) {
         if (res != null) {
             // 初始化一个自定义的Dialog
             posterDialog = new PosterDialog.Builder(this);
@@ -666,12 +679,11 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 }
             });
         }
-    }
+    }*/
 
 
     private void goLoginActivity() {
         Intent intentLogin = new Intent(PostParticularsActivity.this, NewLoginActivity.class);
         startActivity(intentLogin);
     }
-
 }

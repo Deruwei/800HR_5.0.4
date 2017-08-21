@@ -744,6 +744,7 @@
     <string name="title_activity_search_job_site">Search_job_site</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_select_function">SelectFunctionActivity</string>
+    <string name="title_my_select_function">MySelectFuncitonActivity</string>
     <string name="title_activity_search_job_result">SearchJobResultActivity</string>
     <string name="title_activity_permission">PermissionActivity</string>
     <string name="title_activity_select_city">SelectCityActivity</string>

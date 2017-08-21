@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.activity.CompanyParticularActivity;
+import com.hr.ui.activity.MySelectFuncitonActivity;
 import com.hr.ui.activity.SearchJobResultActivity;
 import com.hr.ui.activity.SelectFunctionSearchActivity;
 import com.hr.ui.activity.SelectZhiXiSearchActivity;
@@ -36,6 +37,7 @@ import com.hr.ui.model.Industry;
 import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
@@ -111,6 +113,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     int DB_strid = -3;
     private Context context;
     private int industry_id;
+    private RefleshDialogUtils dialogUtils;
 
 
     // 显示广告的图片
@@ -156,6 +159,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 json_result = (String) msg.obj;
                 Log.i("SearchJobActivity", "======== json_result" + json_result.toString());
                 // 1001 成功 1002失败
@@ -171,6 +175,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
                     handlerUI.sendMessage(message);
                 }
             } else {
+                dialogUtils.dismissDialog();
                 Message message = Message.obtain();
                 message.what = 1002;
                 handlerUI.sendMessage(message);
@@ -194,6 +199,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_post_search, container, false);
+        dialogUtils=new RefleshDialogUtils(getActivity());
         ad_data = new ArrayList<Industry>();
         rec_data = new ArrayList<Industry>();
         db = new DAO_DBOperator(getActivity());
@@ -344,6 +350,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
 
         industry_id = sUtils.getIntValue(Constants.INDUSTRY, 11);
         // 首先加载企业推荐数据
+        dialogUtils.showDialog();
         NetService service = new NetService(getActivity(), handlerService);
         service.execute(getData(3));
     }
@@ -377,7 +384,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
         switch (v.getId()) {
             case R.id.rl_post_function:
                 // 加载职能选择页
-                Intent function = new Intent(getActivity(), SelectFunctionSearchActivity.class);
+                Intent function = new Intent(getActivity(), MySelectFuncitonActivity.class);
                 function.putExtra("filter", "post");
                 function.putExtra("selectMap", (Serializable) functionSelectMap);
                 function.putExtra("value", "职能");
@@ -646,6 +653,12 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
             Place_value = "+" + Place_value;
         }
         textView.setText(Function_value + Place_value);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dialogUtils.dismissDialog();
     }
 
     /**

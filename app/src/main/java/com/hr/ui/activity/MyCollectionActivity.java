@@ -58,7 +58,7 @@ public class MyCollectionActivity extends BaseActivity {
     RelativeLayout rlHasDataCollection;
     private MyCollectionAdapter myCollectionAdapter;
     private ArrayList<HashMap<String, Object>> dataList;
-    private int firstNumm = 0;
+    private boolean fisrt;
     /**
      * 总数据
      */
@@ -94,6 +94,7 @@ public class MyCollectionActivity extends BaseActivity {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                srCollection.setRefreshing(false);
                 json_result = (String) msg.obj;
                 try {
                     // 1001 成功 1002失败
@@ -109,13 +110,12 @@ public class MyCollectionActivity extends BaseActivity {
                     myhandler.sendMessage(msg1);
                 }
             } else {
+                srCollection.setRefreshing(false);
                 Message msg1 = new Message();
                 msg1.what = 1002;
                 myhandler.sendMessage(msg1);
             }
         }
-
-        ;
     };
     // 更新UI
     private Handler myhandler = new Handler() {
@@ -152,8 +152,6 @@ public class MyCollectionActivity extends BaseActivity {
             }
             isVISIBLE();
         }
-
-        ;
     };
 
     @Override
@@ -201,7 +199,6 @@ public class MyCollectionActivity extends BaseActivity {
                         pageNum = 1;
                         loadNetData();
                         myCollectionAdapter.notifyDataSetChanged();
-                        srCollection.setRefreshing(false);
                     }
                 }, 1000);
             }
@@ -222,7 +219,6 @@ public class MyCollectionActivity extends BaseActivity {
                             srCollection.setRefreshing(true);
                             loadNetData();
                             myCollectionAdapter.notifyDataSetChanged();
-                            srCollection.setRefreshing(false);
                         }
                     }, 1000);
                 }
@@ -280,6 +276,9 @@ public class MyCollectionActivity extends BaseActivity {
      * 加载数据
      */
     public void loadNetData() {
+        if(fisrt==false){
+            srCollection.setRefreshing(true);
+        }
         NetService service = new NetService(this, handlerService);
         service.execute(getData(pageNum));
     }

@@ -9,6 +9,7 @@
     <color name="orange">#ffff8200</color>
     <color name="light_gray">#ff999999</color>
     <color name="white">#ffffff</color>
+    <color name="reader_menu_bg_color">#ffff8200</color>
     <color name="inner_divider">#ffe1e1e1</color>
     <color name="click_gray">#ffd9d9d9</color>
     <color name="gray">#B2B8AD</color>

@@ -112,7 +112,7 @@
             android:layout_below="@+id/functionselect_showinforlayout"
             android:layout_weight="1"
             android:cacheColorHint="#0000"
-            android:divider="#FFFFFF"
+            android:background="#EBEBEB"
             android:focusable="true"
             android:listSelector="#30000000"
             android:scrollbars="none">
@@ -125,7 +125,7 @@
             android:layout_below="@+id/functionselect_showinforlayout"
             android:layout_weight="1"
             android:cacheColorHint="#0000"
-            android:divider="#FFFFFF"
+            android:background="#EBEBEB"
             android:focusable="true"
             android:listSelector="#10000000"
             android:scrollbars="none">

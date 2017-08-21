@@ -30,7 +30,7 @@ public class Constants {
     /**
      * 软件开发的测试地址 TEST_SERVER_URL
      */
-//    public static final String TEST_SERVER_URL = "https://api.800hr.com/svrdo_v0.php";
+    public static final String TEST_SERVER_URL = "https://api.800hr.com/svrdo_v0.php";
 //    public static final String TEST_SERVER_URL = "https://api.800hr.com/svrdo.php";
     /**
      * 字符集编码

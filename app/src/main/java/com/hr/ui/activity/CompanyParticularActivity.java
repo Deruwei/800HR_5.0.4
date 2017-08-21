@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.netutils.AsyncCompanyIntroduce;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -46,8 +47,9 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
     /**
      * UIL配置信息
      */
-    private DisplayImageOptions options;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
+    /*private DisplayImageOptions options;
+    private ImageLoader imageLoader = ImageLoader.getInstance();*/
+    private RefleshDialogUtils dialogUtils;
     /**
      * 返回的公司详情
      */
@@ -67,6 +69,7 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
                     /*imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_companyparticular_comlogo2, options);*/
                 }
             }
+            dialogUtils.dismissDialog();
         }
     };
 
@@ -75,6 +78,7 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_particular);
         MobclickAgent.onEvent(this, "job-show-company-info");
+        dialogUtils=new RefleshDialogUtils(this);
         initView();
         initData();
     }
@@ -103,6 +107,7 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
      * 加载公司详情数据
      */
     private void loadComNetData() {
+        dialogUtils.showDialog();
         new AsyncCompanyIntroduce(this, handlerForCom).execute("job.enterprise", comId);
     }
 
@@ -118,5 +123,11 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dialogUtils.dismissDialog();
     }
 }

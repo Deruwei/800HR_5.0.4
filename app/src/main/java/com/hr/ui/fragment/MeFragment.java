@@ -60,6 +60,7 @@ import com.hr.ui.model.ResumeOrder;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.AndroidMarketEvaluate;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.ResumeComplete;
 import com.hr.ui.utils.datautils.ResumeListStringJsonParser;
@@ -158,11 +159,13 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
     private boolean isPhoneState = false;
     private String listResumeJsonString;
     private TakePhoto takePhoto;
+    private RefleshDialogUtils dialogUtils;
     public static MeFragment meFragment;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 final String jsonString = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(jsonString);
@@ -276,6 +279,8 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }else{
+                dialogUtils.dismissDialog();
             }
         }
     };
@@ -426,6 +431,7 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
         }
         view = inflater.inflate(R.layout.fragment_me, container, false);
         sUtils = new SharedPreferencesUtils(getActivity());
+        dialogUtils=new RefleshDialogUtils(getActivity());
         initView();
         initUIL();
         refreshData();
@@ -947,9 +953,10 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
      */
     public void execute() {
         try {
-            Log.i("=========加载数据", "1");
+            /*Log.i("=========加载数据", "1");*/
             HashMap<String, String> requestParams = new HashMap<String, String>();
             requestParams.put("method", "user_resume.resumelist");
+            dialogUtils.showDialog();
             NetService service = new NetService(getActivity(), handler);
             service.execute(requestParams);
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.hr.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,16 @@ public class MyFunctionFirstAdapter extends RecyclerView.Adapter<MyFunctionFirst
     private List<FunctionBean> functionBeen;
     private OnItemClick onItemClick;
 
-    public MyFunctionFirstAdapter(Context context,List<FunctionBean> functionBeen){
+    public void setFunctionBeen(List<FunctionBean> functionBeen) {
+        this.functionBeen = functionBeen;
+    }
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public MyFunctionFirstAdapter(Context context){
         this.context=context;
-        this.functionBeen=functionBeen;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,8 +48,10 @@ public class MyFunctionFirstAdapter extends RecyclerView.Adapter<MyFunctionFirst
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.functionFirstText.setText(functionBeen.get(position).getName());
         if(functionBeen.get(position).isSelect()==true){
+            holder.functionFirstText.setTextColor(ContextCompat.getColor(context,R.color.orange));
             holder.functionFirstImage.setVisibility(View.VISIBLE);
         }else{
+            holder.functionFirstText.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
             holder.functionFirstImage.setVisibility(View.GONE);
         }
         if(onItemClick!=null){

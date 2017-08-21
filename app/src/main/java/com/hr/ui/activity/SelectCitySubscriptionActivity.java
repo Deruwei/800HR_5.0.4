@@ -53,7 +53,7 @@ public class SelectCitySubscriptionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectcity_tosearch);
         init();
-        Log.i("SelectCitySubscriptionActivity.java", "======dataArrayList" + "试一试6");
+       /* Log.i("SelectCitySubscriptionActivity.java", "======dataArrayList" + "试一试6");*/
     }
 
     private void init() {

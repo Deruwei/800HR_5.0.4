@@ -26,8 +26,10 @@ import com.hr.ui.model.Industry;
 import com.hr.ui.utils.GetDataInfo;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
+import com.hr.ui.view.custom.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +56,7 @@ public class PagerCompanyFragment extends BaseFragment {
     private boolean isCreateView = false;
     //是否已经加载过数据
     private boolean isLoadData = false;
+    private RefleshDialogUtils dialogUtils;
     /**
      * 品牌招聘对象
      */
@@ -61,6 +64,7 @@ public class PagerCompanyFragment extends BaseFragment {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 json_result = (String) msg.obj;
                 //Log.i("json的数据",json_result);
                 dataList = new ArrayList<>();
@@ -91,10 +95,8 @@ public class PagerCompanyFragment extends BaseFragment {
                         tvComNoData.setVisibility(View.VISIBLE);
                     }
                 }
-            } else {
-//                Message message = Message.obtain();
-//                message.what = 1002;
-//                handlerUI.sendMessage(message);
+            } else{
+                dialogUtils.dismissDialog();
             }
         }
     };
@@ -116,6 +118,7 @@ public class PagerCompanyFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_company, container, false);
         ButterKnife.bind(this, view);
+        dialogUtils=new RefleshDialogUtils(getActivity());
         initView();
         isCreateView = true;
         return view;
@@ -125,6 +128,7 @@ public class PagerCompanyFragment extends BaseFragment {
      * 向服务器请求数据
      */
     public void loadNetMsg() {
+        dialogUtils.showDialog();
         NetService service = new NetService(getActivity(), handlerService);
         service.execute(GetDataInfo.getData(ad_type, getActivity()));
     }
@@ -184,6 +188,6 @@ public class PagerCompanyFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        dialogUtils.dismissDialog();
     }
-
 }

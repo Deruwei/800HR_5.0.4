@@ -1,6 +1,7 @@
 package com.hr.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,16 @@ public class MyFuncitionSecondAdapter extends RecyclerView.Adapter<MyFuncitionSe
     private List<FunctionBean> functionBean;
     private OnItemClick onItemClick;
 
-    public MyFuncitionSecondAdapter(Context context, List<FunctionBean> functionBean) {
+    public void setFunctionBean(List<FunctionBean> functionBean) {
+        this.functionBean = functionBean;
+    }
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public MyFuncitionSecondAdapter(Context context) {
         this.context = context;
-        this.functionBean=functionBean;
     }
 
     @Override
@@ -41,8 +49,10 @@ public class MyFuncitionSecondAdapter extends RecyclerView.Adapter<MyFuncitionSe
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         if(functionBean.get(position).isSelect()==true){
             holder.functionSecondImage.setVisibility(View.VISIBLE);
+            holder.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.orange));
         }else{
             holder.functionSecondImage.setVisibility(View.GONE);
+            holder.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
         }
         holder.functionSecondText.setText(functionBean.get(position).getName());
         if(onItemClick!=null){

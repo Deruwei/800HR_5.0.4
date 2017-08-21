@@ -77,6 +77,7 @@ import com.hr.ui.model.ResumeSkill;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.OnItemClick;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.DataUtils;
 import com.hr.ui.utils.datautils.FileUtil;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
@@ -95,6 +96,7 @@ import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.utils.tools.CodeUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
 import com.hr.ui.view.custom.CircleImageView;
+import com.hr.ui.view.custom.CustomDialog;
 import com.hr.ui.view.custom.MyProgressDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -225,6 +227,7 @@ public class MyResumeFragment extends BaseFragment {
     private View fragmentView;
     public static boolean isRefresh = true;
     public static MyResumeFragment myResumeFragment;
+    private RefleshDialogUtils dialogUtils;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -239,6 +242,7 @@ public class MyResumeFragment extends BaseFragment {
         }
         fragmentView = inflater.inflate(R.layout.myresume_fragment, container, false);
         myResumeFragment = MyResumeFragment.this;
+        dialogUtils=new RefleshDialogUtils(getActivity());
         initData();
         initUIL();
         getData();
@@ -298,10 +302,10 @@ public class MyResumeFragment extends BaseFragment {
     public void getResumeList() {
         dbOperator = new DAO_DBOperator(getActivity());
         listResume = new ArrayList<ResumeList>();
+        dialogUtils.showDialog();
         AsyncGetResumeList asyncGetResumeList = new AsyncGetResumeList(getActivity());
         asyncGetResumeList.execute();
     }
-
     private void initData() {
         sUtils = new SharedPreferencesUtils(getActivity());
         resumeIdString = MainActivity.instanceMain.resumeId;
@@ -1672,11 +1676,7 @@ public class MyResumeFragment extends BaseFragment {
 
         public AsyncGetResumeList(Context context) {
             this.context = context;
-            this.dialog = new MyProgressDialog(context);
             listResume = new ArrayList<ResumeList>();
-            if (dialog == null) {
-                dialog = new MyProgressDialog(getActivity());
-            }
         }
 
         protected void execute() {
@@ -1820,6 +1820,7 @@ public class MyResumeFragment extends BaseFragment {
      * 刷新简历
      */
     private void refreshResume() {
+        dialogUtils.showDialog();
         AsyncResumeCenterGetResumesDetail resumesDetail = new AsyncResumeCenterGetResumesDetail(getActivity(), handlerRefreshResume, resumeID, "zh");
         resumesDetail.execute();
     }
@@ -1829,9 +1830,10 @@ public class MyResumeFragment extends BaseFragment {
      */
     private Handler handlerRefreshResume = new Handler() {
         public void handleMessage(Message msg) {
-            int msgInt = msg.arg1;
+            /*int msgInt = msg.arg1;*/
+            dialogUtils.dismissDialog();
             resumeTitle = dbOperator.query_ResumeTitle_info(resumeID, "zh");
-            Log.i("刷新的标题",resumeTitle+"");
+            /*Log.i("刷新的标题",resumeTitle+"");*/
             canUpdate = true;
 //            getData();
             upDateUI();
@@ -1905,6 +1907,7 @@ public class MyResumeFragment extends BaseFragment {
             requestParams.put("resume_id", resumeID);
             requestParams.put("resume_language", "zh");
             requestParams.put("important", "1");
+            dialogUtils.showDialog();
             NetService service = new NetService(getActivity(), handlerIsApp);
             service.execute(requestParams);
 
@@ -1916,11 +1919,13 @@ public class MyResumeFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        dialogUtils.dismissDialog();
     }
 
     private Handler handlerIsApp = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                dialogUtils.dismissDialog();
                 String json = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(json);
@@ -1958,9 +1963,10 @@ public class MyResumeFragment extends BaseFragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "设置失败", Toast.LENGTH_SHORT).show();
+                    /*Toast.makeText(getActivity(), "设置失败", Toast.LENGTH_SHORT).show();*/
                 }
             } else {
+                dialogUtils.dismissDialog();
                 Toast.makeText(getActivity(), "设置失败", Toast.LENGTH_SHORT).show();
             }
         }
