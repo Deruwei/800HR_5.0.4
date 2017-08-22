@@ -1,13 +1,24 @@
 package com.hr.ui.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by wdr on 2017/8/10.
  */
 
-public class FunctionBean {
+public class FunctionBean implements Serializable {
     private String id;
     private String name;
     private boolean isSelect;
+    private boolean showImage;
+
+    public boolean isShowImage() {
+        return showImage;
+    }
+
+    public void setShowImage(boolean showImage) {
+        this.showImage = showImage;
+    }
 
     public String getId() {
         return id;

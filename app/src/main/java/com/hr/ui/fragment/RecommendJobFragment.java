@@ -22,10 +22,12 @@ import android.widget.Toast;
 import com.hr.ui.R;
 import com.hr.ui.activity.ChooseIndustriesActivity;
 import com.hr.ui.activity.MainActivity;
+import com.hr.ui.activity.MySelectFuncitonActivity;
 import com.hr.ui.activity.NewLoginActivity;
 import com.hr.ui.activity.SelectCityRecommendJobActivity;
 import com.hr.ui.activity.SelectFunctionRecommendJobActivity;
 import com.hr.ui.adapter.SearchJobResultRecommendAdapter;
+import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.GetJssonList;
@@ -45,6 +47,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -114,7 +117,7 @@ public class RecommendJobFragment extends BaseFragment {
     /**
      * 职能选择集合
      */
-    private static HashMap<String, String> functionSelectMap = new HashMap<>();
+    private static List<FunctionBean> functionSelectMap = new ArrayList<>();
     public static RecommendJobFragment recommendJobFragment;
 
     public RecommendJobFragment() {
@@ -203,8 +206,8 @@ public class RecommendJobFragment extends BaseFragment {
                 break;
             case R.id.rl_recfragment_function:
                 // 加载职能选择页
-                Intent function = new Intent(getActivity(), SelectFunctionRecommendJobActivity.class);
-                function.putExtra("filter", "post");
+                Intent function = new Intent(getActivity(), MySelectFuncitonActivity.class);
+                function.putExtra("filter", "recommend");
                 function.putExtra("selectMap", (Serializable) functionSelectMap);
                 function.putExtra("value", "职能");
                 startActivity(function);
@@ -220,9 +223,9 @@ public class RecommendJobFragment extends BaseFragment {
             case R.id.bt_recfragment_submit:
                 if (functionSelectMap != null) {
                     StringBuffer funcidBuffer = new StringBuffer();
-                    Set<String> keySet = functionSelectMap.keySet();
-                    for (Iterator iterator = keySet.iterator(); iterator.hasNext(); ) {
-                        String string = (String) iterator.next();
+                    for (int i=0;i<functionSelectMap.size();i++ ) {
+                        String string = functionSelectMap.get(i).getId();
+                        funcidBuffer.append(string + ",");
                     }
                     if (funcidBuffer.length() >= 1) {
                         funcid = funcidBuffer.substring(0, funcidBuffer.length() - 1);
@@ -277,9 +280,9 @@ public class RecommendJobFragment extends BaseFragment {
     /**
      * 加载职系选择列表
      */
-    public static void setFunctionSelectMap(HashMap<String, String> map) {
+    public static void setFunctionSelectMap(List<FunctionBean> map) {
         functionSelectMap.clear();
-        functionSelectMap.putAll(map);
+        functionSelectMap.addAll(map);
         showText();
     }
 
@@ -287,15 +290,14 @@ public class RecommendJobFragment extends BaseFragment {
      * 显示文本信息
      */
     private static void showText() {
-        Set<String> keySet = functionSelectMap.keySet();
         if (functionSelectMap.size() == 0) {
-            tvRecfragmentPlace.setText("");
+            tvRecfragmentPlace.setText("请选择");
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext(); ) {
-            String keyString = (String) iterator.next();
-            buffer.append(functionSelectMap.get(keyString).trim() + "、");
+        for (int i=0;i<functionSelectMap.size();i++ ) {
+            String keyString = functionSelectMap.get(i).getName();
+            buffer.append(keyString + "、");
         }
         tvRecfragmentFunction.setText(buffer.toString().subSequence(0, buffer.length() - 1).toString().trim());
     }

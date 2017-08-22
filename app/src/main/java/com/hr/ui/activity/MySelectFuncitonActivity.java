@@ -8,18 +8,24 @@ import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.MyFuncitionSecondAdapter;
 import com.hr.ui.adapter.MyFunctionFirstAdapter;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
+import com.hr.ui.fragment.PagerPostSearchFragment;
+import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.OnItemClick;
 import com.hr.ui.utils.SpacesItemDecoration;
@@ -29,10 +35,10 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by wdr on 2017/8/10.
@@ -60,45 +66,53 @@ public class MySelectFuncitonActivity extends BaseActivity {
     RecyclerView functionselectListview;
     @Bind(R.id.functionselect_listview2)
     RecyclerView functionselectListview2;
-    private List<FunctionBean> functionBeenList=new ArrayList<>();
+    private List<FunctionBean> functionBeenList = new ArrayList<>();
     //一级菜单的数据
-    private List<FunctionBean> functionBeenList1=new ArrayList<>();
+    private List<FunctionBean> functionBeenList1 = new ArrayList<>();
     //二级菜单的数据
-    private List<FunctionBean> functionBeenList2=new ArrayList<>();
-    private List<FunctionBean> functionBeenList3=new ArrayList<>();
-    private List<FunctionBean> selectFunctionBeenList=new ArrayList<>();
-    private MyFunctionFirstAdapter functionFirstAdapter;
+    private List<FunctionBean> functionBeenList2 = new ArrayList<>();
+    private List<FunctionBean> functionBeenList3 = new ArrayList<>();
+    private List<FunctionBean> selectFunctionBeenList = new ArrayList<>();
+    private MyFunctionFirstAdapter functionFirstAdapter=new MyFunctionFirstAdapter(this);
     private String selectFirstFunctionId;
     private int num;
-    private MyFuncitionSecondAdapter funcitionSecondAdapter;
-    private Handler handler=new Handler(){
+    private String fitter;
+    private boolean isShow;
+    private MyFuncitionSecondAdapter funcitionSecondAdapter=new MyFuncitionSecondAdapter(this);
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
-                    if(functionBeenList1!=null&&functionBeenList1.size()!=0) {
+                    if (functionBeenList1 != null && functionBeenList1.size() != 0) {
                         functionFirstAdapter.setFunctionBeen(functionBeenList1);
                         functionselectListview.setAdapter(functionFirstAdapter);
                     }
                     functionFirstAdapter.setOnItemClick(new OnItemClick() {
                         @Override
                         public void ItemClick(View view, int position) {
+                            functionselectListview.setFocusableInTouchMode(false);
+                            functionselectListview.requestFocus();
                             if (position != 0) {
                                 selectFirstFunctionId = functionBeenList1.get(position).getId();
-                                if(num<3) {
-                                    if (functionBeenList1.get(position).isSelect() == false) {
-                                        functionBeenList1.get(position).setSelect(true);
+                                //当数量为0时，点击每一项只会改变图片和颜色
+                                if (num == 0) {
+                                    for (int i = 1; i < functionBeenList1.size(); i++) {
+                                        if(i!=position) {
+                                            functionBeenList1.get(i).setSelect(false);
+                                            functionBeenList1.get(i).setShowImage(false);
+                                        }else{
+                                            functionBeenList1.get(position).setSelect(true);
+                                            functionBeenList1.get(position).setShowImage(true);
+                                        }
                                     }
-                                    for(int i=1;i<functionBeenList1.size();i++) {
-                                            for(int j=0;j<selectFunctionBeenList.size();j++) {
-                                                if (functionBeenList1.get(i).isSelect()==true||functionBeenList1.get(i).getId().substring(0, 3).equals(selectFunctionBeenList.get(j).getId().substring(0, 3))){
-                                                    functionBeenList1.get(i).setSelect(true);
-                                                }else{
-                                                    functionBeenList1.get(i).setSelect(false);
-                                                }
-                                            }
-                                    }
+                                }
 
+                                //数量大于0的时候，点击每一项的
+                                if (num > 0) {
+                                        functionBeenList1 = getFunctionFirstListBean();
+                                        functionBeenList1.get(position).setSelect(true);
+                                        functionBeenList1.get(position).setShowImage(true);
                                 }
                                 functionFirstAdapter.notifyDataSetChanged();
                                 functionBeenList3 = new ArrayList<FunctionBean>();
@@ -116,28 +130,51 @@ public class MySelectFuncitonActivity extends BaseActivity {
                     });
                     break;
                 case 2:
-                    if(functionBeenList3!=null&&functionBeenList3.size()!=0) {
-                        Log.i("职能第二个",functionBeenList3.toString());
+                    if (selectFunctionBeenList != null && selectFunctionBeenList.size() != 0) {
+                        for (int i = 0; i < functionBeenList3.size(); i++) {
+                            for (int j = 0; j < selectFunctionBeenList.size(); j++) {
+                                if (functionBeenList3.get(i).getId().equals(selectFunctionBeenList.get(j).getId())) {
+                                    functionBeenList3.remove(i);
+                                    functionBeenList3.add(i, selectFunctionBeenList.get(j));
+                                }
+                            }
+                        }
+                    }
+                    if (functionBeenList3 != null && functionBeenList3.size() != 0) {
                         funcitionSecondAdapter.setFunctionBean(functionBeenList3);
                         functionselectListview2.setAdapter(funcitionSecondAdapter);
                     }
                     funcitionSecondAdapter.setOnItemClick(new OnItemClick() {
                         @Override
                         public void ItemClick(View view, int position) {
-                            if(functionBeenList3.get(position).isSelect()==false) {
-                                if(num<3) {
+                            functionselectListview2.setFocusableInTouchMode(false);
+                            functionselectListview2.requestFocus();
+                            if (functionBeenList3.get(position).isSelect() == false) {
+                                if (num < 3) {
                                     functionBeenList3.get(position).setSelect(true);
                                     selectFunctionBeenList.add(functionBeenList3.get(position));
+                                    addView(functionBeenList3.get(position));
+                                    functionselectShowinforlayout.setVisibility(View.VISIBLE);
+                                    isShow=true;
                                     num++;
+                                    setSelectCount(num);
+                                } else {
+                                    Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择三个职位", Toast.LENGTH_SHORT).show();
                                 }
 
-                            }else{
-                                if(num>0) {
+                            } else {
+                                if (num > 0) {
                                     num--;
                                     selectFunctionBeenList.remove(functionBeenList3.get(position));
                                     functionBeenList3.get(position).setSelect(false);
+                                    removeView(functionBeenList3.get(position));
+                                    setSelectCount(num);
+                                }else{
+                                    functionselectShowinforlayout.setVisibility(View.VISIBLE);
                                 }
                             }
+                            functionBeenList1 = getFunctionFirstListBean();
+                            /*Log.i("functionList的参数",functionBeenList1.toString());*/
                             funcitionSecondAdapter.notifyDataSetChanged();
                         }
                     });
@@ -145,20 +182,60 @@ public class MySelectFuncitonActivity extends BaseActivity {
             }
         }
     };
+
+    private List<FunctionBean> getFunctionFirstListBean() {
+        for (int i = 1; i < functionBeenList1.size(); i++) {
+            functionBeenList1.get(i).setSelect(false);
+            functionBeenList1.get(i).setShowImage(false);
+        }
+        for (int i = 1; i < functionBeenList1.size(); i++) {
+            for (int j = 0; j < selectFunctionBeenList.size(); j++) {
+                if (functionBeenList1.get(i).getId().substring(0, 3).equals(selectFunctionBeenList.get(j).getId().substring(0, 3))) {
+                    functionBeenList1.get(i).setSelect(true);
+                }
+            }
+        }
+        return functionBeenList1;
+    }
+    private List<FunctionBean> getFunctionSecondListBean(){
+        if (selectFunctionBeenList != null && selectFunctionBeenList.size() != 0) {
+            for (int i = 0; i < functionBeenList3.size(); i++) {
+                functionBeenList3.get(i).setSelect(false);
+                for (int j = 0; j < selectFunctionBeenList.size(); j++) {
+                    if (functionBeenList3.get(i).equals(selectFunctionBeenList.get(j))) {
+                       functionBeenList3.get(i).setSelect(true);
+                    }
+                }
+            }
+        }
+        Log.i("选择3",functionBeenList3.toString());
+        return functionBeenList3;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_function_bg);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+        getWindow().addFlags(flags);
         ButterKnife.bind(this);
         initView();
         getData();
     }
 
     private void getData() {
-        functionFirstAdapter = new MyFunctionFirstAdapter(this);
-        funcitionSecondAdapter=new MyFuncitionSecondAdapter(this);
+         fitter = getIntent().getStringExtra("filter");
+        final String id = getIntent().getStringExtra("id");
+        final String value = getIntent().getStringExtra("value");
+        selectFunctionBeenList = (List<FunctionBean>) getIntent().getSerializableExtra("selectMap");
+        if(selectFunctionBeenList!=null&&selectFunctionBeenList.size()!=0){
+            num=selectFunctionBeenList.size();
+        }
+        setSelectCount(num);
+        for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+            addView(selectFunctionBeenList.get(i));
+        }
         SharedPreferences sp = getSharedPreferences(
                 Constants.PREFS_NAME, Context.MODE_PRIVATE);
         int industryId = sp.getInt(Constants.INDUSTRY,
@@ -167,37 +244,175 @@ public class MySelectFuncitonActivity extends BaseActivity {
         try {
             jobJSONArray = NetService.getJobAsJSONArray(this,
                     "job.json", String.valueOf(industryId));
-            functionBeenList= GetJssonList.getFunctionList(jobJSONArray);
-            functionBeenList2=GetJssonList.getFunctionList(jobJSONArray);
+            functionBeenList = GetJssonList.getFunctionList(jobJSONArray);
+            functionBeenList2 = GetJssonList.getFunctionList(jobJSONArray);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FunctionBean functionBean1=new FunctionBean();
+        FunctionBean functionBean1 = new FunctionBean();
         functionBean1.setSelect(false);
         functionBean1.setName("全部职能");
         functionBean1.setId("0");
         functionBeenList1.add(functionBean1);
-        for(int i=0;i<functionBeenList.size();i++){
-            String id=functionBeenList.get(i).getId();
-            String s=id.substring(id.length()-3);
-            if(s.equals("000")){
+        for (int i = 0; i < functionBeenList.size(); i++) {
+            String ids = functionBeenList.get(i).getId();
+            String s = ids.substring(ids.length() - 3);
+            if (s.equals("000")) {
                 functionBeenList1.add(functionBeenList.get(i));
             }
         }
-        Message message=new Message();
-        message.what=1;
+        Log.i("选择diyici",selectFunctionBeenList.toString());
+        for (int i = 1; i < functionBeenList1.size(); i++) {
+            for (int j = 0; j < selectFunctionBeenList.size(); j++) {
+                if (selectFunctionBeenList.get(j).getId().substring(0, 3).equals(functionBeenList1.get(i).getId().substring(0, 3))) {
+                    functionBeenList1.get(i).setSelect(true);
+                }
+            }
+        }
+        Message message = new Message();
+        message.what = 1;
         handler.sendMessage(message);
 
     }
 
     private void initView() {
-        LinearLayoutManager manager1=new LinearLayoutManager(this);
-        LinearLayoutManager manager2=new LinearLayoutManager(this);
+        LinearLayoutManager manager1 = new LinearLayoutManager(this){
+            @Override
+            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+                return new RecyclerView.LayoutParams(300,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+        };
+        LinearLayoutManager manager2 = new LinearLayoutManager(this){
+            @Override
+            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+                return new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+        };
         manager1.setOrientation(LinearLayoutManager.VERTICAL);
         manager2.setOrientation(LinearLayoutManager.VERTICAL);
         functionselectListview.setLayoutManager(manager1);
         functionselectListview2.setLayoutManager(manager2);
         functionselectListview.addItemDecoration(new SpacesItemDecoration(2));
         functionselectListview2.addItemDecoration(new SpacesItemDecoration(2));
+    }
+
+    /**
+     * 添加已选职能视图
+     *
+     * @param functionBean
+     */
+    private void addView(final FunctionBean functionBean) {
+        String keyString = functionBean.getId();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.leftMargin = 5;
+        params.topMargin = 3;
+        params.bottomMargin = 3;
+        params.rightMargin = 0;
+        final TextView tv = (TextView) LayoutInflater.from(this).inflate(
+                R.layout.textview_selected, null, false);
+        tv.setLayoutParams(params);
+        tv.setGravity(Gravity.CENTER);
+        tv.setPadding(6, 4, 6, 3);
+        if ("0".equalsIgnoreCase(keyString)
+                || "000".contains(keyString.subSequence(keyString.length() - 3,
+                keyString.length()))) {
+            tv.setTextSize(20f);
+            // 加粗
+            // TextPaint tpaint = tv.getPaint();
+            // tpaint.setFakeBoldText(true);
+        }
+        tv.setText(functionBean.getName());
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectFunctionBeenList.remove(functionBean);
+                for(int i=0;i<functionBeenList2.size();i++){
+                    if(functionBean.getId().equals(functionBeenList2.get(i).getId())){
+                        functionBeenList2.get(i).setSelect(false);
+                    }
+                }
+                num--;
+                if (num==0){
+                    functionBeenList3.clear();
+                    functionselectShowinforlayout.setVisibility(View.GONE);
+                }
+                Log.i("选择",selectFunctionBeenList.toString());
+                functionselectShowinforlayout
+                        .removeView(functionselectShowinforlayout
+                                .findViewWithTag(functionBean.getId()));
+                functionBeenList1=getFunctionFirstListBean();
+                functionBeenList3=getFunctionSecondListBean();
+                funcitionSecondAdapter.notifyDataSetChanged();
+                functionFirstAdapter.notifyDataSetChanged();
+                setSelectCount(num);
+
+            }
+        });
+        // Animation animationadd = AnimationUtils.loadAnimation(this,
+        // R.anim.slide_in_left);
+        // Interpolator interpolator = new CubicInterpolator(Type.IN);
+        // animationadd.setInterpolator(interpolator);
+        // tv.setAnimation(animationadd);
+        tv.setTag(keyString);
+        functionselectShowinforlayout.addView(tv);
+
+    }
+
+    /**
+     * 设置已选择的数量
+     *
+     * @param selectedCount
+     */
+    public void setSelectCount(int selectedCount) {
+        funtionselectSelectedinfo.setText(selectedCount + "/3");
+    }
+
+    /**
+     * 移除指定已选职能视图
+     *
+     * @param functionBean
+     */
+    private void removeView(FunctionBean functionBean) {
+        functionselectShowinforlayout
+                .removeView(functionselectShowinforlayout
+                        .findViewWithTag(functionBean.getId()));
+        /*Log.i("选择2",selectFunctionBeenList.toString());*/
+        functionBeenList3=getFunctionSecondListBean();
+        funcitionSecondAdapter.notifyDataSetChanged();
+
+
+    }
+
+    @OnClick({R.id.iv_selectfunction_back, R.id.tv_selectfunction_save, R.id.iv_seeSelectFunction})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_selectfunction_back:
+                finish();
+                break;
+            case R.id.tv_selectfunction_save:
+                if(fitter.equals("recommend")) {
+                    RecommendJobFragment.setFunctionSelectMap(selectFunctionBeenList);
+                }else if(fitter.equals("post")){
+                    PagerPostSearchFragment.setFunctionSelectMap(selectFunctionBeenList);
+
+                }
+                selectFunctionBeenList.clear();
+                finish();
+                break;
+            case R.id.iv_seeSelectFunction:
+                if(num>0) {
+                    if (isShow==false) {
+
+                        functionselectShowinforlayout.setVisibility(View.VISIBLE);
+                    } else {
+                        functionselectShowinforlayout.setVisibility(View.GONE);
+                    }
+                    isShow = !isShow;
+                }
+                break;
+        }
     }
 }

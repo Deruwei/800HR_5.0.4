@@ -83,6 +83,7 @@
         android:id="@+id/functionselect_showinforlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_below="@+id/funtionselect_showmessage"
         android:background="#F6F6F6"
         android:orientation="vertical"></LinearLayout>

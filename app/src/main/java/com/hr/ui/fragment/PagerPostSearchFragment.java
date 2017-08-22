@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,7 @@ import com.hr.ui.activity.SearchJobResultActivity;
 import com.hr.ui.activity.SelectFunctionSearchActivity;
 import com.hr.ui.activity.SelectZhiXiSearchActivity;
 import com.hr.ui.adapter.IndustryRecAdapter2;
+import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.HistoyInfo;
@@ -50,6 +52,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -95,7 +98,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     /**
      * 职能选择集合
      */
-    private static HashMap<String, String> functionSelectMap = new HashMap<>();
+    private static List<FunctionBean> functionBeanList=new ArrayList<>();
 
     /**
      * 职系选择集合
@@ -301,7 +304,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
                 iv_post_net.setImageResource(R.mipmap.net21);
                 break;
         }
-        functionSelectMap.clear();
+        functionBeanList.clear();
     }
 
     private int json() {
@@ -385,9 +388,11 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
             case R.id.rl_post_function:
                 // 加载职能选择页
                 Intent function = new Intent(getActivity(), MySelectFuncitonActivity.class);
-                function.putExtra("filter", "post");
-                function.putExtra("selectMap", (Serializable) functionSelectMap);
-                function.putExtra("value", "职能");
+                Bundle bundle=new Bundle();
+                bundle.putString("filter", "post");
+                bundle.putSerializable("selectMap", (Serializable) functionBeanList);
+                bundle.putString("value", "职能");
+                function.putExtras(bundle);
                 startActivity(function);
                 break;
             case R.id.bt_post_search:
@@ -430,10 +435,10 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     /**
      * 加载职系选择列表
      */
-    public static void setFunctionSelectMap(HashMap<String, String> map) {
-        functionSelectMap.clear();
+    public static void setFunctionSelectMap(List<FunctionBean> list) {
+        functionBeanList.clear();
         zhixiSelectMap.clear();
-        functionSelectMap.putAll(map);
+        functionBeanList.addAll(list);
         showZhixiLayoutOrNot();
         showText();
         showZhiXi();
@@ -461,15 +466,14 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
      * 显示文本信息
      */
     private static void showText() {
-        Set<String> keySet = functionSelectMap.keySet();
-        if (functionSelectMap.size() == 0) {
-            tv_post_function.setText("");
+        if (functionBeanList.size() == 0) {
+            tv_post_function.setText("全部职能");
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext(); ) {
-            String keyString = (String) iterator.next();
-            buffer.append(functionSelectMap.get(keyString).trim() + "、");
+        for (int i=0;i<functionBeanList.size();i++ ) {
+            String keyString = functionBeanList.get(i).getName();
+            buffer.append(keyString + "、");
         }
         tv_post_function.setText(buffer.toString()
                 .subSequence(0, buffer.length() - 1).toString().trim());
@@ -504,12 +508,10 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
 //        bundle.putString("searchword", activity_searchjob_searchtext.getText()
 //                .toString().trim());
         // 获取职能id，有职系就拼接 funcID|职系ID
-        if (functionSelectMap != null) {
+        if (functionBeanList != null) {
             StringBuffer funcidBuffer = new StringBuffer();
-            Set<String> keySet = functionSelectMap.keySet();
-            for (Iterator iterator = keySet.iterator(); iterator.hasNext(); ) {
-                String string = (String) iterator.next();
-
+            for (int i=0;i<functionBeanList.size();i++) {
+                String string = functionBeanList.get(i).getId();
                 if (zhixiSelectMap != null && zhixiSelectMap.size() > 0) {
                     if ((string.contains("263") || string.contains("264")
                             || string.contains("265") || string.contains("266")
@@ -548,7 +550,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
      * 保存历史记录
      */
     private void saveHistory() {
-        Log.i("城市的名称和id",MyUtils.selectCityId+MyUtils.selectCityZh);
+        //Log.i("城市的名称和id",MyUtils.selectCityId+MyUtils.selectCityZh);
         String str_function = tv_post_function.getText().toString().trim();
         if ("全部职能".equals(str_function)) {
             str_function = "";
@@ -664,13 +666,13 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     /**
      * 是否有职系
      *
-     * @param map
+     * @param list
      * @return
      */
-    private static boolean isHaveZhiXi(Map<String, String> map) {
+    private static boolean isHaveZhiXi(List<FunctionBean> list) {
         boolean flag = false;
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            String item = entry.getKey();
+        for (int i=0;i<list.size();i++) {
+            String item = list.get(i).getId();
             flag = (item.contains("263") || item.contains("264")
                     || item.contains("265") || item.contains("266")
                     || item.contains("267") || item.contains("268"));
@@ -681,7 +683,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     }
 
     private static void showZhixiLayoutOrNot() {
-        if (isHaveZhiXi(functionSelectMap)) {
+        if (isHaveZhiXi(functionBeanList)) {
             rl_post_medical.setVisibility(View.VISIBLE);
         } else {
             rl_post_medical.setVisibility(View.GONE);

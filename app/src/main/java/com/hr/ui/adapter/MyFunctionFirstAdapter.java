@@ -47,9 +47,12 @@ public class MyFunctionFirstAdapter extends RecyclerView.Adapter<MyFunctionFirst
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.functionFirstText.setText(functionBeen.get(position).getName());
-        if(functionBeen.get(position).isSelect()==true){
+        if(functionBeen.get(position).isSelect()==true&&functionBeen.get(position).isShowImage()==true){
             holder.functionFirstText.setTextColor(ContextCompat.getColor(context,R.color.orange));
             holder.functionFirstImage.setVisibility(View.VISIBLE);
+        }else if(functionBeen.get(position).isSelect()==true&&functionBeen.get(position).isShowImage()==false){
+            holder.functionFirstText.setTextColor(ContextCompat.getColor(context,R.color.orange));
+            holder.functionFirstImage.setVisibility(View.GONE);
         }else{
             holder.functionFirstText.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
             holder.functionFirstImage.setVisibility(View.GONE);

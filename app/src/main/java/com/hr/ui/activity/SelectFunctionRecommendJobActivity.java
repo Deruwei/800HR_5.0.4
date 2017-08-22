@@ -43,8 +43,8 @@ import java.util.Set;
 /**
  * 职能选择（可多选）
  */
-public class SelectFunctionRecommendJobActivity extends BaseActivity implements OnClickListener {
-    private int index; // 0, 代表一级分类。1, 代表二级分类
+public class SelectFunctionRecommendJobActivity/* extends BaseActivity implements OnClickListener */{
+ /*   private int index; // 0, 代表一级分类。1, 代表二级分类
     private MyBaseAdapterFindJobFunctionSelect adapter;
     private MyBaseAdapterFindJobFunctionSelect2 adapter2;
     public static HashMap<String, String> selectMap = new HashMap<String, String>();// String：职能id，string:名称
@@ -68,9 +68,9 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
         init();
     }
 
-    /**
+    *//**
      * 初始化
-     */
+     *//*
     private void init() {
         try {
             Bundle bundle = getIntent().getExtras();
@@ -219,21 +219,21 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
         }
     }
 
-    /**
+    *//**
      * 设置已选择的数量
      *
      * @param selectedCount
-     */
+     *//*
     public void setSelectCount(int selectedCount) {
         funtionselect_selectedinfo.setText(selectedCount + "/5");
     }
 
-    /**
+    *//**
      * 添加已选职能视图
      *
      * @param keyString
      * @param valueString
-     */
+     *//*
     private void addView(final String keyString, String valueString) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -279,12 +279,12 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
 
     }
 
-    /**
+    *//**
      * 移除指定已选职能视图
      *
      * @param tagString
      * @param functionSelectActivity
-     */
+     *//*
     private void removeView(String tagString,
                             SelectFunctionRecommendJobActivity functionSelectActivity) {
         functionselect_showinforlayout
@@ -298,14 +298,14 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
 
     }
 
-    /**
+    *//**
      * 清除已选职能视图
-     */
+     *//*
     private void clearView() {
         functionselect_showinforlayout.removeAllViews();
     }
 
-    /**
+    *//**
      * 初始化数据
      *
      * @param filter
@@ -313,7 +313,7 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
      * @param value
      * @return
      * @throws Exception
-     */
+     *//*
     private ArrayList<HashMap<String, String>> setData(String filter,
                                                        String id, String value) throws Exception {
         ArrayList<HashMap<String, String>> data = null;
@@ -380,11 +380,11 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
         return data;
     }
 
-    /**
+    *//**
      * 检测已选择职能数目
      *
      * @return
-     */
+     *//*
     private boolean checkSelected() {
         if (selectMap.size() == 5) {
             Toast.makeText(SelectFunctionRecommendJobActivity.this, "最多选择5个职位",
@@ -438,11 +438,11 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
                         getResources().getDrawable(R.mipmap.xiajiantou), null);
     }
 
-    /**
+    *//**
      * 职能适配器
      *
      * @author 800hr:xuebaohua
-     */
+     *//*
     class MyBaseAdapterFindJobFunctionSelect extends BaseAdapter {
         Context context;
         ArrayList<HashMap<String, String>> data;
@@ -513,11 +513,11 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
         }
     }
 
-    /**
+    *//**
      * 职能适配器
      *
      * @author 800hr:xuebaohua
-     */
+     *//*
     class MyBaseAdapterFindJobFunctionSelect2 extends BaseAdapter {
         Context context;
         ArrayList<HashMap<String, String>> data2;
@@ -585,5 +585,5 @@ public class SelectFunctionRecommendJobActivity extends BaseActivity implements 
             ImageView imageview;
 
         }
-    }
+    }*/
 }

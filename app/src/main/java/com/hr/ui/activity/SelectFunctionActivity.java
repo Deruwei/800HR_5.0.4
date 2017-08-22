@@ -28,8 +28,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SelectFunctionActivity extends BaseActivity implements View.OnClickListener {
-    private ListView lv_selectfunction_second;
+public class SelectFunctionActivity /*extends BaseActivity implements View.OnClickListener*/ {
+   /* private ListView lv_selectfunction_second;
     private ListView lv_selectfunction_first;
     private TextView tv_selectfunction_save;
     private TextView tv_selectfunction_functioninfo;
@@ -42,9 +42,9 @@ public class SelectFunctionActivity extends BaseActivity implements View.OnClick
     private HashMap<String, String> functionData;
     private Context mContext = this;
     private ArrayList<HashMap<String, String>> totalList;
-    /**
+    *//**
      * 存储职位信息
-     */
+     *//*
     private StringBuffer sb;
 
     @Override
@@ -82,9 +82,9 @@ public class SelectFunctionActivity extends BaseActivity implements View.OnClick
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                /*
+                *//*
                 更改显示
-                 */
+                 *//*
                 ssAdapter = new SelectFunctionSecondAdapter(data2, mContext);
                 lv_selectfunction_second.setAdapter(ssAdapter);
                 lv_selectfunction_second.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -180,9 +180,9 @@ public class SelectFunctionActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_selectfunction_save:
-                PagerPostSearchFragment.setFunctionSelectMap(functionData);
+                PagerPostSearchFragment.setFunctionSelectMap();
                 finish();
                 break;
         }
-    }
+    }*/
 }

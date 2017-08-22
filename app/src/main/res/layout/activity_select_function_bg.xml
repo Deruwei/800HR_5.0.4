@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:text="已选职位"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_size_16" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -76,15 +76,15 @@
             android:drawablePadding="5dp"
             android:gravity="right|center_vertical"
             android:text="0/3"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_size_16" />
         <ImageView
             android:layout_marginRight="@dimen/dimen_5px"
             android:id="@+id/iv_seeSelectFunction"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:src="@mipmap/xiajiantou"
-            android:layout_width="@dimen/dimen_20px"
-            android:layout_height="@dimen/dimen_20px" />
+            android:layout_width="@dimen/dimen_13px"
+            android:layout_height="@dimen/dimen_16px" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -92,8 +92,11 @@
         android:id="@+id/functionselect_showinforlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_5px"
+        android:visibility="gone"
         android:layout_below="@+id/funtionselect_showmessage"
-        android:background="#F6F6F6"
+        android:background="@color/white"
+        android:layout_marginTop="2dp"
         android:orientation="vertical">
 
     </LinearLayout>
@@ -111,11 +114,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/functionselect_showinforlayout"
             android:layout_weight="1"
-            android:cacheColorHint="#0000"
-            android:background="#EBEBEB"
-            android:focusable="true"
-            android:listSelector="#30000000"
-            android:scrollbars="none">
+            android:background="#EBEBEB">
         </android.support.v7.widget.RecyclerView>
 
         <android.support.v7.widget.RecyclerView
@@ -124,11 +123,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/functionselect_showinforlayout"
             android:layout_weight="1"
-            android:cacheColorHint="#0000"
-            android:background="#EBEBEB"
-            android:focusable="true"
-            android:listSelector="#10000000"
-            android:scrollbars="none">
+            android:background="#EBEBEB">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
