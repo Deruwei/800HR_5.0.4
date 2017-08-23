@@ -5,31 +5,30 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
-import com.hr.ui.adapter.MyFuncitionSecondAdapter;
-import com.hr.ui.adapter.MyFunctionFirstAdapter;
+import com.hr.ui.adapter.ClassifyMainAdapter;
+import com.hr.ui.adapter.ClassifyMoreAdapter;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.fragment.PagerPostSearchFragment;
 import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.GetJssonList;
-import com.hr.ui.utils.OnItemClick;
-import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
+import com.hr.ui.view.MyFlowLayout;
 
 import org.json.JSONArray;
 
@@ -61,11 +60,11 @@ public class MySelectFuncitonActivity extends BaseActivity {
     @Bind(R.id.funtionselect_showmessage)
     LinearLayout funtionselectShowmessage;
     @Bind(R.id.functionselect_showinforlayout)
-    LinearLayout functionselectShowinforlayout;
+    MyFlowLayout functionselectShowinforlayout;
     @Bind(R.id.functionselect_listview)
-    RecyclerView functionselectListview;
+    ListView functionselectListview;
     @Bind(R.id.functionselect_listview2)
-    RecyclerView functionselectListview2;
+    ListView functionselectListview2;
     private List<FunctionBean> functionBeenList = new ArrayList<>();
     //一级菜单的数据
     private List<FunctionBean> functionBeenList1 = new ArrayList<>();
@@ -73,35 +72,35 @@ public class MySelectFuncitonActivity extends BaseActivity {
     private List<FunctionBean> functionBeenList2 = new ArrayList<>();
     private List<FunctionBean> functionBeenList3 = new ArrayList<>();
     private List<FunctionBean> selectFunctionBeenList = new ArrayList<>();
-    private MyFunctionFirstAdapter functionFirstAdapter=new MyFunctionFirstAdapter(this);
+    private ClassifyMainAdapter functionFirstAdapter;
     private String selectFirstFunctionId;
     private int num;
     private String fitter;
     private boolean isShow;
-    private MyFuncitionSecondAdapter funcitionSecondAdapter=new MyFuncitionSecondAdapter(this);
+    private ClassifyMoreAdapter funcitionSecondAdapter;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
                     if (functionBeenList1 != null && functionBeenList1.size() != 0) {
-                        functionFirstAdapter.setFunctionBeen(functionBeenList1);
+                        functionFirstAdapter=new ClassifyMainAdapter(MySelectFuncitonActivity.this,functionBeenList1);
                         functionselectListview.setAdapter(functionFirstAdapter);
                     }
-                    functionFirstAdapter.setOnItemClick(new OnItemClick() {
+                    functionselectListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void ItemClick(View view, int position) {
-                            functionselectListview.setFocusableInTouchMode(false);
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            functionselectListview.setFocusable(true);
                             functionselectListview.requestFocus();
                             if (position != 0) {
                                 selectFirstFunctionId = functionBeenList1.get(position).getId();
                                 //当数量为0时，点击每一项只会改变图片和颜色
                                 if (num == 0) {
                                     for (int i = 1; i < functionBeenList1.size(); i++) {
-                                        if(i!=position) {
+                                        if (i != position) {
                                             functionBeenList1.get(i).setSelect(false);
                                             functionBeenList1.get(i).setShowImage(false);
-                                        }else{
+                                        } else {
                                             functionBeenList1.get(position).setSelect(true);
                                             functionBeenList1.get(position).setShowImage(true);
                                         }
@@ -110,9 +109,9 @@ public class MySelectFuncitonActivity extends BaseActivity {
 
                                 //数量大于0的时候，点击每一项的
                                 if (num > 0) {
-                                        functionBeenList1 = getFunctionFirstListBean();
-                                        functionBeenList1.get(position).setSelect(true);
-                                        functionBeenList1.get(position).setShowImage(true);
+                                    getFunctionFirstListBean();
+                                    functionBeenList1.get(position).setSelect(true);
+                                    functionBeenList1.get(position).setShowImage(true);
                                 }
                                 functionFirstAdapter.notifyDataSetChanged();
                                 functionBeenList3 = new ArrayList<FunctionBean>();
@@ -124,7 +123,6 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                 Message message = Message.obtain();
                                 message.what = 2;
                                 handler.sendMessage(message);
-
                             }
                         }
                     });
@@ -141,16 +139,16 @@ public class MySelectFuncitonActivity extends BaseActivity {
                         }
                     }
                     if (functionBeenList3 != null && functionBeenList3.size() != 0) {
-                        funcitionSecondAdapter.setFunctionBean(functionBeenList3);
+                        funcitionSecondAdapter=new ClassifyMoreAdapter(MySelectFuncitonActivity.this,functionBeenList3);
                         functionselectListview2.setAdapter(funcitionSecondAdapter);
                     }
-                    funcitionSecondAdapter.setOnItemClick(new OnItemClick() {
+                    functionselectListview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void ItemClick(View view, int position) {
-                            functionselectListview2.setFocusableInTouchMode(false);
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            functionselectListview2.setFocusable(true);
                             functionselectListview2.requestFocus();
                             if (functionBeenList3.get(position).isSelect() == false) {
-                                if (num < 3) {
+                                if (num < 5) {
                                     functionBeenList3.get(position).setSelect(true);
                                     selectFunctionBeenList.add(functionBeenList3.get(position));
                                     addView(functionBeenList3.get(position));
@@ -169,21 +167,24 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                     functionBeenList3.get(position).setSelect(false);
                                     removeView(functionBeenList3.get(position));
                                     setSelectCount(num);
-                                }else{
-                                    functionselectShowinforlayout.setVisibility(View.VISIBLE);
+                                    if(num==0){
+                                        functionBeenList3.clear();
+                                        functionselectShowinforlayout.setVisibility(View.GONE);
+                                    }
                                 }
                             }
-                            functionBeenList1 = getFunctionFirstListBean();
-                            /*Log.i("functionList的参数",functionBeenList1.toString());*/
+                            getFunctionFirstListBean();
+                            //*Log.i("functionList的参数",functionBeenList1.toString());*//*
                             funcitionSecondAdapter.notifyDataSetChanged();
                         }
                     });
+
                     break;
             }
         }
     };
 
-    private List<FunctionBean> getFunctionFirstListBean() {
+    private void getFunctionFirstListBean() {
         for (int i = 1; i < functionBeenList1.size(); i++) {
             functionBeenList1.get(i).setSelect(false);
             functionBeenList1.get(i).setShowImage(false);
@@ -195,9 +196,8 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 }
             }
         }
-        return functionBeenList1;
     }
-    private List<FunctionBean> getFunctionSecondListBean(){
+    private void getFunctionSecondListBean(){
         if (selectFunctionBeenList != null && selectFunctionBeenList.size() != 0) {
             for (int i = 0; i < functionBeenList3.size(); i++) {
                 functionBeenList3.get(i).setSelect(false);
@@ -208,8 +208,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 }
             }
         }
-        Log.i("选择3",functionBeenList3.toString());
-        return functionBeenList3;
+        /*Log.i("选择3",functionBeenList3.toString());*/
     }
 
     @Override
@@ -261,7 +260,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 functionBeenList1.add(functionBeenList.get(i));
             }
         }
-        Log.i("选择diyici",selectFunctionBeenList.toString());
+        //Log.i("选择diyici",selectFunctionBeenList.toString());
         for (int i = 1; i < functionBeenList1.size(); i++) {
             for (int j = 0; j < selectFunctionBeenList.size(); j++) {
                 if (selectFunctionBeenList.get(j).getId().substring(0, 3).equals(functionBeenList1.get(i).getId().substring(0, 3))) {
@@ -276,26 +275,16 @@ public class MySelectFuncitonActivity extends BaseActivity {
     }
 
     private void initView() {
-        LinearLayoutManager manager1 = new LinearLayoutManager(this){
-            @Override
-            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-                return new RecyclerView.LayoutParams(300,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-            }
-        };
-        LinearLayoutManager manager2 = new LinearLayoutManager(this){
-            @Override
-            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-                return new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-            }
-        };
+      /*  LinearLayoutManager manager1 = new LinearLayoutManager(this);
+        LinearLayoutManager manager2 = new LinearLayoutManager(this);
         manager1.setOrientation(LinearLayoutManager.VERTICAL);
         manager2.setOrientation(LinearLayoutManager.VERTICAL);
         functionselectListview.setLayoutManager(manager1);
-        functionselectListview2.setLayoutManager(manager2);
+      *//*  functionselectListview2.setLayoutManager(manager2);*//*
         functionselectListview.addItemDecoration(new SpacesItemDecoration(2));
-        functionselectListview2.addItemDecoration(new SpacesItemDecoration(2));
+        functionselectListview.setFocusable(false);*/
+       /* functionselectListview2.addItemDecoration(new SpacesItemDecoration(2));
+        functionselectListview2.setFocusable(false);*/
     }
 
     /**
@@ -319,7 +308,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
         if ("0".equalsIgnoreCase(keyString)
                 || "000".contains(keyString.subSequence(keyString.length() - 3,
                 keyString.length()))) {
-            tv.setTextSize(20f);
+            tv.setTextSize(15f);
             // 加粗
             // TextPaint tpaint = tv.getPaint();
             // tpaint.setFakeBoldText(true);
@@ -339,12 +328,12 @@ public class MySelectFuncitonActivity extends BaseActivity {
                     functionBeenList3.clear();
                     functionselectShowinforlayout.setVisibility(View.GONE);
                 }
-                Log.i("选择",selectFunctionBeenList.toString());
+                //Log.i("选择",selectFunctionBeenList.toString());
                 functionselectShowinforlayout
                         .removeView(functionselectShowinforlayout
                                 .findViewWithTag(functionBean.getId()));
-                functionBeenList1=getFunctionFirstListBean();
-                functionBeenList3=getFunctionSecondListBean();
+                getFunctionFirstListBean();
+                getFunctionSecondListBean();
                 funcitionSecondAdapter.notifyDataSetChanged();
                 functionFirstAdapter.notifyDataSetChanged();
                 setSelectCount(num);
@@ -367,7 +356,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
      * @param selectedCount
      */
     public void setSelectCount(int selectedCount) {
-        funtionselectSelectedinfo.setText(selectedCount + "/3");
+        funtionselectSelectedinfo.setText(selectedCount + "/5");
     }
 
     /**
@@ -380,7 +369,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 .removeView(functionselectShowinforlayout
                         .findViewWithTag(functionBean.getId()));
         /*Log.i("选择2",selectFunctionBeenList.toString());*/
-        functionBeenList3=getFunctionSecondListBean();
+        getFunctionSecondListBean();
         funcitionSecondAdapter.notifyDataSetChanged();
 
 
@@ -398,6 +387,10 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 }else if(fitter.equals("post")){
                     PagerPostSearchFragment.setFunctionSelectMap(selectFunctionBeenList);
 
+                }else if(fitter.equals("creatjoborder")){
+                    CreateResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
+                }else if(fitter.equals("resumeJobOrder")){
+                    ResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
                 }
                 selectFunctionBeenList.clear();
                 finish();

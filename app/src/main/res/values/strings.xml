@@ -23,6 +23,7 @@
     <string name="companyinfo">公司详情</string>
     <string name="string_help_text">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。\n\n最后点击两次后退按钮，即可返回。</string>
     <string name="quit">退出</string>
+    <string name="autoCode">验    证    码：</string>
 
     <!-- 侧边栏中的内容 -->
     <string name="personal_Centre">个人中心</string>
@@ -124,6 +125,7 @@
     <string name="choose_education_background">选择学历</string>
 
     <!-- 简历中心 -->
+    <string name="howToGet">如何得知：</string>
     <string name="no_record_en">no record</string>
     <string name="resume_send">简历外发</string>
     <string name="recive_email">接收邮箱：</string>
@@ -717,6 +719,13 @@
     <!-- 日期选择 -->
     <string name="date0">结束时间不能早于开始时间</string>
     <string name="date1">日期不能是未来时间</string>
+    <!-- 如何得到 -->
+    <string name="select">请选择</string>
+    <string name="sellerintro">销售顾问推荐</string>
+    <string name="friendInto">同事朋友推荐</string>
+    <string name="InternetInfo">网络渠道</string>
+    <string name="otherInfo">其他渠道</string>
+
 
     <!-- 简历投递判断是否过期及是否已经投递 -->
     <string name="is_expire">该职位已过期不能投递</string>

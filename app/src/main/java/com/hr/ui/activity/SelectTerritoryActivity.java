@@ -126,7 +126,7 @@ public class SelectTerritoryActivity extends BaseActivity implements
                 if (resumeJobintensionActivity != null) {
                     lingyuIdString = newLingYuIdStingbuffer.toString();
                     resumeJobintensionActivity.setLingyu(lingyuIdString);
-                    System.out.println("领域id：" + lingyuIdString);
+                   // System.out.println("领域id：" + lingyuIdString);
                 }
                 finish();
                 break;

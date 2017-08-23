@@ -169,7 +169,7 @@ public class NetService {
              * 发布版本的真实地址 SERVER_URL，把NetService类中的TEST_SERVER_URL改为SERVER_URL
              */
             NetRequest<String> request = new NetRequest<String>(Method.POST,
-                    Constants.SERVER_URL, new Listener<String>() {
+                    Constants.TEST_SERVER_URL, new Listener<String>() {
                 @Override
                 public void onResponse(String arg0) {
                     // listRequestQueues.remove(mQueue);

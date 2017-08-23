@@ -346,7 +346,7 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                 if (SelectFunctionSubscriptionActivity.selectMap != null) {
                     SelectFunctionSubscriptionActivity.selectMap.clear();
                 }
-                Intent intentFunction = new Intent(this, SelectFunctionSubscriptionActivity.class);
+                Intent intentFunction = new Intent(this, MySelectFuncitonActivity.class);
                 intentFunction.putExtra("filter", "post");
                 intentFunction.putExtra("selectMap", (Serializable) functionSelectedMap);
                 intentFunction.putExtra("value", "职能");

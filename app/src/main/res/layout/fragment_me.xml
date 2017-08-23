@@ -218,6 +218,7 @@
                 <LinearLayout style="@style/linear_me_height">
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/rl_me_resume"
                         style="@style/linear_me_width">
 
@@ -264,25 +265,26 @@
                             android:layout_below="@+id/imageView3"
                             android:text="收藏" />
                     </RelativeLayout>
+                    <RelativeLayout
+                    android:id="@+id/rl_me_lookme"
+                    style="@style/linear_me_width">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        style="@style/me_fragment_iv_icon"
+                        android:src="@mipmap/btn_4" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        style="@style/me_fragment_tv_icon"
+                        android:layout_below="@+id/imageView4"
+                        android:text="谁看过我" />
+                </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout style="@style/linear_me_height">
 
-                    <RelativeLayout
-                        android:id="@+id/rl_me_lookme"
-                        style="@style/linear_me_width">
 
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            style="@style/me_fragment_iv_icon"
-                            android:src="@mipmap/btn_4" />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            style="@style/me_fragment_tv_icon"
-                            android:layout_below="@+id/imageView4"
-                            android:text="谁看过我" />
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_me_comemail"
@@ -317,26 +319,25 @@
                             android:layout_below="@+id/imageView6"
                             android:text="订阅" />
                     </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout style="@style/linear_me_height">
-
                     <RelativeLayout
-                        android:id="@+id/rl_me_searchsallery"
-                        style="@style/linear_me_width"
-                        android:visibility="visible">
+                    android:id="@+id/rl_me_searchsallery"
+                    style="@style/linear_me_width"
+                    android:visibility="visible">
 
-                        <ImageView
-                            android:id="@+id/imageView7"
-                            style="@style/me_fragment_iv_icon"
-                            android:src="@mipmap/btn_7" />
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        style="@style/me_fragment_iv_icon"
+                        android:src="@mipmap/btn_7" />
 
-                        <TextView
-                            android:id="@+id/textView7"
-                            style="@style/me_fragment_tv_icon"
-                            android:layout_below="@+id/imageView7"
-                            android:text="薪资查询" />
-                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textView7"
+                        style="@style/me_fragment_tv_icon"
+                        android:layout_below="@+id/imageView7"
+                        android:text="薪资查询" />
+                </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/linear_me_height">
 
                     <RelativeLayout
                         android:id="@+id/rl_me_jobguide"
@@ -361,6 +362,7 @@
                         <ImageView
                             android:id="@+id/imageView9"
                             style="@style/me_fragment_iv_icon"
+
                             android:src="@mipmap/btn_9" />
 
                         <TextView
@@ -369,9 +371,14 @@
                             android:layout_below="@+id/imageView9"
                             android:text="企业屏蔽 " />
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_me_kong"
+                        style="@style/linear_me_width">
+                    </RelativeLayout>
+                </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
     </LinearLayout>

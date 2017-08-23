@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeBaseInfo;
@@ -33,6 +34,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,7 +46,7 @@ import java.util.Set;
 public class CreateResumeJobOrderActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "CreateResumeJobOrderActivity";
     private Context mContext = CreateResumeJobOrderActivity.this;
-    private Map<String, String> funcSelectedMap = new HashMap<String, String>();// key：职能id，value：职能名称
+    private List<FunctionBean> funcSelectedMap = new ArrayList<>();// key：职能id，value：职能名称
     private IdSpineer sp_createresume_joborder_state, sp_createresume_joborder_worktype;
     private TextView tv_resume_personinfo_place, tv_createresume_joborder_territory, tv_createresume_joborder_position;
     private EditText et_resume_personinfo_salay;
@@ -225,8 +227,8 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                 break;
             case R.id.tv_createresume_joborder_position:
                 // 加载职能选择页
-                Intent function = new Intent(mContext, CreateSelectFunctionJobOrderActivity.class);
-                function.putExtra("filter", "post");
+                Intent function = new Intent(mContext, MySelectFuncitonActivity.class);
+                function.putExtra("filter", "creatjoborder");
                 function.putExtra("selectMap", (Serializable) funcSelectedMap);
                 function.putExtra("value", "职能");
                 startActivity(function);
@@ -347,9 +349,9 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                                     .replace(MyUtils.industryId + ":", ""));
                         }
                     }
-                    for (String string : curIndustryFuncArrayList) {
-                        if (string.contains("|")) {// 例如：264101|10100
-                            String[] funcAndZhixiStrings = string.split("\\|");
+                    for (int i=0;i<curIndustryFuncArrayList.size();i++) {
+                        if (curIndustryFuncArrayList.get(i).contains("|")) {// 例如：264101|10100
+                            String[] funcAndZhixiStrings = curIndustryFuncArrayList.get(i).split("\\|");
                             String func0 = ResumeInfoIDToString.getFunc(this,
                                     MyUtils.industryId,
                                     funcAndZhixiStrings[0].trim());
@@ -357,14 +359,20 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                                     .getZhixiString(this,
                                             funcAndZhixiStrings[1].trim());
                             showBuffer.append("," + func0 + zhixi0);
-                            funcSelectedMap.put(funcAndZhixiStrings[0].trim()
-                                            + "|" + funcAndZhixiStrings[1].trim(),
-                                    func0 + zhixi0);
+                            FunctionBean functionBean=new FunctionBean();
+                            functionBean.setId(funcAndZhixiStrings[0].trim() + "|" + funcAndZhixiStrings[1].trim());
+                            functionBean.setName(func0 + zhixi0);
+                            functionBean.setSelect(true);
+                            funcSelectedMap.add(functionBean);
                         } else {// 例如： 256101
                             String func1 = ResumeInfoIDToString.getFunc(this,
-                                    MyUtils.industryId, string.trim());
+                                    MyUtils.industryId, curIndustryFuncArrayList.get(i));
                             showBuffer.append("," + func1);
-                            funcSelectedMap.put(string.trim(), func1);
+                            FunctionBean functionBean=new FunctionBean();
+                            functionBean.setName(func1);
+                            functionBean.setId( curIndustryFuncArrayList.get(i));
+                            functionBean.setSelect(true);
+                            funcSelectedMap.add(functionBean);
                         }
                     }
                     if (showBuffer.toString().length() > 0) {// 显示数据
@@ -387,11 +395,11 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
     /**
      * 添加选择项
      */
-    public void setFunctionSelected(Map<String, String> selectMap) {
+    public void setFunctionSelected(List<FunctionBean> selectMap) {
         // 12-20 16:58:22.572: I/System.out(29412): {257101= 无机合成研发,
         // 264101|10300= 大内科护师, 264101|10400= 大内科技师}
         funcSelectedMap.clear();
-        funcSelectedMap.putAll(selectMap);
+        funcSelectedMap.addAll(selectMap);
         // 过滤原数据
         String[] itemFuncStrings = funcIdString.split(",");// 所有行业信息
         StringBuffer buffer0 = new StringBuffer();// 除当前行业以外的职能
@@ -404,8 +412,8 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
         }
         // 拼装新数据
         StringBuffer buffer1 = new StringBuffer();
-        Set<String> set = funcSelectedMap.keySet();
-        for (String string : set) {
+        for (int i=0;i<selectMap.size();i++) {
+            String string=selectMap.get(i).getId();
             buffer1.append("," + MyUtils.industryId + ":" + string);
         }
         // 结合
@@ -428,15 +436,14 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
     /**
      * 显示文本信息
      */
-    private void showText(Map<String, String> selectMap) {
-        Set<String> keySet = selectMap.keySet();
+    private void showText(List<FunctionBean> selectMap) {
         if (selectMap.size() == 0) {
             tv_createresume_joborder_position.setText("");
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        for (String keyString : keySet) {
-            buffer.append(selectMap.get(keyString).trim() + ",");
+        for (int i=0;i<selectMap.size();i++) {
+            buffer.append(selectMap.get(i).getName() + ",");
         }
         tv_createresume_joborder_position.setText(buffer.toString().subSequence(0, buffer.length() - 1).toString().trim());
     }

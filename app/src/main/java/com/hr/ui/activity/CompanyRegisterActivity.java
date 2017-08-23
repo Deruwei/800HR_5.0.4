@@ -1,12 +1,19 @@
 package com.hr.ui.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +22,7 @@ import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncComRegister;
+import com.hr.ui.utils.tools.CodeUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,10 +60,25 @@ public class CompanyRegisterActivity extends BaseActivity implements View.OnClic
     TextView tvRegistcomAgreement;
     @Bind(R.id.tv_company_register_phone)
     TextView tvCompanyRegisterPhone;
-
+    @Bind(R.id.et_comregister_HowToGet)
+    TextView etComregisterHowToGet;
+    @Bind(R.id.et_comregister_aotoPSW)
+    EditText etComregisterAotoPSW;
+    @Bind(R.id.vc_comRegImage)
+    ImageView vcComRegImage;
+    @Bind(R.id.vc_comRegRefresh)
+    TextView vcComRegRefresh;
+    @Bind(R.id.ll_aotucode)
+    LinearLayout llAotucode;
+    @Bind(R.id.textView100)
+    TextView textView100;
+    private View howToGet;
+    private PopupWindow popupWindow;
+    private String getCode = null;
     private String emailString, usernameString, password0String, password1String, companyNameString, comPhoneString, comContactsString;
     private int industryID;
     private boolean isCheck = true;
+    private String howtoknow;
     public static CompanyRegisterActivity companyRegisterActivity = null;
 
 
@@ -79,6 +102,8 @@ public class CompanyRegisterActivity extends BaseActivity implements View.OnClic
     private void initData() {
         SharedPreferencesUtils sharedPreferencedUtils = new SharedPreferencesUtils(this);
         industryID = sharedPreferencedUtils.getIntValue(Constants.INDUSTRY, 0);
+        vcComRegImage.setImageBitmap(CodeUtils.getInstance().getBitmap());
+        getCode = CodeUtils.getInstance().getCode(); // 获取显示的验证码
         switch (industryID) {
             case 11:   //建筑
                 tvCompanyRegisterPhone.setText("010-82197168");
@@ -142,7 +167,7 @@ public class CompanyRegisterActivity extends BaseActivity implements View.OnClic
             return;
         }
         AsyncComRegister asyncComRegister = new AsyncComRegister(CompanyRegisterActivity.this, handler);
-        asyncComRegister.execute(emailString, usernameString, password0String, industryID + "", password1String, companyNameString, comPhoneString, comContactsString);
+        asyncComRegister.execute(emailString, usernameString, password0String, industryID + "", password1String,howtoknow, companyNameString, comPhoneString, comContactsString);
     }
 
     /**
@@ -228,6 +253,18 @@ public class CompanyRegisterActivity extends BaseActivity implements View.OnClic
                     Toast.LENGTH_LONG).show();
             return false;
         }
+        if("".equals(howtoknow)||howtoknow==null){
+            Toast.makeText(CompanyRegisterActivity.this, "请选择你获取软件的渠道", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        String v_code = etComregisterAotoPSW.getText().toString().trim();
+        if (v_code == null || v_code.equals("")) {
+            Toast.makeText(CompanyRegisterActivity.this, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!v_code.equalsIgnoreCase(getCode)) {
+            Toast.makeText(CompanyRegisterActivity.this, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         Pattern patternPwd = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,25}$");
         Matcher matcherPwd = patternPwd.matcher(password1String);
         if (!matcherPwd.find()) {
@@ -241,4 +278,85 @@ public class CompanyRegisterActivity extends BaseActivity implements View.OnClic
         return true;
     }
 
+    @OnClick({R.id.et_comregister_HowToGet, R.id.vc_comRegRefresh})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.et_comregister_HowToGet:
+                initHowToGet();
+                break;
+            case R.id.vc_comRegRefresh:
+                vcComRegImage.setImageBitmap(CodeUtils.getInstance().getBitmap());
+                getCode = CodeUtils.getInstance().getCode();
+                break;
+        }
+    }
+
+    private void initHowToGet() {
+
+        howToGet = LayoutInflater.from(this).inflate(R.layout.howtoget, null);
+        popupWindow = new PopupWindow(this);
+        popupWindow.setContentView(howToGet);
+        ViewGroup.LayoutParams params=etComregisterHowToGet.getLayoutParams();
+        int wid=params.width;
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setWidth(wid);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        //设置点击窗口外边窗口消失
+        popupWindow.setOutsideTouchable(true);
+        //设置弹出窗体需要软键盘，
+        int[] location = new int[2];
+        textView100.getLocationOnScreen(location);
+        //popupWindow.showAsDropDown(etComregisterHowToGet, width - etComregisterHowToGet.getWidth(), 0);
+        popupWindow.showAtLocation(textView100, Gravity.NO_GRAVITY,location[0]+textView100.getWidth(),location[1]+textView100.getHeight());
+        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+        // 设置弹窗外可点击，默认为false
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        final TextView tv_pleaseSelect = (TextView) howToGet.findViewById(R.id.tv_pleaseSelect);
+        final TextView tv_sellerIntro = (TextView) howToGet.findViewById(R.id.tv_sellerIntro);
+        final TextView tv_friendIntro = (TextView) howToGet.findViewById(R.id.tv_friendIntro);
+        final TextView tv_internetInro = (TextView) howToGet.findViewById(R.id.tv_internetIntro);
+        final TextView tv_otherIntro = (TextView) howToGet.findViewById(R.id.tv_otherIntro);
+        tv_friendIntro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                howtoknow="2";
+                etComregisterHowToGet.setText(tv_friendIntro.getText().toString().trim());
+                popupWindow.dismiss();
+            }
+        });
+        tv_internetInro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                howtoknow="3";
+                etComregisterHowToGet.setText(tv_internetInro.getText().toString().trim());
+                popupWindow.dismiss();
+            }
+        });
+        tv_otherIntro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                howtoknow="4";
+                etComregisterHowToGet.setText(tv_otherIntro.getText().toString().trim());
+                popupWindow.dismiss();
+            }
+        });
+        tv_pleaseSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                howtoknow="";
+                etComregisterHowToGet.setText(tv_pleaseSelect.getText().toString().trim());
+                popupWindow.dismiss();
+            }
+        });
+        tv_sellerIntro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                howtoknow="1";
+                etComregisterHowToGet.setText(tv_sellerIntro.getText().toString().trim());
+                popupWindow.dismiss();
+            }
+        });
+    }
 }

@@ -88,43 +88,58 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <com.hr.ui.view.MyFlowLayout
         android:id="@+id/functionselect_showinforlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_5px"
+        android:layout_height="@dimen/dimen_50px"
+        android:layout_margin="@dimen/dimen_5px"
         android:visibility="gone"
         android:layout_below="@+id/funtionselect_showmessage"
         android:background="@color/white"
         android:layout_marginTop="2dp"
         android:orientation="vertical">
 
-    </LinearLayout>
+    </com.hr.ui.view.MyFlowLayout>
 
-
+    <View
+        android:id="@+id/viewJianGe"
+        android:layout_below="@+id/functionselect_showinforlayout"
+        android:layout_width="match_parent"
+        android:background="#EBEBEB"
+        android:layout_height="@dimen/dimen_2px"/>
     <LinearLayout
+        android:layout_below="@+id/viewJianGe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/functionselect_showinforlayout"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:id="@+id/functionselect_listview"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_below="@+id/functionselect_showinforlayout"
-            android:layout_weight="1"
-            android:background="#EBEBEB">
-        </android.support.v7.widget.RecyclerView>
-
-        <android.support.v7.widget.RecyclerView
+            android:layout_weight="8"
+            android:background="#fff"
+            android:cacheColorHint="#00000000"
+            android:divider="#ffebebeb"
+            android:dividerHeight="2px"
+            android:fastScrollEnabled="true"
+            android:listSelector="#00000000"
+            android:scrollbars="none" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#ffebebeb"/>
+        <ListView
             android:id="@+id/functionselect_listview2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_below="@+id/functionselect_showinforlayout"
-            android:layout_weight="1"
-            android:background="#EBEBEB">
-
-        </android.support.v7.widget.RecyclerView>
+            android:layout_weight="10"
+            android:background="#fff"
+            android:cacheColorHint="#00000000"
+            android:divider="#ffebebeb"
+            android:dividerHeight="2px"
+            android:fastScrollEnabled="true"
+            android:listSelector="#00000000"
+            android:scrollbars="none" />
     </LinearLayout>
 </RelativeLayout>

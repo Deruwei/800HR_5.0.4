@@ -121,6 +121,24 @@
                         android:layout_toRightOf="@+id/textView67"
                         android:hint="邮箱是您收取简历的重要方式" />
                 </RelativeLayout>
+                <RelativeLayout style="@style/comregister_rl2" />
+                <RelativeLayout style="@style/comregister_rl">
+
+                    <TextView style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView100"
+                        style="@style/comregister_tv2"
+                        android:text="@string/howToGet" />
+
+                    <TextView
+                        android:id="@+id/et_comregister_HowToGet"
+                        style="@style/comregister_etHowToGet"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textView100"
+                        android:layout_toRightOf="@+id/textView100"
+                        android:text="请选择" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -190,7 +208,48 @@
                         android:hint="请再次输入密码"
                         android:inputType="textPassword" />
                 </RelativeLayout>
+                <RelativeLayout style="@style/comregister_rl2" />
+                <RelativeLayout style="@style/comregister_rl">
 
+                    <TextView
+                        android:id="@+id/textView101"
+                        style="@style/comregister_tv1" />
+
+                    <TextView
+                        android:id="@+id/textView102"
+                        style="@style/comregister_tv2"
+                        android:text="验  证  码：" />
+
+                    <EditText
+                        android:id="@+id/et_comregister_aotoPSW"
+                        style="@style/comregister_etaotocode"
+                        android:layout_alignTop="@+id/textView101"
+                        android:layout_toRightOf="@+id/textView102"
+                        android:hint="请输入右侧图形码"
+                        android:inputType="text" />
+                    <LinearLayout
+                        android:layout_alignTop="@+id/textView101"
+                        android:id="@+id/ll_aotucode"
+                        android:layout_toRightOf="@+id/et_comregister_aotoPSW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/vc_comRegImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp" />
+                    <TextView
+                        android:id="@+id/vc_comRegRefresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="刷新"
+                        android:textColor="#F39800" />
+                    </LinearLayout>
+                </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="10dp"

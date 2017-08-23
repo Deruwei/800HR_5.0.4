@@ -56,7 +56,7 @@ public class AsyncComRegister {
     }
 
     public void execute(String emailaddress, String user_name, String user_pwd,
-                        String industry, String password1String, String companyNameString,
+                        String industry, String password1String, String howToKnow,String companyNameString,
                         String comPhoneString, String comContactsString) {
         try {
             HashMap<String, String> requestParams = new HashMap<String, String>();
@@ -67,6 +67,7 @@ public class AsyncComRegister {
             requestParams.put("passwordre", password1String);
             requestParams.put("enterprise_name", companyNameString);
             requestParams.put("linkman", comContactsString);
+            requestParams.put("how_to_know", howToKnow);
             requestParams.put("phone", comPhoneString);
             requestParams.put("email", emailaddress);
             requestParams.put("is_login", "0");
