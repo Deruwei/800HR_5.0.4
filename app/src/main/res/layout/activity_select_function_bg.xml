@@ -91,7 +91,7 @@
     <com.hr.ui.view.MyFlowLayout
         android:id="@+id/functionselect_showinforlayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_50px"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_5px"
         android:visibility="gone"
         android:layout_below="@+id/funtionselect_showmessage"

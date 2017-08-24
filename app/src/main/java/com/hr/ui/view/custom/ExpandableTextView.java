@@ -2,6 +2,7 @@ package com.hr.ui.view.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -80,6 +81,7 @@ public class ExpandableTextView extends LinearLayout {
                 isCollapsed=!isCollapsed;
                 if (isCollapsed) {
                     id_expand_textview.setText("展开");
+                    id_expand_imageview.setImageResource(R.mipmap.zhinengxuanze_xiala);
                     if (listener!=null) {
                         listener.onExpandStateChanged(true);
                     }
@@ -87,6 +89,7 @@ public class ExpandableTextView extends LinearLayout {
                 }
                 else {
                     id_expand_textview.setText("收起");
+                    id_expand_imageview.setImageResource(R.mipmap.zhinengxuanze_xiangshang);
                     if (listener!=null) {
                         listener.onExpandStateChanged(false);
                     }

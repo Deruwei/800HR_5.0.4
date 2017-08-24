@@ -27,6 +27,7 @@ import com.hr.ui.model.ResumeProject;
 import com.hr.ui.model.ResumeSkill;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
@@ -145,6 +146,7 @@ public class PreviewResumeActivity extends BaseActivity {
     private String resumeLanguageString;
     private DAO_DBOperator dbOperator;
     private Calendar calendar;
+    private RefleshDialogUtils dialogUtils;
 
 //    private TextView tv_myresumescan_persioninfo, tv_myresumescan_order, tv_myresumescan_edu, tv_myresumescan_jobexp, tv_myresumescan_project, tv_myresumescan_skill, tv_myresumescan_language, tv_myresumescan_train, tv_myresumescan_self;
 
@@ -153,6 +155,7 @@ public class PreviewResumeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_resume);
         MobclickAgent.onEvent(this, "cv-preview");
+        dialogUtils=new RefleshDialogUtils(this);
 //        initData();
 //        initUIL();
 //        upDateUI();
