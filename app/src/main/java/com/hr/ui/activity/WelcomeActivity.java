@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 
+import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.networkbench.agent.impl.NBSAppAgent;
 import android.os.Build;
@@ -45,6 +46,7 @@ public class WelcomeActivity extends BaseActivity {
     private SharedPreferencesUtils sUtils;
     private static  final int REQUESTCODE=101;
     public static WelcomeActivity welcomeActivity;
+    private RefleshDialogUtils dialogUtils;
     static final String[] permissionStrings=new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE};
     private Handler handler = new Handler() {
 
@@ -77,9 +79,10 @@ public class WelcomeActivity extends BaseActivity {
             } else if (msg.what == 1003) {// exit sys
                 goout();
             }
+            dialogUtils.dismissDialog();
         }
 
-        ;
+
     };
 
     public void goout() {
@@ -99,6 +102,7 @@ public class WelcomeActivity extends BaseActivity {
             tintManager.setStatusBarTintColor(Color.parseColor("#ffffff"));// 通知栏所需颜色
         }
         setContentView(R.layout.activity_welcome);
+        dialogUtils=new RefleshDialogUtils(this);
        /* NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(
                 this.getApplicationContext());*/
         welcomeActivity = WelcomeActivity.this;
@@ -139,6 +143,7 @@ public class WelcomeActivity extends BaseActivity {
                     }
                 });
         System.out.println("设备别名：" + PushAliasString.getDeviceId(this));
+        dialogUtils.showDialog();
         new VersionUpdate(WelcomeActivity.this, handler);
     }
    /* @Override
@@ -153,5 +158,6 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dialogUtils.dismissDialog();
     }
 }

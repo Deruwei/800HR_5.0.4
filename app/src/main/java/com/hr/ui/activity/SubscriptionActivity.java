@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
+import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
@@ -31,8 +33,10 @@ import com.hr.ui.utils.netutils.Async_Set_Rob_Switch;
 import com.hr.ui.view.custom.WheelMain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -104,7 +108,7 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
     public static SubscriptionActivity subscriptionActivity = null;
 
     // data
-    private Map<String, String> functionSelectedMap = new HashMap<String, String>();// key：职能id，value：职能名称
+    private List<FunctionBean> functionSelectedMap = new ArrayList<>();// key：职能id，value：职能名称
     private Map<String, String> zhixiSelectedMap = new HashMap<String, String>();
     /***
      * 根据网络返回数据，设置开关
@@ -343,11 +347,11 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.tv_subscription_post:
                 // 加载职能选择页
-                if (SelectFunctionSubscriptionActivity.selectMap != null) {
+               /* if (SelectFunctionSubscriptionActivity!= null) {
                     SelectFunctionSubscriptionActivity.selectMap.clear();
-                }
+                }*/
                 Intent intentFunction = new Intent(this, MySelectFuncitonActivity.class);
-                intentFunction.putExtra("filter", "post");
+                intentFunction.putExtra("filter", "subscription");
                 intentFunction.putExtra("selectMap", (Serializable) functionSelectedMap);
                 intentFunction.putExtra("value", "职能");
                 startActivity(intentFunction);
@@ -452,10 +456,8 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
         // 获取职能id
         if (functionSelectedMap != null) {
             StringBuffer funcidBuffer = new StringBuffer();
-            Set<String> keySet = functionSelectedMap.keySet();
-            for (Iterator iterator = keySet.iterator(); iterator.hasNext(); ) {
-                String string = (String) iterator.next();
-
+            for (int i=0;i<functionSelectedMap.size();i++) {
+                String string = functionSelectedMap.get(i).getId();
                 if (zhixiSelectedMap != null && zhixiSelectedMap.size() > 0) {
                     if ((string.contains("263") || string.contains("264")
                             || string.contains("265")
@@ -602,15 +604,27 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                                     industry, tempfid);
                             funcTextBuffer.append("、" + tempfStr);
                             if (functionSelectedMap != null) {// 存到map，用于传送map到职位选择页
-                                functionSelectedMap.put(tempfid, tempfStr);
+                                FunctionBean functionBean=new FunctionBean();
+                                functionBean.setId(tempfid);
+                                functionBean.setName(tempfStr);
+                                functionBean.setSelect(true);
+                                functionSelectedMap.add(functionBean);
                             }
                         }
                     } else {
-                        tempfStr = ResumeInfoIDToString.getFunc(this, industry,
-                                fz[i]);
-                        funcTextBuffer.append("、" + tempfStr);
-                        if (functionSelectedMap != null) {// 存到map，用于传送map到职位选择页
-                            functionSelectedMap.put(fz[i], tempfStr);
+                        if(!fz[i].equals("0")) {
+                            tempfStr = ResumeInfoIDToString.getFunc(this, industry,
+                                    fz[i]);
+                            funcTextBuffer.append("、" + tempfStr);
+                            if (functionSelectedMap != null) {// 存到map，用于传送map到职位选择页
+                                FunctionBean functionBean = new FunctionBean();
+                                functionBean.setId(fz[i]);
+                                functionBean.setName(tempfStr);
+                                Log.i("fzid", fz[i]);
+                                Log.i("fzidname", tempfStr);
+                                functionBean.setSelect(true);
+                                functionSelectedMap.add(functionBean);
+                            }
                         }
                     }
                 }
@@ -787,10 +801,10 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
     /**
      * 添加选择项
      */
-    public void setFunctionSelected(Map<String, String> selectMap) {
+    public void setFunctionSelected(List<FunctionBean> selectMap) {
         // System.out.println("setFunc:" + selectMap.toString());
         functionSelectedMap.clear();
-        functionSelectedMap.putAll(selectMap);
+        functionSelectedMap.addAll(selectMap);
         showText();
     }
 
@@ -798,15 +812,14 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
      * 显示文本信息
      */
     private void showText() {
-        Set<String> keySet = functionSelectedMap.keySet();
         if (functionSelectedMap.size() == 0) {
             tvSubscriptionPost.setText("");
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext(); ) {
-            String keyString = (String) iterator.next();
-            buffer.append(functionSelectedMap.get(keyString).trim() + "、");
+        for (int i=0;i<functionSelectedMap.size();i++ ) {
+            String keyString = functionSelectedMap.get(i).getName();
+            buffer.append(keyString + "、");
         }
         tvSubscriptionPost.setText(buffer.toString()
                 .subSequence(0, buffer.length() - 1).toString().trim());
