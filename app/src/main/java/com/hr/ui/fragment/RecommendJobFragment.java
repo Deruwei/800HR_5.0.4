@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -376,12 +377,14 @@ public class RecommendJobFragment extends BaseFragment {
 //            Toast.makeText(getActivity(), "发送数据完毕" + msg.what, Toast.LENGTH_SHORT).show();
             if (msg.what == 0) {
                 dialogUtils.dismissDialog();
+
                 json_resultJobIntension = (String) msg.obj;
                 try {
                     JSONObject jsonObjectJobIntension = new JSONObject(json_resultJobIntension);
 //                    Toast.makeText(getActivity(), "完毕" + jsonObjectJobIntension.toString(), Toast.LENGTH_SHORT).show();
                     if (jsonObjectJobIntension.getString("error_code").trim().equals("0")) {
                         JSONObject jsonorder_info = jsonObjectJobIntension.getJSONObject("order_info");
+
                         if(!jsonorder_info.toString().contains("func")||!jsonorder_info.toString().contains("workarea")){
                             if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
                                 funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
@@ -400,7 +403,18 @@ public class RecommendJobFragment extends BaseFragment {
                         }
 
                     } else {
-
+                        if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
+                            funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
+                            areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
+                            loadNetData();
+                        } else {
+                            lvRecommendfragment.setVisibility(View.GONE);
+                            rlRecfragmentEmpty.setVisibility(View.GONE);
+                            lrRecfragmentJob.setVisibility(View.VISIBLE);
+                        }
+                        lvRecommendfragment.setVisibility(View.GONE);
+                        rlRecfragmentEmpty.setVisibility(View.GONE);
+                        lrRecfragmentJob.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -412,7 +426,9 @@ public class RecommendJobFragment extends BaseFragment {
 
 
     };
+    private void getData(){
 
+    }
    /* @Override
     public void onPause() {
         super.onPause();

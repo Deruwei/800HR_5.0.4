@@ -2,6 +2,8 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +17,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hr.ui.R;
+import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.netutils.Async_GetCity;
+import com.hr.ui.utils.netutils.NetRequest;
+import com.hr.ui.utils.netutils.NetUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
 
 /**
  * 领域选择页面
@@ -29,6 +41,7 @@ public class SelectTerritoryActivity extends BaseActivity implements
     private String[] textStrings, idStrings;
     private String lingyuIdString;
     private Boolean[] checkStates;
+    private String json;
     private ImageView iv_selectterritory_back;
     private TextView tv_selectterritory_save;
 
@@ -44,8 +57,14 @@ public class SelectTerritoryActivity extends BaseActivity implements
 
         iv_selectterritory_back.setOnClickListener(this);
         tv_selectterritory_save.setOnClickListener(this);
-
+        JSONObject jsonObject=null;
+        try {
+           jsonObject=new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if ("11".equals(MyUtils.industryId)) {// 建筑
+
             textStrings = getResources().getStringArray(R.array.lingyu_jianzhu);
             idStrings = getResources().getStringArray(
                     R.array.lingyu_jianzhu_ids);

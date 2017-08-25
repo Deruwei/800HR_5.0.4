@@ -2,13 +2,13 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 城市选择
  *
@@ -34,6 +38,8 @@ import java.util.Iterator;
 public class SelectCitySubscriptionActivity extends BaseActivity {
 
     int screenWidth;// 屏幕宽度
+    @Bind(R.id.iv_placeselect_back)
+    ImageView ivPlaceselectBack;
     private int index; // 0, 代表一级分类。1, 代表二级分类
     MyBaseAdapterFindJobPlaceSelect.TopViewHolder topViewHolder;
     private static ArrayList<String> zhixiashiORhotcity; // 直辖市或热门城市
@@ -52,6 +58,7 @@ public class SelectCitySubscriptionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectcity_tosearch);
+        ButterKnife.bind(this);
         init();
        /* Log.i("SelectCitySubscriptionActivity.java", "======dataArrayList" + "试一试6");*/
     }
@@ -245,6 +252,11 @@ public class SelectCitySubscriptionActivity extends BaseActivity {
             data.add(0, item);
         }
         return data;
+    }
+
+    @OnClick(R.id.iv_placeselect_back)
+    public void onViewClicked() {
+        finish();
     }
 
     /**
@@ -483,11 +495,13 @@ public class SelectCitySubscriptionActivity extends BaseActivity {
 
             return convertView;
         }
+
         private class ViewHolder2 {
             TextView title; // 标题
             TextView name; // 城市名字
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
