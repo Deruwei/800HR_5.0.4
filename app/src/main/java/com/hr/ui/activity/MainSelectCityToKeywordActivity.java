@@ -366,6 +366,10 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                 if (MyUtils.currentCityZh != null
                         && MyUtils.currentCityZh.length() > 0) {
                     topViewHolder.name.setText(MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1));
+                    topViewHolder.name.setCompoundDrawablesWithIntrinsicBounds(
+                            null, null,
+                            getResources().getDrawable(R.mipmap.dingwei),
+                            null);
                     JSONArray cityJSONArray;
                     try {
                         cityJSONArray = NetService.getCityAsJSONArray(
@@ -394,7 +398,13 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                         e.printStackTrace();
                     }
                 } else {
+
                     topViewHolder.name.setText("定位失败");
+                    topViewHolder.name.setCompoundDrawablesWithIntrinsicBounds(
+                            null, null,
+                            getResources().getDrawable(R.mipmap.dingwei),
+                            null);
+
                 }
                 topViewHolder.title.setText("定位城市");
             } else if (viewType == 1) {// 非定位

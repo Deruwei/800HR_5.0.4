@@ -468,6 +468,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                MyUtils.canReflesh=true;
                 Intent intent=new Intent(CreateResumePersonInfoActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();

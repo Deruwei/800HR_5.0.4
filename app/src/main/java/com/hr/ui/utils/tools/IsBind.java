@@ -60,6 +60,7 @@ public class IsBind {
                             MyUtils.isThiredLogin = true;
                             MyUtils.userID = jsonObject.getString("user_id");
                             MyUtils.industryId = jsonObject.getString("industry");
+                            MyUtils.canResumeReflesh=true;
                             if (nickname != null && nickname.length() > 0) {
                                 MyUtils.username = nickname;
                             } else {

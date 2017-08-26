@@ -291,6 +291,11 @@ public class MyResumeFragment extends BaseFragment {
 //
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        MyUtils.canResumeReflesh=true;
+    }
 
     public void getData() {
         getResumeList();

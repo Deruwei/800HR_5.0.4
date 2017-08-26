@@ -67,6 +67,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
     ListView functionselectListview2;
     private FunctionBean selectFunction=new FunctionBean();
     private List<FunctionBean> functionBeenList = new ArrayList<>();
+    private List<FunctionBean> deleteFunction=new ArrayList<>();
     //一级菜单的数据
     private List<FunctionBean> functionBeenList1 = new ArrayList<>();
     //二级菜单的数据
@@ -162,27 +163,190 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                 }*/
                              if(fitter.equals("recommend")||fitter.equals("post")||fitter.equals("subscription")) {
                                  if (num < 3) {
-                                     functionBeenList3.get(position).setSelect(true);
-                                     selectFunctionBeenList.add(functionBeenList3.get(position));
-                                     addView(functionBeenList3.get(position));
+
+                                     if(position==0){
+                                        for(int i=1;i<functionBeenList3.size();i++){
+                                            functionBeenList3.get(i).setSelect(false);
+                                        }
+                                        for(int i=0;i<selectFunctionBeenList.size();i++){
+                                            if(selectFunctionBeenList.get(i).getId().substring(0,3).equals(functionBeenList3.get(0).getId().substring(0,3))){
+                                                deleteFunction.add(selectFunctionBeenList.get(i));
+
+
+                                            }
+                                        }
+                                         selectFunctionBeenList.removeAll(deleteFunction);
+                                         for(int i=0;i<deleteFunction.size();i++) {
+                                             removeView(deleteFunction.get(i));
+                                         }
+                                         num=selectFunctionBeenList.size();
+                                         num++;
+                                         addView(functionBeenList3.get(0));
+                                         selectFunctionBeenList.add(functionBeenList3.get(0));
+                                         functionBeenList3.get(0).setSelect(true);
+                                     }else {
+                                            if(functionBeenList3.get(0).isSelect()==true) {
+                                                removeView(functionBeenList3.get(0));
+                                                selectFunctionBeenList.remove(functionBeenList3.get(0));
+                                                functionBeenList3.get(0).setSelect(false);
+
+                                            }
+                                            num=selectFunctionBeenList.size();
+                                             functionBeenList3 .get(position).setSelect(true);
+                                             selectFunctionBeenList.add(functionBeenList3.get(position));
+                                             addView(functionBeenList3.get(position));
+                                             num++;
+                                     }
+                                     ivSeeSelectFunction.setImageResource(R.mipmap.shangjiantou);
                                      functionselectShowinforlayout.setVisibility(View.VISIBLE);
                                      isShow = true;
-                                     num++;
                                      setSelectCount(num);
                                  } else {
-                                     Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择3个职位", Toast.LENGTH_SHORT).show();
+                                     boolean f=false;
+                                     if(functionBeenList3.get(position).getId().contains("000")) {
+                                         for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+                                             if (functionBeenList3.get(position).getId().substring(0, 3).equals(selectFunctionBeenList.get(i).getId().substring(0, 3))) {
+                                                 f = true;
+                                             }
+                                         }
+                                         if (f == true) {
+                                             deleteFunction = new ArrayList<FunctionBean>();
+                                             for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+                                                 if (selectFunctionBeenList.get(i).getId().substring(0, 3).equals(functionBeenList3.get(position).getId().substring(0, 3))) {
+                                                     deleteFunction.add(selectFunctionBeenList.get(i));
+
+                                                 }
+                                             }
+                                             selectFunctionBeenList.removeAll(deleteFunction);
+                                             for (int i = 0; i < deleteFunction.size(); i++) {
+                                                 removeView(deleteFunction.get(i));
+                                             }
+                                             num = selectFunctionBeenList.size();
+                                             num++;
+                                             addView(functionBeenList3.get(0));
+                                             selectFunctionBeenList.add(functionBeenList3.get(0));
+                                             functionBeenList3.get(0).setSelect(true);
+                                             setSelectCount(num);
+                                         }else {
+                                             Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择3个职位", Toast.LENGTH_SHORT).show();
+                                         }
+                                     }else{
+                                         for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+                                             if (functionBeenList3.get(position).getId().substring(0, 3).equals(selectFunctionBeenList.get(i).getId().substring(0, 3))&&selectFunctionBeenList.get(i).getId().contains("000")) {
+                                                 f = true;
+                                             }
+                                         }
+                                         if(f==true){
+                                             if(functionBeenList3.get(0).isSelect()==true) {
+                                                 removeView(functionBeenList3.get(0));
+                                                 selectFunctionBeenList.remove(functionBeenList3.get(0));
+                                                 functionBeenList3.get(0).setSelect(false);
+
+                                             }
+                                             num=selectFunctionBeenList.size();
+                                             functionBeenList3 .get(position).setSelect(true);
+                                             selectFunctionBeenList.add(functionBeenList3.get(position));
+                                             addView(functionBeenList3.get(position));
+                                             num++;
+                                             setSelectCount(num);
+                                         }
+                                         else {
+                                             Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择3个职位", Toast.LENGTH_SHORT).show();
+                                         }
+                                     }
                                  }
                              }else{
                                  if (num < 5) {
-                                     functionBeenList3.get(position).setSelect(true);
-                                     selectFunctionBeenList.add(functionBeenList3.get(position));
-                                     addView(functionBeenList3.get(position));
+
+                                     if(position==0){
+                                         for(int i=1;i<functionBeenList3.size();i++){
+                                             functionBeenList3.get(i).setSelect(false);
+                                         }
+                                         for(int i=0;i<selectFunctionBeenList.size();i++){
+                                             if(selectFunctionBeenList.get(i).getId().substring(0,3).equals(functionBeenList3.get(0).getId().substring(0,3))){
+                                                 deleteFunction.add(selectFunctionBeenList.get(i));
+
+                                             }
+                                         }
+                                         selectFunctionBeenList.removeAll(deleteFunction);
+                                         for(int i=0;i<deleteFunction.size();i++) {
+                                             removeView(deleteFunction.get(i));
+                                         }
+                                         num=selectFunctionBeenList.size();
+                                         num++;
+                                         addView(functionBeenList3.get(0));
+                                         selectFunctionBeenList.add(functionBeenList3.get(0));
+                                         functionBeenList3.get(0).setSelect(true);
+                                     }else {
+                                         if(functionBeenList3.get(0).isSelect()==true) {
+                                             removeView(functionBeenList3.get(0));
+                                             selectFunctionBeenList.remove(functionBeenList3.get(0));
+                                             functionBeenList3.get(0).setSelect(false);
+
+                                         }
+                                         num=selectFunctionBeenList.size();
+                                         functionBeenList3 .get(position).setSelect(true);
+                                         selectFunctionBeenList.add(functionBeenList3.get(position));
+                                         addView(functionBeenList3.get(position));
+                                         num++;
+                                     }
+                                     ivSeeSelectFunction.setImageResource(R.mipmap.shangjiantou);
                                      functionselectShowinforlayout.setVisibility(View.VISIBLE);
                                      isShow = true;
-                                     num++;
                                      setSelectCount(num);
                                  } else {
-                                     Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择5个职位", Toast.LENGTH_SHORT).show();
+                                     boolean f=false;
+                                     if(functionBeenList3.get(position).getId().contains("000")) {
+                                         for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+                                             if (functionBeenList3.get(position).getId().substring(0, 3).equals(selectFunctionBeenList.get(i).getId().substring(0, 3))) {
+                                                 f = true;
+                                             }
+                                         }
+                                         if (f == true) {
+                                             deleteFunction = new ArrayList<FunctionBean>();
+                                             for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+                                                 if (selectFunctionBeenList.get(i).getId().substring(0, 3).equals(functionBeenList3.get(position).getId().substring(0, 3))) {
+                                                     deleteFunction.add(selectFunctionBeenList.get(i));
+
+                                                 }
+                                             }
+                                             selectFunctionBeenList.removeAll(deleteFunction);
+                                             for (int i = 0; i < deleteFunction.size(); i++) {
+                                                 removeView(deleteFunction.get(i));
+                                             }
+                                             num = selectFunctionBeenList.size();
+                                             num++;
+                                             addView(functionBeenList3.get(0));
+                                             selectFunctionBeenList.add(functionBeenList3.get(0));
+                                             functionBeenList3.get(0).setSelect(true);
+                                             setSelectCount(num);
+                                         }else {
+                                             Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择5个职位", Toast.LENGTH_SHORT).show();
+                                         }
+                                     }else{
+                                         for (int i = 0; i < selectFunctionBeenList.size(); i++) {
+                                             if (functionBeenList3.get(position).getId().substring(0, 3).equals(selectFunctionBeenList.get(i).getId().substring(0, 3))&&selectFunctionBeenList.get(i).getId().contains("000")) {
+                                                 f = true;
+                                             }
+                                         }
+                                         if(f==true){
+                                             if(functionBeenList3.get(0).isSelect()==true) {
+                                                 removeView(functionBeenList3.get(0));
+                                                 selectFunctionBeenList.remove(functionBeenList3.get(0));
+                                                 functionBeenList3.get(0).setSelect(false);
+
+                                             }
+                                             num=selectFunctionBeenList.size();
+                                             functionBeenList3 .get(position).setSelect(true);
+                                             selectFunctionBeenList.add(functionBeenList3.get(position));
+                                             addView(functionBeenList3.get(position));
+                                             num++;
+                                             setSelectCount(num);
+                                         }
+                                         else {
+                                             Toast.makeText(MySelectFuncitonActivity.this, "最多只能选择5个职位", Toast.LENGTH_SHORT).show();
+                                         }
+                                     }
                                  }
                              }
 
@@ -194,6 +358,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                     removeView(functionBeenList3.get(position));
                                     setSelectCount(num);
                                     if(num==0){
+                                        ivSeeSelectFunction.setImageResource(R.mipmap.xiajiantou);
                                         functionselectShowinforlayout.setVisibility(View.GONE);
                                     }
                                 }
@@ -259,6 +424,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
         selectFunctionBeenList = (List<FunctionBean>) getIntent().getSerializableExtra("selectMap");
         if(selectFunctionBeenList!=null&&selectFunctionBeenList.size()!=0){
             num=selectFunctionBeenList.size();
+            ivSeeSelectFunction.setImageResource(R.mipmap.shangjiantou);
             functionselectShowinforlayout.setVisibility(View.VISIBLE);
             isShow=true;
         }
@@ -342,7 +508,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
         if ("0".equalsIgnoreCase(keyString)
                 || "000".contains(keyString.subSequence(keyString.length() - 3,
                 keyString.length()))) {
-            tv.setTextSize(15f);
+            tv.setTextSize(18f);
             // 加粗
             // TextPaint tpaint = tv.getPaint();
             // tpaint.setFakeBoldText(true);
@@ -359,6 +525,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 }
                 num--;
                 if (num==0){
+                    ivSeeSelectFunction.setImageResource(R.mipmap.xiajiantou);
                     functionselectShowinforlayout.setVisibility(View.GONE);
                 }
                 //Log.i("选择",selectFunctionBeenList.toString());
@@ -443,9 +610,10 @@ public class MySelectFuncitonActivity extends BaseActivity {
             case R.id.iv_seeSelectFunction:
                 if(num>0) {
                     if (isShow==false) {
-
+                        ivSeeSelectFunction.setImageResource(R.mipmap.shangjiantou);
                         functionselectShowinforlayout.setVisibility(View.VISIBLE);
                     } else {
+                        ivSeeSelectFunction.setImageResource(R.mipmap.xiajiantou);
                         functionselectShowinforlayout.setVisibility(View.GONE);
                     }
                     isShow = !isShow;
