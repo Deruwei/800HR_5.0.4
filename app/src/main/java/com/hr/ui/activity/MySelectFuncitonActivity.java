@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -508,10 +509,15 @@ public class MySelectFuncitonActivity extends BaseActivity {
         if ("0".equalsIgnoreCase(keyString)
                 || "000".contains(keyString.subSequence(keyString.length() - 3,
                 keyString.length()))) {
-            tv.setTextSize(18f);
+            tv.getPaint().setFakeBoldText(true);
+            tv.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv.setBackgroundResource(R.drawable.circle_textview_bg_black);
             // 加粗
             // TextPaint tpaint = tv.getPaint();
             // tpaint.setFakeBoldText(true);
+        }else{
+            tv.setTextColor(ContextCompat.getColor(this,R.color.orange));
+            tv.setBackgroundResource(R.drawable.circle_textview_bg);
         }
         tv.setText(functionBean.getName());
         tv.setOnClickListener(new View.OnClickListener() {

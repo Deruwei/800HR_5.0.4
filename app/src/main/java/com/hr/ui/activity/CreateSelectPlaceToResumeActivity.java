@@ -303,6 +303,9 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                                             keys.remove();
                                         }
                                     }
+                                    checkStateHashMap.put(dataArrayList2
+                                                    .get(position).get("key"),
+                                            true);
                                 } else {
                                     // 如果已选title，则移除本title
                                     checkStateHashMap
