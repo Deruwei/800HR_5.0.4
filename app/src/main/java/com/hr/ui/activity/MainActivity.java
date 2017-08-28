@@ -236,21 +236,19 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
              * 是否自动登录
              */
             if (sUtils.getBooleanValue(Constants.AUTO_LOGIN, false)) {
+                dialogUtils.showDialog();
                 if (sUtils.getStringValue("autoLoginThired", "0").equals("1")) {
-                    dialogUtils.showDialog();
                     IsBind isBindSina = new IsBind(thirdCode, thirdUid, MainActivity.this, thirdIndustry, "");
                     isBindSina.execute();
 //                    Toast.makeText(mContext,"     isBindSina.execute();",Toast.LENGTH_SHORT).show();
                 } else if (sUtils.getStringValue("autoLoginThired", "0").equals("2")) {
 //                    Toast.makeText(mContext,"      asyncLogin.execute;",Toast.LENGTH_SHORT).show();
                     if (!"".equals(PhoneName) && !"".equals(psw)) {
-                        dialogUtils.showDialog();
                         AsyncNewAutoLoginPhone asyncLogin = new AsyncNewAutoLoginPhone(mContext, handler);
                         asyncLogin.execute(PhoneName, psw, Industry + "");
                     }
                 } else {
                     if (!"".equals(userName) && !"".equals(psw)) {
-                        dialogUtils.showDialog();
                         AsyncLogin asyncLogin = new AsyncLogin(mContext, handler);
                         asyncLogin.execute(userName, psw, Industry + "");
                     }
@@ -415,20 +413,22 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             builderRef.setPositiveButton("马上评论", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
                     Uri uri = Uri.parse("market://details?id=" + getPackageName());
                     Intent intentMark = new Intent(Intent.ACTION_VIEW, uri);
                     intentMark.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intentMark);
                     sUtils.setIntValue(Constants.OPPEN_NUM, 4);
-                    dialog.dismiss();
+
                 }
             });
             builderRef.setNegativeButton("以后评论", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
                     finish();
                     System.exit(0);//正常退出App
-                    dialog.dismiss();
+
                 }
             });
             builderRef.create().show();

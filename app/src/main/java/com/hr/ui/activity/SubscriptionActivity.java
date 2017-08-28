@@ -105,6 +105,7 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
     public String placeId = ""; // 地区 ID
     public String funcid;// 职能ID
     private String industry;
+    private String cityName="";
     public static SubscriptionActivity subscriptionActivity = null;
 
     // data
@@ -495,7 +496,8 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                     .show();
             return;
         }
-        if (placeId == null || placeId.length() == 0) {
+        //Log.i("城市的id","-----"+placeId+"");
+        if (placeId == null||cityName.equals("")) {
             Toast.makeText(SubscriptionActivity.this, "请选择地点", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -652,8 +654,10 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
             }
             placeId = dataHashMap.get("area");
             if (ResumeInfoIDToString.getPlace(this, placeId, true).equals("")) {
-                tvSubscriptionPlace.setText("北京");
+                tvSubscriptionPlace.setText("全国");
+                cityName="全国";
             } else {
+                cityName=ResumeInfoIDToString.getPlace(this, placeId, true);
                 tvSubscriptionPlace.setText(ResumeInfoIDToString.getPlace(this, placeId, true));// 地点
             }
             tvSubscriptionJobexp.setText(JudgeValue_workyear(dataHashMap.get("workyear")));// 工作经验
@@ -832,6 +836,7 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
      */
     protected void setPlaceText(String value) {
         // TODO Auto-generated method stub
+        cityName=value;
         tvSubscriptionPlace.setText(value);
     }
 

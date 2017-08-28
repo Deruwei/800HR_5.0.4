@@ -29,7 +29,9 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
+import com.hr.ui.fragment.MyResumeFragment;
 import com.hr.ui.server.RegisterCodeTimerService;
+import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncNewPhoneRegister;

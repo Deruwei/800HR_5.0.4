@@ -51,10 +51,31 @@ public class ClassifyMoreAdapter extends BaseAdapter {
         }
         if(text_list.get(arg0).isSelect()==true){
             hold.functionSecondImage.setVisibility(View.VISIBLE);
-            hold.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.orange));
+            if ("0".equalsIgnoreCase(text_list.get(arg0).getId())
+                    || "000".contains(text_list.get(arg0).getId().subSequence(text_list.get(arg0).getId().length() - 3,
+                    text_list.get(arg0).getId().length()))) {
+                hold.functionSecondText.getPaint().setFakeBoldText(true);
+                hold.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.orange));
+                // 加粗
+                // TextPaint tpaint = tv.getPaint();
+                // tpaint.setFakeBoldText(true);
+            }else{
+                hold.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.orange));
+            }
         }else{
             hold.functionSecondImage.setVisibility(View.GONE);
-            hold.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
+            if ("0".equalsIgnoreCase(text_list.get(arg0).getId())
+                    || "000".contains(text_list.get(arg0).getId().subSequence(text_list.get(arg0).getId().length() - 3,
+                    text_list.get(arg0).getId().length()))) {
+                hold.functionSecondText.getPaint().setFakeBoldText(true);
+                hold.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.black));
+                // 加粗
+                // TextPaint tpaint = tv.getPaint();
+                // tpaint.setFakeBoldText(true);
+            }else{
+                hold.functionSecondText.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
+            }
+
         }
         hold.functionSecondText.setText(text_list.get(arg0).getName());
         return view;

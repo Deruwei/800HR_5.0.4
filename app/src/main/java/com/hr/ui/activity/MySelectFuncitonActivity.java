@@ -506,19 +506,6 @@ public class MySelectFuncitonActivity extends BaseActivity {
         tv.setLayoutParams(params);
         tv.setGravity(Gravity.CENTER);
         tv.setPadding(6, 4, 6, 4);
-        if ("0".equalsIgnoreCase(keyString)
-                || "000".contains(keyString.subSequence(keyString.length() - 3,
-                keyString.length()))) {
-            tv.getPaint().setFakeBoldText(true);
-            tv.setTextColor(ContextCompat.getColor(this,R.color.black));
-            tv.setBackgroundResource(R.drawable.circle_textview_bg_black);
-            // 加粗
-            // TextPaint tpaint = tv.getPaint();
-            // tpaint.setFakeBoldText(true);
-        }else{
-            tv.setTextColor(ContextCompat.getColor(this,R.color.orange));
-            tv.setBackgroundResource(R.drawable.circle_textview_bg);
-        }
         tv.setText(functionBean.getName());
         tv.setOnClickListener(new View.OnClickListener() {
             @Override

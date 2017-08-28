@@ -25,7 +25,10 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FindUserNamePWDFragment extends BaseFragment {
+public class
+
+
+FindUserNamePWDFragment extends BaseFragment {
 
 
     @Bind(R.id.et_findusernamepwd_username)

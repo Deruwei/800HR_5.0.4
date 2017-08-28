@@ -77,6 +77,7 @@ public class WelcomeActivity extends BaseActivity {
                     goout();
                 }
             } else if (msg.what == 1003) {// exit sys
+                Toast.makeText(WelcomeActivity.this,"无网络状态,请连接网络！",Toast.LENGTH_SHORT).show();
                 goout();
             }
             dialogUtils.dismissDialog();

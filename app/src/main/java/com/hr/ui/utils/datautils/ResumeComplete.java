@@ -348,7 +348,7 @@ public class ResumeComplete {
 //        return count;
 //    }
     public int getFullScale(boolean hasExperience, boolean refreshDatabase) {
-        System.out.println("计算完整度");
+       // System.out.println("计算完整度");
         int count = 0;
         // 基本项总分大于等于60分，才计算其他项。总分大于100，计100
         //System.out.println("getFullScale:" + hasExperience);

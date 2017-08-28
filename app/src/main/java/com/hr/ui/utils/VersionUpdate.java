@@ -86,12 +86,10 @@ public class VersionUpdate {
         private String content;
         private String url;
         private Context context;
-        private MyProgressDialog dialog;
 
         public AsyncGetVersion(String clientVerString, Context context) {
             this.clientVerString = clientVerString;
             this.context = context;
-            dialog = new MyProgressDialog(context);
         }
 
         @Override
@@ -132,9 +130,6 @@ public class VersionUpdate {
         protected void onPostExecute(Integer result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            if (dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-            }
             switch (result) {
                 case 0:// 有新版本
                     // System.out.println("有新版本");

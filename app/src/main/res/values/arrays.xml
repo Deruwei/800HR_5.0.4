@@ -157,35 +157,23 @@
         <item>141600</item>
     </string-array>
     <string-array name="lingyu_huagong">
+        <item>石油石化天然气</item>
         <item>精细化工</item>
-        <item>石油石化</item>
-        <item>工业气体</item>
-        <item>化工机械</item>
-        <item>环保</item>
-        <item>新材料</item>
         <item>煤化工</item>
-        <item>光伏</item>
-        <item>化学制药</item>
-        <item>服务中心</item>
         <item>化工工程</item>
-        <item>过程系统</item>
+        <item>化工机械设备</item>
+        <item>环保·新能源</item>
         <item>化工贸易</item>
         <item>其他</item>
     </string-array>
     <string-array name="lingyu_huagong_ids">
-        <item>291100</item>
         <item>291200</item>
-        <item>291300</item>
+        <item>291100</item>
+        <item>291700</item>
+        <item>292100</item>
         <item>291400</item>
         <item>291500</item>
-        <item>291600</item>
-        <item>291700</item>
-        <item>291800</item>
-        <item>291900</item>
-        <item>292000</item>
-        <item>292100</item>
-        <item>292200</item>
-        <item>292300</item>
+        <item>291300</item>
         <item>292400</item>
     </string-array>
 

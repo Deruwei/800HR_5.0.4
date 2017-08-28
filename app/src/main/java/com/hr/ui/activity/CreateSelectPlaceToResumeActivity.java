@@ -303,9 +303,18 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                                             keys.remove();
                                         }
                                     }
+                                    if (checkStateHashMap.size() == 5) {
+                                        Toast.makeText(
+                                                CreateSelectPlaceToResumeActivity.this,
+                                                "数量已达最大值",
+                                                Toast.LENGTH_SHORT)
+                                                .show();
                                     checkStateHashMap.put(dataArrayList2
                                                     .get(position).get("key"),
                                             true);
+
+                                        return;
+                                    }
                                 } else {
                                     // 如果已选title，则移除本title
                                     checkStateHashMap

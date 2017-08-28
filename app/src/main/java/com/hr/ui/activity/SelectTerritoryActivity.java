@@ -57,12 +57,6 @@ public class SelectTerritoryActivity extends BaseActivity implements
 
         iv_selectterritory_back.setOnClickListener(this);
         tv_selectterritory_save.setOnClickListener(this);
-        JSONObject jsonObject=null;
-        try {
-           jsonObject=new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         if ("11".equals(MyUtils.industryId)) {// 建筑
 
             textStrings = getResources().getStringArray(R.array.lingyu_jianzhu);

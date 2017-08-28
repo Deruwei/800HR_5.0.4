@@ -36,6 +36,7 @@ import com.hr.ui.activity.VerifyPhoneNumStateActivity;
 import com.hr.ui.config.Constants;
 import com.hr.ui.model.Industry;
 import com.hr.ui.server.RegisterCodeTimerService;
+import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncBindThird;
 import com.hr.ui.utils.netutils.AsyncNewPhoneRegister;
@@ -88,6 +89,7 @@ public class BindFirstFragment extends BaseFragment {
     private Handler handlerLogin = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+                MyUtils.canResumeReflesh=true;
                 btFirstbindAuthcode.setClickable(true);
                 getActivity().finish();
             }

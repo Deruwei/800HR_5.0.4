@@ -2,6 +2,7 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 
@@ -357,6 +359,9 @@ public class SelectCitySubscriptionActivity extends BaseActivity {
                                     break;
                                 }
                             }
+                        }
+                        if(locationCityID==null){
+                            locationCityID= ResumeInfoIDToString.getCityID(SelectCitySubscriptionActivity.this,MyUtils.currentCityZh,true);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

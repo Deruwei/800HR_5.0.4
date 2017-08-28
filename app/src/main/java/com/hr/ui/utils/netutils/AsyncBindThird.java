@@ -47,6 +47,10 @@ public class AsyncBindThird {
                             sUtils.setStringValue(Constants.USERNAME, user_name);
                             sUtils.setStringValue(Constants.PASSWORD, user_pwd);
                             sUtils.setStringValue(Constants.USERPHONE,phoneNum);
+                            sUtils.setStringValue("autoLoginThird_code", third_code);
+                            sUtils.setStringValue("autoLoginThird_uid", third_uid);
+                            sUtils.setStringValue("autoLoginIndustry", industry);
+                            sUtils.setStringValue("autoLoginThired", "1");
 //                            MyUtils.userphone = user_phone;
 //                            MyUtils.userID = jsonObject.getString("user_id");
 //                            MyUtils.industryId = jsonObject.getString("industry");
@@ -55,9 +59,9 @@ public class AsyncBindThird {
                             handler.sendMessage(message);
 //                            NewBindActivity.newBindActivity.finish();
                             RecommendJobFragment.recommendJobFragment.initView();
+                            NewLoginActivity.newLoginActivity.execute();
 //                            MyUtils.isLogin = true;
 //                    FindjobFragment.upDataUI();
-                            NewLoginActivity.newLoginActivity.execute();
                             break;
                         default:
 //                            Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();

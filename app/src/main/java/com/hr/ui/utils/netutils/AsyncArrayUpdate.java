@@ -77,6 +77,9 @@ public class AsyncArrayUpdate {
 						builder.show();
 						return;
 					}
+					if(error_code==11){
+						handler.sendEmptyMessage(1003);
+					}
 					//
 					if (error_code != 0) {
 						handler.sendEmptyMessage(1001);
