@@ -61,11 +61,8 @@ public class WhoLookMeActivity extends Activity {
     private ArrayList<BrowsedInfo> listBrowsedInfos=new ArrayList<>();// 谁看过我的简历
     private MyWhoLookMeAdapter myBaseAdpter;
     private ArrayList<BrowsedInfo> totalListBrowsedInfos = new ArrayList<>();
-    private ImageView iv_lookme_back;
-    private boolean isLoadAll = false;// 是否全部加载
     private int index = 1;// 页码索引
     private boolean fisrt;// 总记录数
-    private Context mContext = WhoLookMeActivity.this;
     private LinearLayoutManager manager;
     private int lastVisibleItem;
     private Handler handlerService=new Handler(){
@@ -133,24 +130,26 @@ public class WhoLookMeActivity extends Activity {
 
     private void initData() {
 
-        if(listBrowsedInfos!=null) {
-            myBaseAdpter.setListBrowsedInfos(listBrowsedInfos);
-            if (index == 1) {
-                listviewSearch.setAdapter(myBaseAdpter);
-            } else {
-                myBaseAdpter.notifyDataSetChanged();
-            }
-            myBaseAdpter.setOnItemClick(new OnItemClick() {
-                @Override
-                public void ItemClick(View view, int position) {
-                    if (!NetUtils.checkNet(WhoLookMeActivity.this)) {
-                        return;
-                    }
-                    if (listBrowsedInfos.size() != 0) {
-                        open_detaile(listBrowsedInfos, position);
-                    }
+        if(listBrowsedInfos!=null&&"".equals(listBrowsedInfos)) {
+            if(listBrowsedInfos.size()!=0) {
+                myBaseAdpter.setListBrowsedInfos(listBrowsedInfos);
+                if (index == 1) {
+                    listviewSearch.setAdapter(myBaseAdpter);
+                } else {
+                    myBaseAdpter.notifyDataSetChanged();
                 }
-            });
+                myBaseAdpter.setOnItemClick(new OnItemClick() {
+                    @Override
+                    public void ItemClick(View view, int position) {
+                        if (!NetUtils.checkNet(WhoLookMeActivity.this)) {
+                            return;
+                        }
+                        if (listBrowsedInfos.size() != 0) {
+                            open_detaile(listBrowsedInfos, position);
+                        }
+                    }
+                });
+            }
 
         }
         isVISIBLE();

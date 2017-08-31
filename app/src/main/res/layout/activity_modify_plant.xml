@@ -27,16 +27,19 @@
             android:textColor="#fff"
             android:textSize="22sp" />
     </RelativeLayout>
-    <LinearLayout
+    <ScrollView
+        android:scrollbars="none"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_resume_modifynewtrain_top"
-        android:layout_marginRight="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/rl_resume_modifynewtrain_top">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+       >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp">
@@ -410,4 +413,5 @@
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

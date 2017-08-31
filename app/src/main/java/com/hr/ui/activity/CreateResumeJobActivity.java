@@ -97,6 +97,7 @@ public class CreateResumeJobActivity extends BaseActivity {
     private RelativeLayout rl_createresume_info_save;
     private LinearLayout linear_createresume_jobexp;
     private View footView;
+    private boolean isSubmit;
     private String resumeType;
     private String resumeAppId;
     private int groupPosition = 0;
@@ -109,6 +110,9 @@ public class CreateResumeJobActivity extends BaseActivity {
                 resumeAppId = String.valueOf(msg.arg1);
                 switch (value) {
                     case -1:
+                        isSubmit=false;
+                        tvResumeItemNewresumeeduDelete.setBackgroundResource(R.drawable.btn_1chang);
+                        tvResumeItemResumejobSave.setBackgroundResource(R.drawable.btn_1chang);
                         Toast.makeText(mContext, "简历上传失败", Toast.LENGTH_SHORT).show();
                         break;
                     case 0:// 中文简历已上传成功
@@ -120,6 +124,9 @@ public class CreateResumeJobActivity extends BaseActivity {
                         Toast.makeText(mContext, "新建完毕", Toast.LENGTH_SHORT).show();
                         break;
                     default:
+                        tvResumeItemNewresumeeduDelete.setBackgroundResource(R.drawable.btn_1chang);
+                        tvResumeItemResumejobSave.setBackgroundResource(R.drawable.btn_1chang);
+                        isSubmit=false;
                         break;
                 }
             }
@@ -178,11 +185,14 @@ public class CreateResumeJobActivity extends BaseActivity {
         tvResumeItemResumejobSave.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                if (!"".equals(resumeType)) {
-                    if ("1".equals(resumeType)) {
-                        saveData();
-                    } else {
-                        resumeUpdate();
+
+                if(isSubmit==false) {
+                    if (!"".equals(resumeType)) {
+                        if ("1".equals(resumeType)) {
+                            saveData();
+                        } else {
+                            resumeUpdate();
+                        }
                     }
                 }
             }
@@ -192,7 +202,9 @@ public class CreateResumeJobActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ago();
+            if(isSubmit==false) {
+                ago();
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -490,6 +502,9 @@ public class CreateResumeJobActivity extends BaseActivity {
                         .getLanguageJsonString();
                 String resumeInfoString = resumeInfoToJsonString
                         .getResumeDetailInfoJsonString();
+                isSubmit=true;
+                tvResumeItemNewresumeeduDelete.setBackgroundResource(R.drawable.btn_1changgray);
+                tvResumeItemResumejobSave.setBackgroundResource(R.drawable.btn_1changgray);
                 AsyncResumeUpdate asyncResumeUpdate = new AsyncResumeUpdate(
                         mContext, handlerUploadResume, baseInfoString,
                         languageString, resumeInfoString, "-1", "zh");
@@ -510,7 +525,9 @@ public class CreateResumeJobActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_createresume_job_back:
-                ago();
+                if(isSubmit==false) {
+                    ago();
+                }
                 break;
             case R.id.tv_isjobexp_open:
                 //如果有工作经验 点击变为无工作经验
@@ -545,7 +562,9 @@ public class CreateResumeJobActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_resume_item_newresumeedu_ago:
-                ago();
+                if(isSubmit==false) {
+                    ago();
+                }
                 break;
 
         }

@@ -166,24 +166,26 @@ public class SearchJobResultActivity extends Activity  {
         public void handleMessage(Message msg) {
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
-                    if(dataList!=null&&dataList.size()!=0){
-                    totalList.addAll(dataList);
+                    if(dataList!=null&&!"".equals(dataList)){
+                        if(dataList.size()!=0) {
+                            totalList.addAll(dataList);
                        /* Log.i("页码的总数",totalList.size()+"");*/
-                    if (totalIsSelect.size() == 0) {
-                        for (int i = 0; i < totalList.size(); i++) {
-                            totalIsSelect.put(i, false);
-                        }
-                    } else {
-                        for (int i = totalIsSelect.size() - 1; i < dataList.size(); i++) {
-                            totalIsSelect.put(i, false);
-                        }
-                    }
-                        sjrAdapter.setDataList(totalList);
-                        // 通知适配器更新数据
-                        if (pageNum == 1) {
-                            lvSearchjobresultResult.setAdapter(sjrAdapter);
-                        } else {
-                            sjrAdapter.notifyDataSetChanged();
+                            if (totalIsSelect.size() == 0) {
+                                for (int i = 0; i < totalList.size(); i++) {
+                                    totalIsSelect.put(i, false);
+                                }
+                            } else {
+                                for (int i = totalIsSelect.size() - 1; i < dataList.size(); i++) {
+                                    totalIsSelect.put(i, false);
+                                }
+                            }
+                            sjrAdapter.setDataList(totalList);
+                            // 通知适配器更新数据
+                            if (pageNum == 1) {
+                                lvSearchjobresultResult.setAdapter(sjrAdapter);
+                            } else {
+                                sjrAdapter.notifyDataSetChanged();
+                            }
                         }
                     }else{
                         Toast.makeText(SearchJobResultActivity.this, "没有更多的数据！",

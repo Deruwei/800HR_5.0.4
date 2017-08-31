@@ -87,29 +87,6 @@ public class NewbieGuideActivity extends BaseActivity implements OnClickListener
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     /*Toast.makeText(this,"权限获取成功",Toast.LENGTH_SHORT).show();*/
-                } else {
-
-                    final AlertDialog.Builder normalDialog =
-                            new AlertDialog.Builder(NewbieGuideActivity.this);
-                    normalDialog.setMessage("没有获取到权限，是否重新获取？");
-                    normalDialog.setPositiveButton("确定",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ActivityCompat.requestPermissions(NewbieGuideActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, BAIDU_READ_PHONE_STATE);
-
-                                }
-                            });
-                    normalDialog.setNegativeButton("关闭",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    // 显示
-                    normalDialog.show();
-                    /*Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();*/
                 }
                 break;
             default:

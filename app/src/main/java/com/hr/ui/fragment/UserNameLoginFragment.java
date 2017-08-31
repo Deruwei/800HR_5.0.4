@@ -75,9 +75,9 @@ public class UserNameLoginFragment extends BaseFragment {
             switch (msg.what) {
                 case 0:
 //                    Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
-                    MyUtils.isLogin = true;
-//                    FindjobFragment.upDataUI();
-                    NewLoginActivity.newLoginActivity.execute();
+//                    MyUtils.isLogin = true;
+////                    FindjobFragment.upDataUI();
+//                    NewLoginActivity.newLoginActivity.execute();
                     break;
                 case 1:
                     //QQ登录

@@ -1,5 +1,6 @@
 package com.hr.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.CompanyOtherJobAdapter;
+import com.hr.ui.utils.OnItemClick;
 import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
@@ -110,21 +112,22 @@ public class CompanyOtherJobActivity extends BaseActivity {
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
                     // 通知适配器更新数据
-                    srCompanyother.setRefreshing(false);
-                    if (dataList.size() != 0&&dataList!=null) {
-                        totalList.addAll(dataList);
-                        comAdapter.setDataList(totalList);
-                        if(pageNum==1) {
-                            lvCompanyOtherjobListview.setAdapter(comAdapter);
+                    if (!"".equals(dataList)&&dataList!=null) {
+                        if(dataList.size()!=0) {
+                            totalList.addAll(dataList);
+                            comAdapter.setDataList(totalList);
+                            if (pageNum == 1) {
+                                lvCompanyOtherjobListview.setAdapter(comAdapter);
+                            } else {
+                                comAdapter.notifyDataSetChanged();
+                            }
+
                         }else{
-                            comAdapter.notifyDataSetChanged();
+                            Toast.makeText(CompanyOtherJobActivity.this, "没有更多的数据了！",
+                                    Toast.LENGTH_SHORT).show();
                         }
-                    } else{
-                        Toast.makeText(CompanyOtherJobActivity.this, "没有更多的数据了！",
-                                Toast.LENGTH_SHORT).show();
                     }
                 } else if (msg.arg1 == 206) {//
-                    srCompanyother.setRefreshing(false);
                     Toast.makeText(CompanyOtherJobActivity.this, "执行失败",
                             Toast.LENGTH_SHORT).show();
                     try {
@@ -134,20 +137,18 @@ public class CompanyOtherJobActivity extends BaseActivity {
                     }
 
                 } else if (msg.arg1 == 11) {
-                    srCompanyother.setRefreshing(false);
                     Toast.makeText(CompanyOtherJobActivity.this,
                             getString(R.string.error_notnet),
                             Toast.LENGTH_SHORT).show();
                 } else {// 获取数据失败
-                    srCompanyother.setRefreshing(false);
                 }
             } else if (msg.what == 1002) {// 无响应或抛异常
-                srCompanyother.setRefreshing(false);
             } else if (msg.what == 1003) {
-                srCompanyother.setRefreshing(false);
+
                 Toast.makeText(CompanyOtherJobActivity.this, "连接服务器超时", Toast.LENGTH_SHORT)
                         .show();
             }
+            srCompanyother.setRefreshing(false);
         }
 
         ;

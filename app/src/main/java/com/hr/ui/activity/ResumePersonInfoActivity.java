@@ -2,6 +2,7 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -433,8 +434,10 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(placeName.equals(MyUtils.currentCityZh)) {
-                placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
+            if(MyUtils.currentCityZh!=null&&"".equals(MyUtils.currentCityZh)) {
+                if (placeName.equals(MyUtils.currentCityZh)) {
+                    placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
+                }
             }
             if (placeIdNowPlace == null || "".equals(placeIdNowPlace)
                     || "0".equals(placeIdNowPlace)) {

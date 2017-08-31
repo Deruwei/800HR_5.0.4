@@ -6,6 +6,7 @@ import android.os.Message;
 import android.widget.Toast;
 
 import com.hr.ui.R;
+import com.hr.ui.activity.NewLoginActivity;
 import com.hr.ui.config.Constants;
 import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.MyUtils;
@@ -75,7 +76,7 @@ public class AsyncLogin {
 //						}
                             MyUtils.isLogin = true;
                             RecommendJobFragment.recommendJobFragment.initView();
-                            Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+                            NewLoginActivity.newLoginActivity.execute();
                             break;
                         default:
                             Message message1 = handler.obtainMessage();

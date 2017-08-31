@@ -129,7 +129,7 @@ public class ModifyProjectActivity extends BaseResumeActivity {
             return;
         }
 
-        if (etResumeItemModifyprojectPost.getText()
+     /*   if (etResumeItemModifyprojectPost.getText()
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入项目职务", Toast.LENGTH_LONG).show();
             return;
@@ -143,7 +143,7 @@ public class ModifyProjectActivity extends BaseResumeActivity {
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入项目职责", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 
 
         String starttimeString = tvResumeItemModifyprojectStarttime
@@ -265,8 +265,10 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         } else {
             next();
         }
+        MyUtils.canResumeReflesh=true;
     }
     private void next(){
+        MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {

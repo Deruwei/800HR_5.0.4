@@ -148,11 +148,15 @@ public class ModifyEduActivity extends BaseResumeActivity {
         if (delResule) {
             ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator, resumeId, resumeLanguage);
             Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+            next();
             finish();
+
             // 刷新简历完整度
         } else {
             next();
+
         }
+        MyUtils.canResumeReflesh=true;
     }
 
     private void saveData() {
@@ -259,6 +263,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
     }
 
     private void next() {
+        MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {

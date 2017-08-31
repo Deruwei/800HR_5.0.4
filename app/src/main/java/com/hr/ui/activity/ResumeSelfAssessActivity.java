@@ -106,6 +106,7 @@ public class ResumeSelfAssessActivity extends BaseResumeActivity implements View
             } else {
                 Toast.makeText(this, "保存失败", Toast.LENGTH_LONG).show();
             }
+            MyUtils.canResumeReflesh=true;
         } else {// 修改自我评价
             // 更新信息到数据库
             MyUtils.canResumeReflesh=true;

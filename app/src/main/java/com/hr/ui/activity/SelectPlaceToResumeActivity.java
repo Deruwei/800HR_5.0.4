@@ -3,6 +3,7 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -206,32 +207,64 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
                                 case FROMTAG_VALUE2:// 工作经验
                                     ModifyExpActivity.modifyExpActivity.setPlaceId(locationCityID);
                                     if (isCHS) {
-                                        ModifyExpActivity.modifyExpActivity.setPlaceText(MyUtils.currentCityZh);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            ModifyExpActivity.modifyExpActivity.setPlaceText(MyUtils.currentCityZh);
+                                            backPage(fromActivity);
+                                        }else {
+                                            return;
+                                        }
                                     } else {
-                                        ModifyExpActivity.modifyExpActivity.setPlaceText(MyUtils.currentCityEn);
+                                        if(!"".equals(MyUtils.currentCityEn)&&MyUtils.currentCityEn!=null) {
+                                            ModifyExpActivity.modifyExpActivity.setPlaceText(MyUtils.currentCityEn);
+                                            backPage(fromActivity);
+                                        }else{
+                                            return;
+                                        }
                                     }
                                     break;
                                 case FROMTAG_VALUE3:// 培训经历
                                     ModifyPlantActivity.modifyPlantActivity
                                             .setPlaceId(locationCityID);
                                     if (isCHS) {
-                                        ModifyPlantActivity.modifyPlantActivity.setPlaceText(MyUtils.currentCityZh);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            ModifyPlantActivity.modifyPlantActivity.setPlaceText(MyUtils.currentCityZh);
+                                            backPage(fromActivity);
+                                        }
+                                        else{
+                                            return;
+                                        }
                                     } else {
-                                        ModifyPlantActivity.modifyPlantActivity.setPlaceText(MyUtils.currentCityEn);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            ModifyPlantActivity.modifyPlantActivity.setPlaceText(MyUtils.currentCityEn);
+                                            backPage(fromActivity);
+                                        }
+                                        else{
+                                            return;
+                                        }
                                     }
                                     break;
                                 case FROMTAG_VALUE0:// 个人信息
                                     ResumePersonInfoActivity.setPlaceId(locationCityID);
                                     if (isCHS) {
-                                        ResumePersonInfoActivity.setPlaceText(MyUtils.currentCityZh);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            ResumePersonInfoActivity.setPlaceText(MyUtils.currentCityZh);
+                                            backPage(fromActivity);
+                                        }else{
+                                            return;
+                                        }
                                     } else {
-                                        ResumePersonInfoActivity.setPlaceText(MyUtils.currentCityEn);
+                                        if(!"".equals(MyUtils.currentCityEn)&&MyUtils.currentCityEn!=null) {
+                                            ResumePersonInfoActivity.setPlaceText(MyUtils.currentCityEn);
+                                            backPage(fromActivity);
+                                        }else{
+                                            return;
+                                        }
                                     }
                                     break;
                                 default:
+                                    backPage(fromActivity);
                                     break;
                             }
-                            backPage(fromActivity);
                             return;
                         }
                         if (zhixiashiORhotcity.contains(dataArrayList.get(position - 1).get("value"))) {

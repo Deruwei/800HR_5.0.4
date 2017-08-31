@@ -3,6 +3,7 @@ package com.hr.ui.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -165,35 +166,37 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long itemId) {
                     if (fromTag == FROMTAG_VALUE1) {// --------------------------求职意向-工作地址
-                        if (zhixiashiORhotcity.contains(dataArrayList.get(position).get("value"))) {
-                            if (checkStateHashMap.containsKey(dataArrayList.get(position).get("key"))) {
-                                // 取消选中状态
-                                checkStateHashMap.remove(dataArrayList.get(position).get("key"));
+                        if(dataArrayList.get(position).get("value")!=null&&!"".equals(dataArrayList.get(position).get("value"))) {
+                            if (zhixiashiORhotcity.contains(dataArrayList.get(position).get("value"))) {
+                                if (checkStateHashMap.containsKey(dataArrayList.get(position).get("key"))) {
+                                    // 取消选中状态
+                                    checkStateHashMap.remove(dataArrayList.get(position).get("key"));
+                                } else {
+                                    // 检测数量
+                                    if (checkStateHashMap.size() == 5) {
+                                        Toast.makeText(CreateSelectPlaceToResumeActivity.this, "数量已达最大值", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    // 设置选中状态
+                                    checkStateHashMap.put(dataArrayList.get(position).get("key"), true);
+                                }
+                                adapter.notifyDataSetChanged();
+                                refreshShowInfo(true);
+                                CreateSelectPlaceToResumeActivity placeSelectedActivity = CreateSelectPlaceToResumeActivity.this;
+                                if (placeSelectedActivity != null) {
+                                    placeSelectedActivity.refreshShowInfo(true);
+                                }
                             } else {
-                                // 检测数量
-                                if (checkStateHashMap.size() == 5) {
-                                    Toast.makeText(CreateSelectPlaceToResumeActivity.this, "数量已达最大值", Toast.LENGTH_SHORT).show();
-                                    return;
+                                try {
+                                    if (!dataArrayList.get(position).get("value").equals("#热门城市") && !dataArrayList.get(position).get("value").equals("#按省份选择城市")) {
+                                        dataArrayList2 = getData("place", dataArrayList.get(position).get("key"), dataArrayList.get(position).get("value"));
+                                        adapter2 = new MyBaseAdapterFindJobPlaceSelect2(CreateSelectPlaceToResumeActivity.this, dataArrayList2);
+                                        add_city_listView.setAdapter(adapter2);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
-                                // 设置选中状态
-                                checkStateHashMap.put(dataArrayList.get(position).get("key"), true);
-                            }
-                            adapter.notifyDataSetChanged();
-                            refreshShowInfo(true);
-                            CreateSelectPlaceToResumeActivity placeSelectedActivity = CreateSelectPlaceToResumeActivity.this;
-                            if (placeSelectedActivity != null) {
-                                placeSelectedActivity.refreshShowInfo(true);
-                            }
-                        } else {
-                            try {
-                                if (!dataArrayList.get(position).get("value").equals("#热门城市") && !dataArrayList.get(position).get("value").equals("#按省份选择城市")) {
-                                    dataArrayList2 = getData("place", dataArrayList.get(position).get("key"), dataArrayList.get(position).get("value"));
-                                    adapter2 = new MyBaseAdapterFindJobPlaceSelect2(CreateSelectPlaceToResumeActivity.this, dataArrayList2);
-                                    add_city_listView.setAdapter(adapter2);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
                             }
                         }
                     } else {// ---------------------------------非求职意向-工作地址
@@ -202,10 +205,17 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                                 case FROMTAG_VALUE2:// 工作经验
                                     CreateResumeJobActivity.createResumeJobActivity.setPlaceId(locationCityID);
                                     if (isCHS) {
-                                        CreateResumeJobActivity.createResumeJobActivity.setPlaceText(MyUtils.currentCityZh);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            CreateResumeJobActivity.createResumeJobActivity.setPlaceText(MyUtils.currentCityZh);
+                                            backPage(fromActivity);
+                                        }
                                     } else {
-                                        ((CreateResumeJobExpLVAdapter) fromActivity)
-                                                .setPlaceText(MyUtils.currentCityEn);
+
+                                        if(!"".equals(MyUtils.currentCityEn)&&MyUtils.currentCityEn!=null) {
+                                            ((CreateResumeJobExpLVAdapter) fromActivity)
+                                                    .setPlaceText(MyUtils.currentCityEn);
+                                            backPage(fromActivity);
+                                        }
                                     }
                                     break;
                                 case FROMTAG_VALUE3:// 培训经历
@@ -218,22 +228,32 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                                         ResumeTrainExpLVAdapter
                                                 .setPlaceText(MyUtils.currentCityEn);
                                     }
+                                    backPage(fromActivity);
                                     break;
                                 case FROMTAG_VALUE0:// 个人信息
                                     CreateResumePersonInfoActivity
                                             .setPlaceId(locationCityID);
                                     if (isCHS) {
-                                        CreateResumePersonInfoActivity
-                                                .setPlaceText(MyUtils.currentCityZh);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            CreateResumePersonInfoActivity
+                                                    .setPlaceText(MyUtils.currentCityZh);
+                                            backPage(fromActivity);
+                                        }else{
+                                            return;
+                                        }
                                     } else {
-                                        CreateResumePersonInfoActivity
-                                                .setPlaceText(MyUtils.currentCityEn);
+                                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                                            CreateResumePersonInfoActivity
+                                                    .setPlaceText(MyUtils.currentCityEn);
+                                            backPage(fromActivity);
+                                        }else{
+                                            return;
+                                        }
                                     }
                                     break;
                                 default:
                                     break;
                             }
-                            backPage(fromActivity);
                             return;
                         }
                         if (zhixiashiORhotcity.contains(dataArrayList.get(position - 1).get("value"))) {
@@ -309,12 +329,13 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                                                 "数量已达最大值",
                                                 Toast.LENGTH_SHORT)
                                                 .show();
-                                    checkStateHashMap.put(dataArrayList2
-                                                    .get(position).get("key"),
-                                            true);
+
 
                                         return;
                                     }
+                                    checkStateHashMap.put(dataArrayList2
+                                                    .get(position).get("key"),
+                                            true);
                                 } else {
                                     // 如果已选title，则移除本title
                                     checkStateHashMap

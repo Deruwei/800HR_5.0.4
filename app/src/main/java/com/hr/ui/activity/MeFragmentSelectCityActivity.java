@@ -99,12 +99,14 @@ public class MeFragmentSelectCityActivity extends BaseActivity implements View.O
                 public void onItemClick(AdapterView<?> parent,
                                         View view, int position, long itemId) {
                     if (position == 0) {
-                        MeFragment.meFragment
-                                .setPlaceId(locationCityID);
-                        MeFragment.meFragment.setPlaceText(MyUtils.currentCityZh);
+                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                            MeFragment.meFragment
+                                    .setPlaceId(locationCityID);
+                            MeFragment.meFragment.setPlaceText(MyUtils.currentCityZh);
 
-                        System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
-                        toSearchJob();
+                            System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
+                            toSearchJob();
+                        }
                         return;
                     }
                     if (zhixiashiORhotcity.contains(dataArrayList

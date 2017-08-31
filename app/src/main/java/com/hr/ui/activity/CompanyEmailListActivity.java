@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class CompanyEmailListActivity extends BaseActivity implements OnClickListener,
         OnItemClickListener {
     ListView listview;
+    private TextView tv_noDataCompanyEmail;
     private MyBaseAdpter myBaseAdpter;
     private String page_nums = "20";// 总记录数
     private ArrayList<Invitedinfo> listInvitedinfos;
@@ -42,18 +43,20 @@ public class CompanyEmailListActivity extends BaseActivity implements OnClickLis
         MobclickAgent.onEvent(this, "cv-interview");
         setContentView(R.layout.activity_company_email_list);
         listview = (ListView) findViewById(R.id.listview_search);
+        tv_noDataCompanyEmail= (TextView) findViewById(R.id.tv_noDataCompany);
+        iv_companyemail_list_back = (ImageView) findViewById(R.id.iv_companyemail_list_back);
         init();
     }
 
     private void init() {
         // TODO Auto-generated method stub
         listInvitedinfos = new ArrayList<Invitedinfo>();
-        myBaseAdpter = new MyBaseAdpter(mContext, listInvitedinfos);
-        listview.setAdapter(myBaseAdpter);
+            myBaseAdpter = new MyBaseAdpter(mContext, listInvitedinfos);
+            listview.setAdapter(myBaseAdpter);
         listview.setOnItemClickListener(this);
-        iv_companyemail_list_back = (ImageView) findViewById(R.id.iv_companyemail_list_back);
+
         iv_companyemail_list_back.setOnClickListener(this);
-        new AsyncPersonCenterInvited(mContext, listInvitedinfos, myBaseAdpter, listview).execute("user_stow.invited", "0", "50");
+        new AsyncPersonCenterInvited(mContext, listInvitedinfos, myBaseAdpter, listview,tv_noDataCompanyEmail).execute("user_stow.invited", "0", "50");
     }
 
     private class MyBaseAdpter extends BaseAdapter {

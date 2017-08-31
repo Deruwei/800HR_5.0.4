@@ -49,7 +49,9 @@ public class BindSecondFragment extends BaseFragment{
     @Bind(R.id.frame_bindlogin_userlogin)
     FrameLayout frameBindloginUserlogin;
     private String third_code, third_uid, user_name, industry,third_userinfo,phoneNum,psw;
+    private String username,userpassword;
     private SharedPreferencesUtils sUtils;
+    private int type=0;
     private Handler handlerLogin = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
@@ -65,8 +67,13 @@ public class BindSecondFragment extends BaseFragment{
             switch (msg.what) {
                 case 0:
                     MyUtils.isLogin = true;
-                    AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(),phoneNum,psw, handlerLogin,third_code, third_uid, industry,third_userinfo,"0");
-                    asyncBindThird.execute();
+                    if(type==0) {
+                        AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(), phoneNum, psw, handlerLogin, third_code, third_uid, industry, third_userinfo, "0");
+                        asyncBindThird.execute();
+                    }else{
+                        AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(), handlerLogin,third_code, third_uid, industry, username, userpassword,third_userinfo,"0");
+                        asyncBindThird.execute2();
+                    }
                     break;
                 default:
                     break;
@@ -127,6 +134,7 @@ public class BindSecondFragment extends BaseFragment{
         } else if (psw == null || psw.equals("")) {
             Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
+            type=0;
             AsyncNewLoginPhone asyncLogin = new AsyncNewLoginPhone(getActivity(), handler);
             asyncLogin.execute(phoneNum, psw, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
         }
@@ -135,15 +143,16 @@ public class BindSecondFragment extends BaseFragment{
      * 确认登录
      */
     private void  saveInfo2() {
-        String username = etBindloginUsername.getText().toString().trim();
-        String userpassword = etBindloginUserpwd.getText().toString().trim();
+        username = etBindloginUsername.getText().toString().trim();
+        userpassword = etBindloginUserpwd.getText().toString().trim();
         if (username == null || username.equals("")) {
             Toast.makeText(getActivity(), "请输入用户名", Toast.LENGTH_SHORT).show();
         } else if (userpassword == null || userpassword.equals("")) {
             Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
-            AsyncBindThird asyncBindThird = new AsyncBindThird(getActivity(), handlerLogin,third_code, third_uid, industry, username, userpassword,third_userinfo,"0");
-            asyncBindThird.execute2();
+            type=1;
+            AsyncLogin asyncLogin = new AsyncLogin(getActivity(), handler);
+            asyncLogin.execute(username, userpassword, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
         }
     }
 }

@@ -190,7 +190,7 @@ public class ModifyPlantActivity extends BaseResumeActivity {
             return;
         }
 
-        if (etResumeItemModifytrainCertificate.getText().toString().trim().length() == 0) {
+     /*   if (etResumeItemModifytrainCertificate.getText().toString().trim().length() == 0) {
             Toast.makeText(context, "请输入所获得证书", Toast.LENGTH_LONG).show();
             return;
         }
@@ -205,7 +205,7 @@ public class ModifyPlantActivity extends BaseResumeActivity {
                 .toString().trim().length() == 0) {
             Toast.makeText(context, "请输入培训描述", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
         String starttimeString = tvResumeItemModifytrainStarttime
                 .getText().toString().trim();
         String[] starttimeStrings;
@@ -322,6 +322,7 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         }
     }
     private void next(){
+        MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {

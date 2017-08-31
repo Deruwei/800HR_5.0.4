@@ -107,10 +107,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     private LinearLayout ll_viewArea;
     private LinearLayout.LayoutParams parm;
     private ViewArea viewArea;
-    private ImageView iv_xiala;
-    private PosterDialog.Builder posterDialog;
     private ExpandableTextView expandableTextView;
-    private boolean isExpanded;
 
     /**
      * UIL配置信息
@@ -199,8 +196,8 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     // 设置页面的value
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+            dialogUtils.dismissDialog();
             if (msg != null) {
-                dialogUtils.dismissDialog();
 //                onCreate(null);// 刷新页面
                 resultPostMap = (HashMap<String, String>) msg.obj;
                 tv_postparticular_postname.setText(resultPostMap.get("job_name"));
@@ -210,7 +207,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 tv_postparticular_releasetime.setText(resultPostMap.get("issue_date"));
                 tv_postparticular_exp.setText(resultPostMap.get("workyear"));
                 String str=resultPostMap.get("synopsis");
-                Log.i("职位的信息",str);
+                //Log.i("职位的信息",str);
                 tv_postparticular_postparticular.setText(str);
                /* ViewTreeObserver vto2 = tv_postparticular_postparticular.getViewTreeObserver();
                 vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -263,15 +260,13 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     bt_postparticulars_send.setText("已投递");
                     bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
                 }
-            }else{
-                dialogUtils.dismissDialog();
             }
         }
     };
     Handler handlerForCom = new Handler() {
         public void handleMessage(Message msg) {
+            dialogUtils.dismissDialog();
             if (msg != null) {
-                dialogUtils.dismissDialog();
                 resultComMap = (HashMap<String, String>) msg.obj;
                 tv_postparticular_comname2.setText(resultComMap.get("enterprise_name"));
                 tv_postparticular_nature.setText(resultComMap.get("company_type"));
@@ -284,8 +279,6 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                     imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo, options);
                     imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo2, options);
                 }
-            }else{
-                dialogUtils.dismissDialog();
             }
         }
     };
@@ -355,6 +348,9 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     protected void onDestroy() {
         super.onDestroy();
         dialogUtils.dismissDialog();
+        if(popupWindow!=null) {
+            popupWindow.dismiss();
+        }
     }
     /**
      * 初始化UIL
@@ -437,7 +433,6 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
      * 加载公司详情数据
      */
     private void loadComNetData() {
-        dialogUtils.showDialog();
         new AsyncCompanyIntroduce(this, handlerForCom).execute("job.enterprise", comId);
     }
 

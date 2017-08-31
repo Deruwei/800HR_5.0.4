@@ -56,6 +56,7 @@ public class PreviewResumeActivity extends BaseActivity {
     /**
      * SharedPreference工具类
      */
+    private RelativeLayout rl_territory;
     private SharedPreferencesUtils sUtils;
     private ImageView iv_previewresume_back, iv_previewresume_head;
     private TextView tv_previewresume_resumename, tv_previewresume_sex, tv_previewresume_home, tv_resume_previewresume_desp, tv_previewresume_phonenum, tv_previewresume_birthday, tv_previewresume_state, tv_previewresume_func, tv_previewresume_places,
@@ -831,6 +832,7 @@ public class PreviewResumeActivity extends BaseActivity {
 
         tv_previewresume_jobnum = (TextView) findViewById(R.id.tv_previewresume_jobnum);
         tv_previewresume_salary = (TextView) findViewById(R.id.tv_previewresume_salary);
+        rl_territory= (RelativeLayout) findViewById(R.id.rl_previewresume_territory);
         tv_previewresume_func = (TextView) findViewById(R.id.tv_previewresume_func);
         tv_previewresume_name = (TextView) findViewById(R.id.tv_previewresume_name);
         tv_myresume_selfassessment = (TextView) findViewById(R.id.tv_myresume_selfassessment);
@@ -845,7 +847,12 @@ public class PreviewResumeActivity extends BaseActivity {
         tv_previewresume_places = (TextView) findViewById(R.id.tv_previewresume_places);
         tv_previewresume_territory = (TextView) findViewById(R.id.tv_previewresume_territory);
         tv_previewresume_home = (TextView) findViewById(R.id.tv_previewresume_home);
-
+        if("11".equals(MyUtils.industryId) || "12".equals(MyUtils.industryId) ||
+                "14".equals(MyUtils.industryId) || "29".equals(MyUtils.industryId)||"22".equals(MyUtils.industryId)){
+            rl_territory.setVisibility(View.VISIBLE);
+        }else{
+            rl_territory.setVisibility(View.GONE);
+        }
 //        tv_myresumescan_persioninfo = (TextView) findViewById(R.id.tv_myresumescan_persioninfo);
 //        tv_myresumescan_order = (TextView) findViewById(R.id.tv_myresumescan_order);
 //        tv_myresumescan_edu = (TextView) findViewById(R.id.tv_myresumescan_edu);
@@ -860,7 +867,6 @@ public class PreviewResumeActivity extends BaseActivity {
 
         findViewById(R.id.activity_resume_scan_educationexperience_linnearlayout);
         findViewById(R.id.activity_resume_scan_workexperience_linnearlayout);
-
         iv_previewresume_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

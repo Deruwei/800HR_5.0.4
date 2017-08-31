@@ -189,6 +189,7 @@ public class ModifySkillActivity extends BaseResumeActivity {
     }
 
     private void next() {
+        MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {

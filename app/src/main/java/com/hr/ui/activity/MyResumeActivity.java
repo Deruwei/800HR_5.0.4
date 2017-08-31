@@ -332,11 +332,6 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (listResumeIsApp.size() == 0) {
-            MeFragment.newAppResume = true;
-            MeFragment.isLoad = true;
-            finish();
-        }
         // 网络获取的有app简历
         try {
             JSONArray jsonArray2 = new JSONArray(listResumeJsonString);
@@ -355,6 +350,10 @@ public class MyResumeActivity extends BaseActivity implements View.OnClickListen
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        if (listResumeIsApp.size() == 0&&isHaveAppResume==false) {
+            MeFragment.newAppResume = true;
+            MeFragment.isLoad = true;
         }
         //网络没有
         if (!isHaveAppResume) {

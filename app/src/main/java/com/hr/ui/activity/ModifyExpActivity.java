@@ -364,6 +364,8 @@ public class ModifyExpActivity extends BaseResumeActivity {
         }
     }
     private void next(){
+        MyUtils.canResumeReflesh=true;
+        MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {

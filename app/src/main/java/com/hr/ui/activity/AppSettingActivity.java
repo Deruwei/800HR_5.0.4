@@ -32,6 +32,7 @@ public class AppSettingActivity extends BaseActivity implements View.OnClickList
     private SharedPreferencesUtils sUtils;
     public static AppSettingActivity appSettingActivity;
     private boolean isAutoLogin;
+    private DAO_DBOperator dbOperator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class AppSettingActivity extends BaseActivity implements View.OnClickList
         initView();
     }
     private void initView() {
+        dbOperator = new DAO_DBOperator(this);
         iv_settingapp_back = (ImageView) findViewById(R.id.iv_settingapp_back);
         iv_settingapp_autologin1 = (ImageView) findViewById(R.id.iv_settingapp_autologin1);
         rl_settingapp_note = (RelativeLayout) findViewById(R.id.rl_settingapp_note);
@@ -193,6 +195,7 @@ public class AppSettingActivity extends BaseActivity implements View.OnClickList
                                 asyncLogout.execute();
                                 // 注销成功后，取消自动登录
                                 sUtils.deleteUserInfo();
+                                dbOperator.Delete_KeyWorldHistory(MyUtils.industryId);
                                 // 发送消息，关闭所有界面，回到行业选择
                                 dialog.dismiss();
 //                                Intent intent = new Intent(mContext, MainActivity.class);

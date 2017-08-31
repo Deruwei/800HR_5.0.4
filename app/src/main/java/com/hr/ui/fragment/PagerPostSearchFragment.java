@@ -34,6 +34,7 @@ import com.hr.ui.model.HistoyInfo;
 import com.hr.ui.model.Industry;
 import com.hr.ui.utils.CityNameConvertCityID;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.NoDoubleClickListener;
 import com.hr.ui.utils.OnItemClick;
 import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
@@ -249,7 +250,18 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
 
         rl_post_medical.setOnClickListener(this);
         rl_post_function.setOnClickListener(this);
-        bt_post_search.setOnClickListener(this);
+        bt_post_search.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View view) {
+                placeId = CityNameConvertCityID.convertCityID(getActivity(), cityName);
+                if (tv_post_function.getText().toString().trim().equals("全部职能") || tv_post_function.getText().toString().trim().equals("")) {
+                    Toast.makeText(getActivity(), "请选择职能", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveHistory();
+                    initactivity();
+                }
+            }
+        });
 
         switch (industryId) {
             case 11:// 建筑
@@ -389,15 +401,6 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
                 bundle.putString("value", "职能");
                 function.putExtras(bundle);
                 startActivity(function);
-                break;
-            case R.id.bt_post_search:
-                placeId = CityNameConvertCityID.convertCityID(getActivity(), cityName);
-                if (tv_post_function.getText().toString().trim().equals("全部职能") || tv_post_function.getText().toString().trim().equals("")) {
-                    Toast.makeText(getActivity(), "请选择职能", Toast.LENGTH_SHORT).show();
-                } else {
-                    saveHistory();
-                    initactivity();
-                }
                 break;
             case R.id.rl_post_medical:
                 // 加载职系选择页

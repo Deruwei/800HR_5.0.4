@@ -210,6 +210,7 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
         }
     }
     private void next(){
+        MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {

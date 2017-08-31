@@ -131,6 +131,7 @@ public class MyResumeFragment extends BaseFragment {
      */
     private SharedPreferencesUtils sUtils;
     private ImageView iv_previewresume_head;
+    private int type=1;
 //            iv_previewresume_sex;
 
     private TextView tv_myresume_baseinfo, tv_myresume_edu_modify, tv_previewresume_sex, tv_previewresume_back, tv_gome, tv_previewresume_home, tv_resume_previewresume_desp, tv_previewresume_phonenum, tv_previewresume_birthday, tv_previewresume_state, tv_previewresume_func, tv_previewresume_places,
@@ -266,12 +267,15 @@ public class MyResumeFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    getData();
                     break;
                 case 1:
+                    getData();
                     Intent intentPhoneState = new Intent(getActivity(), VerifyPhoneNumStateActivity.class);
                     startActivity(intentPhoneState);
                     break;
                 case 2:
+                    getData();
                     break;
                 default:
                     Toast.makeText(getActivity(), "验证手机号失败", Toast.LENGTH_SHORT).show();
@@ -284,15 +288,11 @@ public class MyResumeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         MyUtils.canMeReflesh=false;
-        getData();
-
+        if(MyUtils.canResumeReflesh==true){
+            MyUtils.canResumeReflesh=false;
+            getData();
+        }
 //
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        MyUtils.canResumeReflesh=true;
     }
 
     public void getData() {
@@ -305,7 +305,11 @@ public class MyResumeFragment extends BaseFragment {
     public void getResumeList() {
         dbOperator = new DAO_DBOperator(getActivity());
         listResume = new ArrayList<ResumeList>();
-        dialogUtils.showDialog();
+        if(type==1) {
+            dialogUtils.showDialog();
+        }else{
+            type=1;
+        }
         AsyncGetResumeList asyncGetResumeList = new AsyncGetResumeList(getActivity());
         asyncGetResumeList.execute();
     }
@@ -449,7 +453,9 @@ public class MyResumeFragment extends BaseFragment {
         baseInfoZh = dbOperator.query_ResumePersonInfo_Toone("zh");
         baseInfoEn = dbOperator.query_ResumePersonInfo_Toone("en");
         if (resumeTitle != null) {
-            HrApplication.resumeTime = DataUtils.timeYearDay(resumeTitle.getModify_time());
+            if(!"".equals(resumeTitle.getModify_time())&&resumeTitle.getModify_time()!=null) {
+                HrApplication.resumeTime = DataUtils.timeYearDay(resumeTitle.getModify_time());
+            }
             tv_myresume_baseinfo.setText(resumeTitle.getTitle());
         }
     }
@@ -1263,7 +1269,7 @@ public class MyResumeFragment extends BaseFragment {
 
     private void setOpen() {
         Async_MyResume_Open resumesDetail = new Async_MyResume_Open(getActivity());
-
+        type=2;
         if (resumeTitle.getOpen().equals("0")) {
             resumesDetail.execute("2", resumeID);
         } else if (resumeTitle.getOpen().equals("2")) {
@@ -1782,10 +1788,6 @@ public class MyResumeFragment extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (listResumeIsApp.size() == 0) {
-            MainActivity.instanceMain.createNewResume();
-            return;
-        }
         // 网络获取的有app简历
         try {
             JSONArray jsonArray2 = new JSONArray(listResumeJsonString);
@@ -1810,6 +1812,12 @@ public class MyResumeFragment extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        if (isHaveAppResume==false&&listResumeIsApp.size()==0) {
+            MainActivity.instanceMain.isHaveAppResume=false;
+            return;
+        }else{
+            MainActivity.instanceMain.isHaveAppResume=true;
+        }
         //网络没有
         if (!isHaveAppResume&&listResumeIsApp.size()>1) {
             chooseIsApp();
@@ -1830,7 +1838,6 @@ public class MyResumeFragment extends BaseFragment {
      * 刷新简历
      */
     private void refreshResume() {
-        dialogUtils.showDialog();
         AsyncResumeCenterGetResumesDetail resumesDetail = new AsyncResumeCenterGetResumesDetail(getActivity(), handlerRefreshResume, resumeID, "zh");
         resumesDetail.execute();
     }
@@ -1917,7 +1924,6 @@ public class MyResumeFragment extends BaseFragment {
             requestParams.put("resume_id", resumeID);
             requestParams.put("resume_language", "zh");
             requestParams.put("important", "1");
-            dialogUtils.showDialog();
             NetService service = new NetService(getActivity(), handlerIsApp);
             service.execute(requestParams);
 
@@ -1935,7 +1941,6 @@ public class MyResumeFragment extends BaseFragment {
     private Handler handlerIsApp = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                dialogUtils.dismissDialog();
                 String json = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(json);

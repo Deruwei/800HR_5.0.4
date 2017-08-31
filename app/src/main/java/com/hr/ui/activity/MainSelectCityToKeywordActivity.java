@@ -2,6 +2,7 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
@@ -104,16 +106,14 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                         FindjobFragment
                                 .setPlaceId(locationCityID);
                         String city="";
-                        if(MyUtils.currentCityZh.length()>0){
+                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null){
                             city=MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1);
                             MyUtils.selectCityId= ResumeInfoIDToString.getCityID(mContext,city,true);
                             MyUtils.selectCityZh=city;
                             FindjobFragment.setPlaceText(city);
-                        }else{
-                            FindjobFragment.setPlaceText("定位失败");
+                            toSearchJob();
                         }
                         //System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
-                        toSearchJob();
                         return;
                     }
                     if (zhixiashiORhotcity.contains(dataArrayList

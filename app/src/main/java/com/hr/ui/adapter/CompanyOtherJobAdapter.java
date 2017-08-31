@@ -35,7 +35,6 @@ public class CompanyOtherJobAdapter extends RecyclerView.Adapter<CompanyOtherJob
     /**
      * 本地缓存图片名字
      */
-    private SharedPreferencesUtils sUtils;
 
     public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
         this.dataList = dataList;
@@ -43,7 +42,6 @@ public class CompanyOtherJobAdapter extends RecyclerView.Adapter<CompanyOtherJob
 
     public CompanyOtherJobAdapter(Context context) {
         this.mContext = context;
-        sUtils = new SharedPreferencesUtils(mContext);
     }
 
     @Override

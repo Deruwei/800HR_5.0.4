@@ -2,8 +2,10 @@ package com.hr.ui.utils.netutils;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.model.Invitedinfo;
@@ -25,6 +27,7 @@ public class AsyncPersonCenterInvited {
     private ArrayList<Invitedinfo> listInvitedinfoInfos;
     private String listTagString = "invited_list";// json中数组对象名称
     private BaseAdapter adapter;
+    TextView tv_noData;
     ListView listview;
     private Handler handlerService = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -74,6 +77,13 @@ public class AsyncPersonCenterInvited {
                             // JSONObject jsonObject2 =
                             // jsonObject.getJSONObject("navpage_info");
                             // record_nums = jsonObject2.getString("record_nums");
+                            if(listInvitedinfoInfos!=null&&!"".equals(listInvitedinfoInfos)&&listInvitedinfoInfos.size()!=0) {
+                                tv_noData.setVisibility(View.GONE);
+                                listview.setVisibility(View.VISIBLE);
+                            }else{
+                                tv_noData.setVisibility(View.VISIBLE);
+                                listview.setVisibility(View.GONE);
+                            }
                             adapter.notifyDataSetChanged();
                             break;
                         default:
@@ -95,11 +105,12 @@ public class AsyncPersonCenterInvited {
      *
      */
     public AsyncPersonCenterInvited(Context context, ArrayList<Invitedinfo> listInvitedinfoInfos,
-                                    BaseAdapter baseAdapter, ListView listview) {
+                                    BaseAdapter baseAdapter, ListView listview, TextView tv_noData) {
         this.context = context;
         this.listInvitedinfoInfos = listInvitedinfoInfos;
         this.adapter = baseAdapter;
         this.listview = listview;
+        this.tv_noData=tv_noData;
     }
 
     public void execute(String method, String page, String page_nums) {

@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 
 public abstract class NoDoubleClickListener implements View.OnClickListener {
-    public static final int MIN_CLICK_DELAY_TIME = 2000;
+    public final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
 
     @Override
@@ -21,6 +21,6 @@ public abstract class NoDoubleClickListener implements View.OnClickListener {
         }
     }
 
-    protected abstract void onNoDoubleClick(View v);
+    protected abstract void onNoDoubleClick(View view);
 
 }

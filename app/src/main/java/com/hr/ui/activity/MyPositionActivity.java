@@ -75,13 +75,12 @@ public class MyPositionActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                srPosition.setRefreshing(false);
                 String json = (String) msg.obj;
                 try {
 
                     JSONObject jsonObject = new JSONObject(json);
                     // System.out.println("我申请的职位：" + jsonObject);
-                    Log.i("我申请的职位",jsonObject.toString());
+                   // Log.i("我申请的职位",jsonObject.toString());
                     int error_code = jsonObject.getInt("error_code");
                     switch (error_code) {
                         case 0:// 请求成功
@@ -161,9 +160,8 @@ public class MyPositionActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
-                srPosition.setRefreshing(false);
             }
+            srPosition.setRefreshing(false);
         }
     };
 
@@ -248,6 +246,7 @@ public class MyPositionActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        srPosition.setRefreshing(false);
         ButterKnife.unbind(this);
     }
  /*   private void getData(){
@@ -280,15 +279,15 @@ public class MyPositionActivity extends BaseActivity {
     private void initData() {
 /*        isLoading = false;
         isLoadAll = false;*/
-        Log.i("申请的数据",listapplied.toString());
+        //Log.i("申请的数据",listapplied.toString());
         positionAdpter = new MyPositionAdapter(this);
         if(listapplied!=null&&!"".equals(listapplied)) {
             positionAdpter.setListapplied(listapplied);
             if(index==1) {
-                Log.i("申请的数据1",listapplied.toString());
+               // Log.i("申请的数据1",listapplied.toString());
                 lvMyPositionListview.setAdapter(positionAdpter);
             }else{
-                Log.i("申请的数据2",listapplied.toString());
+                //Log.i("申请的数据2",listapplied.toString());
                 positionAdpter.notifyDataSetChanged();
             }
         }

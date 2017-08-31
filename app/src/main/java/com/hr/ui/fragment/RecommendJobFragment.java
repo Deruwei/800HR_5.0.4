@@ -340,7 +340,7 @@ public class RecommendJobFragment extends BaseFragment {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                dialogUtils.dismissDialog();
+
                 json_result = (String) msg.obj;
                    dataList=new ArrayList<>();
                     dataList = GetJssonList.searchResult_json(json_result);// 状态码
@@ -357,8 +357,11 @@ public class RecommendJobFragment extends BaseFragment {
                         rlRecfragmentEmpty.setVisibility(View.VISIBLE);
                     }
             }else{
-                dialogUtils.dismissDialog();
+                lrRecfragmentJob.setVisibility(View.VISIBLE);
+                lvRecommendfragment.setVisibility(View.GONE);
+                rlRecfragmentEmpty.setVisibility(View.GONE);
             }
+            dialogUtils.dismissDialog();
         }
 
 

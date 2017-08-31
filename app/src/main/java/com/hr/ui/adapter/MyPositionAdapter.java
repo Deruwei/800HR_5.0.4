@@ -15,6 +15,7 @@ import com.hr.ui.model.PositionInfo;
 import com.hr.ui.utils.OnItemClick;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,7 +69,7 @@ public class MyPositionAdapter extends RecyclerView.Adapter<MyPositionAdapter.My
 
     @Override
     public int getItemCount() {
-        return listapplied.size();
+        return listapplied==null ? 0 : listapplied.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {

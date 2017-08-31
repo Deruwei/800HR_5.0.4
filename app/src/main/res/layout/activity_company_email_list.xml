@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#fff"
+    android:background="#EBEBEB"
     android:orientation="vertical">
 
     <!-- start title -->
@@ -28,12 +28,29 @@
             android:textColor="#fff"
             android:textSize="22sp" />
     </RelativeLayout>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/listview_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#0000"
         android:dividerHeight="5dp"
-        android:listSelector="#0000"></ListView>
+        android:listSelector="#0000">
+
+    </ListView>
+    <TextView
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dimen_10px"
+        android:gravity="center"
+        android:id="@+id/tv_noDataCompany"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="@dimen/dimen_50px"
+        android:text="@string/companyNoData"
+        android:listSelector="#0000">
+
+    </TextView>
+    </RelativeLayout>
 </LinearLayout>

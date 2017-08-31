@@ -104,8 +104,8 @@ public class WelcomeActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_welcome);
         dialogUtils=new RefleshDialogUtils(this);
-       /* NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(
-                this.getApplicationContext());*/
+        NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(
+                this.getApplicationContext());
         welcomeActivity = WelcomeActivity.this;
 //        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(this);
         sUtils = new SharedPreferencesUtils(WelcomeActivity.this);

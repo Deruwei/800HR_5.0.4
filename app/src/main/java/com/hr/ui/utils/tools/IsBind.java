@@ -11,6 +11,7 @@ import com.hr.ui.R;
 import com.hr.ui.activity.NewBindActivity;
 import com.hr.ui.activity.NewLoginActivity;
 import com.hr.ui.activity.OpenBindActivity;
+import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
@@ -71,7 +72,8 @@ public class IsBind {
                             sUtils.setStringValue("autoLoginIndustry", industry);
                             sUtils.setStringValue("autoLoginThired", "1");//1为自动登录
                             Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT).show();
-                            NewLoginActivity.newLoginActivity.finish();
+                            RecommendJobFragment.recommendJobFragment.initView();
+                            NewLoginActivity.newLoginActivity.execute();
                             break;
                         case 305:// 第一次绑定账号
                             Intent intent = new Intent(context, NewBindActivity.class);

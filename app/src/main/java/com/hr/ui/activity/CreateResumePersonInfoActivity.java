@@ -501,8 +501,10 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(MyUtils.currentCityZh.equals(placeName)){
-                placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
+            if(MyUtils.currentCityZh!=null&&!MyUtils.currentCityZh.equals("")) {
+                if (MyUtils.currentCityZh.equals(placeName)) {
+                    placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
+                }
             }
             if (placeIdNowPlace == null || "".equals(placeIdNowPlace)
                     || "0".equals(placeIdNowPlace)) {

@@ -105,11 +105,12 @@ public class SelectCitySubscriptionActivity extends BaseActivity {
                 public void onItemClick(AdapterView<?> parent,
                                         View view, int position, long itemId) {
                     if (position == 0) {
-                        SubscriptionActivity.subscriptionActivity.setPlaceId(locationCityID);
-                        SubscriptionActivity.subscriptionActivity.setPlaceText(MyUtils.currentCityZh);
-
-                        System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
-                        toSearchJob();
+                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                            SubscriptionActivity.subscriptionActivity.setPlaceId(locationCityID);
+                            SubscriptionActivity.subscriptionActivity.setPlaceText(MyUtils.currentCityZh);
+                            System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
+                            toSearchJob();
+                        }
                         return;
                     }
                     if (zhixiashiORhotcity.contains(dataArrayList

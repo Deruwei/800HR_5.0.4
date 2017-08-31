@@ -66,7 +66,7 @@ public class MyWhoLookMeAdapter extends RecyclerView.Adapter<MyWhoLookMeAdapter.
 
     @Override
     public int getItemCount() {
-        return listBrowsedInfos.size();
+        return listBrowsedInfos==null ? 0 : listBrowsedInfos.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -100,12 +100,14 @@ public class SelectCityRecommendJobActivity extends BaseActivity implements View
                 public void onItemClick(AdapterView<?> parent,
                                         View view, int position, long itemId) {
                     if (position == 0) {
-                        RecommendJobFragment
-                                .setPlaceId(ResumeInfoIDToString.getCityID(SelectCityRecommendJobActivity.this,MyUtils.currentCityZh,true));
-                        RecommendJobFragment.setPlaceText(MyUtils.currentCityZh);
 
-                        System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
-                        toSearchJob();
+                        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+                            RecommendJobFragment
+                                .setPlaceId(ResumeInfoIDToString.getCityID(SelectCityRecommendJobActivity.this,MyUtils.currentCityZh,true));
+                            RecommendJobFragment.setPlaceText(MyUtils.currentCityZh);
+                            //System.out.println("id:" + locationCityID + " value:" + MyUtils.currentCityZh);
+                            toSearchJob();
+                        }
                         return;
                     }
                     if (zhixiashiORhotcity.contains(dataArrayList

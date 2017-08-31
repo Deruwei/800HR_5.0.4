@@ -87,7 +87,9 @@ public class NewLoginActivity extends BaseFragmentActivity {
     }
 
     public void execute() {
-        MainActivity.instanceMain.refreshBaseInfo();
+        if(MainActivity.instanceMain!=null) {
+            MainActivity.instanceMain.refreshBaseInfo();
+        }
 //        if (goType.equals("1")) {
 //            MainActivity.instanceMain.setTabSelect(3);
 //        }

@@ -45,7 +45,6 @@ public class Async_MyResume_Open {
             }
         }
 
-        ;
 
     };
 

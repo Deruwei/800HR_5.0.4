@@ -93,7 +93,6 @@ public class DataUtils {
     }
     public static String timeYearDay(String time) {
         SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
-        @SuppressWarnings("unused")
         /*long lcc = Long.valueOf(time);*/
         int i = Integer.parseInt(time);
         String times = sdr.format(new Date(i * 1000L));

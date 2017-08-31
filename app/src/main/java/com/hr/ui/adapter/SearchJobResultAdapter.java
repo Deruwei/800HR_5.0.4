@@ -303,7 +303,7 @@ public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResult
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList==null ? 0 : dataList.size();
     }
 
    /* @Override

@@ -737,6 +737,7 @@
     <string name="unuser_sdcard">存储卡不可用或不存在</string>
     <string name="feedback">意见反馈</string>
     <string name="about_us">关于</string>
+    <string name="companyNoData">没有公司的来信！</string>
     <string name="noData_whoLookMe">暂无数据，请多投点简历！</string>
     <string name="no_data">品牌招聘暂无数据</string>
     <string name="no_dataCompany">炫公司暂无数据</string>

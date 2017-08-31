@@ -63,6 +63,7 @@ import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.ResumeComplete;
+import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.ResumeListStringJsonParser;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.datautils.TestSD;
@@ -253,10 +254,7 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (listResumeIsApp.size() == 0) {
-                        MeFragment.newAppResume = true;
-                        MeFragment.isLoad = true;
-                    }
+
                     // 网络获取的有app简历
                     try {
                         JSONArray jsonArray2 = new JSONArray(listResumeJsonString);
@@ -274,6 +272,10 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }
+                    if (listResumeIsApp.size() == 0&&isHaveAppResume==false) {
+                        MeFragment.newAppResume = true;
+                        MeFragment.isLoad = true;
                     }
                     updateUI();
                 } catch (JSONException e) {
@@ -890,6 +892,13 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
 //            }
         }
         tv_me_resumeupdata.setText("更新时间：" + (HrApplication.resumeTime + ""));
+        if(!"".equals(MyUtils.currentCityZh)&&MyUtils.currentCityZh!=null) {
+            setPlaceText(MyUtils.currentCityZh);
+            setPlaceId(ResumeInfoIDToString.getCityID(getActivity(), MyUtils.currentCityZh, true));
+        }else{
+            setPlaceText("北京");
+            setPlaceId(ResumeInfoIDToString.getCityID(getActivity(), "北京", true));
+        }
         if (HrApplication.userJob == null && HrApplication.userJob.toString().length() == 0) {
             tv_me_job.setText("无职位");
         } else {

@@ -202,12 +202,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     }
     public void whatState() {
         if (MyUtils.isLogin) {
-            if (newAppResume) {
+           /* if (newAppResume) {
                 drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //关闭手势滑动
 //                createNewResume();
             } else {
                 drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED); //打开手势滑动
-            }
+            }*/
             drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED); //打开手势滑动
         } else {
             drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //关闭手势滑动
@@ -465,7 +465,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             case R.id.linear_main_me:
                 if (MyUtils.ableInternet) {
                     if (MyUtils.isLogin) {
-                        if (newAppResume) {
+                        if (newAppResume==true) {
                             createNewResume();
                         } else {
                             setTabSelect(3);
@@ -787,12 +787,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (listResumeIsApp.size() == 0) {
-                        newAppResume = true;
-                        isLoad = true;
-                        createNewResume();
-//            finish();
-                    }
                     whatState();
                     // 网络获取的有app简历
                     try {
@@ -812,6 +806,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    if (listResumeIsApp.size() == 0&&isHaveAppResume==false) {
+                        newAppResume = true;
+                        isLoad = true;
+                        createNewResume();
+//            finish();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -826,7 +826,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      */
     public void createNewResume() {
         if (MyUtils.ableInternet) {
-            if (!isHaveResume) {
+            if (isHaveResume==false) {
                 Intent intentResume2 = new Intent(mContext, CreateResumePersonInfoActivity.class);
                 intentResume2.putExtra("resumeId", "-1");
                 intentResume2.putExtra("resumeLanguage", "zh");
