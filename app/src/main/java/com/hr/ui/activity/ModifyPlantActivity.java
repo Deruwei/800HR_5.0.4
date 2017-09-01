@@ -18,6 +18,7 @@ import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeLanguageLevel;
 import com.hr.ui.model.ResumePlant;
 import com.hr.ui.utils.CityNameConvertCityID;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
@@ -78,7 +79,9 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         resumePlant = (ResumePlant) getIntent().getSerializableExtra("resumePlant");
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
-
+        if(getIntent().getStringExtra("isAdd").equals("1")){
+            tvResumeItemModifytrainDelete.setVisibility(View.GONE);
+        }
         String startTime = resumePlant.getFromyear() + "-" + resumePlant.getFrommonth();
         String endTime = resumePlant.getToyear() + "-" + resumePlant.getTomonth();
         if ("0-0".equals(startTime)) {
@@ -96,13 +99,13 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         tvResumeItemModifytrainStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemModifytrainStarttime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyPlantActivity.this,tvResumeItemModifytrainStarttime);
             }
         });
         tvResumeItemModifytrainEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemModifytrainEndtime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyPlantActivity.this,tvResumeItemModifytrainEndtime);
             }
         });
         // 期望工作地点

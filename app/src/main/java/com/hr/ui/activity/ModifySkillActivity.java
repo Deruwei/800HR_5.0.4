@@ -59,6 +59,9 @@ public class ModifySkillActivity extends BaseResumeActivity {
         resumeSkill = (ResumeSkill) getIntent().getSerializableExtra("resumeSkill");
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
+        if(getIntent().getStringExtra("isAdd").equals("1")){
+            tvResumeItemSkillmodifyDelete.setVisibility(View.GONE);
+        }
         spResumeModifyskillLevel.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_skilllevel_zh)));
         spResumeModifyskillLevel.setIds(context.getResources().getStringArray(R.array.array_skilllevel_ids));
         spResumeModifyskillLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

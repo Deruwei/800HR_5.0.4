@@ -76,7 +76,6 @@ public class AndroidUtils {
 		}
 		return osVer;
 	}
-
 	/**
 	 * 获取手机硬件信息 ---BRAND:手机系统定制商; DEVICE:设备参数; MODEL:版本
 	 * 

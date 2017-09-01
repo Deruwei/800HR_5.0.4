@@ -144,11 +144,24 @@
     <dimen name="dimen_74px">74dp</dimen>
     <dimen name="dimen_75px">75dp</dimen>
     <dimen name="dimen_140px">140dp</dimen>
-    <dimen name="text_size_15">13.0sp</dimen>
-    <dimen name="text_size_14">12.0sp</dimen>
-    <dimen name="text_size_18">16.0sp</dimen>
-    <dimen name="text_size_20">18.0sp</dimen>
-    <dimen name="text_size_16">14.0sp</dimen>
+    <dimen name="text_size_1">1.0sp</dimen>
+    <dimen name="text_size_2">2.0sp</dimen>
+    <dimen name="text_size_3">3.0sp</dimen>
+    <dimen name="text_size_4">4.0sp</dimen>
+    <dimen name="text_size_5">5.0sp</dimen>
+    <dimen name="text_size_6">6.0sp</dimen>
+    <dimen name="text_size_7">7.0sp</dimen>
+    <dimen name="text_size_8">8.0sp</dimen>
+    <dimen name="text_size_9">9.0sp</dimen>
+    <dimen name="text_size_10">10.0sp</dimen>
+    <dimen name="text_size_11">11.0sp</dimen>
+    <dimen name="text_size_17">17.0sp</dimen>
+    <dimen name="text_size_15">15.0sp</dimen>
+    <dimen name="text_size_13">13.0sp</dimen>
+    <dimen name="text_size_12">12.0sp</dimen>
+    <dimen name="text_size_16">16.0sp</dimen>
+    <dimen name="text_size_18">18.0sp</dimen>
+    <dimen name="text_size_14">14.0sp</dimen>
 
     <dimen name="title_bar_button_size">40.0dp</dimen>
 </resources>

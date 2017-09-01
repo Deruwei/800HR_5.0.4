@@ -19,6 +19,7 @@ import com.hr.ui.adapter.SpinnerAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeBaseInfo;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
@@ -387,7 +388,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 break;
             case R.id.tv_resume_personinfo_birthday:
                 modification = true;
-                DataPickerDialog.showDialog(mContext, tv_resume_personinfo_birthday, 3);
+                DatePickerUtil.initMyDatePicker2(ResumePersonInfoActivity.this,tv_resume_personinfo_birthday);
                 break;
             case R.id.iv_resume_personinfo_back:
                 showSaveDialog();

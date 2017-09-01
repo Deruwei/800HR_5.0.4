@@ -720,6 +720,7 @@
     <string name="date0">结束时间不能早于开始时间</string>
     <string name="date1">日期不能是未来时间</string>
     <!-- 如何得到 -->
+    <string name="sure">确定</string>
     <string name="select">请选择</string>
     <string name="sellerintro">销售顾问推荐</string>
     <string name="friendInto">同事朋友推荐</string>

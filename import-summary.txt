@@ -7,20 +7,19 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* PinyinSearch.iml
-* proguard-project.txt
+* build.xml
+* pom.xml
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => pinyinSearch\src\main\AndroidManifest.xml
-* assets\ => pinyinSearch\src\main\assets
-* libs\pinyin4j-2.5.0.jar => pinyinSearch\libs\pinyin4j-2.5.0.jar
-* lint.xml => pinyinSearch\lint.xml
-* res\ => pinyinSearch\src\main\res\
-* src\ => pinyinSearch\src\main\java\
+* AndroidManifest.xml => javaapkcomdatapicker_library\src\main\AndroidManifest.xml
+* assets\ => javaapkcomdatapicker_library\src\main\assets
+* lint.xml => javaapkcomdatapicker_library\lint.xml
+* res\ => javaapkcomdatapicker_library\src\main\res\
+* src\ => javaapkcomdatapicker_library\src\main\java\
 
 Next Steps:
 -----------

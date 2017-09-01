@@ -162,50 +162,43 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
-            android:layout_weight="13"
             android:orientation="horizontal">
-            <View
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
-
+                android:layout_weight="1"
+                android:layout_height="match_parent">
             <TextView
                 android:id="@+id/tv_resume_item_skillmodify_delete"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_alignBottom="@+id/tv_resume_item_skillmodify_save"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="5"
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_40px"
+                android:paddingLeft="@dimen/dimen_50px"
+                android:paddingRight="@dimen/dimen_50px"
                 android:background="@drawable/btn_1chang"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="删除此条"
+                android:text="保存"
                 android:textColor="#fff"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
-
+                android:textSize="14sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/tv_resume_item_skillmodify_save"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="5"
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_40px"
+                android:paddingLeft="@dimen/dimen_50px"
+                android:paddingRight="@dimen/dimen_50px"
                 android:background="@drawable/btn_1chang"
+                android:layout_centerInParent="true"
                 android:gravity="center"
                 android:text="保存"
                 android:textColor="#fff"
                 android:textSize="14sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
+        </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

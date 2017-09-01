@@ -15,6 +15,7 @@ import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeEducation;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
@@ -51,6 +52,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
     private DAO_DBOperator dbOperator;
     private ResumeEducation resumeEducation;
     private String resumeId, resumeLanguage;
+    private String isAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,10 @@ public class ModifyEduActivity extends BaseResumeActivity {
 
     private void initData() {
         dbOperator = new DAO_DBOperator(context);
+        isAdd=getIntent().getStringExtra("isAdd");
+        if(isAdd.equals("1")){
+            tvResumeItemNewresumeeduDelete.setVisibility(View.GONE);
+        }
         resumeEducation = (ResumeEducation) getIntent().getSerializableExtra("resumeEducation");
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
@@ -83,13 +89,13 @@ public class ModifyEduActivity extends BaseResumeActivity {
         tvResumeItemNewresumeeduStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemNewresumeeduStarttime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this,tvResumeItemNewresumeeduStarttime);
             }
         });
         tvResumeItemNewresumeeduEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemNewresumeeduEndtime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this,tvResumeItemNewresumeeduEndtime);
             }
         });
         spResumeItemNewresumeeduDegree.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_degree_zh)));

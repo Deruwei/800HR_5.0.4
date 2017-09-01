@@ -58,6 +58,9 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
         resumeLanguageLevel = (ResumeLanguageLevel) getIntent().getSerializableExtra("resumeLanguageLevel");
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
+        if(getIntent().getStringExtra("isAdd").equals("1")){
+            tvResumeItemLanguagemodifyDelete.setVisibility(View.GONE);
+        }
         spResumeModifylanguageLangname.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_language_type_zh)));
         spResumeModifylanguageLangname.setIds(context.getResources().getStringArray(R.array.array_language_type_ids));
         spResumeModifylanguageLangname

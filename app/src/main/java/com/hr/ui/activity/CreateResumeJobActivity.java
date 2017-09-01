@@ -31,6 +31,7 @@ import com.hr.ui.model.ResumeEducation;
 import com.hr.ui.model.ResumeExperience;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.CityNameConvertCityID;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.NoDoubleClickListener;
 import com.hr.ui.utils.datautils.DataPickerDialog;
@@ -257,13 +258,13 @@ public class CreateResumeJobActivity extends BaseActivity {
         tvResumeItemJobStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(mContext, tvResumeItemJobStarttime, 2);
+                DatePickerUtil.initMyDatePicker(CreateResumeJobActivity.this,tvResumeItemJobStarttime);
             }
         });
         tvResumeItemJobEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(mContext, tvResumeItemJobEndtime, 2);
+                DatePickerUtil.initMyDatePicker(CreateResumeJobActivity.this,tvResumeItemJobEndtime);
             }
         });
         tvResumeItemJobWorkplace.setOnClickListener(new View.OnClickListener() {

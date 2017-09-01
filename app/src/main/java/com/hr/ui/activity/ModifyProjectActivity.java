@@ -15,6 +15,7 @@ import com.hr.ui.adapter.ResumeProjectExpAdapter;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeExperience;
 import com.hr.ui.model.ResumeProject;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
@@ -64,6 +65,9 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         resumeProject = (ResumeProject) getIntent().getSerializableExtra("resumeProject");
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
+        if(getIntent().getStringExtra("isAdd").equals("1")){
+            tvResumeItemModifyprojectDelete.setVisibility(View.GONE);
+        }
         etResumeItemModifyprojectProjectame.setText(resumeProject.getProjectname());
         String startTime = resumeProject.getFromyear() + "-" + resumeProject.getFrommonth();
         String endTime = resumeProject.getToyear() + "-" + resumeProject.getTomonth();
@@ -81,13 +85,13 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         tvResumeItemModifyprojectStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemModifyprojectStarttime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyProjectActivity.this,tvResumeItemModifyprojectStarttime);
             }
         });
         tvResumeItemModifyprojectEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemModifyprojectEndtime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyProjectActivity.this,tvResumeItemModifyprojectEndtime);
             }
         });
     }

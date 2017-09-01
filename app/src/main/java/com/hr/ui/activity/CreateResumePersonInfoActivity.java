@@ -26,6 +26,7 @@ import com.hr.ui.model.ResumeLanguageLevel;
 import com.hr.ui.model.ResumeList;
 import com.hr.ui.model.ResumeOrder;
 import com.hr.ui.model.ResumeTitle;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
@@ -432,7 +433,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 chooseIsExit();
                 break;
             case R.id.tv_createresume_personinfo_birthday:
-                DataPickerDialog.showDialog(mContext, tv_createresume_personinfo_birthday, 3);
+                DatePickerUtil.initMyDatePicker2(CreateResumePersonInfoActivity.this,tv_createresume_personinfo_birthday);
                 break;
             case R.id.tv_createresume_personinfo_home:
                 Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);

@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.hr.ui.activity.ModifyEduActivity">
 
     <RelativeLayout
         android:id="@+id/rl_resume_modifyeduinfo_top"
         android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_height="@dimen/dimen_44px"
         android:background="@color/new_main"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -17,8 +18,8 @@
 
         <ImageView
             android:id="@+id/iv_resume_modifyeduinfo_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dimen_40px"
+            android:layout_height="@dimen/dimen_40px"
             android:src="@mipmap/nav_fanhui" />
 
         <TextView
@@ -28,7 +29,7 @@
             android:layout_centerVertical="true"
             android:text="教育背景"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="@dimen/text_size_20" />
     </RelativeLayout>
 
     <LinearLayout
@@ -44,7 +45,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/dimen_40px">
 
             <TextView
 
@@ -53,11 +54,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginLeft="@dimen/dimen_13px"
+                android:layout_marginStart="@dimen/dimen_13px"
                 android:text="学校名称"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_14" />
 
             <EditText
                 android:id="@+id/et_resume_item_newresumeedu_schoolname"
@@ -67,26 +68,26 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="@dimen/dimen_20px"
+                android:layout_marginRight="@dimen/dimen_20px"
                 android:background="@null"
                 android:gravity="right"
                 android:hint="请输入学校名称"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_14" />
         </RelativeLayout>
 
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
+            android:layout_marginLeft="@dimen/dimen_13px"
+            android:layout_marginStart="@dimen/dimen_13px"
+            android:layout_marginEnd="@dimen/dimen_13px"
+            android:layout_marginRight="@dimen/dimen_13px"
             android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            android:layout_height="@dimen/dimen_1px" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/dimen_40px">
 
             <TextView
                 android:id="@+id/textView501"
@@ -95,20 +96,20 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginLeft="@dimen/dimen_13px"
+                android:layout_marginStart="@dimen/dimen_13px"
                 android:text="开始时间"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_14" />
 
             <TextView
                 android:id="@+id/tv_resume_item_newresumeedu_starttime"
-                android:layout_width="100dp"
+                android:layout_width="@dimen/dimen_100px"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="@dimen/dimen_13px"
+                android:layout_marginRight="@dimen/dimen_13px"
                 android:layout_toLeftOf="@+id/imageView45"
                 android:layout_toStartOf="@+id/imageView45"
                 android:background="@null"
@@ -119,27 +120,27 @@
 
             <ImageView
                 android:id="@+id/imageView45"
-                android:layout_width="6dp"
-                android:layout_height="10dp"
+                android:layout_width="@dimen/dimen_6px"
+                android:layout_height="@dimen/dimen_10px"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
+                android:layout_marginEnd="@dimen/dimen_12px"
+                android:layout_marginRight="@dimen/dimen_12px"
                 android:src="@mipmap/jiantou_right" />
 
         </RelativeLayout>
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
+            android:layout_marginLeft="@dimen/dimen_13px"
+            android:layout_marginStart="@dimen/dimen_13px"
+            android:layout_marginEnd="@dimen/dimen_13px"
+            android:layout_marginRight="@dimen/dimen_13px"
             android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            android:layout_height="@dimen/dimen_1px" />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/dimen_40px">
 
             <TextView
 
@@ -148,20 +149,20 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginLeft="@dimen/dimen_13px"
+                android:layout_marginStart="@dimen/dimen_13px"
                 android:text="结束时间"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_14" />
 
             <TextView
                 android:id="@+id/tv_resume_item_newresumeedu_endtime"
-                android:layout_width="100dp"
+                android:layout_width="@dimen/dimen_100px"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="@dimen/dimen_13px"
+                android:layout_marginRight="@dimen/dimen_13px"
                 android:layout_toLeftOf="@+id/imageView451"
                 android:layout_toStartOf="@+id/imageView451"
                 android:background="@null"
@@ -172,27 +173,27 @@
 
             <ImageView
                 android:id="@+id/imageView451"
-                android:layout_width="6dp"
-                android:layout_height="10dp"
+                android:layout_width="@dimen/dimen_6px"
+                android:layout_height="@dimen/dimen_10px"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
+                android:layout_marginEnd="@dimen/dimen_12px"
+                android:layout_marginRight="@dimen/dimen_12px"
                 android:src="@mipmap/jiantou_right" />
 
         </RelativeLayout>
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
+            android:layout_marginLeft="@dimen/dimen_13px"
+            android:layout_marginStart="@dimen/dimen_13px"
+            android:layout_marginEnd="@dimen/dimen_13px"
+            android:layout_marginRight="@dimen/dimen_13px"
             android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            android:layout_height="@dimen/dimen_1px" />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/dimen_40px">
 
             <TextView
 
@@ -201,20 +202,20 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginLeft="@dimen/dimen_13px"
+                android:layout_marginStart="@dimen/dimen_13px"
                 android:text="学历"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_14" />
 
             <com.hr.ui.view.custom.IdSpineer
                 android:id="@+id/sp_resume_item_newresumeedu_degree"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/dimen_150px"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="@dimen/dimen_13px"
+                android:layout_marginRight="@dimen/dimen_13px"
                 android:layout_toLeftOf="@+id/imageView452"
                 android:layout_toStartOf="@+id/imageView452"
                 android:background="@null"
@@ -223,27 +224,27 @@
 
             <ImageView
                 android:id="@+id/imageView452"
-                android:layout_width="6dp"
-                android:layout_height="10dp"
+                android:layout_width="@dimen/dimen_6px"
+                android:layout_height="@dimen/dimen_10px"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
+                android:layout_marginEnd="@dimen/dimen_12px"
+                android:layout_marginRight="@dimen/dimen_12px"
                 android:src="@mipmap/jiantou_right" />
 
         </RelativeLayout>
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
+            android:layout_marginLeft="@dimen/dimen_13px"
+            android:layout_marginStart="@dimen/dimen_13px"
+            android:layout_marginEnd="@dimen/dimen_13px"
+            android:layout_marginRight="@dimen/dimen_13px"
             android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            android:layout_height="@dimen/dimen_1px" />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/dimen_40px">
 
             <TextView
                 android:id="@+id/textView57"
@@ -252,11 +253,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginLeft="@dimen/dimen_13px"
+                android:layout_marginStart="@dimen/dimen_13px"
                 android:text="专业"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_14" />
 
             <EditText
                 android:id="@+id/et_resume_item_newresumeedu_majorname"
@@ -266,21 +267,21 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/textView57"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="@dimen/dimen_20px"
+                android:layout_marginRight="@dimen/dimen_20px"
                 android:background="@null"
                 android:gravity="right"
                 android:hint="请输入专业名称"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_14px" />
         </RelativeLayout>
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
+            android:layout_marginLeft="@dimen/dimen_13px"
+            android:layout_marginStart="@dimen/dimen_13px"
+            android:layout_marginEnd="@dimen/dimen_13px"
+            android:layout_marginRight="@dimen/dimen_13px"
             android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            android:layout_height="@dimen/dimen_1px" />
         <!--<RelativeLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="200dp">-->
@@ -328,53 +329,46 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="13"
+            android:layout_height="@dimen/dimen_50px"
+            android:layout_marginTop="@dimen/dimen_30px"
             android:orientation="horizontal">
-
-            <View
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
-
+                android:layout_weight="1"
+                android:layout_height="match_parent">
             <TextView
                 android:id="@+id/tv_resume_item_newresumeedu_delete"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_alignBottom="@+id/tv_resume_item_newresumeedu_save"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="5"
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_40px"
+                android:paddingLeft="@dimen/dimen_50px"
+                android:paddingRight="@dimen/dimen_50px"
                 android:background="@drawable/btn_1chang"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="删除此条"
+                android:text="删除"
                 android:textColor="#fff"
                 android:textSize="14sp" />
-
-            <View
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
-
+                android:layout_weight="1"
+                android:layout_height="match_parent">
             <TextView
+                android:layout_centerInParent="true"
                 android:id="@+id/tv_resume_item_newresumeedu_save"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/dimen_50px"
+                android:paddingRight="@dimen/dimen_50px"
+                android:layout_marginRight="@dimen/dimen_20px"
+                android:layout_height="@dimen/dimen_40px"
                 android:layout_centerVertical="true"
-                android:layout_weight="5"
                 android:background="@drawable/btn_1chang"
                 android:gravity="center"
                 android:text="保存"
                 android:textColor="#fff"
                 android:textSize="14sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
+            </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>

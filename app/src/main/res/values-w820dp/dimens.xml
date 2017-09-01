@@ -4,4 +4,22 @@
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
     <dimen name="activity_horizontal_margin">64dp</dimen>
     <dimen name="dimen_140px">140dp</dimen>
+    <dimen name="text_size_1">1.0sp</dimen>
+    <dimen name="text_size_2">2.0sp</dimen>
+    <dimen name="text_size_3">3.0sp</dimen>
+    <dimen name="text_size_4">4.0sp</dimen>
+    <dimen name="text_size_5">5.0sp</dimen>
+    <dimen name="text_size_6">6.0sp</dimen>
+    <dimen name="text_size_7">7.0sp</dimen>
+    <dimen name="text_size_8">8.0sp</dimen>
+    <dimen name="text_size_9">9.0sp</dimen>
+    <dimen name="text_size_10">10.0sp</dimen>
+    <dimen name="text_size_11">11.0sp</dimen>
+    <dimen name="text_size_17">17.0sp</dimen>
+    <dimen name="text_size_15">15.0sp</dimen>
+    <dimen name="text_size_13">13.0sp</dimen>
+    <dimen name="text_size_12">12.0sp</dimen>
+    <dimen name="text_size_16">16.0sp</dimen>
+    <dimen name="text_size_18">18.0sp</dimen>
+    <dimen name="text_size_14">14.0sp</dimen>
 </resources>

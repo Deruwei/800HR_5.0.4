@@ -522,6 +522,7 @@ public class MyResumeFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), ModifyPlantActivity.class);
                         intent.putExtra("resumeId", resumeID);
                         intent.putExtra("resumeLanguage", "zh");
+                        intent.putExtra("isAdd","2");
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("resumePlant", resumePlants[finalI]);
                         intent.putExtras(bundle);
@@ -574,6 +575,7 @@ public class MyResumeFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), ModifySkillActivity.class);
                         intent.putExtra("resumeId", resumeID);
                         intent.putExtra("resumeLanguage", "zh");
+                        intent.putExtra("isAdd","2");
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("resumeSkill", resumeSkills[finalI]);
                         intent.putExtras(bundle);
@@ -626,6 +628,7 @@ public class MyResumeFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), ModifyLanguageActivity.class);
                         intent.putExtra("resumeId", resumeID);
                         intent.putExtra("resumeLanguage", "zh");
+                        intent.putExtra("isAdd","2");
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("resumeLanguageLevel", resumeLanguageLevels[finalI]);
                         intent.putExtras(bundle);
@@ -707,6 +710,7 @@ public class MyResumeFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), ModifyProjectActivity.class);
                         intent.putExtra("resumeId", resumeID);
                         intent.putExtra("resumeLanguage", "zh");
+                        intent.putExtra("isAdd","2");
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("resumeProject", resumeProjects[finalI]);
                         intent.putExtras(bundle);
@@ -774,6 +778,7 @@ public class MyResumeFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), ModifyEduActivity.class);
                         intent.putExtra("resumeId", resumeID);
                         intent.putExtra("resumeLanguage", "zh");
+                        intent.putExtra("isAdd","2");
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("resumeEducation", resumeEducations[finalI]);
                         intent.putExtras(bundle);
@@ -854,6 +859,7 @@ public class MyResumeFragment extends BaseFragment {
                                 Intent intent = new Intent(getActivity(), ModifyExpActivity.class);
                                 intent.putExtra("resumeId", resumeID);
                                 intent.putExtra("resumeLanguage", "zh");
+                                intent.putExtra("isAdd","2");
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("resumeExperience", resumeExperiences[finalI]);
                                 intent.putExtras(bundle);
@@ -1298,9 +1304,6 @@ public class MyResumeFragment extends BaseFragment {
                 tv_myresume_open.setCompoundDrawables(dra1, null, null, null);
                 tv_myresume_open.setText("保密");
             }
-        } else if (isOpen) {
-            isOpen = false;
-            refreshNow();
         }
     }
 
@@ -1390,6 +1393,7 @@ public class MyResumeFragment extends BaseFragment {
                     Intent intent = new Intent(getActivity(), ModifyEduActivity.class);
                     intent.putExtra("resumeId", resumeID);
                     intent.putExtra("resumeLanguage", "zh");
+                    intent.putExtra("isAdd","1");
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("resumeEducation", resumeEducation);
                     intent.putExtras(bundle);
@@ -1400,6 +1404,7 @@ public class MyResumeFragment extends BaseFragment {
                     Intent intent4 = new Intent(getActivity(), ModifyExpActivity.class);
                     intent4.putExtra("resumeId", resumeID);
                     intent4.putExtra("resumeLanguage", "zh");
+                    intent4.putExtra("isAdd","1");
                     Bundle bundle4 = new Bundle();
                     bundle4.putSerializable("resumeExperience", resumeExperience);
                     intent4.putExtras(bundle4);
@@ -1410,6 +1415,7 @@ public class MyResumeFragment extends BaseFragment {
                     Intent intent5 = new Intent(getActivity(), ModifyProjectActivity.class);
                     intent5.putExtra("resumeId", resumeID);
                     intent5.putExtra("resumeLanguage", "zh");
+                    intent5.putExtra("isAdd","1");
                     Bundle bundle5 = new Bundle();
                     bundle5.putSerializable("resumeProject", resumeProject);
                     intent5.putExtras(bundle5);
@@ -1420,6 +1426,7 @@ public class MyResumeFragment extends BaseFragment {
                     Intent intent6 = new Intent(getActivity(), ModifySkillActivity.class);
                     intent6.putExtra("resumeId", resumeID);
                     intent6.putExtra("resumeLanguage", "zh");
+                    intent6.putExtra("isAdd","1");
                     Bundle bundle6 = new Bundle();
                     bundle6.putSerializable("resumeSkill", resumeSkill);
                     intent6.putExtras(bundle6);
@@ -1429,6 +1436,7 @@ public class MyResumeFragment extends BaseFragment {
                     ResumeLanguageLevel resumeLanguageLevel = new ResumeLanguageLevel();
                     Intent intent7 = new Intent(getActivity(), ModifyLanguageActivity.class);
                     intent7.putExtra("resumeId", resumeID);
+                    intent7.putExtra("isAdd","1");
                     intent7.putExtra("resumeLanguage", "zh");
                     Bundle bundle7 = new Bundle();
                     bundle7.putSerializable("resumeLanguageLevel", resumeLanguageLevel);
@@ -1440,6 +1448,7 @@ public class MyResumeFragment extends BaseFragment {
                     Intent intent8 = new Intent(getActivity(), ModifyPlantActivity.class);
                     intent8.putExtra("resumeId", resumeID);
                     intent8.putExtra("resumeLanguage", "zh");
+                    intent8.putExtra("isAdd","1");
                     Bundle bundle8 = new Bundle();
                     bundle8.putSerializable("resumePlant", resumePlant);
                     intent8.putExtras(bundle8);

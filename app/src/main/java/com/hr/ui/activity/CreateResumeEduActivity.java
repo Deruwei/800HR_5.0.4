@@ -15,6 +15,7 @@ import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeEducation;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
@@ -115,13 +116,13 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
         tvResumeItemCreateduStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemCreateduStarttime, 2);
+                DatePickerUtil.initMyDatePicker(CreateResumeEduActivity.this,tvResumeItemCreateduStarttime);
             }
         });
         tvResumeItemCreateduEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemCreateduEndtime, 2);
+                DatePickerUtil.initMyDatePicker(CreateResumeEduActivity.this,tvResumeItemCreateduEndtime);
             }
         });
         spResumeItemCreateduDegree.setIds(context.getResources().getStringArray(

@@ -1,10 +1,11 @@
 package com.hr.ui.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -14,18 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
-import com.hr.ui.adapter.ResumeJobExpLVAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
-import com.hr.ui.model.ResumeEducation;
 import com.hr.ui.model.ResumeExperience;
 import com.hr.ui.utils.CityNameConvertCityID;
+import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
+import com.hr.ui.view.custom.MyDatePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +35,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,7 +72,8 @@ public class ModifyExpActivity extends BaseResumeActivity {
     private ResumeExperience resumeExperience;
     private String resumeId, resumeLanguage;
     public static ModifyExpActivity modifyExpActivity;
-    private String placeId;
+    private String placeId,isAdd;
+    private MyDatePicker myDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +83,15 @@ public class ModifyExpActivity extends BaseResumeActivity {
         modifyExpActivity = ModifyExpActivity.this;
         initData();
     }
-
     private void initData() {
         dbOperator = new DAO_DBOperator(context);
         resumeExperience = (ResumeExperience) getIntent().getSerializableExtra("resumeExperience");
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
-
+        isAdd=getIntent().getStringExtra("isAdd");
+        if(isAdd.equals("1")){
+            tvResumeItemNewresumejobDelete.setVisibility(View.GONE);
+        }
 
         etResumeItemNewjobexpComname.setText(resumeExperience.getCompany());
         String startTime = resumeExperience.getFromyear() + "-" + resumeExperience.getFrommonth();
@@ -119,13 +125,14 @@ public class ModifyExpActivity extends BaseResumeActivity {
         tvResumeItemNewjobexpStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemNewjobexpStarttime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyExpActivity.this,tvResumeItemNewjobexpStarttime);
             }
         });
+
         tvResumeItemNewjobexpEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataPickerDialog.showDialog(context, tvResumeItemNewjobexpEndtime, 2);
+                DatePickerUtil.initMyDatePicker(ModifyExpActivity.this,tvResumeItemNewjobexpEndtime);
             }
         });
         tvResumeItemNewjobexpWorkplace.setOnClickListener(new View.OnClickListener() {
