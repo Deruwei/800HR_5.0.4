@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,17 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
-import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeEducation;
 import com.hr.ui.utils.DatePickerUtil;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
-import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.view.custom.BeautifulDialog;
-import com.hr.ui.view.custom.IdSpineer;
+import com.hr.ui.view.custom.CustomDatePicker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,7 +41,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
     @Bind(R.id.tv_resume_item_newresumeedu_endtime)
     TextView tvResumeItemNewresumeeduEndtime;
     @Bind(R.id.sp_resume_item_newresumeedu_degree)
-    IdSpineer spResumeItemNewresumeeduDegree;
+    TextView spResumeItemNewresumeeduDegree;
     @Bind(R.id.et_resume_item_newresumeedu_majorname)
     EditText etResumeItemNewresumeeduMajorname;
     @Bind(R.id.tv_resume_item_newresumeedu_delete)
@@ -53,6 +53,9 @@ public class ModifyEduActivity extends BaseResumeActivity {
     private ResumeEducation resumeEducation;
     private String resumeId, resumeLanguage;
     private String isAdd;
+    private CustomDatePicker datePickerEdu;
+    private List<SelectBean> eduList = new ArrayList<>();
+    private String selectEduId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +63,14 @@ public class ModifyEduActivity extends BaseResumeActivity {
         setContentView(R.layout.activity_modify_edu);
         ButterKnife.bind(this);
         initData();
+        initDialog();
     }
 
     private void initData() {
+        eduList = GetResumeArrayList.getEduListFromArray(this);
         dbOperator = new DAO_DBOperator(context);
-        isAdd=getIntent().getStringExtra("isAdd");
-        if(isAdd.equals("1")){
+        isAdd = getIntent().getStringExtra("isAdd");
+        if (isAdd.equals("1")) {
             tvResumeItemNewresumeeduDelete.setVisibility(View.GONE);
         }
         resumeEducation = (ResumeEducation) getIntent().getSerializableExtra("resumeEducation");
@@ -89,40 +94,47 @@ public class ModifyEduActivity extends BaseResumeActivity {
         tvResumeItemNewresumeeduStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this,tvResumeItemNewresumeeduStarttime);
+                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this, tvResumeItemNewresumeeduStarttime);
             }
         });
         tvResumeItemNewresumeeduEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this,tvResumeItemNewresumeeduEndtime);
+                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this, tvResumeItemNewresumeeduEndtime);
             }
         });
-        spResumeItemNewresumeeduDegree.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_degree_zh)));
-        // 开始时间
-        spResumeItemNewresumeeduDegree.setIds(context.getResources().getStringArray(R.array.array_degree_ids));
-        spResumeItemNewresumeeduDegree
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        try {
-                            if (spResumeItemNewresumeeduDegree.idStrings != null) {
-                                spResumeItemNewresumeeduDegree.idString = spResumeItemNewresumeeduDegree.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-
-                    }
-                });
         etResumeItemNewresumeeduSchoolname.setText(resumeEducation.getSchoolname());
         etResumeItemNewresumeeduMajorname.setText(resumeEducation.getMoremajor());
-        spResumeItemNewresumeeduDegree.setSelectedItem(resumeEducation.getDegree());
+        if (resumeEducation.getDegree() != null) {
+            String eduId = resumeEducation.getDegree();
+            selectEduId = eduId;
+            for (int i = 0; i < eduList.size(); i++) {
+                if (eduId.equals(eduList.get(i).getId())) {
+                    spResumeItemNewresumeeduDegree.setText(eduList.get(i).getName());
+                    break;
+                }
+            }
+        }
 
+    }
+
+    private void initDialog() {
+        datePickerEdu = new CustomDatePicker(ModifyEduActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if ("".equals(time) || time == null) {
+                    spResumeItemNewresumeeduDegree.setText("请选择");
+                } else {
+                    spResumeItemNewresumeeduDegree.setText(time);
+                    for (int i = 0; i < eduList.size(); i++) {
+                        if (time.equals(eduList.get(i).getName())) {
+                            selectEduId = eduList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_degree_zh));
     }
 
     private void deleteConfirm() {
@@ -162,11 +174,11 @@ public class ModifyEduActivity extends BaseResumeActivity {
             next();
 
         }
-        MyUtils.canResumeReflesh=true;
+        MyUtils.canResumeReflesh = true;
     }
 
     private void saveData() {
-        MyUtils.canResumeReflesh=true;
+        MyUtils.canResumeReflesh = true;
         if (etResumeItemNewresumeeduSchoolname.getText().toString().trim()
                 .length() == 0) {
             Toast.makeText(context, "请输入学校名称", Toast.LENGTH_LONG).show();
@@ -229,7 +241,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
 
         String schoolnameString = etResumeItemNewresumeeduSchoolname.getText().toString().trim();
         String majorString = etResumeItemNewresumeeduMajorname.getText().toString().trim();
-        String idsString = spResumeItemNewresumeeduDegree.getSelectedId();
+        String idsString = selectEduId;
         resumeEducation.setResume_id(resumeId);
         resumeEducation.setResume_language(resumeLanguage);
         resumeEducation.setUser_id(MyUtils.userID);
@@ -258,7 +270,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
             boolean resultUpdate = dbOperator.update_ResumeEducation(resumeEducation);
             // System.out.println("传入DB的内容：" + resumeEducation.toString());
             if (resultUpdate) {
-                MyUtils.canResumeReflesh=true;
+                MyUtils.canResumeReflesh = true;
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator, resumeId, resumeLanguage);
                 next();
             } else {
@@ -269,7 +281,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
     }
 
     private void next() {
-        MyUtils.canResumeReflesh=true;
+        MyUtils.canResumeReflesh = true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);
         } else {
@@ -290,5 +302,10 @@ public class ModifyEduActivity extends BaseResumeActivity {
                 saveData();
                 break;
         }
+    }
+
+    @OnClick(R.id.sp_resume_item_newresumeedu_degree)
+    public void onViewClicked() {
+        datePickerEdu.show(spResumeItemNewresumeeduDegree.getText().toString());
     }
 }

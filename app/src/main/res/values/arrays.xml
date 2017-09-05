@@ -397,7 +397,6 @@
     </string-array>
     <!-- 工作或毕业时间 -->
     <string-array name="array_persioninfo_workbeginyear_zh">
-        <item>请选择</item>
         <item>无工作经验</item>
         <item>2017</item>
         <item>2016</item>
@@ -456,7 +455,6 @@
         <item>1963</item>
     </string-array>
     <string-array name="array_persioninfo_workbeginyear_en">
-        <item>Please Select</item>
         <item>Inexperienced</item>
         <item>2017</item>
         <item>2016</item>
@@ -515,7 +513,6 @@
         <item>1963</item>
     </string-array>
     <string-array name="array_persioninfo_workbeginyear_ids">
-        <item>0</item>
         <item>-1</item>
         <item>2017</item>
         <item>2016</item>

@@ -135,6 +135,13 @@
                         android:gravity="right"
                         android:hint="请输入公司名称"
                         android:textSize="14sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:background="#EBEBEB" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -180,7 +187,13 @@
                         android:layout_marginEnd="12dp"
                         android:layout_marginRight="12dp"
                         android:src="@mipmap/jiantou_right" />
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:background="#EBEBEB" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -226,7 +239,13 @@
                         android:layout_marginEnd="12dp"
                         android:layout_marginRight="12dp"
                         android:src="@mipmap/jiantou_right" />
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:background="#EBEBEB" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -271,7 +290,13 @@
                         android:layout_marginEnd="12dp"
                         android:layout_marginRight="12dp"
                         android:src="@mipmap/jiantou_right" />
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:background="#EBEBEB" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -319,6 +344,13 @@
                         android:hint="请输入税前月薪(元)"
                         android:inputType="number"
                         android:textSize="14sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:background="#EBEBEB" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -351,6 +383,13 @@
                         android:gravity="right"
                         android:hint="请输入所任职位"
                         android:textSize="14sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dimen_10px"
+                        android:layout_marginRight="@dimen/dimen_10px"
+                        android:background="#EBEBEB" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -392,6 +431,7 @@
                             android:scrollbars="vertical"
                             android:textSize="14sp" />
                     </RelativeLayout>
+
                 </RelativeLayout>
             </LinearLayout>
 

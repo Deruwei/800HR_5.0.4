@@ -2,6 +2,7 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,17 +16,20 @@ import android.widget.Toast;
 import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
 import com.hr.ui.bean.FunctionBean;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.model.ResumeOrder;
 import com.hr.ui.model.ResumeTitle;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
+import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
 
 import org.json.JSONArray;
@@ -48,7 +52,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
     private static final String TAG = "ResumeJobOrderActivity";
     private Context mContext = ResumeJobOrderActivity.this;
     private List<FunctionBean> funcSelectedMap = new ArrayList<>();// key：职能id，value：职能名称
-    private IdSpineer sp_resume_joborder_state, sp_resume_joborder_worktype;
+    private TextView sp_resume_joborder_state, sp_resume_joborder_worktype;
     private TextView tv_resume_personinfo_place, tv_resume_joborder_territory, tv_resume_joborder_position;
     private EditText et_resume_personinfo_salay;
     private ImageView iv_resume_joborder_back, iv_resume_joborder_salary;
@@ -59,12 +63,15 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
     private RelativeLayout rl_resume_joborder_save, rl_resume_joborder_state, rl_resume_joborder_worktype;
     private ResumeBaseInfo resumeBaseInfo;
     private ResumeOrder resumeOrder;
-
+    private String selectJobTypeId,selectFindJobId;
     private String placeId = ""; // 地区 ID
     private String funcIdString = "";// 职能id
     private String lingyuIdString = "";// 领域id
+    private CustomDatePicker datePickerFindJob,datePickerJobType;
 
     private static ResumeJobOrderActivity resumeJobOrderActivity = null;
+    private List<SelectBean> jobTypeList=new ArrayList<>();
+    private List<SelectBean> findJobList=new ArrayList<>();
 
     public static ResumeJobOrderActivity getInstance() {
         return resumeJobOrderActivity;
@@ -78,6 +85,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         modification = false;
         initView();
         initData();
+        initDialog();
     }
 
     private void initData() {
@@ -90,7 +98,6 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 .query_ResumePersonInfo_Toone(resumeLanguageString);
         resumeOrder = dbOperator.query_ResumeCareerObjective_Toone(
                 resumeIdString, resumeLanguageString);
-        initSpinnerData();
         // System.out.println("基本信息：" + resumeBaseInfo);
         // System.out.println("求职意向：" + resumeOrder);
         if (resumeOrder == null) {
@@ -103,69 +110,13 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         }
     }
 
-    private void initSpinnerData() {
-// 初始化工作状态数据源和id
-        if (!isCHS) {// en
-            sp_resume_joborder_state.setAdapter(new SpinnerAdapter(mContext, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.array_workstate_en)));
-        } else {// zh
-            sp_resume_joborder_state.setAdapter(new SpinnerAdapter(mContext, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.array_workstate_zh)));
-        }
-        sp_resume_joborder_state.setIds(getResources().getStringArray(R.array.array_workstate_ids));
-        // 初始化工作性质数据源和id
-        if (!isCHS) {// en
-            sp_resume_joborder_worktype.setAdapter(new SpinnerAdapter(mContext, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.array_jobtype_en)));
-        } else {// zh
-            sp_resume_joborder_worktype.setAdapter(new SpinnerAdapter(mContext, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.array_jobtype_zh)));
-        }
-        sp_resume_joborder_worktype.setIds(getResources().getStringArray(R.array.array_jobtype_ids));
-        // 添加spinner监听
-        sp_resume_joborder_state
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        try {
-                            if (sp_resume_joborder_state.idStrings != null) {
-                                sp_resume_joborder_state.idString = sp_resume_joborder_state.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-        sp_resume_joborder_worktype
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        try {
-                            if (sp_resume_joborder_worktype.idStrings != null) {
-                                sp_resume_joborder_worktype.idString = sp_resume_joborder_worktype.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // TODO Auto-generated method stub
-                    }
-                });
-    }
-
     private void initView() {
-        sp_resume_joborder_state = (IdSpineer) findViewById(R.id.sp_resume_joborder_state);
+        jobTypeList= GetResumeArrayList.getJobTypeListFromArray(this);
+        findJobList=GetResumeArrayList.getFindJobListFromArray(this);
+        sp_resume_joborder_state = (TextView) findViewById(R.id.sp_resume_joborder_state);
         tv_resume_joborder_position = (TextView) findViewById(R.id.tv_resume_joborder_position);
         tv_resume_joborder_territory = (TextView) findViewById(R.id.tv_resume_joborder_territory);
-        sp_resume_joborder_worktype = (IdSpineer) findViewById(R.id.sp_resume_joborder_worktype);
+        sp_resume_joborder_worktype = (TextView) findViewById(R.id.sp_resume_joborder_worktype);
         et_resume_personinfo_salay = (EditText) findViewById(R.id.et_resume_personinfo_salay);
 
         rl_resume_joborder_save = (RelativeLayout) findViewById(R.id.rl_resume_joborder_save);
@@ -212,9 +163,11 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 break;
             case R.id.rl_resume_joborder_state:
                 modification = true;
+                datePickerFindJob.show(sp_resume_joborder_state.getText().toString());
                 break;
             case R.id.rl_resume_joborder_worktype:
                 modification = true;
+                datePickerJobType.show(sp_resume_joborder_worktype.getText().toString());
                 break;
             case R.id.rl_resume_joborder_save:
                 if (MyUtils.ableInternet) {
@@ -267,7 +220,40 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 break;
         }
     }
-
+    private void initDialog() {
+        datePickerFindJob = new CustomDatePicker(ResumeJobOrderActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    sp_resume_joborder_state.setText("请选择");
+                }else {
+                    sp_resume_joborder_state.setText(time);
+                    for(int i=0;i<findJobList.size();i++) {
+                        if(time.equals(findJobList.get(i).getName())){
+                            selectFindJobId=findJobList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        },  getResources().getStringArray(R.array.array_workstate_zh));
+        datePickerJobType = new CustomDatePicker(ResumeJobOrderActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                   sp_resume_joborder_worktype.setText("请选择");
+                }else {
+                    sp_resume_joborder_worktype.setText(time);
+                    for(int i=0;i<jobTypeList.size();i++) {
+                        if(time.equals(jobTypeList.get(i).getName())){
+                            selectJobTypeId=jobTypeList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_jobtype_zh));
+    }
     /**
      * 初始化工作地区
      *
@@ -330,14 +316,25 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         if (resumeBaseInfo != null) {
             String wokestateString = resumeBaseInfo.getCurrent_workstate();
             if (wokestateString != null) {
-                sp_resume_joborder_state.setSelectedItem(wokestateString);
+                selectFindJobId=wokestateString;
+                for(int i=0;i<findJobList.size();i++){
+                    if(wokestateString.equals(findJobList.get(i).getId())){
+                        sp_resume_joborder_state.setText(findJobList.get(i).getName());
+                        break;
+                    }
+                }
             }
         }
         // 期望工作性质
         String jobTypeString = resumeOrder.getJobtype();
         if (jobTypeString != null) {
-            sp_resume_joborder_worktype
-                    .setSelectedItem(jobTypeString);
+            selectJobTypeId=jobTypeString;
+            for(int i=0;i<jobTypeList.size();i++){
+                if(jobTypeString.equals(jobTypeList.get(i).getId())){
+                    sp_resume_joborder_worktype.setText(jobTypeList.get(i).getName());
+                    break;
+                }
+            }
         }
         if (isCHS) {
             // 期望期望领域
@@ -585,9 +582,9 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         }
 
         // 求职状态
-        String workStateString = sp_resume_joborder_state.getSelectedId() + "";
+        String workStateString = selectFindJobId;
         // 工作性质
-        String jobTypeString = sp_resume_joborder_worktype.getSelectedId();
+        String jobTypeString = selectJobTypeId;
 
         // 期望职位
         String funcId = funcIdString;

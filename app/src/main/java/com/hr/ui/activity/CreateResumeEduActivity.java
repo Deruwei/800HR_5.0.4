@@ -13,22 +13,26 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeEducation;
 import com.hr.ui.utils.DatePickerUtil;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
+import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateResumeEduActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText etResumeItemCreateduSchoolname;
     private TextView tvResumeItemCreateduStarttime;
     private TextView tvResumeItemCreateduEndtime;
-    private IdSpineer spResumeItemCreateduDegree;
+    private TextView spResumeItemCreateduDegree;
     private EditText etResumeItemCreateduMajorname;
     private TextView tvResumeItemNewcreateduAgao;
     private TextView tvResumeItemNewcreateduNext;
@@ -44,6 +48,9 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
     private ArrayList<ResumeEducation> listResumeEdu;
 
     public CreateResumeEduActivity createResumeEduActivity = null;
+    private CustomDatePicker datePickerEdu;
+    private List<SelectBean> eduList=new ArrayList<>();
+    private String selectEduId;
 
     /**
      * 只获取第一个
@@ -56,13 +63,15 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_create_resume_edu);
         initView();
         initData();
+        initDialog();
     }
 
     private void initView() {
+        eduList= GetResumeArrayList.getEduListFromArray(this);
         etResumeItemCreateduSchoolname = (EditText) findViewById(R.id.et_resume_item_createdu_schoolname);
         tvResumeItemCreateduStarttime = (TextView) findViewById(R.id.tv_resume_item_createdu_starttime);
         tvResumeItemCreateduEndtime = (TextView) findViewById(R.id.tv_resume_item_createdu_endtime);
-        spResumeItemCreateduDegree = (IdSpineer) findViewById(R.id.sp_resume_item_createdu_degree);
+        spResumeItemCreateduDegree = (TextView) findViewById(R.id.sp_resume_item_createdu_degree);
         etResumeItemCreateduMajorname = (EditText) findViewById(R.id.et_resume_item_createdu_majorname);
         tvResumeItemNewcreateduAgao = (TextView) findViewById(R.id.tv_resume_item_newcreatedu_agao);
         tvResumeItemNewcreateduNext = (TextView) findViewById(R.id.tv_resume_item_newcreatedu_next);
@@ -71,6 +80,7 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
         tvResumeItemNewcreateduAgao.setOnClickListener(this);
         iv_create_resume_edu_back.setOnClickListener(this);
         tvResumeItemNewcreateduNext.setOnClickListener(this);
+        spResumeItemCreateduDegree.setOnClickListener(this);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -94,7 +104,6 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
             ResumeEducation resumeEdu = new ResumeEducation();
             listResumeEdu.add(resumeEdu);
         }
-        spResumeItemCreateduDegree.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_degree_zh)));
         // 开始时间
 
         String fromyear = listResumeEdu.get(groupPosition).getFromyear();
@@ -125,31 +134,38 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
                 DatePickerUtil.initMyDatePicker(CreateResumeEduActivity.this,tvResumeItemCreateduEndtime);
             }
         });
-        spResumeItemCreateduDegree.setIds(context.getResources().getStringArray(
-                R.array.array_degree_ids));
-        spResumeItemCreateduDegree
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        try {
-                            if (spResumeItemCreateduDegree.idStrings != null) {
-                                spResumeItemCreateduDegree.idString = spResumeItemCreateduDegree.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-
-                    }
-                });
         etResumeItemCreateduSchoolname.setText(listResumeEdu.get(groupPosition).getSchoolname());
         etResumeItemCreateduMajorname.setText(listResumeEdu.get(groupPosition).getMoremajor());
-        spResumeItemCreateduDegree.setSelectedItem(listResumeEdu.get(groupPosition).getDegree());
-    }
 
+        if(listResumeEdu.get(groupPosition).getDegree()!=null) {
+            String eduId = listResumeEdu.get(groupPosition).getDegree();
+            selectEduId=eduId;
+            for(int i=0;i<eduList.size();i++) {
+                if(eduId.equals(eduList.get(i).getId())) {
+                    spResumeItemCreateduDegree.setText(eduList.get(i).getName());
+                    break;
+                }
+            }
+        }
+    }
+    private void initDialog() {
+        datePickerEdu = new CustomDatePicker(CreateResumeEduActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    spResumeItemCreateduDegree.setText("请选择");
+                }else {
+                    spResumeItemCreateduDegree.setText(time);
+                    for(int i=0;i<eduList.size();i++) {
+                        if(time.equals(eduList.get(i).getName())){
+                            selectEduId=eduList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        },  getResources().getStringArray(R.array.array_degree_zh));
+    }
     private void saveData() {
         ResumeEducation resumeEducation = listResumeEdu.get(groupPosition);
         if (etResumeItemCreateduSchoolname.getText().toString().trim()
@@ -218,7 +234,7 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
                 .toString().trim();
         String majorString = etResumeItemCreateduMajorname.getText().toString()
                 .trim();
-        String idsString = spResumeItemCreateduDegree.getSelectedId();
+        String idsString = selectEduId;
         listResumeEdu.get(groupPosition).setResume_id(resumeIdString);
         listResumeEdu.get(groupPosition).setResume_language(resumeLanguageString);
         listResumeEdu.get(groupPosition).setUser_id(MyUtils.userID);
@@ -287,6 +303,9 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.tv_resume_item_newcreatedu_next:
                 saveData();
+                break;
+            case R.id.sp_resume_item_createdu_degree:
+                datePickerEdu.show(spResumeItemCreateduDegree.getText().toString());
                 break;
         }
     }

@@ -13,15 +13,21 @@ import android.widget.Toast;
 import com.hr.ui.R;
 import com.hr.ui.adapter.ResumeLanguageExpLVAdapter;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeExperience;
 import com.hr.ui.model.ResumeLanguageLevel;
+import com.hr.ui.utils.DatePickerUtil;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.view.custom.BeautifulDialog;
+import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
+import com.hr.ui.view.pulltorefresh.LoadingLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,11 +38,11 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
     @Bind(R.id.iv_resume_modifynewlangue_back)
     ImageView ivResumeModifynewlangueBack;
     @Bind(R.id.sp_resume_modifylanguage_langname)
-    IdSpineer spResumeModifylanguageLangname;
+    TextView spResumeModifylanguageLangname;
     @Bind(R.id.sp_resume_modifylanguage_speak_level)
-    IdSpineer spResumeModifylanguageSpeakLevel;
+    TextView spResumeModifylanguageSpeakLevel;
     @Bind(R.id.sp_resume_modifylanguage_read_level)
-    IdSpineer spResumeModifylanguageReadLevel;
+    TextView spResumeModifylanguageReadLevel;
     @Bind(R.id.tv_resume_item_languagemodify_delete)
     TextView tvResumeItemLanguagemodifyDelete;
     @Bind(R.id.tv_resume_item_llanguagemodify_save)
@@ -45,15 +51,24 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
     private DAO_DBOperator dbOperator;
     private ResumeLanguageLevel resumeLanguageLevel;
     private String resumeId, resumeLanguage;
+    private String selectLauguageType,selectListenSkill,selectReadWriteSkill;
+    private List<SelectBean> lauguageTypeList=new ArrayList<>();
+    private List<SelectBean> listenSkillList=new ArrayList<>();
+    private List<SelectBean> readWriteSkillList=new ArrayList<>();
+    private CustomDatePicker datePickerLaugageType,datePickerListenSkill,datePickerReadWriteSkill;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_language);
         ButterKnife.bind(this);
         initData();
+        initDialog();
     }
 
     private void initData() {
+        lauguageTypeList= GetResumeArrayList.getLaugageTypeListFromArray(this);
+        listenSkillList=GetResumeArrayList.getListenSkillFromArray(this);
+        readWriteSkillList=GetResumeArrayList.getReadWriteSkillFromArray(this);
         dbOperator = new DAO_DBOperator(context);
         resumeLanguageLevel = (ResumeLanguageLevel) getIntent().getSerializableExtra("resumeLanguageLevel");
         resumeId = getIntent().getStringExtra("resumeId");
@@ -61,74 +76,88 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
         if(getIntent().getStringExtra("isAdd").equals("1")){
             tvResumeItemLanguagemodifyDelete.setVisibility(View.GONE);
         }
-        spResumeModifylanguageLangname.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_language_type_zh)));
-        spResumeModifylanguageLangname.setIds(context.getResources().getStringArray(R.array.array_language_type_ids));
-        spResumeModifylanguageLangname
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        try {
-                            if (spResumeModifylanguageLangname.idStrings != null) {
-                                spResumeModifylanguageLangname.idString = spResumeModifylanguageLangname.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // TODO Auto-generated method stub
-                    }
-                });
-        spResumeModifylanguageReadLevel.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_language_readlevel_zh)));
-        spResumeModifylanguageReadLevel.setIds(context.getResources()
-                .getStringArray(R.array.array_language_readlevel_ids));
-        spResumeModifylanguageReadLevel
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        try {
-                            if (spResumeModifylanguageReadLevel.idStrings != null) {
-                                spResumeModifylanguageReadLevel.idString = spResumeModifylanguageReadLevel.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                    }
-                });
-        spResumeModifylanguageSpeakLevel.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_language_readlevel_zh)));
-        spResumeModifylanguageSpeakLevel.setIds(context.getResources()
-                .getStringArray(R.array.array_language_speaklevel_ids));
-        spResumeModifylanguageSpeakLevel
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        try {
-                            if (spResumeModifylanguageSpeakLevel.idStrings != null) {
-                                spResumeModifylanguageSpeakLevel.idString = spResumeModifylanguageSpeakLevel.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                    }
-                });
-        spResumeModifylanguageSpeakLevel.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_language_speaklevel_zh)));
-        spResumeModifylanguageLangname.setSelectedItem(resumeLanguageLevel.getLangname());
-        spResumeModifylanguageReadLevel.setSelectedItem(resumeLanguageLevel.getRead_level());
-        spResumeModifylanguageSpeakLevel.setSelectedItem(resumeLanguageLevel.getSpeak_level());
+        if (resumeLanguageLevel.getLangname() != null) {
+            String languageId = resumeLanguageLevel.getLangname();
+            selectLauguageType = languageId;
+            for (int i = 0; i < lauguageTypeList.size(); i++) {
+                if (languageId.equals(lauguageTypeList.get(i).getId())) {
+                    spResumeModifylanguageLangname.setText(lauguageTypeList.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if (resumeLanguageLevel.getRead_level() != null) {
+            String readLevelId = resumeLanguageLevel.getRead_level();
+            selectReadWriteSkill = readLevelId;
+            for (int i = 0; i < readWriteSkillList.size(); i++) {
+                if (readLevelId.equals(readWriteSkillList.get(i).getId())) {
+                    spResumeModifylanguageReadLevel.setText(readWriteSkillList.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if (resumeLanguageLevel.getSpeak_level() != null) {
+            String speakLevelId = resumeLanguageLevel.getSpeak_level();
+            selectListenSkill = speakLevelId;
+            for (int i = 0; i < listenSkillList.size(); i++) {
+                if (speakLevelId.equals(listenSkillList.get(i).getId())) {
+                    spResumeModifylanguageSpeakLevel.setText(listenSkillList.get(i).getName());
+                    break;
+                }
+            }
+        }
     }
-
-    @OnClick({R.id.iv_resume_modifynewlangue_back, R.id.tv_resume_item_languagemodify_delete, R.id.tv_resume_item_llanguagemodify_save})
+    private void initDialog() {
+        datePickerLaugageType = new CustomDatePicker(ModifyLanguageActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if ("".equals(time) || time == null) {
+                    spResumeModifylanguageLangname.setText("请选择");
+                } else {
+                    spResumeModifylanguageLangname.setText(time);
+                    for (int i = 0; i < lauguageTypeList.size(); i++) {
+                        if (time.equals(lauguageTypeList.get(i).getName())) {
+                            selectLauguageType = lauguageTypeList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_language_type_zh));
+        datePickerListenSkill = new CustomDatePicker(ModifyLanguageActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if ("".equals(time) || time == null) {
+                    spResumeModifylanguageSpeakLevel.setText("请选择");
+                } else {
+                    spResumeModifylanguageSpeakLevel.setText(time);
+                    for (int i = 0; i < listenSkillList.size(); i++) {
+                        if (time.equals(listenSkillList.get(i).getName())) {
+                            selectListenSkill = listenSkillList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_language_speaklevel_zh));
+        datePickerReadWriteSkill = new CustomDatePicker(ModifyLanguageActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if ("".equals(time) || time == null) {
+                    spResumeModifylanguageReadLevel.setText("请选择");
+                } else {
+                    spResumeModifylanguageReadLevel.setText(time);
+                    for (int i = 0; i < readWriteSkillList.size(); i++) {
+                        if (time.equals(readWriteSkillList.get(i).getName())) {
+                            selectReadWriteSkill = readWriteSkillList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_language_readlevel_zh));
+    }
+    @OnClick({R.id.iv_resume_modifynewlangue_back, R.id.tv_resume_item_languagemodify_delete, R.id.tv_resume_item_llanguagemodify_save,R.id.sp_resume_modifylanguage_speak_level,R.id.sp_resume_modifylanguage_read_level,R.id.sp_resume_modifylanguage_langname})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_resume_modifynewlangue_back:
@@ -140,6 +169,15 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
             case R.id.tv_resume_item_llanguagemodify_save:
                 saveData();
                 break;
+            case R.id.sp_resume_modifylanguage_speak_level:
+                datePickerListenSkill.show(spResumeModifylanguageSpeakLevel.getText().toString());
+                break;
+            case R.id.sp_resume_modifylanguage_read_level:
+                datePickerReadWriteSkill.show(spResumeModifylanguageReadLevel.getText().toString());
+                break;
+            case R.id.sp_resume_modifylanguage_langname:
+                datePickerLaugageType.show(spResumeModifylanguageLangname.getText().toString());
+                break;
         }
     }
     /*
@@ -147,9 +185,9 @@ public class ModifyLanguageActivity extends BaseResumeActivity {
      */
     private void saveData() {
         MyUtils.canResumeReflesh=true;
-        String languageNameIdString = spResumeModifylanguageLangname.getSelectedId();
-        String readlevelIdString = spResumeModifylanguageReadLevel.getSelectedId();
-        String speaklevelString = spResumeModifylanguageSpeakLevel.getSelectedId();
+        String languageNameIdString = selectLauguageType;
+        String readlevelIdString = selectListenSkill;
+        String speaklevelString = selectReadWriteSkill;
         resumeLanguageLevel.setLangname(languageNameIdString);
         resumeLanguageLevel.setUser_id(MyUtils.userID);
         resumeLanguageLevel.setRead_level(readlevelIdString);

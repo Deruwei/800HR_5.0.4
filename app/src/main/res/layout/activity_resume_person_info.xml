@@ -289,7 +289,7 @@
                     style="@style/reusme_myresume_tvhead"
                     android:text="参加工作年份" />
 
-                <com.hr.ui.view.custom.IdSpineer
+                <TextView
                     android:id="@+id/sp_resume_personinfo_jobbegintime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -332,7 +332,7 @@
                     style="@style/reusme_myresume_tvhead"
                     android:text="现有职称" />
 
-                <com.hr.ui.view.custom.IdSpineer
+                <TextView
                     android:id="@+id/sp_resume_personinfo_func"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

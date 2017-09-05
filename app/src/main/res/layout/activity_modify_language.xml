@@ -48,20 +48,21 @@
                 android:id="@+id/textView42"
                 style="@style/reusme_myresume_tvhead"
                 android:text="语言类别" />
-            <com.hr.ui.view.custom.IdSpineer
+            <TextView
                 android:id="@+id/sp_resume_modifylanguage_langname"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dimen_100px"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="@dimen/dimen_13px"
+                android:layout_marginRight="@dimen/dimen_13px"
                 android:layout_toLeftOf="@+id/imageView45"
                 android:layout_toStartOf="@+id/imageView45"
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:singleLine="true"
-                android:textColor="#F7931E" />
+                android:text="请选择语言类别"
+                android:textColor="#F7931E"/>
             <ImageView
                 android:id="@+id/imageView45"
                 android:layout_width="6dp"
@@ -89,20 +90,21 @@
                 android:id="@+id/textView42444"
                 style="@style/reusme_myresume_tvhead"
                 android:text="听说能力" />
-            <com.hr.ui.view.custom.IdSpineer
+            <TextView
                 android:id="@+id/sp_resume_modifylanguage_speak_level"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dimen_100px"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="@dimen/dimen_13px"
+                android:layout_marginRight="@dimen/dimen_13px"
                 android:layout_toLeftOf="@+id/imageView452222"
                 android:layout_toStartOf="@+id/imageView452222"
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:singleLine="true"
-                android:textColor="#F7931E" />
+                android:text="请选择听说能力"
+                android:textColor="#F7931E"/>
 
             <ImageView
                 android:id="@+id/imageView452222"
@@ -133,19 +135,20 @@
                 style="@style/reusme_myresume_tvhead"
                 android:text="读写能力" />
 
-            <com.hr.ui.view.custom.IdSpineer
+            <TextView
                 android:id="@+id/sp_resume_modifylanguage_read_level"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dimen_100px"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginEnd="@dimen/dimen_13px"
+                android:layout_marginRight="@dimen/dimen_13px"
                 android:layout_toLeftOf="@+id/imageView10045"
                 android:layout_toStartOf="@+id/imageView10045"
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:singleLine="true"
+                android:text="请选择读写能力"
                 android:textColor="#F7931E" />
 
             <ImageView
@@ -187,7 +190,7 @@
                 android:background="@drawable/btn_1chang"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="保存"
+                android:text="@string/delete"
                 android:textColor="#fff"
                 android:textSize="14sp"/>
           </RelativeLayout>

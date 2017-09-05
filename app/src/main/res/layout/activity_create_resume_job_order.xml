@@ -66,19 +66,20 @@
                 style="@style/reusme_myresume_tvhead"
                 android:text="求职状态" />
 
-            <com.hr.ui.view.custom.IdSpineer
+            <TextView
                 android:id="@+id/sp_createresume_joborder_state"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical|right"
                 android:layout_marginEnd="13dp"
                 android:layout_marginRight="13dp"
                 android:layout_toLeftOf="@+id/imageView45"
                 android:layout_toStartOf="@+id/imageView45"
-                android:background="@null"
-                android:gravity="center_vertical|right"
-                android:singleLine="true" />
+                android:ellipsize="end"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="请选择求职状态"
+                android:textColor="#F7931E"/>
 
             <ImageView
                 android:id="@+id/imageView45"
@@ -93,11 +94,11 @@
 
             <View
                 android:id="@+id/view3"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignLeft="@+id/textView42"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/textView42"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
         </RelativeLayout>
 
@@ -111,19 +112,20 @@
                 style="@style/reusme_myresume_tvhead"
                 android:text="工作性质" />
 
-            <com.hr.ui.view.custom.IdSpineer
+            <TextView
                 android:id="@+id/sp_createresume_joborder_worktype"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical|right"
                 android:layout_marginEnd="13dp"
                 android:layout_marginRight="13dp"
                 android:layout_toLeftOf="@+id/imageView450112"
                 android:layout_toStartOf="@+id/imageView450112"
-                android:background="@null"
-                android:gravity="center_vertical|right"
-                android:singleLine="true" />
+                android:ellipsize="end"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="请选择工作性质"
+                android:textColor="#F7931E"/>
 
             <ImageView
                 android:id="@+id/imageView450112"
@@ -138,11 +140,11 @@
 
             <View
                 android:id="@+id/view31"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignLeft="@+id/textView421"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/textView421"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
         </RelativeLayout>
 
@@ -186,11 +188,11 @@
 
             <View
                 android:id="@+id/view33"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignLeft="@+id/textView422"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/textView422"
                 android:background="#EBEBEB" />
         </RelativeLayout>
 
@@ -233,11 +235,11 @@
                 android:src="@mipmap/jiantou_right" />
 
             <View
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignLeft="@+id/textView423"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/textView423"
                 android:background="#EBEBEB" />
         </RelativeLayout>
 

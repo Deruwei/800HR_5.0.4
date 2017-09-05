@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -18,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hr.ui.R;
-import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeBaseInfo;
@@ -27,8 +25,8 @@ import com.hr.ui.model.ResumeList;
 import com.hr.ui.model.ResumeOrder;
 import com.hr.ui.model.ResumeTitle;
 import com.hr.ui.utils.DatePickerUtil;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
-import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;
 import com.hr.ui.utils.datautils.ResumeComplete;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
@@ -38,26 +36,38 @@ import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
-import com.hr.ui.view.custom.IdSpineer;
+import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.MyProgressDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 个人信息修改页面
  */
 public class CreateResumePersonInfoActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "CreateResumePersonInfoActivity";
+    @Bind(R.id.rl_birthday)
+    RelativeLayout rlBirthday;
+    @Bind(R.id.rl_nowLivePlace)
+    RelativeLayout rlNowLivePlace;
+    @Bind(R.id.rl_jobTime)
+    RelativeLayout rlJobTime;
+    @Bind(R.id.rl_nowFunc)
+    RelativeLayout rlNowFunc;
     private Context mContext = CreateResumePersonInfoActivity.this;
     private ResumeBaseInfo resumeBaseInfo;
     private String resumeIdString;
@@ -87,7 +97,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     private RadioButton rb_createresume_personinfo_man, rb_createresume_personinfo_woman;
     private TextView tv_createresume_personinfo_birthday, et_createresume_personinfo_phonenum;
     private static TextView tv_createresume_personinfo_home;
-    private IdSpineer sp_createresume_personinfo_jobbegintime, sp_createresume_personinfo_func;
+    private TextView tv_createresume_personinfo_jobbegintime, tv_createresume_personinfo_func;
     //    sp_createresume_personinfo_nation,
     private ResumeComplete resumeComplete;// 简历完整度操作类
 
@@ -96,36 +106,22 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     private String resumeId = "-1";// 简历id
     private String resumeModifyTime = null;// 简历时间戳
     private String resumeType = null;// 简历类型
-    private Handler handlerIsApp = new Handler() {
-        public void handleMessage(Message msg) {
-            int msgInt = msg.arg1;
-            final String jsonString = (String) msg.obj;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONObject jsonObject = new JSONObject(jsonString);
-                        if (jsonObject.getString("error_code").equals("0")) {
-                            Toast.makeText(mContext, "设置成功", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    };
+    private CustomDatePicker datePickerBeginJob, datePickerFunc;
+    private List<SelectBean> beginJobList=new ArrayList<>();
+    private List<SelectBean> funcList=new ArrayList<>();
+    private String selectBeginJobId,selectFuncId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_resume_person_info);
+        ButterKnife.bind(this);
         sUtils = new SharedPreferencesUtils(mContext);
         initView();
         initData();
+        initDialog();
         checkIsAddResume();
+
     }
 
     private void checkIsAddResume() {
@@ -171,9 +167,9 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         resumeTitle = dbOperator.query_ResumeTitle_info(resumeIdString,
                 resumeLanguageString);
 
-        initSpinnerData();
+     /*   initSpinnerData();*/
 
-        placeName=MyUtils.currentCityZh;
+        placeName = MyUtils.currentCityZh;
         if (resumeBaseInfo != null) {
             // System.out.println("baseInfo:" + resumeBaseInfo);
             setResumeBaseInfoToUI(resumeBaseInfo);
@@ -189,112 +185,6 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     public void getResumeList() {
         AsyncGetResumeList asyncGetResumeList = new AsyncGetResumeList(mContext);
         asyncGetResumeList.execute();
-    }
-
-    private void initSpinnerData() {
-        if (isCHS) {
-            sp_createresume_personinfo_jobbegintime
-                    .setAdapter(new SpinnerAdapter(this,
-                            android.R.layout.simple_spinner_item,
-                            getResources().getStringArray(
-                                    R.array.array_persioninfo_workbeginyear_zh)));
-        } else {
-            sp_createresume_personinfo_jobbegintime
-                    .setAdapter(new SpinnerAdapter(this,
-                            android.R.layout.simple_spinner_item,
-                            getResources().getStringArray(
-                                    R.array.array_persioninfo_workbeginyear_en)));
-        }
-//        if (!isCHS) {// en
-//            sp_createresume_personinfo_nation
-//                    .setAdapter(new SpinnerAdapter(this,
-//                            android.R.layout.simple_spinner_item,
-//                            getResources().getStringArray(
-//                                    R.array.array_nationality_en)));
-//        } else {// zh
-//            sp_createresume_personinfo_nation
-//                    .setAdapter(new SpinnerAdapter(this,
-//                            android.R.layout.simple_spinner_item,
-//                            getResources().getStringArray(
-//                                    R.array.array_nationality_zh)));
-//        }
-        if (!isCHS) {// en
-            sp_createresume_personinfo_func.setAdapter(new SpinnerAdapter(this,
-                    android.R.layout.simple_spinner_item,
-                    getResources().getStringArray(R.array.array_zhicheng_en)));
-        } else {// zh
-            sp_createresume_personinfo_func.setAdapter(new SpinnerAdapter(this,
-                    android.R.layout.simple_spinner_item,
-                    getResources().getStringArray(R.array.array_zhicheng_zh)));
-        }
-        sp_createresume_personinfo_jobbegintime
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        try {
-                            if (sp_createresume_personinfo_jobbegintime.idStrings != null) {
-                                sp_createresume_personinfo_jobbegintime.idString = sp_createresume_personinfo_jobbegintime.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-        sp_createresume_personinfo_func
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        try {
-                            if (sp_createresume_personinfo_func.idStrings != null) {
-                                sp_createresume_personinfo_func.idString = sp_createresume_personinfo_func.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-//        sp_createresume_personinfo_nation
-//                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-//                                               int arg2, long arg3) {
-//                        try {
-//                            if (sp_createresume_personinfo_nation.idStrings != null) {
-//                                sp_createresume_personinfo_nation.idString = sp_createresume_personinfo_nation.idStrings[arg2];
-//                            }
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> arg0) {
-//                        // TODO Auto-generated method stub
-//
-//                    }
-//                });
-//        sp_createresume_personinfo_nation.setIds(getResources().getStringArray(R.array.array_nationality_ids));
-        sp_createresume_personinfo_func.setIds(getResources().getStringArray(R.array.array_zhicheng_ids));
-        sp_createresume_personinfo_jobbegintime.setIds(getResources().getStringArray(R.array.array_persioninfo_workbeginyear_ids));
     }
 
     private static String placeName;
@@ -328,21 +218,36 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
 //        sp_createresume_personinfo_nation.setSelectedItem(resumeBaseInfo.getNationality());
         // 参加工作时间或毕业时间
         String workyearsString = resumeBaseInfo.getWork_beginyear();
-        if ("0".equals(workyearsString) || workyearsString == null) {
-            sp_createresume_personinfo_jobbegintime.setSelectedItem("-1");// "-1"为无工作经验
+        if ("0".equals(workyearsString) || workyearsString == null || "".equals(workyearsString)) {
+            tv_createresume_personinfo_jobbegintime.setText("请选择");
+          /*  tv_createresume_personinfo_jobbegintime.setSelectedItem("-1");*/// "-1"为无工作经验
         } else {
-            sp_createresume_personinfo_jobbegintime.setSelectedItem(workyearsString);
+            selectBeginJobId=workyearsString;
+            for(int i=0;i<beginJobList.size();i++){
+                if(workyearsString.equals(beginJobList.get(i).getId())){
+                    tv_createresume_personinfo_jobbegintime.setText(beginJobList.get(i).getName());
+                    break;
+                }
+            }
         }
         // 现有职称
         String idZhiChengString = resumeBaseInfo.getPost_rank();
-        if (idZhiChengString != null) {
-            sp_createresume_personinfo_func.setSelectedItem(idZhiChengString);
+        if (idZhiChengString != null &&! "".equals(idZhiChengString)) {
+            selectFuncId=idZhiChengString;
+            for(int i=0;i<funcList.size();i++){
+                if(idZhiChengString.equals(funcList.get(i).getId())){
+                    tv_createresume_personinfo_func.setText(funcList.get(i).getName());
+                    break;
+                }
+            }
+        } else {
+            tv_createresume_personinfo_func.setText("请选择");
         }
         //电话
         et_createresume_personinfo_phonenum.setText(resumeBaseInfo.getYdphone());
         et_createresume_personinfo_phonenum.setText(MyUtils.userphone);
-        if("".equals(MyUtils.userphone)||MyUtils.userphone==null){
-            et_createresume_personinfo_phonenum.setText(sUtils.getStringValue(Constants.USERPHONE,""));
+        if ("".equals(MyUtils.userphone) || MyUtils.userphone == null) {
+            et_createresume_personinfo_phonenum.setText(sUtils.getStringValue(Constants.USERPHONE, ""));
         }
 //        if (resumeBaseInfo.getEmailaddress().equals("")) {
 //            et_createresume_personinfo_email.setText(MyUtils.emailAddress);
@@ -368,19 +273,19 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             }
             String locationId = resumeBaseInfo.getLocation();
             String hukouId = resumeBaseInfo.getHukou();
-            if(locationId!=null){
+            if (locationId != null) {
                 placeIdNowPlace = locationId;
-                MyUtils.currentCityId=placeIdNowPlace;
-            }else{
-                placeIdNowPlace=ResumeInfoIDToString.getCityID(this,MyUtils.currentCityZh,true);
-                MyUtils.currentCityId=placeIdNowPlace;
+                MyUtils.currentCityId = placeIdNowPlace;
+            } else {
+                placeIdNowPlace = ResumeInfoIDToString.getCityID(this, MyUtils.currentCityZh, true);
+                MyUtils.currentCityId = placeIdNowPlace;
             }
 
             // 现居住地
             for (int i = 0; i < cityJSONArray.length(); i++) {
                 JSONObject object = cityJSONArray.getJSONObject(i);
                 if (object.has(locationId)) {
-                    placeName=object.getString(locationId);
+                    placeName = object.getString(locationId);
                     tv_createresume_personinfo_home.setText(object.getString(locationId));
                     break;
                 } else {
@@ -398,10 +303,12 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     }
 
     private void initView() {
+       beginJobList= GetResumeArrayList.getBeginJobListFromArray(this);
+        funcList=GetResumeArrayList.getFuncListFromArray(this);
         et_createresume_personinfo_name = (EditText) findViewById(R.id.et_createresume_personinfo_name);
         rb_createresume_personinfo_man = (RadioButton) findViewById(R.id.rb_createresume_personinfo_man);
         rb_createresume_personinfo_woman = (RadioButton) findViewById(R.id.rb_createresume_personinfo_woman);
-        iv_createresume_personinfo_back= (ImageView) findViewById(R.id.iv_createresume_personinfo_back);
+        iv_createresume_personinfo_back = (ImageView) findViewById(R.id.iv_createresume_personinfo_back);
 
         tv_createresume_personinfo_birthday = (TextView) findViewById(R.id.tv_createresume_personinfo_birthday);
         rl_createresume_personinfo_save = (RelativeLayout) findViewById(R.id.rl_createresume_personinfo_save);
@@ -412,17 +319,19 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         et_createresume_personinfo_phonenum = (TextView) findViewById(R.id.et_createresume_personinfo_phonenum);
 
 //        sp_createresume_personinfo_nation = (IdSpineer) findViewById(R.id.sp_createresume_personinfo_nation);
-        sp_createresume_personinfo_func = (IdSpineer) findViewById(R.id.sp_createresume_personinfo_func);
-        sp_createresume_personinfo_jobbegintime = (IdSpineer) findViewById(R.id.sp_createresume_personinfo_jobbegintime);
+        tv_createresume_personinfo_func = (TextView) findViewById(R.id.sp_createresume_personinfo_func);
+        tv_createresume_personinfo_jobbegintime = (TextView) findViewById(R.id.sp_createresume_personinfo_jobbegintime);
 //        iv_createresume_personinfo_back = (ImageView) findViewById(R.id.iv_createresume_personinfo_back);
-
+        tv_createresume_personinfo_jobbegintime.setOnClickListener(this);
+        tv_createresume_personinfo_func.setOnClickListener(this);
         rl_createresume_personinfo_save.setOnClickListener(this);
         tv_createresume_personinfo_birthday.setOnClickListener(this);
-
         tv_createresume_personinfo_home.setOnClickListener(this);
-       iv_createresume_personinfo_back.setOnClickListener(this);
+        iv_createresume_personinfo_back.setOnClickListener(this);
     }
+
     private BeautifulDialog.Builder builderCreateResume;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -433,7 +342,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 chooseIsExit();
                 break;
             case R.id.tv_createresume_personinfo_birthday:
-                DatePickerUtil.initMyDatePicker2(CreateResumePersonInfoActivity.this,tv_createresume_personinfo_birthday);
+                DatePickerUtil.initMyDatePicker2(CreateResumePersonInfoActivity.this, tv_createresume_personinfo_birthday);
                 break;
             case R.id.tv_createresume_personinfo_home:
                 Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);
@@ -444,8 +353,50 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 intent.putExtra("value", "省市选择");
                 mContext.startActivity(intent);
                 break;
+            case R.id.sp_createresume_personinfo_jobbegintime:
+                datePickerBeginJob.show(tv_createresume_personinfo_jobbegintime.getText().toString());
+                break;
+            case R.id.sp_createresume_personinfo_func:
+                datePickerFunc.show(tv_createresume_personinfo_func.getText().toString());
+                break;
         }
     }
+
+    private void initDialog() {
+        datePickerBeginJob = new CustomDatePicker(CreateResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    tv_createresume_personinfo_func.setText("请选择");
+                }else {
+                    tv_createresume_personinfo_jobbegintime.setText(time);
+                    for(int i=0;i<beginJobList.size();i++) {
+                       if(time.equals(beginJobList.get(i).getName())){
+                           selectBeginJobId=beginJobList.get(i).getId();
+                           break;
+                       }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_persioninfo_workbeginyear_zh));
+        datePickerFunc = new CustomDatePicker(CreateResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    tv_createresume_personinfo_func.setText("请选择");
+                }else {
+                    tv_createresume_personinfo_func.setText(time);
+                    for(int i=0;i<funcList.size();i++) {
+                        if(time.equals(funcList.get(i).getName())){
+                            selectFuncId=funcList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_zhicheng_zh));
+    }
+
     /**
      * 退出整个应用
      *
@@ -461,6 +412,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         }
         return super.onKeyDown(keyCode, event);
     }
+
     private void chooseIsExit() {
         builderCreateResume = new BeautifulDialog.Builder(mContext);
         builderCreateResume.setMessage("确认退出创建简历吗？\n 好职位需要简历投递呀，亲！");
@@ -469,8 +421,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                MyUtils.canReflesh=true;
-                Intent intent=new Intent(CreateResumePersonInfoActivity.this,MainActivity.class);
+                MyUtils.canReflesh = true;
+                Intent intent = new Intent(CreateResumePersonInfoActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -483,6 +435,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         });
         builderCreateResume.create().show();
     }
+
     /*
      * 保存数据
      */
@@ -502,7 +455,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(MyUtils.currentCityZh!=null&&!MyUtils.currentCityZh.equals("")) {
+            if (MyUtils.currentCityZh != null && !MyUtils.currentCityZh.equals("")) {
                 if (MyUtils.currentCityZh.equals(placeName)) {
                     placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
                 }
@@ -512,7 +465,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 Toast.makeText(mContext, "请选择现居住地", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if ("0".equals(sp_createresume_personinfo_jobbegintime.getSelectedId())) {
+            if ("请选择".equals(tv_createresume_personinfo_jobbegintime.getText().toString())) {
                 Toast.makeText(mContext, "请选择参加工作年份", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -597,8 +550,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         resumeBaseInfo.setMonth(birthStrings[1]);
         resumeBaseInfo.setDay(birthStrings[2]);
         resumeBaseInfo.setEcho_yes("1");
-        resumeBaseInfo.setWork_beginyear(sp_createresume_personinfo_jobbegintime.getSelectedId() + "");
-        resumeBaseInfo.setPost_rank(sp_createresume_personinfo_func.getSelectedId());
+        resumeBaseInfo.setWork_beginyear(selectBeginJobId);
+        resumeBaseInfo.setPost_rank(selectFuncId);
         resumeBaseInfo.setYdphone(mobileString);
         resumeBaseInfo.setEmailaddress(et_createresume_personinfo_email.getText().toString());
 //        resumeBaseInfo.setNationality(sp_createresume_personinfo_nation.getSelectedId());
@@ -608,7 +561,6 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
 
         if (updateResult) {// 修改成功
             ResumeIsUpdateOperator.setBaseInfoIsUpdate(this, dbOperator, resumeLanguageString);
-            Toast.makeText(this, "保存成功", Toast.LENGTH_LONG).show();
             // System.out.println(resumeBaseInfo.getName() + "为执行修改后的名字");
             // 刷新简历完整度
 //            MyResume myResume = (MyResume) MyUtils.currentGroup
@@ -625,7 +577,30 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             startActivity(intent);
             finish();
         } else {// 修改失败
-            Toast.makeText(this, "保存失败", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @OnClick({R.id.rl_birthday, R.id.rl_nowLivePlace, R.id.rl_jobTime, R.id.rl_nowFunc})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_birthday:
+                DatePickerUtil.initMyDatePicker2(CreateResumePersonInfoActivity.this, tv_createresume_personinfo_birthday);
+                break;
+            case R.id.rl_nowLivePlace:
+                Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("fromtag", 100);
+                intent.putExtra("filter", "place");
+                intent.putExtra("isCHS", true);
+                intent.putExtra("value", "省市选择");
+                mContext.startActivity(intent);
+                break;
+            case R.id.rl_jobTime:
+                datePickerBeginJob.show(tv_createresume_personinfo_jobbegintime.getText().toString());
+                break;
+            case R.id.rl_nowFunc:
+                datePickerFunc.show(tv_createresume_personinfo_func.getText().toString());
+                break;
         }
     }
 
@@ -964,20 +939,4 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             }
         }
     }
-
-//    /**
-//     * 向服务器发送 修改简历app
-//     */
-//    private void sendIsApp() {
-//        try {
-//            HashMap<String, String> requestParams = new HashMap<String, String>();
-//            requestParams.put("method", "user_resume.setisapp");
-//            requestParams.put("resume_id", resumeId);
-//            requestParams.put("is_app", "1");
-//            NetService service = new NetService(mContext, handlerIsApp);
-//            service.execute(requestParams);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

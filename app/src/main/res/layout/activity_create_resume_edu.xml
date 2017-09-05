@@ -85,6 +85,13 @@
                     android:gravity="right"
                     android:hint="请输入学校名称"
                     android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -131,7 +138,13 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
                     android:src="@mipmap/jiantou_right" />
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -178,7 +191,13 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
                     android:src="@mipmap/jiantou_right" />
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -198,9 +217,9 @@
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
-                <com.hr.ui.view.custom.IdSpineer
+                <TextView
                     android:id="@+id/sp_resume_item_createdu_degree"
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical|right"
@@ -210,7 +229,10 @@
                     android:layout_toStartOf="@+id/imageView452"
                     android:background="@null"
                     android:gravity="center_vertical|right"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="请选择学历"
+                    android:textColor="#F7931E"
+                    android:textSize="14sp"  />
 
                 <ImageView
                     android:id="@+id/imageView452"
@@ -222,7 +244,13 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
                     android:src="@mipmap/jiantou_right" />
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -256,6 +284,13 @@
                     android:gravity="right"
                     android:hint="请输入专业名称"
                     android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
             </RelativeLayout>
 
             <!--<RelativeLayout-->

@@ -306,9 +306,8 @@ public class MyResumeFragment extends BaseFragment {
         dbOperator = new DAO_DBOperator(getActivity());
         listResume = new ArrayList<ResumeList>();
         if(type==1) {
+            type=2;
             dialogUtils.showDialog();
-        }else{
-            type=1;
         }
         AsyncGetResumeList asyncGetResumeList = new AsyncGetResumeList(getActivity());
         asyncGetResumeList.execute();
@@ -1334,6 +1333,8 @@ public class MyResumeFragment extends BaseFragment {
 
         RelativeLayout rl_item_setresume_confirm = (RelativeLayout) viewSetResume.findViewById(R.id.rl_item_setresume_confirm);
         final EditText et_myresume_resumename = (EditText) viewSetResume.findViewById(R.id.et_myresume_resumename);
+        et_myresume_resumename.setText(resumeTitle.getTitle());
+        et_myresume_resumename.clearFocus();
         rl_item_setresume_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

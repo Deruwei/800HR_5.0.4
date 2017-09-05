@@ -14,15 +14,20 @@ import android.widget.Toast;
 import com.hr.ui.R;
 import com.hr.ui.adapter.ResumeSkillExpLVAdapter;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeLanguageLevel;
 import com.hr.ui.model.ResumeSkill;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
+import com.hr.ui.utils.netutils.NetRequest;
 import com.hr.ui.view.custom.BeautifulDialog;
+import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,7 +41,7 @@ public class ModifySkillActivity extends BaseResumeActivity {
     @Bind(R.id.et_resume_item_modifyskill_skilltime)
     EditText etResumeItemModifyskillSkilltime;
     @Bind(R.id.sp_resume_modifyskill_level)
-    IdSpineer spResumeModifyskillLevel;
+    TextView spResumeModifyskillLevel;
     @Bind(R.id.tv_resume_item_skillmodify_delete)
     TextView tvResumeItemSkillmodifyDelete;
     @Bind(R.id.tv_resume_item_skillmodify_save)
@@ -45,6 +50,9 @@ public class ModifySkillActivity extends BaseResumeActivity {
     private DAO_DBOperator dbOperator;
     private ResumeSkill resumeSkill;
     private String resumeId, resumeLanguage;
+    private CustomDatePicker datePickerSkill;
+    private List<SelectBean> levelList=new ArrayList<>();
+    private String selectLevelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +60,10 @@ public class ModifySkillActivity extends BaseResumeActivity {
         setContentView(R.layout.activity_modify_skill);
         ButterKnife.bind(this);
         initData();
+        initDialog();
     }
-
     private void initData() {
+        levelList= GetResumeArrayList.getLevelFromArray(this);
         dbOperator = new DAO_DBOperator(context);
         resumeSkill = (ResumeSkill) getIntent().getSerializableExtra("resumeSkill");
         resumeId = getIntent().getStringExtra("resumeId");
@@ -62,33 +71,38 @@ public class ModifySkillActivity extends BaseResumeActivity {
         if(getIntent().getStringExtra("isAdd").equals("1")){
             tvResumeItemSkillmodifyDelete.setVisibility(View.GONE);
         }
-        spResumeModifyskillLevel.setAdapter(new SpinnerAdapter(context, android.R.layout.simple_spinner_item, context.getResources().getStringArray(R.array.array_skilllevel_zh)));
-        spResumeModifyskillLevel.setIds(context.getResources().getStringArray(R.array.array_skilllevel_ids));
-        spResumeModifyskillLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
-                try {
-                    if (spResumeModifyskillLevel.idStrings != null) {
-                        spResumeModifyskillLevel.idString = spResumeModifyskillLevel.idStrings[arg2];
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
         etResumeItemModifyskillSkillname.setText(resumeSkill.getSkilltitle());
         etResumeItemModifyskillSkilltime.setText(resumeSkill.getUsetime());
-        spResumeModifyskillLevel.setSelectedItem(resumeSkill.getAbility());
+        if (resumeSkill.getAbility() != null) {
+            String levelId = resumeSkill.getAbility();
+            selectLevelId = levelId;
+            for (int i = 0; i < levelList.size(); i++) {
+                if (levelId.equals(levelList.get(i).getId())) {
+                    spResumeModifyskillLevel.setText(levelList.get(i).getName());
+                    break;
+                }
+            }
+        }
     }
-
-    @OnClick({R.id.iv_resume_modifynewskill_back, R.id.tv_resume_item_skillmodify_delete, R.id.tv_resume_item_skillmodify_save})
+    private void initDialog() {
+        datePickerSkill = new CustomDatePicker(ModifySkillActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if ("".equals(time) || time == null) {
+                    spResumeModifyskillLevel.setText("请选择");
+                } else {
+                    spResumeModifyskillLevel.setText(time);
+                    for (int i = 0; i < levelList.size(); i++) {
+                        if (time.equals(levelList.get(i).getName())) {
+                            selectLevelId = levelList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        }, getResources().getStringArray(R.array.array_skilllevel_zh));
+    }
+    @OnClick({R.id.iv_resume_modifynewskill_back, R.id.tv_resume_item_skillmodify_delete, R.id.tv_resume_item_skillmodify_save,R.id.sp_resume_modifyskill_level})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_resume_modifynewskill_back:
@@ -99,6 +113,9 @@ public class ModifySkillActivity extends BaseResumeActivity {
                 break;
             case R.id.tv_resume_item_skillmodify_save:
                 saveData();
+                break;
+            case R.id.sp_resume_modifyskill_level:
+                datePickerSkill.show(spResumeModifyskillLevel.getText().toString());
                 break;
         }
     }
@@ -123,7 +140,7 @@ public class ModifySkillActivity extends BaseResumeActivity {
                 .getText().toString().trim();
         String skilltimeString = etResumeItemModifyskillSkilltime
                 .getText().toString().trim();
-        String idsString = spResumeModifyskillLevel.getSelectedId();
+        String idsString = selectLevelId;
         resumeSkill.setSkilltitle(skillnameString);
         resumeSkill.setUsetime(skilltimeString);
         resumeSkill.setAbility(idsString);

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,8 @@ import butterknife.OnClick;
 public class RecommendJobFragment extends BaseFragment {
 
     public static TextView tvRecfragmentPlace, tvRecfragmentFunction, tvRecfragmentText;
-
+    @Bind(R.id.btn_back)
+    Button btnBack;
     private RelativeLayout rlRecfragmentEmpty;
     @Bind(R.id.tv_recommendfragment_back)
     TextView tvRecommendfragmentBack;
@@ -98,12 +98,13 @@ public class RecommendJobFragment extends BaseFragment {
      */
     private static String areaid;
     private RefleshDialogUtils dialogUtils;
+    private int type = 1;
     /**
      * 总数据
      */
     private static ArrayList<HashMap<String, Object>> totalList;
     private HashMap<String, Object> hs;
-    private ArrayList<HashMap<String, Object>> dataList=new ArrayList<>();
+    private ArrayList<HashMap<String, Object>> dataList = new ArrayList<>();
     private GetBaiduLocation location;
     /**
      * 职能选择集合
@@ -124,15 +125,15 @@ public class RecommendJobFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_recommend_job, null);
         ButterKnife.bind(this, view);
-        dialogUtils=new RefleshDialogUtils(getActivity());
+        dialogUtils = new RefleshDialogUtils(getActivity());
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(MyUtils.canReflesh==true) {
-            MyUtils.canReflesh=false;
+        if (MyUtils.canReflesh == true) {
+            MyUtils.canReflesh = false;
             initData();
             initView();
 
@@ -146,12 +147,13 @@ public class RecommendJobFragment extends BaseFragment {
         /*dialog = new MyProgressDialog(getActivity());*/
         functionSelectMap.clear();
     }
+
     public void initView() {
         tvRecfragmentFunction = (TextView) view.findViewById(R.id.tv_recfragment_function);
         tvRecfragmentText = (TextView) view.findViewById(R.id.tv_recfragment_text);
         tvRecfragmentPlace = (TextView) view.findViewById(R.id.tv_recfragment_place);
         rlRecfragmentEmpty = (RelativeLayout) view.findViewById(R.id.rl_recfragment_empty);
-        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvRecommendfragment.setLayoutManager(manager);
         lvRecommendfragment.addItemDecoration(new SpacesItemDecoration(5));
@@ -167,24 +169,15 @@ public class RecommendJobFragment extends BaseFragment {
             tvRecommendfragmentBack.setVisibility(View.GONE);
         } else {
             if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
-                    funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
-                    areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
-                    loadNetData();
+                funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
+                areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
+                loadNetData();
             } else {
                 lvRecommendfragment.setVisibility(View.GONE);
                 rlRecfragmentEmpty.setVisibility(View.GONE);
                 lrRecfragmentJob.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-      /*  if(dialog!=null&&dialog.isShowing()){
-            dialog.dismiss();
-        }*/
     }
 
     @OnClick({R.id.tv_gome, R.id.tv_recommendfragment_back, R.id.rl_recfragment_function, R.id.rl_recfragment_place, R.id.bt_recfragment_submit, R.id.rl_recfragment_login})
@@ -214,7 +207,7 @@ public class RecommendJobFragment extends BaseFragment {
             case R.id.bt_recfragment_submit:
                 if (functionSelectMap != null) {
                     StringBuffer funcidBuffer = new StringBuffer();
-                    for (int i=0;i<functionSelectMap.size();i++ ) {
+                    for (int i = 0; i < functionSelectMap.size(); i++) {
                         String string = functionSelectMap.get(i).getId();
                         funcidBuffer.append(string + ",");
                     }
@@ -286,7 +279,7 @@ public class RecommendJobFragment extends BaseFragment {
             return;
         }
         StringBuffer buffer = new StringBuffer();
-        for (int i=0;i<functionSelectMap.size();i++ ) {
+        for (int i = 0; i < functionSelectMap.size(); i++) {
             String keyString = functionSelectMap.get(i).getName();
             buffer.append(keyString + "、");
         }
@@ -342,21 +335,21 @@ public class RecommendJobFragment extends BaseFragment {
             if (msg.what == 0) {
 
                 json_result = (String) msg.obj;
-                   dataList=new ArrayList<>();
-                    dataList = GetJssonList.searchResult_json(json_result);// 状态码
-                    if(dataList!=null&&dataList.size()!=0) {
-                        totalList.addAll(dataList);
-                        sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
-                        lvRecommendfragment.setAdapter(sjrAdapter);
-                        lrRecfragmentJob.setVisibility(View.GONE);
-                        lvRecommendfragment.setVisibility(View.VISIBLE);
-                        rlRecfragmentEmpty.setVisibility(View.GONE);
-                    }else{
-                        lrRecfragmentJob.setVisibility(View.GONE);
-                        lvRecommendfragment.setVisibility(View.GONE);
-                        rlRecfragmentEmpty.setVisibility(View.VISIBLE);
-                    }
-            }else{
+                dataList = new ArrayList<>();
+                dataList = GetJssonList.searchResult_json(json_result);// 状态码
+                if (dataList != null && dataList.size() != 0) {
+                    totalList.addAll(dataList);
+                    sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
+                    lvRecommendfragment.setAdapter(sjrAdapter);
+                    lrRecfragmentJob.setVisibility(View.GONE);
+                    lvRecommendfragment.setVisibility(View.VISIBLE);
+                    rlRecfragmentEmpty.setVisibility(View.GONE);
+                } else {
+                    lrRecfragmentJob.setVisibility(View.GONE);
+                    lvRecommendfragment.setVisibility(View.GONE);
+                    rlRecfragmentEmpty.setVisibility(View.VISIBLE);
+                }
+            } else {
                 lrRecfragmentJob.setVisibility(View.VISIBLE);
                 lvRecommendfragment.setVisibility(View.GONE);
                 rlRecfragmentEmpty.setVisibility(View.GONE);
@@ -366,11 +359,15 @@ public class RecommendJobFragment extends BaseFragment {
 
 
     };
+
     /**
      * 加载数据
      */
     public void loadNetData() {
-        dialogUtils.showDialog();
+        if (type == 1) {
+            type = 2;
+            dialogUtils.showDialog();
+        }
         service = new NetService(getActivity(), handlerService);
         service.execute(getData(1));
     }
@@ -388,7 +385,7 @@ public class RecommendJobFragment extends BaseFragment {
                     if (jsonObjectJobIntension.getString("error_code").trim().equals("0")) {
                         JSONObject jsonorder_info = jsonObjectJobIntension.getJSONObject("order_info");
 
-                        if(!jsonorder_info.toString().contains("func")||!jsonorder_info.toString().contains("workarea")){
+                        if (!jsonorder_info.toString().contains("func") || !jsonorder_info.toString().contains("workarea")) {
                             if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
                                 funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
                                 areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
@@ -398,7 +395,7 @@ public class RecommendJobFragment extends BaseFragment {
                                 rlRecfragmentEmpty.setVisibility(View.GONE);
                                 lrRecfragmentJob.setVisibility(View.VISIBLE);
                             }
-                        }else{
+                        } else {
                             lrRecfragmentJob.setVisibility(View.GONE);
                             funcid = jsonorder_info.getString("func");
                             areaid = jsonorder_info.getString("workarea");
@@ -422,14 +419,15 @@ public class RecommendJobFragment extends BaseFragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 dialogUtils.dismissDialog();
             }
         }
 
 
     };
-    private void getData(){
+
+    private void getData() {
 
     }
    /* @Override
@@ -456,6 +454,13 @@ public class RecommendJobFragment extends BaseFragment {
         dialogUtils.showDialog();
         NetService service = new NetService(getActivity(), handlerJobIntension);
         service.execute(paramsJobIntension);
+    }
+
+    @OnClick(R.id.btn_back)
+    public void onViewClicked() {
+        rlRecfragmentEmpty.setVisibility(View.GONE);
+        lvRecommendfragment.setVisibility(View.GONE);
+        lrRecfragmentJob.setVisibility(View.VISIBLE);
     }
 
     /**

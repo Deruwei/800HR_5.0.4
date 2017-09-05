@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.SelectBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.utils.DatePickerUtil;
+import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
@@ -27,6 +29,7 @@ import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
+import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
 
 import org.json.JSONArray;
@@ -34,6 +37,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +56,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     private SharedPreferencesUtils sUtils;
     private static int RequestCode=1005;
     private String address;
+    private CustomDatePicker datePickerBeginJob,datePickerFunc;
     /**
      * 控件
      */
@@ -60,12 +66,14 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     private RadioButton rb_resume_personinfo_man, rb_resume_personinfo_woman;
     private TextView tv_resume_personinfo_birthday, tv_phone_confirm;
     private static TextView tv_resume_personinfo_home, et_resume_personinfo_phonenum, tv_image_phone, tv_image_phone2;
-    private IdSpineer  sp_resume_personinfo_jobbegintime, sp_resume_personinfo_func;
+    private TextView  sp_resume_personinfo_jobbegintime, sp_resume_personinfo_func;
     private ImageView iv_resume_personinfo_back;
 //    sp_resume_personinfo_nation,
 //    private LinearLayout lr_resumepersoninfo;
-
+    private List<SelectBean> selectBeginJobList=new ArrayList<>();
+    private List<SelectBean> selectFuncList=new ArrayList<>();
     private static String placeIdNowPlace;
+    private String selectBenginId,selectFuncId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         sUtils = new SharedPreferencesUtils(mContext);
         initView();
         initData();
+        initDialog();
     }
 
     private void initData() {
@@ -83,7 +92,6 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         isCHS = getIntent().getBooleanExtra("isCHS", true);
 
         resumeBaseInfo = dbOperator.query_ResumePersonInfo_Toone(resumeLanguageString);
-        initSpinnerData();
         if (resumeBaseInfo != null) {
             // System.out.println("baseInfo:" + resumeBaseInfo);
             setResumeBaseInfoToUI(resumeBaseInfo);
@@ -91,110 +99,41 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
             resumeBaseInfo = new ResumeBaseInfo();
         }
     }
-
-    private void initSpinnerData() {
-        if (isCHS) {
-            sp_resume_personinfo_jobbegintime
-                    .setAdapter(new SpinnerAdapter(this,
-                            android.R.layout.simple_spinner_item,
-                            getResources().getStringArray(
-                                    R.array.array_persioninfo_workbeginyear_zh)));
-        } else {
-            sp_resume_personinfo_jobbegintime
-                    .setAdapter(new SpinnerAdapter(this,
-                            android.R.layout.simple_spinner_item,
-                            getResources().getStringArray(
-                                    R.array.array_persioninfo_workbeginyear_en)));
-        }
-//        if (!isCHS) {// en
-//            sp_resume_personinfo_nation
-//                    .setAdapter(new SpinnerAdapter(this,
-//                            android.R.layout.simple_spinner_item,
-//                            getResources().getStringArray(
-//                                    R.array.array_nationality_en)));
-//        }
-//        else {// zh
-//            sp_resume_personinfo_nation
-//                    .setAdapter(new SpinnerAdapter(this,
-//                            android.R.layout.simple_spinner_item,
-//                            getResources().getStringArray(
-//                                    R.array.array_nationality_zh)));
-//        }
-        if (!isCHS) {// en
-            sp_resume_personinfo_func.setAdapter(new SpinnerAdapter(this,
-                    android.R.layout.simple_spinner_item,
-                    getResources().getStringArray(R.array.array_zhicheng_en)));
-        } else {// zh
-            sp_resume_personinfo_func.setAdapter(new SpinnerAdapter(this,
-                    android.R.layout.simple_spinner_item,
-                    getResources().getStringArray(R.array.array_zhicheng_zh)));
-        }
-        sp_resume_personinfo_jobbegintime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    private void initDialog() {
+        datePickerBeginJob = new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                try {
-                    if (sp_resume_personinfo_jobbegintime.idStrings != null) {
-                        sp_resume_personinfo_jobbegintime.idString = sp_resume_personinfo_jobbegintime.idStrings[arg2];
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    sp_resume_personinfo_jobbegintime.setText("请选择");
+                }else {
+                    sp_resume_personinfo_jobbegintime.setText(time);
+                    for(int i=0;i<selectBeginJobList.size();i++) {
+                        if(time.equals(selectBeginJobList.get(i).getName())){
+                            selectBenginId=selectBeginJobList.get(i).getId();
+                            break;
+                        }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
-
+        }, getResources().getStringArray(R.array.array_persioninfo_workbeginyear_zh));
+        datePickerFunc = new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-        sp_resume_personinfo_func
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        try {
-                            if (sp_resume_personinfo_func.idStrings != null) {
-                                sp_resume_personinfo_func.idString = sp_resume_personinfo_func.idStrings[arg2];
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    sp_resume_personinfo_func.setText("请选择");
+                }else {
+                    sp_resume_personinfo_func.setText(time);
+                    for(int i=0;i<selectFuncList.size();i++) {
+                        if(time.equals(selectFuncList.get(i).getName())){
+                            selectFuncId=selectFuncList.get(i).getId();
+                            break;
                         }
-
                     }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-//        sp_resume_personinfo_nation
-//                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-//                                               int arg2, long arg3) {
-//                        try {
-//                            if (sp_resume_personinfo_nation.idStrings != null) {
-//                                sp_resume_personinfo_nation.idString = sp_resume_personinfo_nation.idStrings[arg2];
-//                            }
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> arg0) {
-//                        // TODO Auto-generated method stub
-//
-//                    }
-//                });
-//        sp_resume_personinfo_nation.setIds(getResources().getStringArray(R.array.array_nationality_ids));
-        sp_resume_personinfo_func.setIds(getResources().getStringArray(R.array.array_zhicheng_ids));
-        sp_resume_personinfo_jobbegintime.setIds(getResources().getStringArray(R.array.array_persioninfo_workbeginyear_ids));
-
-
+                }
+            }
+        }, getResources().getStringArray(R.array.array_zhicheng_zh));
     }
+
 
     private void setResumeBaseInfoToUI(ResumeBaseInfo resumeBaseInfo) {
 //        Toast.makeText(this, resumeBaseInfo.getYdphone_verify_status(), Toast.LENGTH_SHORT).show();
@@ -228,14 +167,27 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         // 参加工作时间或毕业时间
         String workyearsString = resumeBaseInfo.getWork_beginyear();
         if ("0".equals(workyearsString) || workyearsString == null) {
-            sp_resume_personinfo_jobbegintime.setSelectedItem("-1");// "-1"为无工作经验
+            sp_resume_personinfo_jobbegintime.setText("请选择");// "-1"为无工作经验
         } else {
-            sp_resume_personinfo_jobbegintime.setSelectedItem(workyearsString);
+            selectBenginId=workyearsString;
+            for(int i=0;i<selectBeginJobList.size();i++){
+                if(workyearsString.equals(selectBeginJobList.get(i).getId())){
+                    sp_resume_personinfo_jobbegintime.setText(selectBeginJobList.get(i).getName());
+                    break;
+                }
+            }
         }
         // 现有职称
         String idZhiChengString = resumeBaseInfo.getPost_rank();
         if (idZhiChengString != null) {
-            sp_resume_personinfo_func.setSelectedItem(idZhiChengString);
+            selectFuncId=idZhiChengString;
+            for(int i=0;i<selectFuncList.size();i++){
+                if(idZhiChengString.equals(selectFuncList.get(i).getId())){
+                    sp_resume_personinfo_func.setText(selectFuncList .get(i).getName());
+                    break;
+                }
+            }
+
         }
         //电话
 //        if (resumeBaseInfo.getYdphone().length() > 11) {
@@ -287,6 +239,8 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     }
 
     private void initView() {
+        selectBeginJobList= GetResumeArrayList.getBeginJobListFromArray(this);
+        selectFuncList=GetResumeArrayList.getFuncListFromArray(this);
 //        lr_resumepersoninfo = (LinearLayout) findViewById(R.id.lr_resumepersoninfo);
         et_resume_personinfo_name = (EditText) findViewById(R.id.et_resume_personinfo_name);
         rb_resume_personinfo_man = (RadioButton) findViewById(R.id.rb_resume_personinfo_man);
@@ -306,8 +260,8 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         et_resume_personinfo_email = (EditText) findViewById(R.id.et_resume_personinfo_email);
         et_resume_personinfo_phonenum = (TextView) findViewById(R.id.et_resume_personinfo_phonenum);
 //        sp_resume_personinfo_nation = (IdSpineer) findViewById(R.id.sp_resume_personinfo_nation);
-        sp_resume_personinfo_func = (IdSpineer) findViewById(R.id.sp_resume_personinfo_func);
-        sp_resume_personinfo_jobbegintime = (IdSpineer) findViewById(R.id.sp_resume_personinfo_jobbegintime);
+        sp_resume_personinfo_func = (TextView) findViewById(R.id.sp_resume_personinfo_func);
+        sp_resume_personinfo_jobbegintime = (TextView) findViewById(R.id.sp_resume_personinfo_jobbegintime);
         rl_resume_personinfo_save.setOnClickListener(this);
         tv_resume_personinfo_birthday.setOnClickListener(this);
 //        lr_resumepersoninfo.setOnClickListener(this);
@@ -371,10 +325,10 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
 //                modification = true;
 //                break;
             case R.id.rl_resume_personinfo_jobbegintime:
-                modification = true;
+                datePickerBeginJob.show(sp_resume_personinfo_jobbegintime.getText().toString());
                 break;
             case R.id.rl_resume_personinfo_func:
-                modification = true;
+                datePickerFunc.show(sp_resume_personinfo_func.getText().toString());
                 break;
 
 
@@ -445,7 +399,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 Toast.makeText(mContext, "请选择现居住地", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if ("0".equals(sp_resume_personinfo_jobbegintime.getSelectedId())) {
+            if ("0".equals(selectFuncId)||selectFuncId==null||"".equals(selectFuncId)) {
                 Toast.makeText(mContext, "请选择参加工作年份", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -525,10 +479,8 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         resumeBaseInfo.setYear(birthStrings[0]);
         resumeBaseInfo.setMonth(birthStrings[1]);
         resumeBaseInfo.setDay(birthStrings[2]);
-        resumeBaseInfo.setWork_beginyear(sp_resume_personinfo_jobbegintime
-                .getSelectedId() + "");
-        resumeBaseInfo.setPost_rank(sp_resume_personinfo_func
-                .getSelectedId());
+        resumeBaseInfo.setWork_beginyear(selectBenginId);
+        resumeBaseInfo.setPost_rank(selectFuncId);
         resumeBaseInfo.setYdphone(mobileString);
         resumeBaseInfo.setEmailaddress(et_resume_personinfo_email.getText().toString());
 //        resumeBaseInfo.setNationality(sp_resume_personinfo_nation.getSelectedId());

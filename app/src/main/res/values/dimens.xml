@@ -144,6 +144,8 @@
     <dimen name="dimen_74px">74dp</dimen>
     <dimen name="dimen_75px">75dp</dimen>
     <dimen name="dimen_100px">100dp</dimen>
+    <dimen name="dimen_200px">200dp</dimen>
+    <dimen name="dimen_250px">250dp</dimen>
     <dimen name="dimen_140px">140dp</dimen>
     <dimen name="dimen_150px">150dp</dimen>
     <dimen name="text_size_1">1.0sp</dimen>

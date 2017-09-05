@@ -40,19 +40,20 @@
         <TextView
             style="@style/reusme_myresume_tvhead"
             android:text="求职状态" />
-        <com.hr.ui.view.custom.IdSpineer
+        <TextView
             android:id="@+id/sp_resume_joborder_state"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical|right"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             android:layout_toLeftOf="@+id/imageView45"
             android:layout_toStartOf="@+id/imageView45"
-            android:background="@null"
-            android:gravity="center_vertical|right"
-            android:singleLine="true" />
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="请选择工作性质"
+            android:textColor="#F7931E" />
         <ImageView
             android:id="@+id/imageView45"
             android:layout_width="6dp"
@@ -83,19 +84,20 @@
             style="@style/reusme_myresume_tvhead"
             android:text="工作性质" />
 
-        <com.hr.ui.view.custom.IdSpineer
+        <TextView
             android:id="@+id/sp_resume_joborder_worktype"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical|right"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             android:layout_toLeftOf="@+id/imageView451235"
             android:layout_toStartOf="@+id/imageView451235"
-            android:background="@null"
-            android:gravity="center_vertical|right"
-            android:singleLine="true" />
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="请选择工作性质"
+            android:textColor="#F7931E" />
 
         <ImageView
             android:id="@+id/imageView451235"
@@ -129,7 +131,6 @@
         <TextView
             android:id="@+id/tv_resume_joborder_position"
             android:layout_width="200dp"
-
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="13dp"

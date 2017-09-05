@@ -89,11 +89,11 @@
 
                 <View
                     android:id="@+id/view3"
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/textView42"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/textView42"
                     android:background="#EBEBEB" />
             </RelativeLayout>
 
@@ -166,6 +166,7 @@
                 android:background="#EBEBEB" />
 
             <RelativeLayout
+                android:id="@+id/rl_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical">
@@ -201,15 +202,16 @@
                     android:src="@mipmap/jiantou_right" />
 
                 <View
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/textView420102"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/textView420102"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:background="#EBEBEB" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_nowLivePlace"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical">
@@ -247,11 +249,11 @@
                     android:src="@mipmap/jiantou_right" />
 
                 <View
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/textView4201031"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/textView4201031"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:background="#EBEBEB" />
             </RelativeLayout>
 
@@ -301,6 +303,7 @@
             <!--</RelativeLayout>-->
 
             <RelativeLayout
+                android:id="@+id/rl_jobTime"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical">
@@ -310,14 +313,16 @@
                     style="@style/reusme_myresume_tvhead"
                     android:text="参加工作年份" />
 
-                <com.hr.ui.view.custom.IdSpineer
+                <TextView
                     android:id="@+id/sp_createresume_personinfo_jobbegintime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="#F7931E"
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginEnd="13dp"
                     android:layout_marginRight="13dp"
+                    android:text="请选择"
                     android:layout_toLeftOf="@+id/imageView450104"
                     android:layout_toStartOf="@+id/imageView450104"
                     android:background="@null"
@@ -336,46 +341,42 @@
                     android:src="@mipmap/jiantou_right" />
 
                 <View
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/textView420104"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/textView420104"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:background="#EBEBEB" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_nowFunc"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:gravity="center_vertical">
+
 
                 <TextView
                     android:id="@+id/textView420105"
                     style="@style/reusme_myresume_tvhead"
                     android:text="现有职称" />
 
-                <com.hr.ui.view.custom.IdSpineer
+                <TextView
                     android:id="@+id/sp_createresume_personinfo_func"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginEnd="13dp"
                     android:layout_marginRight="13dp"
+                    android:textColor="#F7931E"
                     android:layout_toLeftOf="@+id/imageView450106"
-                    android:layout_toStartOf="@+id/imageView450106"
-                    android:background="@null"
-                    android:gravity="center_vertical|right"
-                    android:singleLine="true" />
+                    android:text="请选择" />
 
                 <ImageView
                     android:id="@+id/imageView450106"
                     android:layout_width="6dp"
                     android:layout_height="10dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
                     android:src="@mipmap/jiantou_right" />
 
@@ -411,11 +412,11 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/textView420107"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/textView420107"
                     android:background="#EBEBEB" />
             </RelativeLayout>
 

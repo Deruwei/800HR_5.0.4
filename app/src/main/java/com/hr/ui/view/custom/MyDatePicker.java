@@ -122,6 +122,18 @@ public class MyDatePicker implements DatePicker.OnDateChangedListener,
                     Toast.makeText(context, context.getString(R.string.date1), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if("".equals(dateTime)||dateTime==null){
+                    Calendar calendar1 = Calendar.getInstance();
+                    calendar1.set(datePicker.getYear(), datePicker.getMonth(),
+                            datePicker.getDayOfMonth());
+                    SimpleDateFormat sdf;
+                    if(type==2) {
+                        sdf = new SimpleDateFormat("yyyy-M");
+                    }else{
+                        sdf = new SimpleDateFormat("yyyy-M-d");
+                    }
+                    dateTime = sdf.format(calendar1.getTime());
+                }
                 handler.handle( dateTime );
                 datePickerDialog.dismiss();
             }
@@ -225,7 +237,7 @@ public class MyDatePicker implements DatePicker.OnDateChangedListener,
         if(type==2) {
             sdf = new SimpleDateFormat("yyyy-M");
         }else{
-            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf = new SimpleDateFormat("yyyy-M-d");
         }
         dateTime = sdf.format(calendar.getTime());
 
