@@ -20,6 +20,7 @@ import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.view.custom.BeautifulDialog;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ public class ModifyProjectActivity extends BaseResumeActivity {
     private DAO_DBOperator dbOperator;
     private ResumeProject resumeProject;
     private String resumeId, resumeLanguage;
+    private MyCustomDatePicker datePickerBeginTime,datePickerEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,24 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         setContentView(R.layout.activity_modify_project);
         ButterKnife.bind(this);
         initData();
+        initDatePicker();
+    }
+
+    private void initDatePicker() {
+        datePickerBeginTime=new MyCustomDatePicker(ModifyProjectActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemModifyprojectStarttime.setText(time);
+            }
+        });
+        datePickerBeginTime.showSpecificYearAndMonth(false);
+        datePickerEndTime=new MyCustomDatePicker(ModifyProjectActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemModifyprojectEndtime.setText(time);
+            }
+        });
+        datePickerEndTime.showSpecificYearAndMonth(false);
     }
 
     private void initData() {
@@ -85,13 +105,17 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         tvResumeItemModifyprojectStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyProjectActivity.this,tvResumeItemModifyprojectStarttime);
+                datePickerBeginTime.show(tvResumeItemModifyprojectStarttime.getText().toString()+"-1",1);
             }
         });
         tvResumeItemModifyprojectEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyProjectActivity.this,tvResumeItemModifyprojectEndtime);
+                String s=tvResumeItemModifyprojectEndtime.getText().toString();
+                if(!"至今".equals(s)) {
+                    s=s+"-1";
+                }
+                datePickerEndTime.show(s,2);
             }
         });
     }
@@ -179,11 +203,11 @@ public class ModifyProjectActivity extends BaseResumeActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear) {
+        if (endYear < startYear&&!tvResumeItemModifyprojectEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth) {
+        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemModifyprojectEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }

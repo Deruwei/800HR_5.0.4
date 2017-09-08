@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
 import com.hr.ui.view.custom.CustomDatePicker;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 import com.hr.ui.view.custom.MyProgressDialog;
 
 import org.json.JSONArray;
@@ -44,8 +47,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -72,6 +77,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     private ResumeBaseInfo resumeBaseInfo;
     private String resumeIdString;
     private String resumeLanguageString;
+    private int sexId=1;
 
 
     private SharedPreferencesUtils sUtils;
@@ -83,34 +89,26 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     public static ArrayList<ResumeLanguageLevel> listLanguageLevels;
     public static ArrayList<ResumeList> listResumeLists;
     private ArrayList<ResumeList> listResume = null;
-    public final static int ToMyResume = 100, ToResumeScan = 200;
-    //ToResumeScan获取到网络简历信息,跳转到预览  获取到网络简历信息,跳转到MyResume
     private boolean isCHS = true;
-    private ResumeBaseInfo baseInfoZh, baseInfoEn;
-    private int stateNum = 0;
-    private long firstClickTime;
     /**
      * 控件
      */
     private RelativeLayout rl_createresume_personinfo_save;
     private EditText et_createresume_personinfo_name, et_createresume_personinfo_email;
-    private RadioButton rb_createresume_personinfo_man, rb_createresume_personinfo_woman;
+    private LinearLayout rb_createresume_personinfo_man, rb_createresume_personinfo_woman;
+    private TextView tv_man,tv_woman;
     private TextView tv_createresume_personinfo_birthday, et_createresume_personinfo_phonenum;
     private static TextView tv_createresume_personinfo_home;
     private TextView tv_createresume_personinfo_jobbegintime, tv_createresume_personinfo_func;
-    //    sp_createresume_personinfo_nation,
     private ResumeComplete resumeComplete;// 简历完整度操作类
 
     private static String placeIdNowPlace;
     private ImageView iv_createresume_personinfo_back;
-    private String resumeId = "-1";// 简历id
-    private String resumeModifyTime = null;// 简历时间戳
-    private String resumeType = null;// 简历类型
     private CustomDatePicker datePickerBeginJob, datePickerFunc;
     private List<SelectBean> beginJobList=new ArrayList<>();
     private List<SelectBean> funcList=new ArrayList<>();
     private String selectBeginJobId,selectFuncId;
-
+    private MyCustomDatePicker datePickerBirth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,9 +202,17 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         // 性别
         String sex = resumeBaseInfo.getSex();
         if ("1".equalsIgnoreCase(sex)) {// 1男，2女
-            rb_createresume_personinfo_man.setChecked(true);
+            sexId=1;
+            tv_man.setTextColor(ContextCompat.getColor(this,R.color.white));
+            tv_woman.setTextColor(ContextCompat.getColor(this, R.color.gray));
+            rb_createresume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_orange);
+            rb_createresume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_gray);
         } else if ("2".equalsIgnoreCase(sex)) {
-            rb_createresume_personinfo_woman.setChecked(true);
+            sexId=2;
+            tv_man.setTextColor(ContextCompat.getColor(this,R.color.gray));
+            tv_woman.setTextColor(ContextCompat.getColor(this, R.color.white));
+            rb_createresume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_gray_left);
+            rb_createresume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_orange_right);
         }
         // 出生日期
         if ("".equals(resumeBaseInfo.getYear())) {
@@ -306,10 +312,11 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
        beginJobList= GetResumeArrayList.getBeginJobListFromArray(this);
         funcList=GetResumeArrayList.getFuncListFromArray(this);
         et_createresume_personinfo_name = (EditText) findViewById(R.id.et_createresume_personinfo_name);
-        rb_createresume_personinfo_man = (RadioButton) findViewById(R.id.rb_createresume_personinfo_man);
-        rb_createresume_personinfo_woman = (RadioButton) findViewById(R.id.rb_createresume_personinfo_woman);
+        rb_createresume_personinfo_man = (LinearLayout) findViewById(R.id.ll_createresume_personinfo_man);
+        rb_createresume_personinfo_woman = (LinearLayout) findViewById(R.id.ll_createresume_personinfo_woman);
         iv_createresume_personinfo_back = (ImageView) findViewById(R.id.iv_createresume_personinfo_back);
-
+        tv_man= (TextView) findViewById(R.id.tv_CreateResume_man);
+        tv_woman= (TextView) findViewById(R.id.tv_CreateResume_woman);
         tv_createresume_personinfo_birthday = (TextView) findViewById(R.id.tv_createresume_personinfo_birthday);
         rl_createresume_personinfo_save = (RelativeLayout) findViewById(R.id.rl_createresume_personinfo_save);
         tv_createresume_personinfo_home = (TextView) findViewById(R.id.tv_createresume_personinfo_home);
@@ -328,6 +335,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         tv_createresume_personinfo_birthday.setOnClickListener(this);
         tv_createresume_personinfo_home.setOnClickListener(this);
         iv_createresume_personinfo_back.setOnClickListener(this);
+        rb_createresume_personinfo_woman.setOnClickListener(this);
+        rb_createresume_personinfo_man.setOnClickListener(this);
     }
 
     private BeautifulDialog.Builder builderCreateResume;
@@ -342,7 +351,15 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 chooseIsExit();
                 break;
             case R.id.tv_createresume_personinfo_birthday:
-                DatePickerUtil.initMyDatePicker2(CreateResumePersonInfoActivity.this, tv_createresume_personinfo_birthday);
+                String s;
+                if("请选择".equals(tv_createresume_personinfo_birthday.getText().toString())||"".equals(tv_createresume_personinfo_birthday.getText().toString())){
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");//格式为 2013年9月3日 14:44
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    s= formatter.format(curDate);
+                }else{
+                    s=tv_createresume_personinfo_birthday.getText().toString();
+                }
+                datePickerBirth.show(s,3);
                 break;
             case R.id.tv_createresume_personinfo_home:
                 Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);
@@ -358,6 +375,20 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 break;
             case R.id.sp_createresume_personinfo_func:
                 datePickerFunc.show(tv_createresume_personinfo_func.getText().toString());
+                break;
+            case R.id.ll_createresume_personinfo_man:
+                sexId=1;
+                tv_man.setTextColor(ContextCompat.getColor(this,R.color.white));
+                tv_woman.setTextColor(ContextCompat.getColor(this, R.color.gray));
+                rb_createresume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_orange);
+                rb_createresume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_gray);
+                break;
+            case R.id.ll_createresume_personinfo_woman:
+                sexId=2;
+                tv_man.setTextColor(ContextCompat.getColor(this,R.color.gray));
+                tv_woman.setTextColor(ContextCompat.getColor(this, R.color.white));
+                rb_createresume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_gray_left);
+                rb_createresume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_orange_right);
                 break;
         }
     }
@@ -395,6 +426,12 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 }
             }
         }, getResources().getStringArray(R.array.array_zhicheng_zh));
+        datePickerBirth=new MyCustomDatePicker(CreateResumePersonInfoActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tv_createresume_personinfo_birthday.setText(time);
+            }
+        });
     }
 
     /**
@@ -422,8 +459,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 MyUtils.canReflesh = true;
-                Intent intent = new Intent(CreateResumePersonInfoActivity.this, MainActivity.class);
-                startActivity(intent);
+              /*  Intent intent = new Intent(CreateResumePersonInfoActivity.this, MainActivity.class);
+                startActivity(intent);*/
                 finish();
             }
         });
@@ -447,7 +484,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (rb_createresume_personinfo_man.isChecked() == false && rb_createresume_personinfo_woman.isChecked() == false) {
+            if (sexId!=1&&sexId!=2) {
                 Toast.makeText(mContext, "请选择性别", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -543,7 +580,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         resumeBaseInfo.setResume_language(resumeLanguageString);
         resumeBaseInfo.setName(et_createresume_personinfo_name.getText().toString());
         resumeBaseInfo.setLocation(placeIdNowPlace + "");
-        resumeBaseInfo.setSex(rb_createresume_personinfo_man.isChecked() == true ? "1" : "2");
+        resumeBaseInfo.setSex(sexId+"");
         String birthdayString = tv_createresume_personinfo_birthday.getText().toString();
         String[] birthStrings = birthdayString.split("-");
         resumeBaseInfo.setYear(birthStrings[0]);
@@ -584,7 +621,15 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_birthday:
-                DatePickerUtil.initMyDatePicker2(CreateResumePersonInfoActivity.this, tv_createresume_personinfo_birthday);
+                String s;
+                if("请选择".equals(tv_createresume_personinfo_birthday.getText().toString())||"".equals(tv_createresume_personinfo_birthday.getText().toString())){
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");//格式为 2013年9月3日 14:44
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    s= formatter.format(curDate);
+                }else{
+                    s=tv_createresume_personinfo_birthday.getText().toString();
+                }
+                datePickerBirth.show(s,3);
                 break;
             case R.id.rl_nowLivePlace:
                 Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);

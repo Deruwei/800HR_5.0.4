@@ -120,6 +120,7 @@ public class PagerActivityFragment extends BaseFragment {
         dialogUtils=new RefleshDialogUtils(getActivity());
         initView();
         isCreateView = true;
+        loadNetMsg();
         return view;
     }
 
@@ -146,7 +147,7 @@ public class PagerActivityFragment extends BaseFragment {
         lvPagerActivity.setLayoutManager(manager);
         lvPagerActivity.addItemDecoration(new SpacesItemDecoration(10));
     }
-    @Override
+  /*  @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isCreateView) {
@@ -156,14 +157,14 @@ public class PagerActivityFragment extends BaseFragment {
     private void lazyLoad() {
         //如果没有加载过就加载，否则就不再加载了
             loadNetMsg();
-    }
-    @Override
+    }*/
+ /*   @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //第一个fragment会调用
         if (getUserVisibleHint())
             lazyLoad();
-    }
+    }*/
     public void upData() {
         findAdapter.notifyDataSetChanged();
     }

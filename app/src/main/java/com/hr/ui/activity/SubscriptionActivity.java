@@ -207,15 +207,20 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                         buffer.append("+" + workyearHashMap.get(workyear));
                     }
                 }
+               // private String timeStr[] = {"不限", "近一天","近两天","近三天", "近一周","近两周" ,"近一个月", "近六周","近两月"};
+                //private String timeStrIds[] = {"0", "1", "2", "3", "7", "14","30","42","60"};
                 workyearHashMap.clear();
                 // 发布时间
                 HashMap<String, String> issueHashMap = new HashMap<String, String>();
-                // issueHashMap.put("0", "不限");
-                issueHashMap.put("11", "近一天");
-                issueHashMap.put("12", "近三天");
-                issueHashMap.put("13", "近一周");
-                issueHashMap.put("14", "近一月");
-                issueHashMap.put("15", "更早");
+                 issueHashMap.put("0", "不限");
+                issueHashMap.put("1", "近一天");
+                issueHashMap.put("2", "近二天");
+                issueHashMap.put("3", "近三天");
+                issueHashMap.put("7", "近一周");
+                issueHashMap.put("14", "近两周");
+                issueHashMap.put("30", "近一个月");
+                issueHashMap.put("42", "近六周");
+                issueHashMap.put("60", "近两月");
                 if (issuedate != null && issuedate.length() > 0
                         && !issuedate.equals("0")) {
                     if (issueHashMap.containsKey(issuedate)) {
@@ -256,12 +261,19 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                 // 薪资待遇
                 HashMap<String, String> monthly_playHashMap = new HashMap<String, String>();
                 // monthly_playHashMap.put("0", "不限");
-                monthly_playHashMap.put("13", "3千以下/月");
-                monthly_playHashMap.put("14", "3千～6千/月");
-                monthly_playHashMap.put("16", "6千～1万/月");
-                monthly_playHashMap.put("18", "1万～3万/月");
-                monthly_playHashMap.put("21", "3万～5万/月");
-                monthly_playHashMap.put("22", "5万以上/月");
+               // private String salStr[] = {"不限", "2000以下", "2000-4000", "4000-6000", "6000-8000","8000-10000", "10000-15000", "15000-20000","20000-30000","30000-50000","50000以上"};
+               // private String salStrIds[] = {"0","10","11", "12", "13", "14","15", "16", "17", "18","19"};
+                monthly_playHashMap.put("0", "不限");
+                monthly_playHashMap.put("10", "2000以下");
+                monthly_playHashMap.put("11", "2000-4000");
+                monthly_playHashMap.put("12", "4000-6000");
+                monthly_playHashMap.put("13", "6000-8000");
+                monthly_playHashMap.put("14", "8000-10000");
+                monthly_playHashMap.put("15", "10000-15000");
+                monthly_playHashMap.put("16", "15000-20000");
+                monthly_playHashMap.put("17", "20000-30000");
+                monthly_playHashMap.put("18", "30000-50000");
+                monthly_playHashMap.put("19", "50000以上");
                 if (salary != null && salary.length() > 0
                         && !salary.equals("0")) {
                     if (monthly_playHashMap.containsKey(salary)) {
@@ -697,19 +709,26 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
      * 发布时间
      */
     private String JudgeValue_Issue_date(String text_timeid) {
-
+        // private String timeStr[] = {"不限", "近一天","近两天","近三天", "近一周","近两周" ,"近一个月", "近六周","近两月"};
+        //private String timeStrIds[] = {"0", "1", "2", "3", "7", "14","30","42","60"};
         if ("0".equals(text_timeid)) {
             return "不限";
-        } else if ("11".equals(text_timeid)) {
+        } else if ("1".equals(text_timeid)) {
             return "近一天";
-        } else if ("12".equals(text_timeid)) {
+        } else if ("2".equals(text_timeid)) {
+            return "近二天";
+        } else if ("3".equals(text_timeid)) {
             return "近三天";
-        } else if ("13".equals(text_timeid)) {
+        } else if ("7".equals(text_timeid)) {
             return "近一周";
         } else if ("14".equals(text_timeid)) {
-            return "近一月";
-        } else if ("15".equals(text_timeid)) {
-            return "更早";
+            return "近两周";
+        } else if ("30".equals(text_timeid)) {
+            return "近一个月";
+        } else if ("42".equals(text_timeid)) {
+            return "近六周";
+        } else if ("60".equals(text_timeid)) {
+            return "近两月";
         }
 
         return "不限";
@@ -764,21 +783,31 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
     /***
      * 期望薪资
      */
+    //str = new String[]{"不限", "2000以下", "2000-4000", "4000-6000", "6000-8000","8000-10000", "10000-15000", "15000-20000","20000-30000","30000-50000","50000以上"};
+   // strIds = new String[]{"0","10","11", "12", "13", "14","15", "16", "17", "18","19"};
     private String JudgeValue_text_money(String text_moneyid) {
         if ("0".equals(text_moneyid)) {
             return "不限";
+        } else if ("10".equals(text_moneyid)) {
+            return "2000以下";
+        } else if ("11".equals(text_moneyid)) {
+            return "2000-4000";
+        } else if ("12".equals(text_moneyid)) {
+            return "4000-6000";
         } else if ("13".equals(text_moneyid)) {
-            return "3千以下/月";
+            return "6000-8000";
         } else if ("14".equals(text_moneyid)) {
-            return "3千～6千/月";
+            return "8000-10000";
+        } else if ("15".equals(text_moneyid)) {
+            return "10000-15000";
         } else if ("16".equals(text_moneyid)) {
-            return "6千～1万/月";
+            return "15000-20000";
+        } else if ("17".equals(text_moneyid)) {
+            return "20000-30000";
         } else if ("18".equals(text_moneyid)) {
-            return "1万～3万/月";
-        } else if ("21".equals(text_moneyid)) {
-            return "3万～5万/月";
-        } else if ("22".equals(text_moneyid)) {
-            return "5万以上/月";
+            return "30000-50000";
+        } else if ("19".equals(text_moneyid)) {
+            return "50000以上";
         }
 
         return "不限";

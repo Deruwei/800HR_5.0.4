@@ -50,6 +50,9 @@
     <color name="dialog_divider_color">#ffff6a22</color>
     <color name="dialog_button_text_color">#ffff6a22</color>
     <color name="top_list_text_color">#FF5000</color>
+
+    <color name="text_color_orange">#F7931E</color>
+    <color name="text_color_333">#333333</color>
     <!-- 白色 -->
     <color name="bg_White">#FFFFFF</color>
     <!-- 黑色 -->

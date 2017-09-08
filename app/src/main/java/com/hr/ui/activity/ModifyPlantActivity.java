@@ -25,6 +25,7 @@ import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -63,6 +64,7 @@ public class ModifyPlantActivity extends BaseResumeActivity {
     private ResumePlant resumePlant;
     private String resumeId, resumeLanguage;
     private static String placeId = ""; // 地区 ID
+    private MyCustomDatePicker datePickerBeginTime,datePickerEndTime;
     public static ModifyPlantActivity modifyPlantActivity;
 
     @Override
@@ -72,6 +74,24 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         ButterKnife.bind(this);
         modifyPlantActivity = ModifyPlantActivity.this;
         initData();
+        initDatePicker();
+    }
+
+    private void initDatePicker() {
+        datePickerBeginTime=new MyCustomDatePicker(ModifyPlantActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemModifytrainStarttime.setText(time);
+            }
+        });
+        datePickerBeginTime.showSpecificYearAndMonth(false);
+        datePickerEndTime=new MyCustomDatePicker(ModifyPlantActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemModifytrainEndtime.setText(time);
+            }
+        });
+        datePickerEndTime.showSpecificYearAndMonth(false);
     }
 
     private void initData() {
@@ -99,13 +119,17 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         tvResumeItemModifytrainStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyPlantActivity.this,tvResumeItemModifytrainStarttime);
+                datePickerBeginTime.show(tvResumeItemModifytrainStarttime.getText().toString()+"-1",1);
             }
         });
         tvResumeItemModifytrainEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyPlantActivity.this,tvResumeItemModifytrainEndtime);
+                String s=tvResumeItemModifytrainEndtime.getText().toString();
+                if(!"至今".equals(s)){
+                    s=s+"-1";
+                }
+                datePickerEndTime.show(s,2);
             }
         });
         // 期望工作地点
@@ -237,11 +261,11 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear) {
+        if (endYear < startYear&&!tvResumeItemModifytrainEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth) {
+        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemModifytrainEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }

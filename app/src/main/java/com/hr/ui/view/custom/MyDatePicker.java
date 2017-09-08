@@ -169,7 +169,6 @@ public class MyDatePicker implements DatePicker.OnDateChangedListener,
      */
     private Calendar getCalendarByInintData(String initDateTime) {
         Calendar calendar = Calendar.getInstance();
-
         // 将初始日期时间2012年07月02日 16:45 拆分成年 月 日 时 分 秒
         String date = spliteString(initDateTime, "日", "index", "front"); // 日期
         String time = spliteString(initDateTime, "日", "index", "back"); // 时间
@@ -182,13 +181,12 @@ public class MyDatePicker implements DatePicker.OnDateChangedListener,
 
         String hourStr = spliteString(time, ":", "index", "front"); // 时
         String minuteStr = spliteString(time, ":", "index", "back"); // 分
-
-        int currentYear = Integer.valueOf(yearStr.trim()).intValue();
+        //Log.i("年月日",yearStr+"-----"+monthStr+"-----------"+dayStr);
+        int currentYear =Integer.valueOf(yearStr.trim()).intValue();
         int currentMonth = Integer.valueOf(monthStr.trim()).intValue() - 1;
         int currentDay = Integer.valueOf(dayStr.trim()).intValue();
         int currentHour = Integer.valueOf(hourStr.trim()).intValue();
         int currentMinute = Integer.valueOf(minuteStr.trim()).intValue();
-
         calendar.set(currentYear, currentMonth, currentDay, currentHour,
                 currentMinute);
         return calendar;
@@ -201,6 +199,8 @@ public class MyDatePicker implements DatePicker.OnDateChangedListener,
      *            源串
      * @param pattern
      *            匹配模式
+     *
+     *
      * @param indexOrLast
      * @param frontOrBack
      * @return
@@ -240,7 +240,6 @@ public class MyDatePicker implements DatePicker.OnDateChangedListener,
             sdf = new SimpleDateFormat("yyyy-M-d");
         }
         dateTime = sdf.format(calendar.getTime());
-
     }
 
     @Override

@@ -89,8 +89,8 @@ public class BindFirstFragment extends BaseFragment {
     private Handler handlerLogin = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                MyUtils.canResumeReflesh=true;
                 btFirstbindAuthcode.setClickable(true);
+                MyUtils.canResumeReflesh=true;
                 getActivity().finish();
             }
         }
@@ -144,8 +144,8 @@ public class BindFirstFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         btFirstbindAuthcode.onDestroy();
         ButterKnife.unbind(this);
     }
@@ -213,9 +213,6 @@ public class BindFirstFragment extends BaseFragment {
 //        popwindowIsAPPResume.setAnimationStyle(R.style.popwindow);
 //        popwindowIsAPPResume.showAtLocation(viewPopIsApp, Gravity.CENTER, 0, 0);
         viewPopIsApp = LayoutInflater.from(getActivity()).inflate(R.layout.item_autocode, null);
-        WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
-        int width = manager.getDefaultDisplay().getWidth();
-        int height = manager.getDefaultDisplay().getHeight();
         popwindowIsAPPResume = new PopupWindow(getActivity());
         popwindowIsAPPResume.setContentView(viewPopIsApp);
         popwindowIsAPPResume.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);

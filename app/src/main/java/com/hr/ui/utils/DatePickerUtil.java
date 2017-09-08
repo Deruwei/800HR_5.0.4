@@ -5,6 +5,7 @@ import android.media.audiofx.Equalizer;
 import android.renderscript.Type;
 import android.widget.TextView;
 
+import com.hr.ui.activity.CreateResumeEduActivity;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.MyDatePicker;
 
@@ -18,17 +19,16 @@ import java.util.Date;
 public class DatePickerUtil {
     private static String currentDate;
     private static MyDatePicker myDatePicker;
-    //显示年月日
+    //显示年月
     public  static void initMyDatePicker(Context context, final TextView tv) {
         //2013年9月3日 14:44
         if(!tv.getText().toString().trim().equals("请选择")&&!tv.getText().toString().trim().equals("")&&tv.getText().toString().trim()!=null) {
             currentDate = tv.getText().toString().trim().replace("-", "年");
-            currentDate = currentDate + "月1日 00:00";
+            currentDate = currentDate + "月1日 0:0";
         }else{
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日    HH:mm");//格式为 2013年9月3日 14:44
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年M月d日 HH:mm");//格式为 2013年9月3日 14:44
             Date curDate = new Date(System.currentTimeMillis());//获取当前时间
             currentDate = formatter.format(curDate);
-
         }
         myDatePicker = new MyDatePicker(context, new MyDatePicker.ResultHandler() {
             @Override
@@ -37,7 +37,7 @@ public class DatePickerUtil {
             }
         },currentDate,2);
     }
-    //显示年月
+    //显示年月日
     public  static void initMyDatePicker2(Context context, final TextView tv) {
         //2013年9月3日 14:44
         if(!tv.getText().toString().trim().equals("请选择")&&!tv.getText().toString().trim().equals("")&&tv.getText().toString().trim()!=null) {
@@ -45,9 +45,9 @@ public class DatePickerUtil {
             String a = currentDate.substring(0, currentDate.lastIndexOf("年"));
             String b = currentDate.substring(currentDate.lastIndexOf("年") + 1);
             currentDate = a + "月" + b;
-            currentDate = currentDate + "日 00:00";
+            currentDate = currentDate + "日 0:0";
         }else{
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日    HH:mm");//格式为 2013年9月3日 14:44
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年M月d日 H:m");//格式为 2013年9月3日 14:44
             Date curDate = new Date(System.currentTimeMillis());//获取当前时间
             currentDate = formatter.format(curDate);
         }

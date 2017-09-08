@@ -260,17 +260,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:textSize="@dimen/text_size_18"
                 android:text="目前没有适合您的职位"
                 android:textColor="#999999" />
 
             <TextView
+                android:layout_marginTop="@dimen/dimen_5px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textSize="@dimen/text_size_18"
                 android:text="将继续为您寻找！"
                 android:textColor="#999999" />
             <Button
+                android:visibility="gone"
                 android:id="@+id/btn_back"
                 android:layout_marginTop="@dimen/dimen_5px"
                 android:padding="@dimen/dimen_5px"
@@ -278,7 +281,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_textview_bg"
                 android:gravity="center"
-                android:text="返回搜索"
+                android:text="返回推荐"
                 android:textColor="@color/orange" />
         </LinearLayout>
     </RelativeLayout>

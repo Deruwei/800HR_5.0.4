@@ -121,6 +121,7 @@ public class PagerCompanyFragment extends BaseFragment {
         dialogUtils=new RefleshDialogUtils(getActivity());
         initView();
         isCreateView = true;
+        loadNetMsg();
         return view;
     }
 
@@ -139,7 +140,7 @@ public class PagerCompanyFragment extends BaseFragment {
         lvPagerCompany.setLayoutManager(manager);
         lvPagerCompany.addItemDecoration(new SpacesItemDecoration(10));
     }
-    @Override
+  /*  @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isCreateView) {
@@ -149,14 +150,7 @@ public class PagerCompanyFragment extends BaseFragment {
     protected void lazyLoad() {
         //加载数据操作
         loadNetMsg();
-    }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //第一个fragment会调用
-        if (getUserVisibleHint())
-            lazyLoad();
-    }
+    }*/
     public void upData() {
         findAdapter.notifyDataSetChanged();
     }

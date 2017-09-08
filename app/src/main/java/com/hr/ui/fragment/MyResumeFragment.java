@@ -806,7 +806,7 @@ public class MyResumeFragment extends BaseFragment {
         String maxEcp = "";
         HrApplication.userJob = "无职位";
         if (resumeTitle != null) {
-            if (resumeTitle.getResume_type().equals("1")) {
+            if ("1".equals(resumeTitle.getResume_type())) {
                 resume_previewresume_shixi.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(getActivity(),R.mipmap.bitian), null);
                 resume_previewresume_shixi.setText("工作经验");
                 tv_myresume_upresume.setVisibility(View.GONE);
@@ -867,7 +867,7 @@ public class MyResumeFragment extends BaseFragment {
                         });
                     }
                 }
-            } else if (resumeTitle.getResume_type().equals("2")) {
+            } else if ("2".equals(resumeTitle.getResume_type())) {
                 resume_previewresume_shixi.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 tv_myresume_upresume.setVisibility(View.VISIBLE);
                 resume_previewresume_shixi.setText("实习经验");
@@ -1061,7 +1061,7 @@ public class MyResumeFragment extends BaseFragment {
             if (resumeBaseInfo.getLocation() != null) {
                 tv_previewresume_home.setText(ResumeInfoIDToString.getPlace(getActivity(), resumeBaseInfo.getLocation(), isCHS));
             }
-            if (resumeBaseInfo.getWork_beginyear().equals("-1")) {
+            if ("-1".equals(resumeBaseInfo.getWork_beginyear())) {
                 tv_previewresume_beginjobtime.setText("无工作经验");
             } else {
                 tv_previewresume_beginjobtime.setText(resumeBaseInfo.getWork_beginyear());

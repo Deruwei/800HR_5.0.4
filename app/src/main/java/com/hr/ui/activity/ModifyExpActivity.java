@@ -26,6 +26,7 @@ import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 import com.hr.ui.view.custom.MyDatePicker;
 
 import org.json.JSONArray;
@@ -74,6 +75,7 @@ public class ModifyExpActivity extends BaseResumeActivity {
     public static ModifyExpActivity modifyExpActivity;
     private String placeId,isAdd;
     private MyDatePicker myDatePicker;
+    private MyCustomDatePicker datePickerBeginTime,datePickerEndtime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,26 @@ public class ModifyExpActivity extends BaseResumeActivity {
         ButterKnife.bind(this);
         modifyExpActivity = ModifyExpActivity.this;
         initData();
+        initDatePicker();
     }
+
+    private void initDatePicker() {
+        datePickerBeginTime=new MyCustomDatePicker(ModifyExpActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemNewjobexpStarttime.setText(time);
+            }
+        });
+        datePickerBeginTime.showSpecificYearAndMonth(false);
+        datePickerEndtime=new MyCustomDatePicker(ModifyExpActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemNewjobexpEndtime.setText(time);
+            }
+        });
+        datePickerEndtime.showSpecificYearAndMonth(false);
+    }
+
     private void initData() {
         dbOperator = new DAO_DBOperator(context);
         resumeExperience = (ResumeExperience) getIntent().getSerializableExtra("resumeExperience");
@@ -125,14 +146,18 @@ public class ModifyExpActivity extends BaseResumeActivity {
         tvResumeItemNewjobexpStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyExpActivity.this,tvResumeItemNewjobexpStarttime);
+               datePickerBeginTime.show(tvResumeItemNewjobexpStarttime.getText().toString()+"-1",1);
             }
         });
 
         tvResumeItemNewjobexpEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyExpActivity.this,tvResumeItemNewjobexpEndtime);
+                String s=tvResumeItemNewjobexpEndtime.getText().toString();
+                if(!"至今".equals(s)) {
+                    s = s + "-1";
+                }
+               datePickerEndtime.show(s,2);
             }
         });
         tvResumeItemNewjobexpWorkplace.setOnClickListener(new View.OnClickListener() {
@@ -261,11 +286,11 @@ public class ModifyExpActivity extends BaseResumeActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear) {
+        if (endYear < startYear&&!tvResumeItemNewjobexpEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth) {
+        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemNewjobexpEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }

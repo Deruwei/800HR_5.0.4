@@ -210,7 +210,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 break;
             case R.id.iv_resume_joborder_salary:
                 modification = true;
-                if (resumeOrder.getOrder_salary_noshow().equals("1")) {
+                if ("1".equals(resumeOrder.getOrder_salary_noshow())) {
                     iv_resume_joborder_salary.setImageResource(R.mipmap.hui);
                     resumeOrder.setOrder_salary_noshow("0");
                 } else {
@@ -528,7 +528,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
     private void saveToDB() {
         MyUtils.canResumeReflesh=true;
         if (isCHS) {// zh
-            if (tv_resume_joborder_position.getText().toString().length() == 0 || tv_resume_joborder_position.getText().toString().equals("请选择职位")) {
+            if (tv_resume_joborder_position.getText().toString().length() == 0 || ("请选择职位").equals(tv_resume_joborder_position.getText().toString())) {
                 Toast.makeText(this, "请选择期望职位", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -552,8 +552,8 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 Toast.makeText(this, "请输入期望薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (et_resume_personinfo_salay.getText().toString()
-                    .trim().substring(0, 1).equals("0")) {
+            if (("0").equals(et_resume_personinfo_salay.getText().toString()
+                    .trim().substring(0, 1))) {
                 Toast.makeText(this, "请输入大于0的薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -598,9 +598,9 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         // System.out.println("placeId:" + placeIdString);
         // 薪资
         String salaryString = et_resume_personinfo_salay.getText().toString().trim();
-        if (!workStateString.equals(resumeBaseInfo.getCurrent_workstate())) {
+      /*  if (!workStateString.equals(resumeBaseInfo.getCurrent_workstate())) {
             resumeBaseInfo.setIsUpdate(1);
-        }
+        }*/
         resumeBaseInfo.setCurrent_workstate(workStateString);
         resumeBaseInfo.setResume_language(resumeLanguageString);
         resumeBaseInfo.setUser_id(MyUtils.userID);

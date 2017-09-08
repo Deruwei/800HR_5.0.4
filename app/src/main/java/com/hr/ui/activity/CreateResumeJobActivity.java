@@ -42,6 +42,7 @@ import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.AsyncResumeUpdate;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 import com.mob.tools.utils.LocationHelper;
 
 import org.json.JSONArray;
@@ -103,6 +104,7 @@ public class CreateResumeJobActivity extends BaseActivity {
     private String resumeAppId;
     private int groupPosition = 0;
     private String placeId;
+    private MyCustomDatePicker datePickerBeginTime,datePickerEndTime;
 
     private Handler handlerUploadResume = new Handler() {
         public void handleMessage(Message msg) {
@@ -122,7 +124,7 @@ public class CreateResumeJobActivity extends BaseActivity {
                         MainActivity.instanceMain.newAppResume = false;
                         goMainActivity();
                         /*sendIsApp();*/
-                        Toast.makeText(mContext, "新建完毕", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "简历填写成功", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         tvResumeItemNewresumeeduDelete.setBackgroundResource(R.drawable.btn_1chang);
@@ -180,6 +182,24 @@ public class CreateResumeJobActivity extends BaseActivity {
         createResumeJobActivity = CreateResumeJobActivity.this;
         initData();
         initListener();
+        initDatePicker();
+    }
+
+    private void initDatePicker() {
+        datePickerBeginTime=new MyCustomDatePicker(CreateResumeJobActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemJobStarttime.setText(time);
+            }
+        });
+        datePickerBeginTime.showSpecificYearAndMonth(false);
+        datePickerEndTime=new MyCustomDatePicker(CreateResumeJobActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemJobEndtime.setText(time);
+            }
+        });
+        datePickerEndTime.showSpecificYearAndMonth(false);
     }
 
     private void initListener() {
@@ -258,13 +278,17 @@ public class CreateResumeJobActivity extends BaseActivity {
         tvResumeItemJobStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(CreateResumeJobActivity.this,tvResumeItemJobStarttime);
+               datePickerBeginTime.show(tvResumeItemJobStarttime.getText().toString()+"-1",1);
             }
         });
         tvResumeItemJobEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(CreateResumeJobActivity.this,tvResumeItemJobEndtime);
+               String s=tvResumeItemJobEndtime.getText().toString();
+                if(!"至今".equals(s)){
+                    s=s+"-1";
+                }
+                datePickerEndTime.show(s,2);
             }
         });
         tvResumeItemJobWorkplace.setOnClickListener(new View.OnClickListener() {
@@ -410,11 +434,11 @@ public class CreateResumeJobActivity extends BaseActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear) {
+        if (endYear < startYear&&!tvResumeItemJobEndtime.getText().toString().equals("至今")) {
             Toast.makeText(mContext, mContext.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth) {
+        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemJobEndtime.getText().toString().equals("至今")) {
             Toast.makeText(mContext, mContext.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }

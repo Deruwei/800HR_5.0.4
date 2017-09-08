@@ -80,7 +80,6 @@ public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResult
 
     public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
         this.dataList = dataList;
-
         initData();
 
     }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +106,6 @@ public class RecommendJobFragment extends BaseFragment {
     private static ArrayList<HashMap<String, Object>> totalList;
     private HashMap<String, Object> hs;
     private ArrayList<HashMap<String, Object>> dataList = new ArrayList<>();
-    private GetBaiduLocation location;
     /**
      * 职能选择集合
      */
@@ -126,7 +126,30 @@ public class RecommendJobFragment extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_recommend_job, null);
         ButterKnife.bind(this, view);
         dialogUtils = new RefleshDialogUtils(getActivity());
+        initView();
         return view;
+    }
+
+    private void toLogin() {
+        //先判断是否存在搜索要求
+        if (MyUtils.isLogin) {
+            tvRecfragmentLogin.setText("完善简历");
+            tvRecfragmentText.setText("我还不了解你的意向，先告诉我吧！");
+            loadJobIntension();
+            btnBack.setVisibility(View.GONE);
+            tvRecommendfragmentBack.setVisibility(View.GONE);
+        } else {
+            if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
+                funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
+                areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
+                loadNetData();
+            } else {
+                lvRecommendfragment.setVisibility(View.GONE);
+                rlRecfragmentEmpty.setVisibility(View.GONE);
+                lrRecfragmentJob.setVisibility(View.VISIBLE);
+            }
+            btnBack.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -135,8 +158,7 @@ public class RecommendJobFragment extends BaseFragment {
         if (MyUtils.canReflesh == true) {
             MyUtils.canReflesh = false;
             initData();
-            initView();
-
+            toLogin();
         }
     }
 
@@ -161,23 +183,6 @@ public class RecommendJobFragment extends BaseFragment {
 //        rlRecfragmentFunction = (RelativeLayout) view.findViewById(R.id.rl_recfragment_function);
 //        rlRecfragmentLogin = (RelativeLayout) view.findViewById(R.id.rl_recfragment_login);
 //        rlRecfragmentPlace = (RelativeLayout) view.findViewById(R.id.rl_recfragment_place);
-        //先判断是否存在搜索要求
-        if (MyUtils.isLogin) {
-            tvRecfragmentLogin.setText("完善简历");
-            tvRecfragmentText.setText("我还不了解你的意向，先告诉我吧！");
-            loadJobIntension();
-            tvRecommendfragmentBack.setVisibility(View.GONE);
-        } else {
-            if (sUtils.getBooleanValue(Constants.IS_HAVE_RECOMMEND + industry, false)) {
-                funcid = sUtils.getStringValue(Constants.RECOMMEND_FUNCID + industry, funcid);
-                areaid = sUtils.getStringValue(Constants.RECOMMEND_AREAID + industry, areaid);
-                loadNetData();
-            } else {
-                lvRecommendfragment.setVisibility(View.GONE);
-                rlRecfragmentEmpty.setVisibility(View.GONE);
-                lrRecfragmentJob.setVisibility(View.VISIBLE);
-            }
-        }
     }
 
     @OnClick({R.id.tv_gome, R.id.tv_recommendfragment_back, R.id.rl_recfragment_function, R.id.rl_recfragment_place, R.id.bt_recfragment_submit, R.id.rl_recfragment_login})
@@ -344,7 +349,9 @@ public class RecommendJobFragment extends BaseFragment {
                     lrRecfragmentJob.setVisibility(View.GONE);
                     lvRecommendfragment.setVisibility(View.VISIBLE);
                     rlRecfragmentEmpty.setVisibility(View.GONE);
+                    Log.i("你好","-----------nihao");
                 } else {
+                    Log.i("你好2","-----------nihao");
                     lrRecfragmentJob.setVisibility(View.GONE);
                     lvRecommendfragment.setVisibility(View.GONE);
                     rlRecfragmentEmpty.setVisibility(View.VISIBLE);

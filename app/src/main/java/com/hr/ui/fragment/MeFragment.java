@@ -797,6 +797,7 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                     // 注销成功后，取消自动登录
                     sUtils.deleteUserInfo();
                     // 发送消息，关闭所有界面，回到行业选择
+                    sUtils.setBooleanValue(Constants.IS_CHOOSEINDUSTRY, true);
                     dialog.dismiss();
 //                                Intent intent = new Intent(mContext, MainActivity.class);
 //                                startActivity(intent);

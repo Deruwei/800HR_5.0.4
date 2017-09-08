@@ -34,9 +34,8 @@ public class SubSalaryActivity extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_job_screen);
         init();
-        str = new String[]{"不限", "3千以下/月", "3千～6千/月", "6千～1万/月", "1万～3万/月",
-                "3万～5万/月", "5万以上/月"};
-        strIds = new String[]{"0", "13", "14", "16", "18", "21", "22"};
+        str = new String[]{"不限", "2000以下", "2000-4000", "4000-6000", "6000-8000","8000-10000", "10000-15000", "15000-20000","20000-30000","30000-50000","50000以上"};
+        strIds = new String[]{"0","10","11", "12", "13", "14","15", "16", "17", "18","19"};
         for (int i = 0; i < str.length; i++) {
             hp = new HashMap<String, String>();
             hp.put("job", str[i]);

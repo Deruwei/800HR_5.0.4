@@ -23,6 +23,7 @@ import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
      * 只获取第一个
      */
     private int groupPosition = 0;
+    private MyCustomDatePicker datePickerBeginTime,datePickerEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,13 +127,17 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
         tvResumeItemCreateduStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(CreateResumeEduActivity.this,tvResumeItemCreateduStarttime);
+               datePickerBeginTime.show(tvResumeItemCreateduStarttime.getText().toString()+"-1",1);
             }
         });
         tvResumeItemCreateduEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(CreateResumeEduActivity.this,tvResumeItemCreateduEndtime);
+                String s=tvResumeItemCreateduEndtime.getText().toString();
+                if(!"至今".equals(s)){
+                    s=s+"-1";
+                }
+                datePickerEndTime.show(s,4);
             }
         });
         etResumeItemCreateduSchoolname.setText(listResumeEdu.get(groupPosition).getSchoolname());
@@ -165,6 +171,20 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
                 }
             }
         },  getResources().getStringArray(R.array.array_degree_zh));
+        datePickerBeginTime=new MyCustomDatePicker(CreateResumeEduActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemCreateduStarttime.setText(time);
+            }
+        });
+        datePickerBeginTime.showSpecificYearAndMonth(false);
+        datePickerEndTime=new MyCustomDatePicker(CreateResumeEduActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemCreateduEndtime.setText(time);
+            }
+        });
+        datePickerEndTime.showSpecificYearAndMonth(false);
     }
     private void saveData() {
         ResumeEducation resumeEducation = listResumeEdu.get(groupPosition);
@@ -219,12 +239,12 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear) {
+        if (endYear < startYear&&!tvResumeItemCreateduEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context,
                     context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth) {
+        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemCreateduEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.
                     getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
@@ -253,7 +273,6 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
             if (resultInsert > 0) {
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator,
                         resumeIdString, resumeLanguageString);
-                Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, CreateResumeJobActivity.class);
                 if (resumeIdString != null) {
                     intent.putExtra("resumeId", resumeIdString);
@@ -263,7 +282,6 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(context, "保存失败", Toast.LENGTH_SHORT).show();
             }
         } else {// 修改后保存
             // 更新教育经历
@@ -273,7 +291,6 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
             if (resultUpdate) {
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(context, dbOperator,
                         resumeIdString, resumeLanguageString);
-                Toast.makeText(context, "修改成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, CreateResumeJobActivity.class);
                 if (resumeIdString != null) {
                     intent.putExtra("resumeId", resumeIdString);
@@ -283,7 +300,6 @@ public class CreateResumeEduActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(context, "修改失败", Toast.LENGTH_SHORT).show();
             }
         }
 

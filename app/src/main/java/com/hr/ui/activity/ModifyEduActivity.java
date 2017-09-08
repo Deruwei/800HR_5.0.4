@@ -14,15 +14,18 @@ import com.hr.ui.R;
 import com.hr.ui.bean.SelectBean;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeEducation;
-import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
 import com.hr.ui.view.custom.BeautifulDialog;
 import com.hr.ui.view.custom.CustomDatePicker;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,6 +57,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
     private String resumeId, resumeLanguage;
     private String isAdd;
     private CustomDatePicker datePickerEdu;
+    private MyCustomDatePicker datePickerStart, datePickerEnd;
     private List<SelectBean> eduList = new ArrayList<>();
     private String selectEduId;
 
@@ -62,8 +66,9 @@ public class ModifyEduActivity extends BaseResumeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_edu);
         ButterKnife.bind(this);
-        initData();
         initDialog();
+        initData();
+
     }
 
     private void initData() {
@@ -91,18 +96,6 @@ public class ModifyEduActivity extends BaseResumeActivity {
         } else {
             tvResumeItemNewresumeeduEndtime.setText(endyear + "-" + endmonth);
         }
-        tvResumeItemNewresumeeduStarttime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this, tvResumeItemNewresumeeduStarttime);
-            }
-        });
-        tvResumeItemNewresumeeduEndtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerUtil.initMyDatePicker(ModifyEduActivity.this, tvResumeItemNewresumeeduEndtime);
-            }
-        });
         etResumeItemNewresumeeduSchoolname.setText(resumeEducation.getSchoolname());
         etResumeItemNewresumeeduMajorname.setText(resumeEducation.getMoremajor());
         if (resumeEducation.getDegree() != null) {
@@ -135,6 +128,22 @@ public class ModifyEduActivity extends BaseResumeActivity {
                 }
             }
         }, getResources().getStringArray(R.array.array_degree_zh));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        String now = sdf.format(new Date());
+        datePickerStart = new MyCustomDatePicker(ModifyEduActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemNewresumeeduStarttime.setText(time);
+            }
+        });
+        datePickerStart.showSpecificYearAndMonth(false);
+        datePickerEnd = new MyCustomDatePicker(ModifyEduActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tvResumeItemNewresumeeduEndtime.setText(time);
+            }
+        });
+        datePickerEnd.showSpecificYearAndMonth(false);
     }
 
     private void deleteConfirm() {
@@ -228,12 +237,12 @@ public class ModifyEduActivity extends BaseResumeActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear) {
+        if (endYear < startYear&&!tvResumeItemNewresumeeduEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context,
                     context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth) {
+        if ((endYear == startYear && endMonth < startMonth)&&!tvResumeItemNewresumeeduEndtime.getText().toString().equals("至今")) {
             Toast.makeText(context, context.
                     getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
@@ -289,7 +298,7 @@ public class ModifyEduActivity extends BaseResumeActivity {
         }
     }
 
-    @OnClick({R.id.iv_resume_modifyeduinfo_back, R.id.tv_resume_item_newresumeedu_delete, R.id.tv_resume_item_newresumeedu_save})
+    @OnClick({R.id.iv_resume_modifyeduinfo_back,R.id.tv_resume_item_newresumeedu_starttime, R.id.tv_resume_item_newresumeedu_endtime, R.id.tv_resume_item_newresumeedu_delete, R.id.tv_resume_item_newresumeedu_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_resume_modifyeduinfo_back:
@@ -300,6 +309,18 @@ public class ModifyEduActivity extends BaseResumeActivity {
                 break;
             case R.id.tv_resume_item_newresumeedu_save:
                 saveData();
+                break;
+            case R.id.tv_resume_item_newresumeedu_endtime:
+                String s=tvResumeItemNewresumeeduEndtime.getText().toString();
+                if(!"至今".equals(s)) {
+                    s = s + "-1";
+                }
+                datePickerEnd.show(s,4);
+                break;
+            case R.id.tv_resume_item_newresumeedu_starttime:
+                String a=tvResumeItemNewresumeeduStarttime.getText().toString();
+                a=a+"-1";
+                datePickerStart.show(a,1);
                 break;
         }
     }

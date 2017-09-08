@@ -81,7 +81,6 @@ public class PagerRecruitmentFragment extends BaseFragment {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                dialogUtils.dismissDialog();
                 json_result = (String) msg.obj;
                 // 1001 成功 1002失败
                 dataList = new ArrayList<>();
@@ -92,6 +91,8 @@ public class PagerRecruitmentFragment extends BaseFragment {
                         tvComNoData.setVisibility(View.GONE);
                         findAdapter = new FindAdapter(mContext, dataList, 1);
                         lvPagerRecruitment.setAdapter(findAdapter);
+                        tvComNoData.setVisibility(View.GONE);
+                        lvPagerRecruitment.setVisibility(View.VISIBLE);
                         findAdapter.setOnItemClick(new OnItemClick() {
                             @Override
                             public void ItemClick(View view, int position) {
@@ -107,17 +108,15 @@ public class PagerRecruitmentFragment extends BaseFragment {
                                 totalAdNum(industry.getA_id());
                             }
                         });
-                        tvComNoData.setVisibility(View.GONE);
-                        lvPagerRecruitment.setVisibility(View.VISIBLE);
+
                     } else {
                         tvComNoData.setVisibility(View.VISIBLE);
                         lvPagerRecruitment.setVisibility(View.GONE);
                     }
                 }
 
-            }else{
-                dialogUtils.dismissDialog();
             }
+            dialogUtils.dismissDialog();
         }
     };
 
@@ -128,9 +127,10 @@ public class PagerRecruitmentFragment extends BaseFragment {
         dialogUtils=new RefleshDialogUtils(getActivity());
         initView();
         isCreateView = true;
+        loadNetMsg();
         return view;
     }
-    @Override
+  /*  @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isCreateView) {
@@ -140,14 +140,14 @@ public class PagerRecruitmentFragment extends BaseFragment {
     private void lazyLoad() {
         //如果没有加载过就加载，否则就不再加载了
       loadNetMsg();
-    }
-    @Override
+    }*/
+  /*  @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //第一个fragment会调用
         if (getUserVisibleHint())
             lazyLoad();
-    }
+    }*/
     /**
      * 向服务器请求数据
      */

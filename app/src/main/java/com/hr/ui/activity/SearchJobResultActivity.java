@@ -249,6 +249,7 @@ public class SearchJobResultActivity extends Activity  {
                     @Override
                     public void run() {
                         srSearchJobResult.setRefreshing(true);
+                        sjrAdapter=new SearchJobResultAdapter(SearchJobResultActivity.this);
                         totalList = new ArrayList<HashMap<String, Object>>();
                         pageNum = 1;
                         loadNetData();

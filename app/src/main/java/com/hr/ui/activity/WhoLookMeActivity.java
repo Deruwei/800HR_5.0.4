@@ -130,7 +130,7 @@ public class WhoLookMeActivity extends Activity {
 
     private void initData() {
 
-        if(listBrowsedInfos!=null&&"".equals(listBrowsedInfos)) {
+        if(listBrowsedInfos!=null&&!"".equals(listBrowsedInfos)) {
             if(listBrowsedInfos.size()!=0) {
                 myBaseAdpter.setListBrowsedInfos(listBrowsedInfos);
                 if (index == 1) {

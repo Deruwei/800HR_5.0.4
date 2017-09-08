@@ -161,7 +161,10 @@ public class MyPositionActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-            srPosition.setRefreshing(false);
+            if(fisrt==false) {
+                fisrt=true;
+                srPosition.setRefreshing(false);
+            }
         }
     };
 
@@ -181,12 +184,14 @@ public class MyPositionActivity extends BaseActivity {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvMyPositionListview.setLayoutManager(manager);
         lvMyPositionListview.addItemDecoration(new SpacesItemDecoration(5));
+        positionAdpter = new MyPositionAdapter(this);
         srPosition.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        fisrt=false;
                         listapplied = new ArrayList<PositionInfo>();
                         index = 1;
                        loadNetData();
@@ -204,11 +209,11 @@ public class MyPositionActivity extends BaseActivity {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) == positionAdpter
                         .getItemCount()) {
                     index++;
+                    fisrt=false;
                     srPosition.setRefreshing(true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            srPosition.setRefreshing(true);
                             loadNetData();
                             positionAdpter.notifyDataSetChanged();
                         }
@@ -246,7 +251,6 @@ public class MyPositionActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        srPosition.setRefreshing(false);
         ButterKnife.unbind(this);
     }
  /*   private void getData(){
@@ -256,7 +260,6 @@ public class MyPositionActivity extends BaseActivity {
     }*/
     public void loadNetData() {
         if(fisrt==false){
-            fisrt=true;
             srPosition.setRefreshing(true);
         }
         NetService service = new NetService(this, handlerService);
@@ -280,7 +283,6 @@ public class MyPositionActivity extends BaseActivity {
 /*        isLoading = false;
         isLoadAll = false;*/
         //Log.i("申请的数据",listapplied.toString());
-        positionAdpter = new MyPositionAdapter(this);
         if(listapplied!=null&&!"".equals(listapplied)) {
             positionAdpter.setListapplied(listapplied);
             if(index==1) {

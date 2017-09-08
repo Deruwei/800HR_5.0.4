@@ -52,7 +52,7 @@
             android:ellipsize="end"
             android:gravity="right"
             android:singleLine="true"
-            android:text="请选择工作性质"
+            android:text="请选择求职状态"
             android:textColor="#F7931E" />
         <ImageView
             android:id="@+id/imageView45"

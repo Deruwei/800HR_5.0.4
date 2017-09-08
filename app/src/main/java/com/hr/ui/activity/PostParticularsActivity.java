@@ -206,9 +206,12 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 tv_postparticular_sal.setText(resultPostMap.get("salary"));
                 tv_postparticular_releasetime.setText(resultPostMap.get("issue_date"));
                 tv_postparticular_exp.setText(resultPostMap.get("workyear"));
-                String str=resultPostMap.get("synopsis");
+                if(!"".equals(resultPostMap.get("synopsis"))&&resultPostMap.get("synopsis")!=null) {
+                    String str = resultPostMap.get("synopsis");
+                    tv_postparticular_postparticular.setText(str);
+                }
                 //Log.i("职位的信息",str);
-                tv_postparticular_postparticular.setText(str);
+
                /* ViewTreeObserver vto2 = tv_postparticular_postparticular.getViewTreeObserver();
                 vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -233,12 +236,14 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 } else {
                     tv_postparticular_email.setText("企业邮箱：" + resultPostMap.get("email"));
                 }
-
-                comId = resultPostMap.get("enterprise_id");
+                if(!"".equals(resultPostMap.get("enterprise_id"))&&resultPostMap.get("enterprise_id")!=null) {
+                    comId = resultPostMap.get("enterprise_id");
+                }
                 loadComNetData();
                 //Log.i(TAG, "=====poster" + resultPostMap.get("posterimg").toString());
-                posterPath = resultPostMap.get("posterimg").toString();
-                if (!"".equals(posterPath)) {
+
+                if (!"".equals(resultPostMap.get("posterimg").toString())&&resultPostMap.get("posterimg").toString()!=null) {
+                    posterPath = resultPostMap.get("posterimg").toString();
                     ll_postparticular_poster.setVisibility(View.VISIBLE);
                   DownLoadImg();
                 }
@@ -504,9 +509,15 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
 //                oks.addHiddenPlatform(QQ.NAME);
                 String text = "";
                 String mobilUrl = null;
-                String enterprise_name = resultComMap.get("enterprise_name");
-                String jobnameString = resultPostMap.get("job_name");
-                if (jobnameString == null || jobnameString.length() == 0) {
+                String enterprise_name="";
+                String jobnameString="";
+                if(!"".equals( resultComMap.get("enterprise_name"))&& resultComMap.get("enterprise_name")!=null) {
+                     enterprise_name = resultComMap.get("enterprise_name");
+                }
+                if(!"".equals(resultPostMap.get("job_name"))&&resultPostMap.get("job_name")!=null) {
+                     jobnameString = resultPostMap.get("job_name");
+                }
+                if (jobnameString == null||"".equals(jobnameString) || jobnameString.length() == 0) {
                     text = "我在行业找工作上看到了" + enterprise_name + "发布了招聘职位。";
                     mobilUrl = MobileUrl.getCompanyUrl(resultPostMap.get("enterprise_id"));
                 } else {

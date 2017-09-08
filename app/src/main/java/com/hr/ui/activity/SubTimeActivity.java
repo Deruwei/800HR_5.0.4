@@ -33,8 +33,11 @@ public class SubTimeActivity extends Activity implements OnClickListener, OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_job_screen);
         init();
-        str = new String[]{"不限", "近一天", "近三天", "近一周", "近一个月", "更早"};
-        strIds = new String[]{"0", "11", "12", "13", "14", "15"};
+
+       // private String timeStr[] = {"不限", "近一天","近两天","近三天", "近一周","近两周" ,"近一个月", "近六周","近两月"};
+        //private String timeStrIds[] = {"0", "1", "2", "3", "7", "14","30","42","60"};
+        str = new String[]{"不限", "近一天","近两天","近三天", "近一周","近两周" ,"近一个月", "近六周","近两月"};
+        strIds = new String[]{"0", "1", "2", "3", "7", "14","30","42","60"};
         for (int i = 0; i < str.length; i++) {
             hp = new HashMap<String, String>();
             hp.put("job", str[i]);

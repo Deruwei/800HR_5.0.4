@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
+import android.service.carrier.CarrierService;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
+import com.hr.ui.view.custom.MyCustomDatePicker;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,13 +61,16 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     private static int RequestCode=1005;
     private String address;
     private CustomDatePicker datePickerBeginJob,datePickerFunc;
+    private MyCustomDatePicker datePickerBirth;
+    private int sexId=1;
+    private TextView tv_man,tv_woman;
     /**
      * 控件
      */
 //    rl_resume_personinfo_nation
     private RelativeLayout rl_resume_personinfo_save,  rl_resume_personinfo_jobbegintime, rl_resume_personinfo_func;
     private EditText et_resume_personinfo_name, et_resume_personinfo_email;
-    private RadioButton rb_resume_personinfo_man, rb_resume_personinfo_woman;
+    private LinearLayout rb_resume_personinfo_man, rb_resume_personinfo_woman;
     private TextView tv_resume_personinfo_birthday, tv_phone_confirm;
     private static TextView tv_resume_personinfo_home, et_resume_personinfo_phonenum, tv_image_phone, tv_image_phone2;
     private TextView  sp_resume_personinfo_jobbegintime, sp_resume_personinfo_func;
@@ -132,6 +139,12 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 }
             }
         }, getResources().getStringArray(R.array.array_zhicheng_zh));
+        datePickerBirth=new MyCustomDatePicker(ResumePersonInfoActivity.this, new MyCustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                tv_resume_personinfo_birthday.setText(time);
+            }
+        });
     }
 
 
@@ -149,9 +162,17 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         // 性别
         String sex = resumeBaseInfo.getSex();
         if ("1".equalsIgnoreCase(sex)) {// 1男，2女
-            rb_resume_personinfo_man.setChecked(true);
+            sexId=1;
+            tv_woman.setTextColor(ContextCompat.getColor(this,R.color.gray));
+            tv_man.setTextColor(ContextCompat.getColor(this,R.color.white));
+            rb_resume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_orange);
+            rb_resume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_gray);
         } else if ("2".equalsIgnoreCase(sex)) {
-            rb_resume_personinfo_woman.setChecked(true);
+            sexId=2;
+            tv_woman.setTextColor(ContextCompat.getColor(this,R.color.white));
+            tv_man.setTextColor(ContextCompat.getColor(this,R.color.gray));
+            rb_resume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_gray_left);
+            rb_resume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_orange_right);
         }
         // 出生日期
         if ("".equals(resumeBaseInfo.getYear())) {
@@ -243,15 +264,16 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         selectFuncList=GetResumeArrayList.getFuncListFromArray(this);
 //        lr_resumepersoninfo = (LinearLayout) findViewById(R.id.lr_resumepersoninfo);
         et_resume_personinfo_name = (EditText) findViewById(R.id.et_resume_personinfo_name);
-        rb_resume_personinfo_man = (RadioButton) findViewById(R.id.rb_resume_personinfo_man);
-        rb_resume_personinfo_woman = (RadioButton) findViewById(R.id.rb_resume_personinfo_woman);
+        rb_resume_personinfo_man = (LinearLayout) findViewById(R.id.ll_resume_personinfo_man);
+        rb_resume_personinfo_woman = (LinearLayout) findViewById(R.id.ll_resume_personinfo_woman);
 
         tv_resume_personinfo_birthday = (TextView) findViewById(R.id.tv_resume_personinfo_birthday);
         rl_resume_personinfo_save = (RelativeLayout) findViewById(R.id.rl_resume_personinfo_save);
 //        rl_resume_personinfo_nation = (RelativeLayout) findViewById(R.id.rl_resume_personinfo_nation);
         rl_resume_personinfo_func = (RelativeLayout) findViewById(R.id.rl_resume_personinfo_func);
         rl_resume_personinfo_jobbegintime = (RelativeLayout) findViewById(R.id.rl_resume_personinfo_jobbegintime);
-
+        tv_man= (TextView) findViewById(R.id.tv_resume_man);
+        tv_woman= (TextView) findViewById(R.id.tv_resume_woman);
         tv_resume_personinfo_home = (TextView) findViewById(R.id.tv_resume_personinfo_home);
         tv_phone_confirm = (TextView) findViewById(R.id.tv_phone_confirm);
         tv_image_phone = (TextView) findViewById(R.id.tv_image_phone);
@@ -302,12 +324,6 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
             case R.id.et_resume_personinfo_name:
                 modification = true;
                 break;
-            case R.id.rb_resume_personinfo_man:
-                modification = true;
-                break;
-            case R.id.rb_resume_personinfo_woman:
-                modification = true;
-                break;
             case R.id.et_resume_personinfo_email:
                 modification = true;
                 break;
@@ -342,7 +358,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 break;
             case R.id.tv_resume_personinfo_birthday:
                 modification = true;
-                DatePickerUtil.initMyDatePicker2(ResumePersonInfoActivity.this,tv_resume_personinfo_birthday);
+                datePickerBirth.show(tv_resume_personinfo_birthday.getText().toString(),3);
                 break;
             case R.id.iv_resume_personinfo_back:
                 showSaveDialog();
@@ -356,6 +372,22 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 intent.putExtra("isCHS", true);
                 intent.putExtra("value", "省市选择");
                 startActivityForResult(intent,RequestCode);
+                break;
+            case R.id.ll_resume_personinfo_man:
+                modification = true;
+                sexId=1;
+                tv_woman.setTextColor(ContextCompat.getColor(this,R.color.gray));
+                tv_man.setTextColor(ContextCompat.getColor(this,R.color.white));
+                rb_resume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_orange);
+                rb_resume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_gray);
+                break;
+            case R.id.ll_resume_personinfo_woman:
+                modification = true;
+                sexId=2;
+                tv_woman.setTextColor(ContextCompat.getColor(this,R.color.white));
+                tv_man.setTextColor(ContextCompat.getColor(this,R.color.gray));
+                rb_resume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_gray_left);
+                rb_resume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_orange_right);
                 break;
         }
     }
@@ -381,7 +413,8 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (rb_resume_personinfo_man.isChecked() == false && rb_resume_personinfo_woman.isChecked() == false) {
+            Log.i("性别的名称：",sexId+"");
+            if (sexId!=1&&sexId!=2) {
                 Toast.makeText(mContext, "请选择性别", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -473,7 +506,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         resumeBaseInfo.setResume_language(resumeLanguageString);
         resumeBaseInfo.setName(et_resume_personinfo_name.getText().toString());
         resumeBaseInfo.setLocation(placeIdNowPlace + "");
-        resumeBaseInfo.setSex(rb_resume_personinfo_man.isChecked() == true ? "1" : "2");
+        resumeBaseInfo.setSex(sexId+"");
         String birthdayString = tv_resume_personinfo_birthday.getText().toString();
         String[] birthStrings = birthdayString.split("-");
         resumeBaseInfo.setYear(birthStrings[0]);

@@ -101,63 +101,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical">
-
                 <TextView
                     android:id="@+id/textView420101"
                     style="@style/reusme_myresume_tvhead"
                     android:text="性别" />
 
-                <RadioGroup
+                <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="20dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|right"
                     android:orientation="horizontal">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:id="@+id/ll_createresume_personinfo_man"
+                        android:layout_width="@dimen/dimen_30px"
+                        android:background="@drawable/bg_sex_orange"
+                        android:layout_height="@dimen/dimen_30px">
 
-                    <RadioButton
-                        android:id="@+id/rb_createresume_personinfo_man"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:button="@drawable/radio_btn" />
+                        <TextView
+                            android:id="@+id/tv_CreateResume_man"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="男"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="男"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="12dp"
-                        android:src="@mipmap/nan" />
+                    <LinearLayout
+                        android:id="@+id/ll_createresume_personinfo_woman"
+                        android:gravity="center"
+                        android:layout_width="@dimen/dimen_30px"
+                        android:background="@drawable/bg_sex_gray"
+                        android:layout_height="@dimen/dimen_30px">
 
-                    <View
-                        android:layout_width="20dp"
-                        android:layout_height="1dp" />
+                        <TextView
+                            android:id="@+id/tv_CreateResume_woman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="女"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
-                    <RadioButton
-                        android:id="@+id/rb_createresume_personinfo_woman"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:button="@drawable/radio_btn" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="女"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="12dp"
-                        android:src="@mipmap/nv" />
-                </RadioGroup>
+                </LinearLayout>
             </RelativeLayout>
 
             <View
@@ -179,16 +171,19 @@
                 <TextView
 
                     android:id="@+id/tv_createresume_personinfo_birthday"
-                    android:layout_width="100dp"
+                    android:layout_width="@dimen/dimen_150px"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="#F7931E"
+                    android:layout_gravity="center_vertical|right"
                     android:layout_marginEnd="13dp"
                     android:layout_marginRight="13dp"
+                    android:text="请选择"
                     android:layout_toLeftOf="@+id/imageView45"
                     android:layout_toStartOf="@+id/imageView45"
-                    android:gravity="right"
-                    android:text=""
-                    android:textColor="#F7931E" />
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:singleLine="true" />
 
                 <ImageView
                     android:id="@+id/imageView45"
@@ -223,19 +218,19 @@
 
                 <TextView
                     android:id="@+id/tv_createresume_personinfo_home"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_150px"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="#F7931E"
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginEnd="13dp"
                     android:layout_marginRight="13dp"
+                    android:text="请选择"
                     android:layout_toLeftOf="@+id/imageView4501031"
                     android:layout_toStartOf="@+id/imageView4501031"
                     android:background="@null"
                     android:gravity="center_vertical|right"
-                    android:singleLine="true"
-                    android:text="请选择地点"
-                    android:textColor="#F7931E" />
+                    android:singleLine="true" />
 
                 <ImageView
                     android:id="@+id/imageView4501031"
@@ -315,7 +310,7 @@
 
                 <TextView
                     android:id="@+id/sp_createresume_personinfo_jobbegintime"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_150px"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textColor="#F7931E"
@@ -363,13 +358,19 @@
 
                 <TextView
                     android:id="@+id/sp_createresume_personinfo_func"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_150px"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="13dp"
                     android:textColor="#F7931E"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginRight="13dp"
+                    android:text="请选择"
                     android:layout_toLeftOf="@+id/imageView450106"
-                    android:text="请选择" />
+                    android:layout_toStartOf="@+id/imageView450106"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:singleLine="true" />
 
                 <ImageView
                     android:id="@+id/imageView450106"

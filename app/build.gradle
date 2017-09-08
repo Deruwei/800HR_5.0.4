@@ -10,8 +10,8 @@ android {
         applicationId "com.hr.ui"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 63
-        versionName "5.4.8"
+        versionCode 64
+        versionName "5.4.9"
     }
     buildTypes {
         release {

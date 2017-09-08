@@ -19,6 +19,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -96,14 +97,19 @@ public class PayQueryActivity extends BaseActivity {
         // progress.setVisibility(View.VISIBLE);
         getWindow().setBackgroundDrawable(null);
         webView.getSettings().setJavaScriptEnabled(true);
-
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         webView.setWebViewClient(new WebViewClient() {
             // 点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                return super.shouldInterceptRequest(view, url);
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //				Toast.makeText(PayQueryActivity.this, url+".........", 0).show();
-                view.loadUrl(url);
+                view.loadUrl(url.toString());
                 return true;
             }
         });
@@ -500,6 +506,10 @@ public class PayQueryActivity extends BaseActivity {
 //            exit();
 //            return true;
 //        }
+        if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
+            webView.goBack();
+            return true;
+        }
         return super.onKeyDown(keyCode, event);
     }
 

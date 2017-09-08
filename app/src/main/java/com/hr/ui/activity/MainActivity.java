@@ -190,9 +190,10 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
 //        NBSAppAgent.setLicenseKey("018b83f2a7c7413abc8d6225c7ea3573").withLocationServiceEnabled(true).start(mContext);
         instanceMain = MainActivity.this;
        /* isLogin();*/
-        isLogin();
         initView();
         initData();
+        isLogin();
+
 
     }
     @Override
@@ -220,14 +221,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      * 每次启动欢迎页刷新 isGoIndustry  在application中添加 退出整个程序没有被杀死
      */
     private void isLogin() {
-        sUtils = new SharedPreferencesUtils(mContext);
-        thirdCode = sUtils.getStringValue("autoLoginThird_code", "");
-        thirdIndustry = sUtils.getStringValue("autoLoginIndustry", "");
-        thirdUid = sUtils.getStringValue("autoLoginThird_uid", "");
-        userName = sUtils.getStringValue(Constants.USERNAME, "");
-        psw = sUtils.getStringValue(Constants.PASSWORD, "");
-        PhoneName = sUtils.getStringValue(Constants.USERPHONE, "");
-        Industry = sUtils.getIntValue(Constants.INDUSTRY, 11);
         /*
          * 是否已经登录
          */
@@ -594,7 +587,14 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      * 初始化数据
      */
     private void initData() {
-        sUtils.setBooleanValue(Constants.IS_CHOOSEINDUSTRY, true);
+        sUtils = new SharedPreferencesUtils(mContext);
+        thirdCode = sUtils.getStringValue("autoLoginThird_code", "");
+        thirdIndustry = sUtils.getStringValue("autoLoginIndustry", "");
+        thirdUid = sUtils.getStringValue("autoLoginThird_uid", "");
+        userName = sUtils.getStringValue(Constants.USERNAME, "");
+        psw = sUtils.getStringValue(Constants.PASSWORD, "");
+        PhoneName = sUtils.getStringValue(Constants.USERPHONE, "");
+        Industry = sUtils.getIntValue(Constants.INDUSTRY, 11);
         fragmentManager = getSupportFragmentManager();
         setTabSelect(0);
     }

@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:id="@+id/rl_resume_personinfo_top"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="@dimen/dimen_44px"
                 android:background="@color/new_main">
 
                 <ImageView
@@ -76,9 +76,10 @@
 
             <View
                 android:id="@+id/view3"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
 
             <RelativeLayout
@@ -90,57 +91,49 @@
                     style="@style/reusme_myresume_tvhead"
                     android:text="性别" />
 
-                <RadioGroup
+                <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="20dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|right"
                     android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_resume_personinfo_man"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:button="@drawable/radio_btn" />
+                    <LinearLayout
+                        android:gravity="center"
+                        android:id="@+id/ll_resume_personinfo_man"
+                        android:layout_width="@dimen/dimen_30px"
+                        android:background="@drawable/bg_sex_orange"
+                        android:layout_height="@dimen/dimen_30px">
 
                     <TextView
+                        android:id="@+id/tv_resume_man"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="男"
-                        android:textColor="#666666"
+                        android:textColor="@color/white"
                         android:textSize="14sp" />
 
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="12dp"
-                        android:src="@mipmap/nan" />
+                    </LinearLayout>
 
-                    <View
-                        android:layout_width="20dp"
-                        android:layout_height="1dp" />
-
-                    <RadioButton
-                        android:id="@+id/rb_resume_personinfo_woman"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:button="@drawable/radio_btn" />
+                    <LinearLayout
+                        android:gravity="center"
+                        android:id="@+id/ll_resume_personinfo_woman"
+                        android:layout_width="@dimen/dimen_30px"
+                        android:background="@drawable/bg_sex_gray"
+                        android:layout_height="@dimen/dimen_30px">
 
                     <TextView
+                        android:id="@+id/tv_resume_woman"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="女"
-                        android:textColor="#666666"
+                        android:textColor="@color/gray"
                         android:textSize="14sp" />
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="12dp"
-                        android:src="@mipmap/nv" />
-                </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
             </RelativeLayout>
 
             <View
@@ -183,9 +176,10 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="360dp"
-                android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1px"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
 
             <RelativeLayout
@@ -228,9 +222,10 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
 
             <!--<RelativeLayout-->
@@ -317,9 +312,10 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
 
             <RelativeLayout
@@ -411,9 +407,10 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
 
             <RelativeLayout

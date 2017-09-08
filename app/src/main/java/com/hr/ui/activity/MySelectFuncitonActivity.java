@@ -569,7 +569,9 @@ public class MySelectFuncitonActivity extends BaseActivity {
                         .findViewWithTag(functionBean.getId()));
         /*Log.i("选择2",selectFunctionBeenList.toString());*/
         getFunctionSecondListBean();
-        funcitionSecondAdapter.notifyDataSetChanged();
+        if(isRefresh==true) {
+            funcitionSecondAdapter.notifyDataSetChanged();
+        }
 
 
     }

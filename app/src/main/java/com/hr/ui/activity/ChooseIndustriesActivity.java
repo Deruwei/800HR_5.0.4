@@ -137,70 +137,88 @@ public class ChooseIndustriesActivity extends BaseActivity implements View.OnCli
             case R.id.industry_11:
                 sUtils.setIntValue(Constants.INDUSTRY, 11);
                 MyUtils.industryId = "11";
+                goMainActivity();
                 break;
             case R.id.industry_12:
                 sUtils.setIntValue(Constants.INDUSTRY, 12);
                 MyUtils.industryId = "12";
+                goMainActivity();
                 break;
             case R.id.industry_13:
                 sUtils.setIntValue(Constants.INDUSTRY, 13);
                 MyUtils.industryId = "13";
+                goMainActivity();
                 break;
             case R.id.industry_14:
                 sUtils.setIntValue(Constants.INDUSTRY, 14);
                 MyUtils.industryId = "14";
+                goMainActivity();
                 break;
             case R.id.industry_15:
                 sUtils.setIntValue(Constants.INDUSTRY, 15);
                 MyUtils.industryId = "15";
+                goMainActivity();
                 break;
             case R.id.industry_16:
                 sUtils.setIntValue(Constants.INDUSTRY, 16);
                 MyUtils.industryId = "16";
+                goMainActivity();
                 break;
             case R.id.industry_19:
                 sUtils.setIntValue(Constants.INDUSTRY, 19);
                 MyUtils.industryId = "19";
+                goMainActivity();
                 break;
             case R.id.industry_20:
                 sUtils.setIntValue(Constants.INDUSTRY, 20);
                 MyUtils.industryId = "20";
+                goMainActivity();
                 break;
             case R.id.industry_21:
                 sUtils.setIntValue(Constants.INDUSTRY, 21);
                 MyUtils.industryId = "21";
+                goMainActivity();
                 break;
             case R.id.industry_22:
                 sUtils.setIntValue(Constants.INDUSTRY, 22);
                 MyUtils.industryId = "22";
+                goMainActivity();
                 break;
             case R.id.industry_23:
                 sUtils.setIntValue(Constants.INDUSTRY, 23);
                 MyUtils.industryId = "23";
+                goMainActivity();
                 break;
             case R.id.industry_26:
                 sUtils.setIntValue(Constants.INDUSTRY, 26);
                 MyUtils.industryId = "26";
+                goMainActivity();
                 break;
             case R.id.industry_29:
                 sUtils.setIntValue(Constants.INDUSTRY, 29);
                 MyUtils.industryId = "29";
+                goMainActivity();
                 break;
             case R.id.industry_30:
                 sUtils.setIntValue(Constants.INDUSTRY, 30);
                 MyUtils.industryId = "30";
+                goMainActivity();
                 break;
             case R.id.industry_40:
                 sUtils.setIntValue(Constants.INDUSTRY, 40);
                 MyUtils.industryId = "40";
+                goMainActivity();
                 break;
         }
+
+    }
+    private void goMainActivity(){
         MobclickAgent.onEvent(this, "choice-industry");
+        sUtils.setBooleanValue(Constants.IS_CHOOSEINDUSTRY, false);
         Intent intent = new Intent(mContext, MainActivity.class);
         startActivity(intent);
         finish();
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
