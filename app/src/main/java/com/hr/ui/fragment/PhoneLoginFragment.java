@@ -148,6 +148,12 @@ public class PhoneLoginFragment extends BaseFragment {
     }
 
     private void initData() {
+        if("11".equals(MyUtils.industryId) || "12".equals(MyUtils.industryId) ||
+                "14".equals(MyUtils.industryId) || "29".equals(MyUtils.industryId)||"22".equals(MyUtils.industryId)||"26".equals(MyUtils.industryId)){
+            rlPhoneloginComregister.setVisibility(View.VISIBLE);
+        }else{
+            rlPhoneloginComregister.setVisibility(View.GONE);
+        }
         MyUtils.canReflesh=true;
         sUtils = new SharedPreferencesUtils(getActivity());
         isAutoLogin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, false);

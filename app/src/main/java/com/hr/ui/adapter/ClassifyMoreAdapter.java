@@ -29,7 +29,7 @@ public class ClassifyMoreAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return text_list.size();
+        return text_list==null ? 0 : text_list.size();
     }
 
     public Object getItem(int position) {

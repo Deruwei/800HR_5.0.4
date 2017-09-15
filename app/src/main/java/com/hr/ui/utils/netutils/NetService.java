@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -62,6 +63,7 @@ public class NetService {
             switch (msg.what) {
                 case 0:// 重连结果
                     String jsonString = (String) msg.obj;
+                    Log.i("第一次",jsonString);
                     try {
                         JSONObject jsonObject = new JSONObject(jsonString);
                         int error_code = jsonObject.getInt("error_code");
@@ -175,6 +177,7 @@ public class NetService {
                     // listRequestQueues.remove(mQueue);
                     //System.out.println("请求结果：" + arg0);
                     try {
+                        Log.i("连接",arg0);
                         JSONObject jsonObject = new JSONObject(arg0);
                         String error_code = jsonObject.getString("error_code");
                             /*
@@ -308,6 +311,7 @@ public class NetService {
         requestParams.put("dnfrom", Constants.DNFROM);
         requestParams.put("network_type", MyUtils.network_type);
 //        System.out.print("第一次连接" + requestParams.toString());
+        Log.i("第一次连接",requestParams.toString());
         return requestParams;
 
     }
@@ -324,7 +328,6 @@ public class NetService {
         requestParams.put("os_ver", android.os.Build.VERSION.RELEASE);
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         requestParams.put("width", String.valueOf(displayMetrics.widthPixels));
-        requestParams.put("width", String.valueOf(displayMetrics.widthPixels));
         requestParams.put("height", String.valueOf(displayMetrics.heightPixels));
         requestParams.put("phonecode", NetParamsConstants.DEVICE_USER_ID);
         requestParams.put("model", AndroidUtils.get_model());
@@ -335,6 +338,7 @@ public class NetService {
         MyUtils.session_key = null;
         Rc4Md5Utils.secret_key = MyUtils.init_secret_key;
         // System.out.println("重连");
+       // Log.i("重新连接",requestParams.toString());
         return requestParams;
     }
 

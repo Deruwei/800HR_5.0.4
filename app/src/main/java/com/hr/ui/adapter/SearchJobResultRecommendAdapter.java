@@ -41,7 +41,7 @@ import butterknife.ButterKnife;
  */
 public class SearchJobResultRecommendAdapter extends RecyclerView.Adapter<SearchJobResultRecommendAdapter.MyViewHolder> {
     /* private static final String TAG = "SearchJobResultRecommendAdapter";*/
-    private static ArrayList<HashMap<String, Object>> dataList;
+    private  ArrayList<HashMap<String, Object>> dataList;
     private static Context mContext;
   /*  private static HashMap<Integer, Boolean> isSelected;*/
 
@@ -65,9 +65,12 @@ public class SearchJobResultRecommendAdapter extends RecyclerView.Adapter<Search
      */
     final int TYPE_2 = 1;
 
-    public SearchJobResultRecommendAdapter(Context context, ArrayList<HashMap<String, Object>> list) {
+    public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
+        this.dataList = dataList;
+    }
+
+    public SearchJobResultRecommendAdapter(Context context) {
         this.mContext = context;
-        this.dataList = list;
         sUtils = new SharedPreferencesUtils(mContext);
     }
 

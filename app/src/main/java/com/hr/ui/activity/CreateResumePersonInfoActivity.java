@@ -479,7 +479,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     private void saveData() {
 
         if (isCHS) {
-            if (et_createresume_personinfo_name.getText().toString().trim().length() == 0) {
+            if (et_createresume_personinfo_name.getText().toString().length() == 0) {
                 Toast.makeText(mContext, "请输入姓名",
                         Toast.LENGTH_SHORT).show();
                 return;
@@ -492,7 +492,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (MyUtils.currentCityZh != null && !MyUtils.currentCityZh.equals("")) {
+            if (MyUtils.currentCityZh != null && !"".equals(MyUtils.currentCityZh)) {
                 if (MyUtils.currentCityZh.equals(placeName)) {
                     placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
                 }
@@ -508,18 +508,18 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             }
             // 手机号"^1[3|4|5|8]\d{9}$"
 
-            if (et_createresume_personinfo_email.getText().toString().trim().length() == 0) {
+            if (et_createresume_personinfo_email.getText().toString().length() == 0) {
                 Toast.makeText(mContext, "请输入电子邮箱", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!et_createresume_personinfo_email.getText().toString().trim().contains("@")
-                    || !et_createresume_personinfo_email.getText().toString().trim()
+            if (!et_createresume_personinfo_email.getText().toString().contains("@")
+                    || !et_createresume_personinfo_email.getText().toString()
                     .contains(".com")) {
                 Toast.makeText(mContext, "请正确输入电子邮箱", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-        String mobileString = et_createresume_personinfo_phonenum.getText().toString().trim();
+        String mobileString = et_createresume_personinfo_phonenum.getText().toString();
         String[] mobileArrayString = null;
         if (mobileString.length() != 0) {
             mobileString = mobileString.replaceAll("，", ",");
@@ -529,7 +529,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             if (mobileString != null) {
                 mobileArrayString = mobileString.split(",");
                 for (int i = 0; i < mobileArrayString.length; i++) {
-                    Matcher m = p.matcher(mobileArrayString[i].trim());
+                    Matcher m = p.matcher(mobileArrayString[i]);
                     if (!m.find()) {
                         if (isCHS) {
                             Toast.makeText(CreateResumePersonInfoActivity.this,
@@ -548,7 +548,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
             Toast.makeText(mContext, "请输入手机号码", Toast.LENGTH_SHORT).show();
             return;
         }
-        String phoneString = et_createresume_personinfo_phonenum.getText().toString().trim();
+        String phoneString = et_createresume_personinfo_phonenum.getText().toString();
         String[] phoneStrings = null;
         if (phoneString.length() != 0) {
             phoneString = phoneString.replaceAll("，", ",");

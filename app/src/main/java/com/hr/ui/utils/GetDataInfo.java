@@ -1,6 +1,7 @@
 package com.hr.ui.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
@@ -35,6 +36,7 @@ public class GetDataInfo {
         params.put("industry", "" + industry_id);
         params.put("page", "");
         params.put("page_nums", "20");
+        //Log.i("paras",params.toString());
         return params;
     }
 }

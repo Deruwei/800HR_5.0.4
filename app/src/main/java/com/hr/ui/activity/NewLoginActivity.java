@@ -81,11 +81,6 @@ public class NewLoginActivity extends BaseFragmentActivity {
         initData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     public void execute() {
         if(MainActivity.instanceMain!=null) {
             MainActivity.instanceMain.refreshBaseInfo();
@@ -131,7 +126,7 @@ public class NewLoginActivity extends BaseFragmentActivity {
         list.add(usernameLoginFragment);
         findPagerAdapter = new FindPagerAdapter(getSupportFragmentManager(), list);
         vpNewlogin.setAdapter(findPagerAdapter);
-        vpNewlogin.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vpNewlogin.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }

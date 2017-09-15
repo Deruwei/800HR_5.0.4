@@ -278,7 +278,7 @@
                             android:id="@+id/tv_previewresume_beginjobtime"
                             style="@style/resume_previewresume_info"
                             android:layout_alignTop="@+id/textView43002"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="40dp"
                             android:layout_marginStart="10dp"
                             android:layout_toEndOf="@+id/textView43002"
                             android:layout_toRightOf="@+id/textView43002"
@@ -664,7 +664,7 @@
                     android:background="#fff">
 
                     <RelativeLayout
-                        android:id="@+id/rl_myresume_104"
+                        android:id="@+id/rl_preResume_jobExp"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:background="#f3f3f3"
@@ -711,7 +711,7 @@
                         android:id="@+id/rl_myresume_204"
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_below="@+id/rl_myresume_104"
+                        android:layout_below="@+id/rl_preResume_jobExp"
                         android:background="#fff" />
 
                     <LinearLayout
@@ -737,9 +737,9 @@
                     android:background="#fff">
 
                     <RelativeLayout
-                        android:id="@+id/rl_myresume_110"
+                        android:id="@+id/rl_preResume_projectExp"
                         android:layout_width="match_parent"
-                        android:layout_height="36dp"
+                        android:layout_height="@dimen/dimen_36px"
                         android:background="#f3f3f3"
                         android:gravity="center_vertical">
 
@@ -783,7 +783,7 @@
                         android:id="@+id/rl_myresume_210"
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_below="@+id/rl_myresume_110"
+                        android:layout_below="@+id/rl_preResume_projectExp"
                         android:background="#fff" />
 
                     <LinearLayout
@@ -809,7 +809,7 @@
                     android:background="#fff">
 
                     <RelativeLayout
-                        android:id="@+id/rl_myresume_111"
+                        android:id="@+id/rl_preResume_professionSkill"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:background="#f3f3f3"
@@ -855,7 +855,7 @@
                         android:id="@+id/rl_myresume_211"
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_below="@+id/rl_myresume_111"
+                        android:layout_below="@+id/rl_preResume_professionSkill"
                         android:background="#fff" />
 
                     <LinearLayout
@@ -881,7 +881,7 @@
                     android:background="#fff">
 
                     <RelativeLayout
-                        android:id="@+id/rl_myresume_112"
+                        android:id="@+id/rl_preResume_languageSkill"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:background="#f3f3f3"
@@ -927,7 +927,7 @@
                         android:id="@+id/rl_myresume_212"
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_below="@+id/rl_myresume_112"
+                        android:layout_below="@+id/rl_preResume_languageSkill"
                         android:background="#fff" />
 
                     <LinearLayout
@@ -953,7 +953,7 @@
                     android:background="#fff">
 
                     <RelativeLayout
-                        android:id="@+id/rl_myresume_113"
+                        android:id="@+id/rl_preResume_plantExp"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:background="#f3f3f3"
@@ -999,7 +999,7 @@
                         android:id="@+id/rl_myresume_213"
                         android:layout_width="match_parent"
                         android:layout_height="15dp"
-                        android:layout_below="@+id/rl_myresume_113"
+                        android:layout_below="@+id/rl_preResume_plantExp"
                         android:background="#fff" />
 
                     <LinearLayout
@@ -1014,8 +1014,9 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_preview_resume_introduce"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/rl_previewresume_rl1"
                 android:background="#fff">
 
@@ -1071,17 +1072,16 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_20px"
                     android:layout_below="@+id/rl_myresume_206"
                     android:gravity="center_horizontal">
 
                     <TextView
+                        android:gravity="left|top"
                         android:id="@+id/tv_myresume_selfassessment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         android:text=""

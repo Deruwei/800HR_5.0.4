@@ -245,7 +245,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 if (!"".equals(resultPostMap.get("posterimg").toString())&&resultPostMap.get("posterimg").toString()!=null) {
                     posterPath = resultPostMap.get("posterimg").toString();
                     ll_postparticular_poster.setVisibility(View.VISIBLE);
-                  DownLoadImg();
+                    DownLoadImg();
                 }
                 is_favourite = resultPostMap.get("is_favourite");
                 is_apply = resultPostMap.get("is_apply");
@@ -353,9 +353,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     protected void onDestroy() {
         super.onDestroy();
         dialogUtils.dismissDialog();
-        if(popupWindow!=null) {
-            popupWindow.dismiss();
-        }
+
     }
     /**
      * 初始化UIL
@@ -638,7 +636,6 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
        View contentView = LayoutInflater.from(this).inflate(R.layout.poster_dialog_background, null);
        popupWindow = new PopupWindow(contentView,
                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
-       popupWindow.setContentView(contentView);
        ImageView closeBtn = (ImageView) contentView .findViewById(R.id.close_btn);
        ll_viewArea = (LinearLayout) contentView .findViewById(R.id.ll_viewArea);
        closeBtn.setVisibility(View.GONE);

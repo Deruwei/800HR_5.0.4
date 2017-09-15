@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:paddingRight="@dimen/dimen_14px"
     android:orientation="horizontal">
 
     <View
-        android:layout_width="24dp"
+        android:layout_width="14dp"
         android:layout_height="match_parent" />
 
     <LinearLayout
@@ -43,7 +44,6 @@
                     android:id="@+id/tv_myresume_edu_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:drawableLeft="@mipmap/xiugai1"
                 android:drawablePadding="5dp"
                 android:text="编辑"
@@ -51,8 +51,7 @@
                 android:layout_alignBaseline="@+id/tv_previewresume_edutime"
                 android:layout_alignBottom="@+id/tv_previewresume_edutime"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp" />
+                android:layout_alignParentEnd="true" />
             <TextView
                 android:id="@+id/tv_previewresume_edutime"
                 style="@style/resume_previewresume_infoname"

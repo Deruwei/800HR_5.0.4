@@ -61,8 +61,7 @@ public class RecommendJobFragment extends BaseFragment {
     Button btRecfragmentSubmit;
     @Bind(R.id.rl_recfragment_login)
     RelativeLayout rlRecfragmentLogin;
-    @Bind(R.id.lr_recfragment_job)
-    LinearLayout lrRecfragmentJob;
+    private LinearLayout lrRecfragmentJob;
     @Bind(R.id.lv_recommendfragment)
     RecyclerView lvRecommendfragment;
     @Bind(R.id.tv_recfragment_login)
@@ -130,7 +129,7 @@ public class RecommendJobFragment extends BaseFragment {
         return view;
     }
 
-    private void toLogin() {
+    public void toLogin() {
         //先判断是否存在搜索要求
         if (MyUtils.isLogin) {
             tvRecfragmentLogin.setText("完善简历");
@@ -175,10 +174,12 @@ public class RecommendJobFragment extends BaseFragment {
         tvRecfragmentText = (TextView) view.findViewById(R.id.tv_recfragment_text);
         tvRecfragmentPlace = (TextView) view.findViewById(R.id.tv_recfragment_place);
         rlRecfragmentEmpty = (RelativeLayout) view.findViewById(R.id.rl_recfragment_empty);
+        lrRecfragmentJob= (LinearLayout) view.findViewById(R.id.lr_recfragment_job);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvRecommendfragment.setLayoutManager(manager);
         lvRecommendfragment.addItemDecoration(new SpacesItemDecoration(5));
+        sjrAdapter = new SearchJobResultRecommendAdapter(getActivity());
 //        tvRecommendfragmentBack = (ImageView) view.findViewById(R.id.iv_recommendfragment_back);
 //        rlRecfragmentFunction = (RelativeLayout) view.findViewById(R.id.rl_recfragment_function);
 //        rlRecfragmentLogin = (RelativeLayout) view.findViewById(R.id.rl_recfragment_login);
@@ -329,6 +330,7 @@ public class RecommendJobFragment extends BaseFragment {
         params.put("page_nums", "20");
         params.put("nautica", "");
         params.put("range", "");
+        Log.i("params",params.toString());
         return params;
     }
 
@@ -342,16 +344,17 @@ public class RecommendJobFragment extends BaseFragment {
                 json_result = (String) msg.obj;
                 dataList = new ArrayList<>();
                 dataList = GetJssonList.searchResult_json(json_result);// 状态码
+               // Log.i("params获得的数据",json_result.toString());
                 if (dataList != null && dataList.size() != 0) {
                     totalList.addAll(dataList);
-                    sjrAdapter = new SearchJobResultRecommendAdapter(getActivity(), totalList);
+                    sjrAdapter.setDataList(dataList);
                     lvRecommendfragment.setAdapter(sjrAdapter);
                     lrRecfragmentJob.setVisibility(View.GONE);
                     lvRecommendfragment.setVisibility(View.VISIBLE);
                     rlRecfragmentEmpty.setVisibility(View.GONE);
-                    Log.i("你好","-----------nihao");
+                    //Log.i("你好","-----------nihao");
                 } else {
-                    Log.i("你好2","-----------nihao");
+                   // Log.i("你好2","-----------nihao");
                     lrRecfragmentJob.setVisibility(View.GONE);
                     lvRecommendfragment.setVisibility(View.GONE);
                     rlRecfragmentEmpty.setVisibility(View.VISIBLE);

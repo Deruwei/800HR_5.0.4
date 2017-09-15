@@ -117,6 +117,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
 
     // 显示广告的图片
     private ArrayList<Industry> ad_data;
+    private View view_history1,view_history2;
     /**
      * 更新UI
      */
@@ -247,6 +248,8 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
         tv_post_medical = (TextView) view.findViewById(R.id.tv_post_medical);
         bt_post_search = (Button) view.findViewById(R.id.bt_post_search);
         rl_post_clear = (LinearLayout) view.findViewById(R.id.rl_post_clear);
+        view_history1=view.findViewById(R.id.view_history3);
+        view_history2=view.findViewById(R.id.view_history4);
 
         rl_post_medical.setOnClickListener(this);
         rl_post_function.setOnClickListener(this);
@@ -618,18 +621,23 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
                 SetTextValue(tv_postsearch_text1, 1);
 //                tv_postsearch_text1.setVisibility(View.VISIBLE);
                 rl_postsearch_text1.setVisibility(View.VISIBLE);
+                view_history1.setVisibility(View.GONE);
             }
             if (histoyInfo2.length >= 2) {
                 // 设置第二个搜索历史记录的值
                 SetTextValue(tv_postsearch_text2, 2);
 //                tv_postsearch_text2.setVisibility(View.VISIBLE);
                 rl_postsearch_text2.setVisibility(View.VISIBLE);
+                view_history1.setVisibility(View.VISIBLE);
+                view_history2.setVisibility(View.GONE);
             }
             if (histoyInfo2.length >= 3) {
                 // 设置第三个搜索历史记录的值
                 SetTextValue(tv_postsearch_text3, 3);
 //                tv_postsearch_text3.setVisibility(View.VISIBLE);
                 rl_postsearch_text3.setVisibility(View.VISIBLE);
+                view_history1.setVisibility(View.VISIBLE);
+                view_history2.setVisibility(View.VISIBLE);
             }
             if (histoyInfo2.length > 8) {
                 for (int i = 8; i < histoyInfo2.length; i++) {

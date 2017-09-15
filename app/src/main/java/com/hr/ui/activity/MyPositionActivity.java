@@ -57,8 +57,7 @@ public class MyPositionActivity extends BaseActivity {
     RelativeLayout rlNoDataApplyJob;
     @Bind(R.id.lv_my_position_listview)
     RecyclerView lvMyPositionListview;
-    @Bind(R.id.sr_position)
-    SwipeRefreshLayout srPosition;
+    private SwipeRefreshLayout srPosition;
     @Bind(R.id.rl_hasDataApplyJob)
     RelativeLayout rlHasDataApplyJob;
     private Context mContext = this;
@@ -76,6 +75,7 @@ public class MyPositionActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 String json = (String) msg.obj;
+                srPosition.setRefreshing(false);
                 try {
 
                     JSONObject jsonObject = new JSONObject(json);
@@ -161,10 +161,6 @@ public class MyPositionActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-            if(fisrt==false) {
-                fisrt=true;
-                srPosition.setRefreshing(false);
-            }
         }
     };
 
@@ -180,6 +176,7 @@ public class MyPositionActivity extends BaseActivity {
     }
 
     private void initView() {
+        srPosition= (SwipeRefreshLayout) findViewById(R.id.sr_position);
         manager=new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvMyPositionListview.setLayoutManager(manager);
@@ -191,10 +188,9 @@ public class MyPositionActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        fisrt=false;
                         listapplied = new ArrayList<PositionInfo>();
                         index = 1;
-                       loadNetData();
+                        loadNetData();
                         positionAdpter.notifyDataSetChanged();
                     }
                 }, 1000);
@@ -209,7 +205,6 @@ public class MyPositionActivity extends BaseActivity {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem + 1) == positionAdpter
                         .getItemCount()) {
                     index++;
-                    fisrt=false;
                     srPosition.setRefreshing(true);
                     new Handler().postDelayed(new Runnable() {
                         @Override

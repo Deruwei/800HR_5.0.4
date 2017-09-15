@@ -65,8 +65,7 @@ public class BindFirstFragment extends BaseFragment {
     EditText etFirstbindUsername;
     @Bind(R.id.et_firstbind_authcode)
     EditText etFirstbindAuthcode;
-    @Bind(R.id.bt_firstbind_authcode)
-    CodeButton btFirstbindAuthcode;
+    private CodeButton btFirstbindAuthcode;
     @Bind(R.id.tv_firstbind_password)
     TextView tvFirstbindPassword;
     @Bind(R.id.et_firstbind_password)
@@ -85,7 +84,9 @@ public class BindFirstFragment extends BaseFragment {
         this.industry = industry;
         this.third_userinfo = third_userinfo;
     }
+    public BindFirstFragment(){
 
+    }
     private Handler handlerLogin = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
@@ -136,6 +137,7 @@ public class BindFirstFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bind_first, container, false);
         ButterKnife.bind(this, view);
+        btFirstbindAuthcode= (CodeButton) view.findViewById(R.id.bt_firstbind_authcode);
         sharedPreferencedUtils = new SharedPreferencesUtils(getActivity());
         industryID = sharedPreferencedUtils.getIntValue(Constants.INDUSTRY, 0);
         btFirstbindAuthcode.onCreate(savedInstanceState);

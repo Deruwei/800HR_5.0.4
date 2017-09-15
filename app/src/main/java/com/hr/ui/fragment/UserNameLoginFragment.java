@@ -143,6 +143,12 @@ public class UserNameLoginFragment extends BaseFragment {
     }
 
     private void initData() {
+        if("11".equals(MyUtils.industryId) || "12".equals(MyUtils.industryId) ||
+                "14".equals(MyUtils.industryId) || "29".equals(MyUtils.industryId)||"22".equals(MyUtils.industryId)||"26".equals(MyUtils.industryId)){
+            rlUserloginComregister.setVisibility(View.VISIBLE);
+        }else{
+            rlUserloginComregister.setVisibility(View.GONE);
+        }
         sUtils = new SharedPreferencesUtils(getActivity());
         isAutoLogin = sUtils.getBooleanValue(Constants.AUTO_LOGIN, false);
         if (isAutoLogin) {

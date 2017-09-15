@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -98,6 +99,10 @@ public class PayQueryActivity extends BaseActivity {
         getWindow().setBackgroundDrawable(null);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        // webview从5.0开始默认不允许混合模式,https中不能加载http资源,需要设置开启。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         webView.setWebViewClient(new WebViewClient() {
             // 点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
 

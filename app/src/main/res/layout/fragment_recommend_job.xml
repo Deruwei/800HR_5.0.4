@@ -61,7 +61,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="@dimen/dimen_75px"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:text="Hello,告诉我你的求职意向吧！"
                 android:textColor="#F7931E"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_18" />
         </LinearLayout>
 
         <LinearLayout
@@ -249,7 +249,7 @@
         android:id="@+id/rl_recfragment_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

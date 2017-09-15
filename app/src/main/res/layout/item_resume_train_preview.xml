@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:paddingRight="@dimen/dimen_14px"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
     <View
-        android:layout_width="24dp"
+        android:layout_width="14dp"
         android:layout_height="match_parent" />
 
     <LinearLayout
@@ -43,12 +44,10 @@
                 android:id="@+id/tv_myresume_train_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
                 android:drawableLeft="@mipmap/xiugai1"
                 android:drawablePadding="5dp"
                 android:text="编辑"
                 android:textColor="#F39700"
-                android:layout_marginEnd="20dp"
                 android:layout_alignTop="@+id/tv_previewresume_traintime"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />

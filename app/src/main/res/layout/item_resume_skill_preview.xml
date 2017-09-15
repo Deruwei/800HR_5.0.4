@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:paddingRight="@dimen/dimen_14px"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
     <View
-        android:layout_width="24dp"
+        android:layout_width="14dp"
         android:layout_height="match_parent" />
 
     <LinearLayout
@@ -44,12 +45,10 @@
                 android:id="@+id/tv_myresume_skill_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:drawableLeft="@mipmap/xiugai1"
                 android:drawablePadding="5dp"
                 android:text="编辑"
                 android:textColor="#F39700"
-                android:layout_marginEnd="10dp"
                 android:layout_alignTop="@+id/tv_previewresume_skillname"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
@@ -67,9 +66,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="11dp"
                 android:text="技能名称：" />
 
             <TextView

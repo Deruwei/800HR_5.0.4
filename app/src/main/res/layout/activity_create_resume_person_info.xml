@@ -306,7 +306,7 @@
                 <TextView
                     android:id="@+id/textView420104"
                     style="@style/reusme_myresume_tvhead"
-                    android:text="参加工作年份" />
+                    android:text="工作年份" />
 
                 <TextView
                     android:id="@+id/sp_createresume_personinfo_jobbegintime"

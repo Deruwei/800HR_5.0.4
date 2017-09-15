@@ -67,11 +67,12 @@ public class CreateResumeJobExpActivity extends BaseActivity implements View.OnC
                         Toast.makeText(mContext, "简历上传失败", Toast.LENGTH_SHORT).show();
                         break;
                     case 0:// 中文简历已上传成功
+                        sendIsApp();
                         Toast.makeText(mContext, "新建完毕", Toast.LENGTH_SHORT).show();
                         MainActivity.instanceMain.execute();
                         MainActivity.instanceMain.isLoad = true;
                         MainActivity.instanceMain.newAppResume = false;
-                        sendIsApp();
+
                         finish();
                         break;
                     default:
@@ -95,7 +96,6 @@ public class CreateResumeJobExpActivity extends BaseActivity implements View.OnC
 //                            Toast.makeText(mContext, "设置成功", Toast.LENGTH_SHORT).show();
                             sUtils.setStringValue("is_app_resumeid" + MyUtils.userID, resumeAppId);
                             MeFragment.meFragment.execute();
-
                             break;
                         default:
                             Toast.makeText(mContext, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();

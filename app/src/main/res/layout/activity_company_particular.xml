@@ -80,8 +80,10 @@
                     android:textSize="18sp" />
                 <View
                     android:id="@+id/relativeLayout4"
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:layout_below="@+id/tv_companyparticular_comname2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
@@ -187,10 +189,10 @@
 
                 <View
                     android:id="@+id/view2"
-                    android:layout_width="360dp"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/textView34"
-                    android:layout_alignStart="@+id/textView34"
                     android:layout_below="@+id/textView34"
                     android:layout_marginTop="14dp"
                     android:background="#EBEBEB" />

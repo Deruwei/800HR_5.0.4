@@ -42,10 +42,8 @@ import butterknife.ButterKnife;
  */
 public class PagerCompanyFragment extends BaseFragment {
 
-    @Bind(R.id.tv_comNoData)
-    TextView tvComNoData;
-    @Bind(R.id.lv_pager_company)
-    RecyclerView lvPagerCompany;
+    private TextView tvComNoData;
+    private RecyclerView lvPagerCompany;
     private View view;
     private FindAdapter findAdapter;
     private Context mContext;
@@ -135,6 +133,8 @@ public class PagerCompanyFragment extends BaseFragment {
     }
 
     private void initView() {
+        lvPagerCompany= (RecyclerView) view.findViewById(R.id.lv_pager_company);
+        tvComNoData= (TextView) view.findViewById(R.id.tv_comNoData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvPagerCompany.setLayoutManager(manager);

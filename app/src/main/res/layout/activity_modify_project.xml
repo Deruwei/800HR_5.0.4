@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#fff"
     android:layout_height="match_parent"
     tools:context="com.hr.ui.activity.ModifyProjectActivity">
 
@@ -63,6 +64,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:layout_toRightOf="@+id/textView50"
                     android:id="@+id/et_resume_item_modifyproject_projectame"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
                     android:background="@null"
+                    android:maxEms="30"
                     android:gravity="right"
                     android:hint="请输入项目名称"
                     android:textSize="14sp" />
@@ -83,7 +86,7 @@
                 android:layout_marginRight="13dp"
                 android:background="#efefef"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp" />
+                android:layout_height="1dp" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
@@ -136,7 +139,7 @@
                 android:layout_marginRight="13dp"
                 android:background="#efefef"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp" />
+                android:layout_height="1dp" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
@@ -189,7 +192,7 @@
                 android:layout_marginRight="13dp"
                 android:background="#efefef"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp" />
+                android:layout_height="1dp" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
@@ -228,7 +231,7 @@
                 android:layout_marginRight="13dp"
                 android:background="#efefef"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp" />
+                android:layout_height="1dp" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
@@ -248,8 +251,9 @@
                     android:textSize="14sp" />
 
                 <RelativeLayout
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:layout_marginRight="@dimen/dimen_13px"
                     android:layout_alignLeft="@+id/textView502221"
                     android:layout_alignStart="@+id/textView502221"
                     android:layout_below="@+id/textView502221"
@@ -296,19 +300,20 @@
                     android:textSize="14sp" />
 
                 <RelativeLayout
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_alignLeft="@+id/textView50221"
                     android:layout_alignStart="@+id/textView50221"
                     android:layout_below="@+id/textView50221"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="@dimen/dimen_13px"
                     android:background="#F6F6F6">
 
                     <EditText
+
                         android:id="@+id/et_resume_item_modifyproject_duty"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="5dp"
                         android:background="@null"
                         android:gravity="left"
                         android:hint="请填写项目职责，限1000字以内"

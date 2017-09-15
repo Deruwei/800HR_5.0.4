@@ -273,8 +273,8 @@
     </style>
 
     <style name="bt_orange_two">
-        <item name="android:layout_width">160dp</item>
-        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">@dimen/dimen_150px</item>
+        <item name="android:layout_height">@dimen/dimen_30px</item>
     </style>
     <!--关键词搜索页面搜索框-->
     <style name="pager_keyword_search_searchscale">

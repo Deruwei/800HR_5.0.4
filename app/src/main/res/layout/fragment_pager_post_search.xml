@@ -32,9 +32,11 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
+                    android:background="@drawable/bg_white_circle"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -160,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:background="#fff"
+                    android:background="@drawable/bg_white_circle"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -207,8 +209,10 @@
                                 android:src="@mipmap/jiantou_right" />
 
                             <View
+                                android:id="@+id/view_history3"
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
+                                android:layout_height="1dp"
+                                android:layout_marginRight="@dimen/dimen_12px"
                                 android:layout_alignParentBottom="true"
                                 android:layout_marginLeft="12dp"
                                 android:background="#ebebeb" />
@@ -256,8 +260,10 @@
                                 android:src="@mipmap/jiantou_right" />
 
                             <View
+                                android:id="@+id/view_history4"
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
+                                android:layout_height="1dp"
+                                android:layout_marginRight="@dimen/dimen_12px"
                                 android:layout_alignParentBottom="true"
                                 android:layout_marginLeft="12dp"
                                 android:background="#ebebeb" />
@@ -303,26 +309,23 @@
                                 android:layout_marginRight="12dp"
                                 android:src="@mipmap/jiantou_right" />
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginLeft="12dp"
-                                android:background="#ebebeb" />
                         </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:layout_marginTop="@dimen/dimen_3px"
                     android:layout_marginRight="@dimen/dimen_10px"
                     android:layout_marginLeft="@dimen/dimen_10px"
                     android:id="@+id/rl_search_post_clear"
                     android:layout_width="match_parent"
-                    android:layout_height="39dp"
-                    android:background="#fff"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_circle"
                     android:gravity="center">
 
                     <TextView
+                        android:layout_marginTop="@dimen/dimen_10px"
+                        android:layout_marginBottom="@dimen/dimen_10px"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="清空搜索条件"
@@ -331,17 +334,15 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:layout_margin="@dimen/dimen_10px"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#F6F6F6"
+                    android:background="@drawable/bg_white_circle"
                     android:gravity="center_horizontal">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/lv_postsearch_advertistment"
-                        style="@style/pager_keyword_search_history"
-                        android:layout_margin="10dp"
-                        android:divider="#00000000"
-                        android:scrollbars="none" />
+                        style="@style/pager_keyword_search_history" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

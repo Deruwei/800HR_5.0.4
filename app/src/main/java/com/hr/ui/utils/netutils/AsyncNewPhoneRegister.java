@@ -56,7 +56,7 @@ public class AsyncNewPhoneRegister {
                             Message message = new Message();
                             message.what = 0;
                             handler.sendMessage(message);
-                            RecommendJobFragment.recommendJobFragment.initView();
+                            RecommendJobFragment.recommendJobFragment.toLogin();
                             MainActivity.instanceMain.refreshBaseInfo();
                             break;
                         case 201:

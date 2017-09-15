@@ -43,7 +43,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     private static final String TAG = "MyCollectionAdapter";
     private  ArrayList<HashMap<String, Object>> dataList;
     private  Context mContext;
-    private  HashMap<Integer, Boolean> isSelected;
+    private  HashMap<Integer, Boolean> isSelected=new HashMap<>();
     /**
      * 本地缓存图片名字
      */
@@ -52,25 +52,25 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     private int error_code;
     private Handler handler;
 
+
     public  void setDataList(ArrayList<HashMap<String, Object>> dataList) {
         this.dataList = dataList;
-        initData();
         sUtils = new SharedPreferencesUtils(mContext);
     }
 
     public MyCollectionAdapter(Context context) {
         this.mContext = context;
         inflater = LayoutInflater.from(mContext);
-        isSelected = new HashMap<>();
 
 
     }
 
     // 初始化isSelected的数据
-    private void initData() {
-        for (int i = 0; i < dataList.size(); i++) {
-            getIsSelected().put(i, false);
-        }
+    public void initData() {
+        isSelected=new HashMap<>();
+            for (int i = 0; i < dataList.size(); i++) {
+                isSelected.put(i, false);
+            }
     }
 
     /**
@@ -164,7 +164,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
         holder.rlItemSearchjoblvClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (dataList.get(position).get("is_expire").equals("0")) {
+                if ("0".equals(dataList.get(position).get("is_expire"))) {
                     String job_id = (String) v.getTag();
                     // Toast.makeText(context, "文本信息" + url, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, PostParticularsActivity.class);
@@ -198,7 +198,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList==null ? 0 : dataList.size();
     }
 
 
@@ -279,7 +279,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
         StringBuffer sbJobId = new StringBuffer();
         for (int i = 0; i < isSelected.size(); i++) {
             if (isSelected.get(i) == true) {
-                if (dataList.get(i).get("is_expire").equals("0")) {
+                if ("0".equals(dataList.get(i).get("is_expire"))) {
                     sbJobId.append(dataList.get(i).get("job_id") + ",");
                 } else {
                     Toast.makeText(mContext, "该职位已过期", Toast.LENGTH_SHORT).show();

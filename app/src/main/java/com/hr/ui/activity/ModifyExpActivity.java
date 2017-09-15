@@ -74,7 +74,6 @@ public class ModifyExpActivity extends BaseResumeActivity {
     private String resumeId, resumeLanguage;
     public static ModifyExpActivity modifyExpActivity;
     private String placeId,isAdd;
-    private MyDatePicker myDatePicker;
     private MyCustomDatePicker datePickerBeginTime,datePickerEndtime;
 
     @Override
@@ -110,7 +109,7 @@ public class ModifyExpActivity extends BaseResumeActivity {
         resumeId = getIntent().getStringExtra("resumeId");
         resumeLanguage = getIntent().getStringExtra("resumeLanguage");
         isAdd=getIntent().getStringExtra("isAdd");
-        if(isAdd.equals("1")){
+        if("1".equals(isAdd)){
             tvResumeItemNewresumejobDelete.setVisibility(View.GONE);
         }
 
@@ -123,9 +122,9 @@ public class ModifyExpActivity extends BaseResumeActivity {
         if ("0-0".equals(endTime)) {
             endTime = "至今";
         }
-        if (resumeExperience.getSalary_hide().equals("0")) {
+        if ("0".equals(resumeExperience.getSalary_hide())) {
             cbItemIscheck.setChecked(false);
-        } else if (resumeExperience.getSalary_hide().equals("1")) {
+        } else if ("1".equals(resumeExperience.getSalary_hide())) {
             cbItemIscheck.setChecked(true);
         }
         cbItemIscheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -231,7 +230,7 @@ public class ModifyExpActivity extends BaseResumeActivity {
             return;
         }
         if (tvResumeItemNewjobexpWorkplace.getText()
-                .toString().trim().length() == 0 || tvResumeItemNewjobexpWorkplace.getText().toString().trim().equals("请选择地点")) {
+                .toString().trim().length() == 0 ||"请选择地点".equals(tvResumeItemNewjobexpWorkplace.getText().toString().trim())) {
             Toast.makeText(context, "请选择工作地点", Toast.LENGTH_LONG).show();
             return;
         }
@@ -240,8 +239,8 @@ public class ModifyExpActivity extends BaseResumeActivity {
             Toast.makeText(context, "请输入税前月薪", Toast.LENGTH_LONG).show();
             return;
         }
-        if (etResumeItemNewjobexpSalary.getText().toString()
-                .trim().substring(0, 1).equals("0")) {
+        if ("0".equals(etResumeItemNewjobexpSalary.getText().toString()
+                .trim().substring(0, 1))) {
             Toast.makeText(context, "请输入大于0的税前月薪", Toast.LENGTH_LONG).show();
             return;
         }
@@ -286,11 +285,11 @@ public class ModifyExpActivity extends BaseResumeActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear&&!tvResumeItemNewjobexpEndtime.getText().toString().equals("至今")) {
+        if (endYear < startYear&&!"至今".equals(tvResumeItemNewjobexpEndtime.getText().toString())) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemNewjobexpEndtime.getText().toString().equals("至今")) {
+        if (endYear == startYear && endMonth < startMonth&&!"至今".equals(tvResumeItemNewjobexpEndtime.getText().toString())) {
             Toast.makeText(context, context.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }

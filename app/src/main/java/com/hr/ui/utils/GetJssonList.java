@@ -207,7 +207,7 @@ public class GetJssonList {
         } catch (JSONException e) {
              e.printStackTrace();
         }
-        Log.i("职能的集合",list.toString());
+        //Log.i("职能的集合",list.toString());
         return list;
     }
 }

@@ -44,7 +44,7 @@ public class ChooseIndustriesActivity extends BaseActivity implements View.OnCli
     private LinearLayout industry14;
     private LinearLayout industry12;
     private LinearLayout industry22;
-    private LinearLayout industry13;
+   /* private LinearLayout industry13;*/
     private LinearLayout industry21;
     private LinearLayout industry26;
     private LinearLayout industry40;
@@ -65,7 +65,8 @@ public class ChooseIndustriesActivity extends BaseActivity implements View.OnCli
         industry14 = (LinearLayout) findViewById(R.id.industry_14);
         industry12 = (LinearLayout) findViewById(R.id.industry_12);
         industry22 = (LinearLayout) findViewById(R.id.industry_22);
-        industry13 = (LinearLayout) findViewById(R.id.industry_13);
+      /*  industry13 = (LinearLayout) findViewById(R.id.industry_13);
+        industry13.setVisibility(View.GONE);*/
         industry21 = (LinearLayout) findViewById(R.id.industry_21);
         industry26 = (LinearLayout) findViewById(R.id.industry_26);
         industry40 = (LinearLayout) findViewById(R.id.industry_40);
@@ -81,7 +82,7 @@ public class ChooseIndustriesActivity extends BaseActivity implements View.OnCli
         industry14.setOnClickListener(this);
         industry12.setOnClickListener(this);
         industry22.setOnClickListener(this);
-        industry13.setOnClickListener(this);
+       /* industry13.setOnClickListener(this);*/
         industry21.setOnClickListener(this);
         industry26.setOnClickListener(this);
         industry40.setOnClickListener(this);
@@ -144,11 +145,11 @@ public class ChooseIndustriesActivity extends BaseActivity implements View.OnCli
                 MyUtils.industryId = "12";
                 goMainActivity();
                 break;
-            case R.id.industry_13:
+         /*   case R.id.industry_13:
                 sUtils.setIntValue(Constants.INDUSTRY, 13);
                 MyUtils.industryId = "13";
                 goMainActivity();
-                break;
+                break;*/
             case R.id.industry_14:
                 sUtils.setIntValue(Constants.INDUSTRY, 14);
                 MyUtils.industryId = "14";

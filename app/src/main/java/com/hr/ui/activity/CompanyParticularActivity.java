@@ -64,12 +64,13 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
                 tv_companyparticular_scale.setText(resultComMap.get("stuff_munber"));
                 tv_companyparticular_comparticular.setText(resultComMap.get("synopsis"));
                 logoUrl = resultComMap.get("ent_logo").toString();
-                if (!logoUrl.equals("")) {
+                if (!"".equals(logoUrl)) {
                     Glide.with(CompanyParticularActivity.this).load(Constants.LOGO_ROOTPATH + logoUrl).into(iv_companyparticular_comlogo2);
                     /*imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_companyparticular_comlogo2, options);*/
                 }
+                dialogUtils.dismissDialog();
             }
-            dialogUtils.dismissDialog();
+
         }
     };
 

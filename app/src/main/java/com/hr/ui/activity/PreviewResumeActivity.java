@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.map.Polygon;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
@@ -85,7 +86,7 @@ public class PreviewResumeActivity extends BaseActivity {
     private TextView tv_previewresume_languagename, tv_previewresume_languagespeaklevel, tv_previewresume_languagereadlevel;
     private LinearLayout activity_resume_scan_language_linnearlayout, activity_resume_scan_train_linnearlayout, activity_resume_scan_skill_linnearlayout, activity_resume_scan_workexperience_linnearlayout, activity_resume_scan_educationexperience_linnearlayout, activity_resume_scan_projectexp_linnearlayout;
 
-    private RelativeLayout rl_preview_resume_jobexp;
+    private RelativeLayout rl_preview_resume_jobexp,rl_project,rl_professionalSkill,rl_languageSkill,rl_trainnigExp,rl_introduce;
     /**
      * 基本信息
      */
@@ -251,7 +252,7 @@ public class PreviewResumeActivity extends BaseActivity {
      */
     private void initPlant() {
         activity_resume_scan_train_linnearlayout = (LinearLayout) findViewById(R.id.activity_resume_scan_train_linnearlayout);
-        if (resumePlants != null) {
+        if (resumePlants != null&&!"".equals(resumePlants)&&resumePlants.length!=0){
             activity_resume_scan_train_linnearlayout.removeAllViews();
             for (int i = 0; i < resumePlants.length; i++) {
                 View plantView = LayoutInflater.from(this).inflate(
@@ -344,6 +345,8 @@ public class PreviewResumeActivity extends BaseActivity {
                 tv_previewresume_traincertificate
                         .setText(resumePlants[i].getCertification());
             }
+        }else{
+            rl_trainnigExp.setVisibility(View.GONE);
         }
     }
 
@@ -352,7 +355,7 @@ public class PreviewResumeActivity extends BaseActivity {
      */
     private void initSkill() {
         activity_resume_scan_skill_linnearlayout = (LinearLayout) findViewById(R.id.activity_resume_scan_skill_linnearlayout);
-        if (resumeSkills != null) {
+        if (resumeSkills != null&&!"".equals(resumePlants)&&resumePlants.length!=0) {
             activity_resume_scan_skill_linnearlayout.removeAllViews();
             for (int i = 0; i < resumeSkills.length; i++) {
                 View skillView = LayoutInflater.from(this).inflate(
@@ -392,6 +395,8 @@ public class PreviewResumeActivity extends BaseActivity {
                         .getSkillLevel(this, resumeSkills[i].getAbility(),
                                 isCHS));
             }
+        }else{
+            rl_professionalSkill.setVisibility(View.GONE);
         }
     }
 
@@ -400,7 +405,7 @@ public class PreviewResumeActivity extends BaseActivity {
      */
     private void initLanguage() {
         activity_resume_scan_language_linnearlayout = (LinearLayout) findViewById(R.id.activity_resume_scan_language_linnearlayout);
-        if (resumeLanguageLevels != null) {
+        if (resumeLanguageLevels != null&&!"".equals(resumeLanguageLevels)&&resumeLanguageLevels.length!=0) {
             activity_resume_scan_language_linnearlayout.removeAllViews();
             for (int i = 0; i < resumeLanguageLevels.length; i++) {
                 View languagelevelView = LayoutInflater.from(this).inflate(
@@ -452,6 +457,8 @@ public class PreviewResumeActivity extends BaseActivity {
                 tv_previewresume_languagespeaklevel.setText(ResumeInfoIDToString.getLanguageSpeakLevel(this,
                         resumeLanguageLevels[i].getSpeak_level(), isCHS));
             }
+        }else{
+            rl_languageSkill.setVisibility(View.GONE);
         }
     }
 
@@ -462,6 +469,8 @@ public class PreviewResumeActivity extends BaseActivity {
         if (resumeAssessInfo != null) {
             tv_myresume_selfassessment.setText(resumeAssessInfo
                     .getIntroduction());
+        }else{
+            rl_introduce.setVisibility(View.GONE);
         }
     }
 
@@ -470,7 +479,7 @@ public class PreviewResumeActivity extends BaseActivity {
      */
     private void initProject() {
         activity_resume_scan_projectexp_linnearlayout = (LinearLayout) findViewById(R.id.activity_resume_scan_projectexp_linnearlayout);
-        if (resumeProjects != null) {
+        if (resumeProjects != null&&!"".equals(resumeProjects)&&resumeProjects.length!=0) {
             activity_resume_scan_projectexp_linnearlayout.removeAllViews();
             for (int i = 0; i < resumeProjects.length; i++) {
                 View projectView = LayoutInflater.from(this).inflate(
@@ -551,6 +560,8 @@ public class PreviewResumeActivity extends BaseActivity {
                 tv_previewresume_projectduty
                         .setText(resumeProjects[i].getResponsibility());
             }
+        }else{
+            rl_project.setVisibility(View.GONE);
         }
     }
 
@@ -610,8 +621,9 @@ public class PreviewResumeActivity extends BaseActivity {
         if (resumeTitle != null) {
             if (resumeTitle.getResume_type().equals("1")) {
                 resume_previewresume_shixi.setText("工作经验");
-                if (resumeExperiences != null) {
+                if (resumeExperiences != null&&!"".equals(resumeExperiences)&&resumeExperiences.length!=0) {
                     activity_resume_scan_workexperience_linnearlayout.removeAllViews();
+                    rl_preview_resume_jobexp.setVisibility(View.VISIBLE);
                     for (int i = 0; i < resumeExperiences.length; i++) {
 //                        Toast.makeText(this,i+"",Toast.LENGTH_SHORT).show();
                         View workExperienceView = LayoutInflater.from(this).inflate(R.layout.item_resume_scan_workexperience, null);
@@ -622,7 +634,7 @@ public class PreviewResumeActivity extends BaseActivity {
                         tv_previewresume_comname = (TextView) workExperienceView
                                 .findViewById(R.id.tv_previewresume_comname);
                         //tv_myresume_workecperience_modify
-                        tv_previewFindJobResume_edit= (TextView) workExperienceView.findViewById(R.id.tv_myresume_workecperience_modify);
+                        tv_previewFindJobResume_edit = (TextView) workExperienceView.findViewById(R.id.tv_myresume_workecperience_modify);
                         tv_previewFindJobResume_edit.setVisibility(View.GONE);
                         tv_previewresume_post = (TextView) workExperienceView
                                 .findViewById(R.id.tv_previewresume_post);
@@ -653,41 +665,47 @@ public class PreviewResumeActivity extends BaseActivity {
                         resume_previewresume_jobdesp.setText(resumeExperiences[i].getResponsibility());
                     }
                 }
+                else {
+                    rl_preview_resume_jobexp.setVisibility(View.GONE);
+                }
             } else if (resumeTitle.getResume_type().equals("2")) {
                 resume_previewresume_shixi.setText("实习经验");
-                activity_resume_scan_workexperience_linnearlayout.removeAllViews();
-                for (int i = 0; i < resumeExperiences.length; i++) {
+                if (resumeExperiences != null&&!"".equals(resumeExperiences)&&resumeExperiences.length!=0) {
+                    activity_resume_scan_workexperience_linnearlayout.removeAllViews();
+                    rl_preview_resume_jobexp.setVisibility(View.VISIBLE);
+                    for (int i = 0; i < resumeExperiences.length; i++) {
 //                        Toast.makeText(this,i+"",Toast.LENGTH_SHORT).show();
-                    View workExperienceView = LayoutInflater.from(this).inflate(R.layout.item_resume_scan_workexperience, null);
-                    activity_resume_scan_workexperience_linnearlayout.addView(workExperienceView);
-                    // initview
-                    tv_previewShixiExp_edit= (TextView) workExperienceView.findViewById(R.id.tv_myresume_workecperience_modify);
-                    tv_previewShixiExp_edit.setVisibility(View.GONE);
-                    tv_previewresume_jobtime = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_jobtime);
-                    tv_previewresume_comname = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_comname);
-                    tv_previewresume_post = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_post);
-                    resume_previewresume_jobexpsalary = (TextView) workExperienceView.findViewById(R.id.resume_previewresume_jobexpsalary);
-                    resume_previewresume_jobexppost = (TextView) workExperienceView.findViewById(R.id.resume_previewresume_jobexppost);
-                    resume_previewresume_jobdesp = (TextView) workExperienceView.findViewById(R.id.resume_previewresume_jobdesp);
-                    // -----data
-                    if (isCHS) {
-                        String startTime = resumeExperiences[i].getFromyear() + "年" + resumeExperiences[i].getFrommonth() + "月";
-                        String endTime = resumeExperiences[i].getToyear() + "年" + resumeExperiences[i].getTomonth() + "月";
-                        if ("0年0月".equals(startTime)) {
-                            startTime = "至今";
+                        View workExperienceView = LayoutInflater.from(this).inflate(R.layout.item_resume_scan_workexperience, null);
+                        activity_resume_scan_workexperience_linnearlayout.addView(workExperienceView);
+                        // initview
+                        tv_previewShixiExp_edit = (TextView) workExperienceView.findViewById(R.id.tv_myresume_workecperience_modify);
+                        tv_previewShixiExp_edit.setVisibility(View.GONE);
+                        tv_previewresume_jobtime = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_jobtime);
+                        tv_previewresume_comname = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_comname);
+                        tv_previewresume_post = (TextView) workExperienceView.findViewById(R.id.tv_previewresume_post);
+                        resume_previewresume_jobexpsalary = (TextView) workExperienceView.findViewById(R.id.resume_previewresume_jobexpsalary);
+                        resume_previewresume_jobexppost = (TextView) workExperienceView.findViewById(R.id.resume_previewresume_jobexppost);
+                        resume_previewresume_jobdesp = (TextView) workExperienceView.findViewById(R.id.resume_previewresume_jobdesp);
+                        // -----data
+                        if (isCHS) {
+                            String startTime = resumeExperiences[i].getFromyear() + "年" + resumeExperiences[i].getFrommonth() + "月";
+                            String endTime = resumeExperiences[i].getToyear() + "年" + resumeExperiences[i].getTomonth() + "月";
+                            if ("0年0月".equals(startTime)) {
+                                startTime = "至今";
+                            }
+                            if ("0年0月".equals(endTime)) {
+                                endTime = "至今";
+                            }
+                            tv_previewresume_jobtime.setText(startTime + "--" + endTime);
                         }
-                        if ("0年0月".equals(endTime)) {
-                            endTime = "至今";
-                        }
-                        tv_previewresume_jobtime.setText(startTime + "--" + endTime);
+                        tv_previewresume_comname.setText(resumeExperiences[i].getCompany());
+                        tv_previewresume_post.setText(resumeExperiences[i].getPosition());
+                        resume_previewresume_jobexpsalary.setText(resumeExperiences[i].getSalary());
+                        resume_previewresume_jobdesp.setText(resumeExperiences[i].getResponsibility());
                     }
-                    tv_previewresume_comname.setText(resumeExperiences[i].getCompany());
-                    tv_previewresume_post.setText(resumeExperiences[i].getPosition());
-                    resume_previewresume_jobexpsalary.setText(resumeExperiences[i].getSalary());
-                    resume_previewresume_jobdesp.setText(resumeExperiences[i].getResponsibility());
+                }else {
+                    rl_preview_resume_jobexp.setVisibility(View.GONE);
                 }
-            } else {
-                rl_preview_resume_jobexp.setVisibility(View.GONE);
             }
         }
     }
@@ -847,6 +865,11 @@ public class PreviewResumeActivity extends BaseActivity {
         tv_previewresume_places = (TextView) findViewById(R.id.tv_previewresume_places);
         tv_previewresume_territory = (TextView) findViewById(R.id.tv_previewresume_territory);
         tv_previewresume_home = (TextView) findViewById(R.id.tv_previewresume_home);
+        rl_introduce= (RelativeLayout) findViewById(R.id.rl_preview_resume_introduce);
+        rl_languageSkill= (RelativeLayout) findViewById(R.id.rl_preResume_languageSkill);
+        rl_trainnigExp= (RelativeLayout) findViewById(R.id.rl_preResume_plantExp);
+        rl_professionalSkill= (RelativeLayout) findViewById(R.id.rl_preResume_professionSkill);
+        rl_project= (RelativeLayout) findViewById(R.id.rl_preview_resume_projectexp);
         if("11".equals(MyUtils.industryId) || "12".equals(MyUtils.industryId) ||
                 "14".equals(MyUtils.industryId) || "29".equals(MyUtils.industryId)||"22".equals(MyUtils.industryId)){
             rl_territory.setVisibility(View.VISIBLE);

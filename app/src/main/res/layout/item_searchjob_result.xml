@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/dimen_5px"
     android:layout_marginLeft="@dimen/dimen_5px"
-    android:background="#fff">
+    android:background="@drawable/bg_white_circle">
 
     <CheckBox
         android:id="@+id/cb_item_searchjob_select"

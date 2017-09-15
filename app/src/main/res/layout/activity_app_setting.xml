@@ -38,7 +38,9 @@
         android:id="@+id/rl_settingapp_autologin1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff"
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle"
         android:visibility="visible">
 
         <TextView
@@ -68,7 +70,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="@dimen/dimen_5px" />
 
     <RelativeLayout
         android:id="@+id/rl_settingapp_note"
@@ -101,20 +103,15 @@
             android:layout_marginRight="13dp"
             android:src="@mipmap/jiantou_right" />
 
-        <View
-            android:layout_width="360dp"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/textView371"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView371"
-            android:background="#EBEBEB" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle"
         android:id="@+id/rl_settingapp_attention"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/textView372333"
@@ -141,19 +138,22 @@
             android:src="@mipmap/jiantou_right" />
 
         <View
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dimen_10px"
+            android:layout_marginRight="@dimen/dimen_10px"
             android:layout_height="1dp"
-            android:layout_alignLeft="@+id/textView372333"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView372333"
             android:background="#EBEBEB" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_5px"
         android:id="@+id/rl_settingapp_feedback"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle">
 
         <TextView
             android:id="@+id/textView372"
@@ -179,13 +179,6 @@
             android:layout_marginRight="13dp"
             android:src="@mipmap/jiantou_right" />
 
-        <View
-            android:layout_width="360dp"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/textView372"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView372"
-            android:background="#EBEBEB" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -218,22 +211,16 @@
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             android:src="@mipmap/jiantou_right" />
-
-        <View
-            android:layout_width="360dp"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/textView3721"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView3721"
-            android:background="#EBEBEB" />
     </RelativeLayout>
 
     <RelativeLayout
-
+        android:layout_marginTop="@dimen/dimen_5px"
         android:id="@+id/rl_settingapp_regard"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle">
 
         <TextView
             android:id="@+id/textView373"
@@ -258,22 +245,16 @@
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             android:src="@mipmap/jiantou_right" />
-
-        <View
-            android:layout_width="360dp"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/textView373"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView373"
-            android:background="#EBEBEB" />
     </RelativeLayout>
 
     <RelativeLayout
-
+        android:layout_marginTop="@dimen/dimen_5px"
         android:id="@+id/rl_settingapp_comregister"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle">
 
         <TextView
             android:id="@+id/textView3736"
@@ -299,19 +280,15 @@
             android:layout_marginRight="13dp"
             android:src="@mipmap/jiantou_right" />
 
-        <View
-            android:layout_width="360dp"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/textView3736"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView3736"
-            android:background="#EBEBEB" />
     </RelativeLayout>
     <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_5px"
         android:id="@+id/rl_settingapp_mark"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle">
 
         <TextView
             android:id="@+id/textView3737"
@@ -339,13 +316,15 @@
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="@dimen/dimen_5px" />
 
     <RelativeLayout
         android:id="@+id/rl_settingapp_clear"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle">
 
         <TextView
             android:id="@+id/textView374"
@@ -373,13 +352,15 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="@dimen/dimen_20px" />
 
     <RelativeLayout
         android:id="@+id/rl_settingapp_out"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff"
+        android:layout_marginRight="@dimen/dimen_5px"
+        android:layout_marginLeft="@dimen/dimen_5px"
+        android:background="@drawable/bg_white_circle"
         android:visibility="gone">
 
         <TextView

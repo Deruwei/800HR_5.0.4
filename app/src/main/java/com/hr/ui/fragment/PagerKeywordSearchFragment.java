@@ -107,7 +107,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
     private int industry_id;
 
     private RefleshDialogUtils dialogUtils;
-
+    private View view_history1,view_history2;
 
     /**
      * 更新UI
@@ -224,7 +224,8 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
 
         rl_pager_keyword_search = (RelativeLayout) view.findViewById(R.id.rl_pager_keyword_search);
         rl_search_keyword_clear = (RelativeLayout) view.findViewById(R.id.rl_search_keyword_clear);
-
+        view_history1=view.findViewById(R.id.view_history1);
+        view_history2=view.findViewById(R.id.view_history2);
         iv_keyword_search.setOnClickListener(this);
         rl_keywordsearch_text1.setOnClickListener(this);
         rl_keywordsearch_text2.setOnClickListener(this);
@@ -479,7 +480,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
      * 保存历史记录
      */
     private void saveHistory() {
-        Log.i("城市的名称和id",MyUtils.selectCityId+ MyUtils.selectCityZh);
+       // Log.i("城市的名称和id",MyUtils.selectCityId+ MyUtils.selectCityZh);
         if ("全国".equals(MyUtils.selectCityZh)) {
             cityName="";
         }
@@ -548,18 +549,23 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
                 SetTextValue(tv_keywordsearch_text1, 1);
 //                tv_keywordsearch_text1.setVisibility(View.VISIBLE);
                 rl_keywordsearch_text1.setVisibility(View.VISIBLE);
+                view_history1.setVisibility(View.GONE);
             }
             if (keyWorldHistory2.length >= 2) {
                 // 设置第二个搜索历史记录的值
                 SetTextValue(tv_keywordsearch_text2, 2);
 //                tv_keywordsearch_text2.setVisibility(View.VISIBLE);
                 rl_keywordsearch_text2.setVisibility(View.VISIBLE);
+                view_history1.setVisibility(View.VISIBLE);
+                view_history2.setVisibility(View.GONE);
             }
             if (keyWorldHistory2.length >= 3) {
                 // 设置第三个搜索历史记录的值
                 SetTextValue(tv_keywordsearch_text3, 3);
 //                tv_keywordsearch_text3.setVisibility(View.VISIBLE);
                 rl_keywordsearch_text3.setVisibility(View.VISIBLE);
+                view_history1.setVisibility(View.VISIBLE);
+                view_history2.setVisibility(View.VISIBLE);
             }
 //            if (keyWorldHistory2.length >= 4) {
 //                // 设置第三个搜索历史记录的值

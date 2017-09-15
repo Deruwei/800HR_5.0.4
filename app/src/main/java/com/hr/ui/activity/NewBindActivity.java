@@ -132,9 +132,11 @@ public class NewBindActivity extends BaseFragmentActivity {
                 break;
             case R.id.tv_newbind_phone:
                 vpNewbind.setCurrentItem(0);
+                findPagerAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_newbind_username:
                 vpNewbind.setCurrentItem(1);
+                findPagerAdapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -154,7 +156,7 @@ public class NewBindActivity extends BaseFragmentActivity {
         list.add(bindSecondFragment);
         findPagerAdapter = new FindPagerAdapter(getSupportFragmentManager(), list);
         vpNewbind.setAdapter(findPagerAdapter);
-        vpNewbind.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vpNewbind.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }

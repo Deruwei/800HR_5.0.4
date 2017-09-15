@@ -99,7 +99,7 @@ public class NetUtils extends Application {
             int nType = networkInfo.getType();
             if (nType == ConnectivityManager.TYPE_MOBILE) {
                 MyUtils.network_type = "mobile";
-                if (networkInfo.getExtraInfo().toLowerCase()!=null){
+                if (!"".equals(networkInfo.getExtraInfo().toLowerCase())&&networkInfo.getExtraInfo().toLowerCase()!=null){
                     if (networkInfo.getExtraInfo().toLowerCase().equals("cmnet")) {
                         if (networkInfo.isConnected()) {
                             return true;

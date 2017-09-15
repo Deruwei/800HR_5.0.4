@@ -101,7 +101,7 @@ public class MyCollectionActivity extends BaseActivity {
                     Message msg0 = new Message();
                     msg0.what = 1001;
                     msg0.arg1 = searchResult_json();// 状态码
-                    Log.d("msg0.arg1", msg0.arg1 + "");
+                   // Log.d("msg0.arg1", msg0.arg1 + "");
                     myhandler.sendMessage(msg0);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -123,9 +123,9 @@ public class MyCollectionActivity extends BaseActivity {
             if (msg.what == 1001) {
                 if (msg.arg1 == 0) {// 成功获取数据
                     // 通知适配器更新数据
-                     myCollectionAdapter = new MyCollectionAdapter(MyCollectionActivity.this);
                     myCollectionAdapter.setDataList(totalList);
                     if(pageNum==1) {
+                        myCollectionAdapter.initData();
                         lvMyCollectionResult.setAdapter(myCollectionAdapter);
                     }else{
                         myCollectionAdapter.notifyDataSetChanged();
@@ -188,6 +188,7 @@ public class MyCollectionActivity extends BaseActivity {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvMyCollectionResult.setLayoutManager(manager);
         lvMyCollectionResult.addItemDecoration(new SpacesItemDecoration(5));
+        myCollectionAdapter = new MyCollectionAdapter(MyCollectionActivity.this);
         srCollection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -238,7 +239,7 @@ public class MyCollectionActivity extends BaseActivity {
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources()
                         .getDisplayMetrics()));
 
-        lvMyCollectionResult.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*lvMyCollectionResult.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == 1 || newState == 2) {
@@ -247,7 +248,7 @@ public class MyCollectionActivity extends BaseActivity {
                     rlMyCollectionVisible.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        });*/
     }
 
     /**

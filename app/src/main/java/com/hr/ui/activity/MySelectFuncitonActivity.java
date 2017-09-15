@@ -91,14 +91,16 @@ public class MySelectFuncitonActivity extends BaseActivity {
                         functionFirstAdapter=new ClassifyMainAdapter(MySelectFuncitonActivity.this,functionBeenList1);
                         functionselectListview.setAdapter(functionFirstAdapter);
                     }
+                    //点击左边的list进行右边listview的更新
                     functionselectListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                             selectFunction=functionBeenList1.get(position);
                             isRefresh=true;
+                            //第一个item不能点
                             if (position != 0) {
                                 selectFirstFunctionId = functionBeenList1.get(position).getId();
-                                //当数量为0时，点击每一项只会改变图片和颜色
+                                //当选择的数量为0时，点击每一项只会改变图片和颜色
                                 if (num == 0) {
                                     for (int i = 1; i < functionBeenList1.size(); i++) {
                                         if (i != position) {
@@ -142,29 +144,14 @@ public class MySelectFuncitonActivity extends BaseActivity {
                             }
                         }
                     }
-                    if (functionBeenList3 != null && functionBeenList3.size() != 0) {
-                        funcitionSecondAdapter=new ClassifyMoreAdapter(MySelectFuncitonActivity.this,functionBeenList3);
-                        functionselectListview2.setAdapter(funcitionSecondAdapter);
-                    }
+                    funcitionSecondAdapter=new ClassifyMoreAdapter(MySelectFuncitonActivity.this,functionBeenList3);
+                    functionselectListview2.setAdapter(funcitionSecondAdapter);
                     functionselectListview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                             if (functionBeenList3.get(position).isSelect() == false) {
-                             /*   if(fitter.equals("recommend")) {
-                                    RecommendJobFragment.setFunctionSelectMap(selectFunctionBeenList);
-                                }else if(fitter.equals("post")){
-                                    PagerPostSearchFragment.setFunctionSelectMap(selectFunctionBeenList);
-
-                                }else if(fitter.equals("creatjoborder")){
-                                    CreateResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
-                                }else if(fitter.equals("resumeJobOrder")){
-                                    ResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
-                                }else if(fitter.equals("subscription")){
-                                    SubscriptionActivity.subscriptionActivity.setFunctionSelected(selectFunctionBeenList);
-                                }*/
-                             if(fitter.equals("recommend")||fitter.equals("post")||fitter.equals("subscription")) {
+                             if("recommend".equals(fitter)||"post".equals(fitter)||"subscription".equals(fitter)) {
                                  if (num < 3) {
-
                                      if(position==0){
                                         for(int i=1;i<functionBeenList3.size();i++){
                                             functionBeenList3.get(i).setSelect(false);
@@ -172,8 +159,6 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                         for(int i=0;i<selectFunctionBeenList.size();i++){
                                             if(selectFunctionBeenList.get(i).getId().substring(0,3).equals(functionBeenList3.get(0).getId().substring(0,3))){
                                                 deleteFunction.add(selectFunctionBeenList.get(i));
-
-
                                             }
                                         }
                                          selectFunctionBeenList.removeAll(deleteFunction);
@@ -373,6 +358,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
             }
         }
     };
+    //刷新左边list的数据信息
     private void getFunctionFirstListBean(FunctionBean functionBean) {
         for (int i = 1; i < functionBeenList1.size(); i++) {
             if(selectFunction==functionBeenList1.get(i)){
@@ -393,6 +379,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
             }
         }
     }
+    //刷新右边listview的数据信息
     private void getFunctionSecondListBean(){
             for (int i = 0; i < functionBeenList3.size(); i++) {
                 functionBeenList3.get(i).setSelect(false);
@@ -451,14 +438,16 @@ public class MySelectFuncitonActivity extends BaseActivity {
         functionBean1.setName("全部职能");
         functionBean1.setId("0");
         functionBeenList1.add(functionBean1);
+        //选出左边listView的数据
         for (int i = 0; i < functionBeenList.size(); i++) {
             String ids = functionBeenList.get(i).getId();
             String s = ids.substring(ids.length() - 3);
-            if (s.equals("000")) {
+            if ("000".equals(s)) {
                 functionBeenList1.add(functionBeenList.get(i));
             }
         }
         //Log.i("选择diyici",selectFunctionBeenList.toString());
+        //当左边listview的数据有在选择数据中，设置他的表示为已选择
         for (int i = 1; i < functionBeenList1.size(); i++) {
             for (int j = 0; j < selectFunctionBeenList.size(); j++) {
                 if (selectFunctionBeenList.get(j).getId().length() > 2) {
