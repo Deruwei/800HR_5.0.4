@@ -40,13 +40,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.MyViewHolder> 
     private int pagerType;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
+    public void setData(ArrayList<Industry> data) {
+        this.data = data;
+    }
+
     public void setOnItemClick(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
     }
 
-    public FindAdapter(Context context, ArrayList<Industry> data, int type) {
+    public FindAdapter(Context context, int type) {
         this.context = context;
-        this.data = data;
         this.pagerType = type;
         initUIL();
     }

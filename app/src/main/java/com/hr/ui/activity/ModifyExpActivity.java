@@ -162,12 +162,9 @@ public class ModifyExpActivity extends BaseResumeActivity {
         tvResumeItemNewjobexpWorkplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(context, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 102);
-                intent.putExtra("filter", "place");
-                intent.putExtra("isCHS", true);
-                intent.putExtra("value", "省市选择");
+                intent.putExtra("type","1");
                 context.startActivity(intent);
             }
         });

@@ -362,13 +362,11 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 datePickerBirth.show(s,3);
                 break;
             case R.id.tv_createresume_personinfo_home:
-                Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(mContext, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 100);
-                intent.putExtra("filter", "place");
-                intent.putExtra("isCHS", true);
-                intent.putExtra("value", "省市选择");
-                mContext.startActivity(intent);
+                intent.putExtra("type","1");
+                intent.putExtra("from","createPersonInfo");
+                startActivity(intent);
                 break;
             case R.id.sp_createresume_personinfo_jobbegintime:
                 datePickerBeginJob.show(tv_createresume_personinfo_jobbegintime.getText().toString());
@@ -632,13 +630,11 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 datePickerBirth.show(s,3);
                 break;
             case R.id.rl_nowLivePlace:
-                Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(mContext, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 100);
-                intent.putExtra("filter", "place");
-                intent.putExtra("isCHS", true);
-                intent.putExtra("value", "省市选择");
-                mContext.startActivity(intent);
+                intent.putExtra("type","1");
+                intent.putExtra("from","createPersonInfo");
+                startActivity(intent);
                 break;
             case R.id.rl_jobTime:
                 datePickerBeginJob.show(tv_createresume_personinfo_jobbegintime.getText().toString());

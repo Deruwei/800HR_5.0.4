@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.CityBean;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.bean.SelectBean;
 import com.hr.ui.config.Constants;
@@ -72,6 +74,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
     private static ResumeJobOrderActivity resumeJobOrderActivity = null;
     private List<SelectBean> jobTypeList=new ArrayList<>();
     private List<SelectBean> findJobList=new ArrayList<>();
+    private List<CityBean> cityBeanList=new ArrayList<>();
 
     public static ResumeJobOrderActivity getInstance() {
         return resumeJobOrderActivity;
@@ -178,14 +181,11 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 break;
             case R.id.tv_resume_personinfo_place:
                 modification = true;
-                Intent intent = new Intent(this, SelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(this, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 101);
-                intent.putExtra("placeId", placeId);
-                intent.putExtra("isCHS", isCHS);
-                intent.putExtra("ableselected", 5);
-                intent.putExtra("filter", "place");
-                intent.putExtra("value", "选择城市");
+                intent.putExtra("type", "2");
+                intent.putExtra("from", "resumeJobOrder");
+                intent.putExtra("selectCity", (Serializable) cityBeanList);
                 startActivity(intent);
                 break;
             case R.id.tv_resume_joborder_position:
@@ -260,6 +260,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
      * @param placeIdString
      */
     private void initWorkPlace(String placeIdString) {
+        cityBeanList.clear();
         placeId = placeIdString;
         if (placeIdString == null || placeIdString.length() == 0) {// 选择的城市为空
             tv_resume_personinfo_place.setText("");
@@ -284,9 +285,13 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
             if (placeId != null && placeId.length() > 0) {
                 String[] placeStrings = placeId.split(",");
                 for (String string : placeStrings) {
+                    CityBean cityBean=new CityBean();
                     for (int i = 0; i < cityJSONArray.length(); i++) {
                         JSONObject object = cityJSONArray.getJSONObject(i);
                         if (object.has(string)) {
+                            cityBean.setId(string);
+                            cityBean.setName(object.getString(string));
+                            cityBeanList.add(cityBean);
                             showText.append("," + object.getString(string));
                             break;
                         }
@@ -317,6 +322,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
             String wokestateString = resumeBaseInfo.getCurrent_workstate();
             if (wokestateString != null) {
                 selectFindJobId=wokestateString;
+                Log.i("id求职",selectFindJobId);
                 for(int i=0;i<findJobList.size();i++){
                     if(wokestateString.equals(findJobList.get(i).getId())){
                         sp_resume_joborder_state.setText(findJobList.get(i).getName());
@@ -461,11 +467,10 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         placeId = string;
     }
 
-    public void setPlaceId(HashMap<String, Boolean> checkStateHashMap) {
-        Set<String> set = checkStateHashMap.keySet();
+    public void setPlaceId(List<CityBean> cityBeanList) {
         StringBuffer pBuffer = new StringBuffer();
-        for (String string : set) {
-            pBuffer.append("," + string);
+        for (int i=0;i<cityBeanList.size();i++) {
+            pBuffer.append("," + cityBeanList.get(i).getId());
         }
         if (pBuffer.length() > 0) {
             pBuffer.deleteCharAt(0);
@@ -526,9 +531,9 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
      * 保存数据
      */
     private void saveToDB() {
-        MyUtils.canResumeReflesh=true;
+
         if (isCHS) {// zh
-            if (tv_resume_joborder_position.getText().toString().length() == 0 || ("请选择职位").equals(tv_resume_joborder_position.getText().toString())) {
+            if (tv_resume_joborder_position.getText().toString().length() == 0 || tv_resume_joborder_position.getText().toString().equals("请选择职位")) {
                 Toast.makeText(this, "请选择期望职位", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -552,8 +557,8 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 Toast.makeText(this, "请输入期望薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (("0").equals(et_resume_personinfo_salay.getText().toString()
-                    .trim().substring(0, 1))) {
+            if (et_resume_personinfo_salay.getText().toString()
+                    .trim().substring(0, 1).equals("0")) {
                 Toast.makeText(this, "请输入大于0的薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -584,7 +589,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         // 求职状态
         String workStateString = selectFindJobId;
         // 工作性质
-        String jobTypeString = selectJobTypeId;
+        String jobTypeString =selectJobTypeId;
 
         // 期望职位
         String funcId = funcIdString;
@@ -598,9 +603,9 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         // System.out.println("placeId:" + placeIdString);
         // 薪资
         String salaryString = et_resume_personinfo_salay.getText().toString().trim();
-      /*  if (!workStateString.equals(resumeBaseInfo.getCurrent_workstate())) {
+        if (!workStateString.equals(resumeBaseInfo.getCurrent_workstate())) {
             resumeBaseInfo.setIsUpdate(1);
-        }*/
+        }
         resumeBaseInfo.setCurrent_workstate(workStateString);
         resumeBaseInfo.setResume_language(resumeLanguageString);
         resumeBaseInfo.setUser_id(MyUtils.userID);
@@ -658,7 +663,6 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(this, dbOperator,
                         resumeIdString, resumeLanguageString);
                 uploadData(resumeIdString);
-                MyUtils.canReflesh=true;
 //                MyResumeActivity.myResumeActivity.shouldUpdate = true;
                 // 刷新简历完整度
 //                finish();

@@ -28,7 +28,6 @@ import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.view.custom.CustomDialog;
 
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,7 +69,7 @@ public class PagerActivityFragment extends BaseFragment {
                 dataList = GetJssonList.getEnterpriseJson(ad_type, json_result);
                 if (dataList != null) {
                     if (dataList.size() != 0) {
-                        findAdapter = new FindAdapter(mContext, dataList, 2);
+                        findAdapter.setData(dataList);
                         lvPagerActivity.setAdapter(findAdapter);
 
                         findAdapter.setOnItemClick(new OnItemClick() {
@@ -135,13 +134,10 @@ public class PagerActivityFragment extends BaseFragment {
         this.ad_type = ad_type;
     }
 
-    @Subscribe
-    public void onEvent(ArrayList<Industry> dataList) {
-        this.dataList = dataList;
-    }
 
     private void initView() {
         // Log.i("this", dataList.toString());
+        findAdapter = new FindAdapter(mContext, 2);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvPagerActivity.setLayoutManager(manager);

@@ -177,7 +177,7 @@ public class NetService {
                     // listRequestQueues.remove(mQueue);
                     //System.out.println("请求结果：" + arg0);
                     try {
-                        Log.i("连接",arg0);
+                        //Log.i("连接",arg0);
                         JSONObject jsonObject = new JSONObject(arg0);
                         String error_code = jsonObject.getString("error_code");
                             /*
@@ -311,7 +311,7 @@ public class NetService {
         requestParams.put("dnfrom", Constants.DNFROM);
         requestParams.put("network_type", MyUtils.network_type);
 //        System.out.print("第一次连接" + requestParams.toString());
-        Log.i("第一次连接",requestParams.toString());
+        //Log.i("第一次连接",requestParams.toString());
         return requestParams;
 
     }

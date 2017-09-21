@@ -29,9 +29,12 @@ public class IndustryRecKeywordAdapter extends RecyclerView.Adapter<IndustryRecK
         this.onItemClick = onItemClick;
     }
 
-    public IndustryRecKeywordAdapter(Context context, ArrayList<Industry> industries) {
-        this.context = context;
+    public void setIndustries(ArrayList<Industry> industries) {
         this.industries = industries;
+    }
+
+    public IndustryRecKeywordAdapter(Context context) {
+        this.context = context;
     }
 
     @Override

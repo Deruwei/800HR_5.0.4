@@ -37,7 +37,7 @@ public class AsyncBindThird {
                     switch (error_code) {
                         case 0:// 注册成功
 //                            // 存储用户数据
-                            Log.i("===========", jsonObject.toString());
+                            //Log.i("===========", jsonObject.toString());
                             MyUtils.isLogin = true;
                             MyUtils.username= user_name;
                             MyUtils.industryId = industry;

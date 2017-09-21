@@ -366,10 +366,6 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                 if (MyUtils.currentCityZh != null
                         && MyUtils.currentCityZh.length() > 0) {
                     topViewHolder.name.setText(MyUtils.currentCityZh.substring(0,MyUtils.currentCityZh.length()-1));
-                    topViewHolder.name.setCompoundDrawablesWithIntrinsicBounds(
-                            null, null,
-                            getResources().getDrawable(R.mipmap.dingwei),
-                            null);
                     JSONArray cityJSONArray;
                     try {
                         cityJSONArray = NetService.getCityAsJSONArray(
@@ -400,10 +396,6 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                 } else {
 
                     topViewHolder.name.setText("定位失败");
-                    topViewHolder.name.setCompoundDrawablesWithIntrinsicBounds(
-                            null, null,
-                            getResources().getDrawable(R.mipmap.dingwei),
-                            null);
 
                 }
                 topViewHolder.title.setText("定位城市");
@@ -421,10 +413,6 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                     holder = (ViewHolder) convertView.getTag();
                     holder.name.setVisibility(View.VISIBLE);
                     holder.title.setVisibility(View.VISIBLE);
-                    holder.name.setCompoundDrawablesWithIntrinsicBounds(
-                            null, null,
-                            getResources().getDrawable(R.mipmap.jiantou_right),
-                            null);
                 }
 
                 // 职系设置显示数据
@@ -437,15 +425,21 @@ public class MainSelectCityToKeywordActivity extends BaseActivity implements Vie
                                 .replace("#", ""));
                         holder.name.setVisibility(View.GONE);
                     } else {
+                        holder.name.setVisibility(View.VISIBLE);
                         holder.title.setVisibility(View.GONE);
                         holder.name.setText(dataAdapterArrayList.get(position - 1)
                                 .get("value"));
-                        if (zhixiashiORhotcity.contains(dataAdapterArrayList.get(
+                        /*if (zhixiashiORhotcity.contains(dataAdapterArrayList.get(
                                 position - 1).get("value"))) {
                             holder.name
                                     .setCompoundDrawablesWithIntrinsicBounds(
                                             null, null, null, null);
-                        }
+                        }else{
+                            holder.name.setCompoundDrawablesWithIntrinsicBounds(
+                                    null, null,
+                                    getResources().getDrawable(R.mipmap.jiantou_right),
+                                    null);
+                        }*/
                     }
                 }
             }

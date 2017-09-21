@@ -52,7 +52,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -149,12 +151,12 @@ public class CreateResumeJobActivity extends BaseActivity {
                         case 0:// 成功
 //                            Toast.makeText(mContext, "设置成功", Toast.LENGTH_SHORT).show();
                             sUtils.setStringValue("is_app_resumeid" + MyUtils.userID, resumeAppId);
-                            Log.i("简历的状态----------------","设置为默认简历成功");
+                           // Log.i("简历的状态----------------","设置为默认简历成功");
 //                            MeFragment.meFragment.execute();
                             goMainActivity();
                             break;
                         default:
-                            Log.i("简历的状态----------------","设置为默认简历失败");
+                            //Log.i("简历的状态----------------","设置为默认简历失败");
                             Toast.makeText(mContext, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
                             goMainActivity();
                             break;
@@ -164,7 +166,7 @@ public class CreateResumeJobActivity extends BaseActivity {
 //                    Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Log.i("简历的状态----------------","没有到达");
+               // Log.i("简历的状态----------------","没有到达");
 //                Toast.makeText(mContext, "设置失败", Toast.LENGTH_SHORT).show();
             }
         }
@@ -255,9 +257,9 @@ public class CreateResumeJobActivity extends BaseActivity {
         if ("0-0".equals(endTime)) {
             endTime = "至今";
         }
-        if (listResumeJobExp.get(groupPosition).getSalary_hide().equals("0")) {
+        if ("0".equals(listResumeJobExp.get(groupPosition).getSalary_hide())) {
             cbItemjobexpIscheck.setChecked(false);
-        } else if (listResumeJobExp.get(groupPosition).getSalary_hide().equals("1")) {
+        } else if ("1".equals(listResumeJobExp.get(groupPosition).getSalary_hide())) {
             cbItemjobexpIscheck.setChecked(true);
         }
         cbItemjobexpIscheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -278,13 +280,26 @@ public class CreateResumeJobActivity extends BaseActivity {
         tvResumeItemJobStarttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               datePickerBeginTime.show(tvResumeItemJobStarttime.getText().toString()+"-1",1);
+                String s="";
+                if(tvResumeItemJobStarttime.getText().toString()!=null){
+                    s=tvResumeItemJobStarttime.getText().toString();
+                }else{
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M");//格式为 2013-9
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    s = formatter.format(curDate);
+                }
+               datePickerBeginTime.show(s+"-1",1);
             }
         });
         tvResumeItemJobEndtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String s=tvResumeItemJobEndtime.getText().toString();
+                String s="";
+                if(tvResumeItemJobEndtime.getText().toString()!=null) {
+                    s = tvResumeItemJobEndtime.getText().toString();
+                }else{
+                    s="至今";
+                }
                 if(!"至今".equals(s)){
                     s=s+"-1";
                 }
@@ -294,12 +309,10 @@ public class CreateResumeJobActivity extends BaseActivity {
         tvResumeItemJobWorkplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CreateSelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(mContext, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 102);
-                intent.putExtra("filter", "place");
-                intent.putExtra("isCHS", true);
-                intent.putExtra("value", "省市选择");
+                intent.putExtra("type", 1);
+                intent.putExtra("from", "createJob");
                 mContext.startActivity(intent);
             }
         });
@@ -388,8 +401,8 @@ public class CreateResumeJobActivity extends BaseActivity {
             Toast.makeText(mContext, "请输入税前月薪", Toast.LENGTH_LONG).show();
             return;
         }
-        if (etResumeItemJobSalary.getText().toString()
-                .trim().substring(0, 1).equals("0")) {
+        if ("0".equals(etResumeItemJobSalary.getText().toString()
+                .trim().substring(0, 1))) {
             Toast.makeText(mContext, "请输入大于0的税前月薪", Toast.LENGTH_LONG).show();
             return;
         }
@@ -560,7 +573,7 @@ public class CreateResumeJobActivity extends BaseActivity {
                 Drawable dra2 = getResources().getDrawable(R.mipmap.kaiguan_2);
                 dra1.setBounds(0, 0, dra1.getMinimumWidth(), dra1.getMinimumHeight());
                 dra2.setBounds(0, 0, dra2.getMinimumWidth(), dra2.getMinimumHeight());
-                if (resumeType.equals("1")) {
+                if ("1".equals(resumeType)) {
                     tvIsjobexpOpen.setCompoundDrawablePadding(2);
                     tvIsjobexpOpen.setCompoundDrawables(dra1, null, null, null);
                     tvIsjobexpOpen.setText("没有工作经历");

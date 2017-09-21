@@ -119,7 +119,11 @@ public class NewPhoneRegisterActivity extends Activity {
     @Override
     protected void onDestroy() {
         btPhoneregisterAuthcode.onDestroy();
+        if(popwindowIsAPPResume!=null) {
+            popwindowIsAPPResume.dismiss();
+        }
         super.onDestroy();
+
     }
 
     private Handler handler = new Handler() {
@@ -202,7 +206,6 @@ public class NewPhoneRegisterActivity extends Activity {
                 break;
         }
     }
-
     private PopupWindow popwindowIsAPPResume;
     private View viewPopIsApp;
     private String getCode = null;
@@ -217,9 +220,6 @@ public class NewPhoneRegisterActivity extends Activity {
 //        popwindowIsAPPResume.setAnimationStyle(R.style.popwindow);
 //        popwindowIsAPPResume.showAtLocation(viewPopIsApp, Gravity.CENTER, 0, 0);
         viewPopIsApp = LayoutInflater.from(this).inflate(R.layout.item_autocode, null);
-        WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        int width = manager.getDefaultDisplay().getWidth();
-        int height = manager.getDefaultDisplay().getHeight();
         popwindowIsAPPResume = new PopupWindow(this);
         popwindowIsAPPResume.setContentView(viewPopIsApp);
         popwindowIsAPPResume.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);

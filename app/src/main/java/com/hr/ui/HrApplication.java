@@ -18,7 +18,6 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.taobao.android.dexposed.DexposedBridge;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class HrApplication extends MobApplication {
         sInstance = this;
         checkNetState(getApplicationContext());
         mContext = getApplicationContext();
-        NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(mContext);
+        //NBSAppAgent.setLicenseKey("8a97e06a76944ee3886dafe60f20a809").withLocationServiceEnabled(true).start(mContext);
         SpeechUtility.createUtility(HrApplication.this, "appid=" + getString(R.string.xunfei_app_id));
         initUIL();
     }

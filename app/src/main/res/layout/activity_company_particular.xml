@@ -54,16 +54,16 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="wrap_content"
                 android:background="#fff">
 
                 <ImageView
                     android:id="@+id/iv_companyparticular_comlogo2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/dimen_40px"
+                    android:layout_height="@dimen/dimen_40px"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="@dimen/dimen_28px"
                     android:src="@mipmap/logo_gongsi" />
                 <TextView
                     android:id="@+id/tv_companyparticular_comname2"
@@ -71,22 +71,22 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_companyparticular_comlogo2"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="17dp"
+                    android:layout_marginTop="@dimen/dimen_17px"
                     android:text="公司名"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="@dimen/dimen_10px"
+                    android:paddingRight="@dimen/dimen_10px"
                     android:gravity="center"
                     android:textColor="#333333"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/text_size_17" />
                 <View
                     android:id="@+id/relativeLayout4"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dimen_1px"
                     android:layout_marginRight="@dimen/dimen_10px"
                     android:layout_marginLeft="@dimen/dimen_10px"
                     android:layout_below="@+id/tv_companyparticular_comname2"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/dimen_20px"
                     android:background="#EBEBEB" />
 
                 <TextView
@@ -96,12 +96,11 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/relativeLayout4"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="21dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginTop="@dimen/dimen_20px"
                     android:text="性质："
                     android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/text_size_15" />
 
                 <TextView
                     android:layout_marginTop="@dimen/dimen_5px"
@@ -113,7 +112,7 @@
                     android:layout_below="@+id/textView33"
                     android:text="规模："
                     android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/text_size_15" />
                 <TextView
                     android:layout_marginTop="@dimen/dimen_5px"
                     android:id="@+id/textView31"
@@ -124,18 +123,17 @@
                     android:layout_below="@+id/textView32"
                     android:text="地址："
                     android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/text_size_15" />
 
                 <TextView
                     android:id="@+id/tv_companyparticular_nature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView33"
-                    android:layout_toEndOf="@+id/textView33"
                     android:layout_toRightOf="@+id/textView33"
                     android:text="性质"
                     android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/text_size_15" />
 
                 <TextView
                     android:layout_marginTop="@dimen/dimen_5px"
@@ -143,23 +141,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_companyparticular_nature"
-                    android:layout_toEndOf="@+id/textView33"
                     android:layout_toRightOf="@+id/textView33"
                     android:text="规模"
                     android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/text_size_15" />
 
                 <TextView
                     android:id="@+id/tv_companyparticular_place"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_10px"
                     android:layout_alignTop="@+id/textView31"
-                    android:layout_toEndOf="@+id/textView31"
                     android:layout_toRightOf="@+id/textView31"
                     android:text="地址"
                     android:gravity="left"
                     android:textColor="#666666"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
 
             <View
@@ -256,4 +253,20 @@
                 android:background="#EBEBEB" />-->
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:id="@+id/rl_noJob"
+        android:visibility="gone"
+        android:layout_below="@+id/rl_companyparticular_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/dimen_10px"
+            android:layout_width="match_parent"
+            android:text="@string/noJob"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_16px"
+            android:layout_height="@dimen/dimen_44px" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -92,7 +92,7 @@ public class NetUtils extends Application {
         ConnectivityManager connMgr = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo == null) {
+        if (networkInfo == null||"".equals(networkInfo)) {
             return false;
         }
         if (networkInfo != null && networkInfo.isAvailable()) {
@@ -100,7 +100,7 @@ public class NetUtils extends Application {
             if (nType == ConnectivityManager.TYPE_MOBILE) {
                 MyUtils.network_type = "mobile";
                 if (!"".equals(networkInfo.getExtraInfo().toLowerCase())&&networkInfo.getExtraInfo().toLowerCase()!=null){
-                    if (networkInfo.getExtraInfo().toLowerCase().equals("cmnet")) {
+                    if ("cmnet".equals(networkInfo.getExtraInfo().toLowerCase())) {
                         if (networkInfo.isConnected()) {
                             return true;
                         }

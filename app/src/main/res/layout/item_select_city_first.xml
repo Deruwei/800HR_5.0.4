@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/item_selector_rec"
+    android:layout_height="match_parent">
+    <TextView
+        android:background="@color/cityTitle_bg"
+        android:id="@+id/tv_selectCity_title"
+        android:paddingLeft="@dimen/dimen_15px"
+        android:paddingTop="@dimen/dimen_8px"
+        android:paddingBottom="@dimen/dimen_8px"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/cityName_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/view_selectCity"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        android:background="@color/view_color"/>
+    <RelativeLayout
+        android:id="@+id/rl_selectCity_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+       <TextView
+           android:paddingLeft="@dimen/dimen_15px"
+           android:paddingTop="@dimen/dimen_8px"
+           android:paddingBottom="@dimen/dimen_8px"
+           android:textColor="@color/cityName_color"
+           android:id="@+id/tv_selectCity_name"
+           android:text="北京"
+           android:textSize="@dimen/text_16px"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_selectCity_name"
+            android:layout_marginRight="@dimen/dimen_5px"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dimen_5px"
+            android:src="@mipmap/jiantou_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        android:background="@color/view_color"/>
+</LinearLayout>

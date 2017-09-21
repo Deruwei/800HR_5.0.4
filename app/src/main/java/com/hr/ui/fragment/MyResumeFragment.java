@@ -104,7 +104,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.umeng.analytics.MobclickAgent;
 
-import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -1275,9 +1274,9 @@ public class MyResumeFragment extends BaseFragment {
     private void setOpen() {
         Async_MyResume_Open resumesDetail = new Async_MyResume_Open(getActivity());
         type=2;
-        if (resumeTitle.getOpen().equals("0")) {
+        if ("0".equals(resumeTitle.getOpen())) {
             resumesDetail.execute("2", resumeID);
-        } else if (resumeTitle.getOpen().equals("2")) {
+        } else if ("2".equals(resumeTitle.getOpen())) {
             resumesDetail.execute("0", resumeID);
         }
     }
@@ -1292,12 +1291,12 @@ public class MyResumeFragment extends BaseFragment {
         dra1.setBounds(0, 0, dra1.getMinimumWidth(), dra1.getMinimumHeight());
         dra2.setBounds(0, 0, dra2.getMinimumWidth(), dra2.getMinimumHeight());
         if (resumeTitle != null) {
-            if (resumeTitle.getOpen().equals("0")) {
+            if ("0".equals(resumeTitle.getOpen())) {
                 //公开
                 tv_myresume_open.setCompoundDrawablePadding(2);
                 tv_myresume_open.setCompoundDrawables(dra2, null, null, null);
                 tv_myresume_open.setText("公开");
-            } else if (resumeTitle.getOpen().equals("2")) {
+            } else if ("2".equals(resumeTitle.getOpen())) {
                 //保密
                 tv_myresume_open.setCompoundDrawablePadding(2);
                 tv_myresume_open.setCompoundDrawables(dra1, null, null, null);
@@ -1313,9 +1312,6 @@ public class MyResumeFragment extends BaseFragment {
 
     private void setResumeName() {
         viewSetResume = LayoutInflater.from(getActivity()).inflate(R.layout.item_setresume, null);
-        WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
-        int width = manager.getDefaultDisplay().getWidth();
-        int height = manager.getDefaultDisplay().getHeight();
         setResumeNamePopWinow = new PopupWindow(getActivity());
         setResumeNamePopWinow.setContentView(viewSetResume);
         setResumeNamePopWinow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -1489,7 +1485,7 @@ public class MyResumeFragment extends BaseFragment {
         StringBuffer showBuffer = new StringBuffer();
         if (isCHS) {
             String func = resumeOrder.getFunc();
-            Log.i("期望职位",func);
+            //Log.i("期望职位",func);
             if (func.length() > 0) {
                 String[] itemFuncStrings = func.split(",");// 所有行业信息
                 ArrayList<String> curIndustryFuncArrayList = new ArrayList<String>();// 当前行业职能
@@ -1870,7 +1866,7 @@ public class MyResumeFragment extends BaseFragment {
      * 记录listResume中 app简历位置
      */
     private int isAppPosition;
-    private PopupWindow popwindowIsAPPResume, popwindowMoreSetting;
+    private PopupWindow popwindowIsAPPResume;
     private View viewPopIsApp;
 
     /**
@@ -1878,22 +1874,12 @@ public class MyResumeFragment extends BaseFragment {
      */
     private void chooseIsApp() {
         viewPopIsApp = LayoutInflater.from(getActivity()).inflate(R.layout.item_popupwindow_isappresume, null);
-        WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
-        int width = manager.getDefaultDisplay().getWidth();
-        int height = manager.getDefaultDisplay().getHeight();
         popwindowIsAPPResume = new PopupWindow(getActivity());
         popwindowIsAPPResume.setContentView(viewPopIsApp);
-//        popwindowIsAPPResume.setWidth(width / 6 * 5);
-//        popwindowIsAPPResume.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popwindowIsAPPResume.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         popwindowIsAPPResume.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//        popwindowIsAPPResume.setFocusable(true);
         popwindowIsAPPResume.setTouchable(true);
-//        popwindowIsAPPResume.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_popup_isresumeapp));
         popwindowIsAPPResume.setBackgroundDrawable(new BitmapDrawable());
-        // 设置弹窗外可点击，默认为false
-//        popwindowIsAPPResume.setAnimationStyle(R.style.popwindow);
-//        popwindowIsAPPResume.showAtLocation(viewPopIsApp, Gravity.CENTER, 0, 0);
         popwindowIsAPPResume.showAtLocation(viewPopIsApp, Gravity.CENTER, 0, 0);
         RecyclerView lv_item_popupwindow_appresume = (RecyclerView) viewPopIsApp.findViewById(R.id.lv_item_popupwindow_appresume);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());

@@ -182,6 +182,10 @@
             android:label="@string/title_activity_choose_industries"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.SelectCityActicity"
+            android:label="@string/activity_select_city"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/title_activity_welcome"
             android:screenOrientation="portrait">

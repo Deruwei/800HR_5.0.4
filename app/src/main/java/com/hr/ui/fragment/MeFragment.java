@@ -313,17 +313,17 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                 case 1:
                     isPhoneState = false;
                     if (personInfoMap.get("sex").equals("1")) {
-                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.mipmap.nan), null, getResources().getDrawable(R.mipmap.weiyanzheng1), null);
+                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.mipmap.nan), null, getResources().getDrawable(R.mipmap.weiyanzheng1), null);
                     } else {
-                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.mipmap.nv), null, getResources().getDrawable(R.mipmap.weiyanzheng1), null);
+                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.mipmap.nv), null, getResources().getDrawable(R.mipmap.weiyanzheng1), null);
                     }
                     break;
                 case 2:
                     isPhoneState = true;
                     if (personInfoMap.get("sex").equals("1")) {
-                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.mipmap.nan), null, getResources().getDrawable(R.mipmap.yiyanzheng), null);
+                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.mipmap.nan), null, getResources().getDrawable(R.mipmap.yiyanzheng), null);
                     } else {
-                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.mipmap.nv), null, getResources().getDrawable(R.mipmap.yiyanzheng), null);
+                        tv_me_name.setCompoundDrawablesWithIntrinsicBounds(getActivity().getResources().getDrawable(R.mipmap.nv), null, getResources().getDrawable(R.mipmap.yiyanzheng), null);
                     }
                     break;
                 default:

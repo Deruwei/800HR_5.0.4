@@ -2,6 +2,7 @@
     <string name="app_name">行业找工作</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_choose_industries">ChooseIndustriesActivity</string>
+    <string name="activity_select_city">SelectCityActivity</string>
     <string name="title_activity_welcome">行业找工作</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -751,6 +752,7 @@
     <string name="unuser_sdcard">存储卡不可用或不存在</string>
     <string name="feedback">意见反馈</string>
     <string name="about_us">关于</string>
+    <string name="noJob">该职位已经过期/企业已经关闭</string>
     <string name="companyNoData">没有公司的来信！</string>
     <string name="noData_whoLookMe">暂无数据，请多投点简历！</string>
     <string name="no_data">品牌招聘暂无数据</string>

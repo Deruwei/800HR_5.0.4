@@ -30,9 +30,12 @@ public class IndustryRecAdapter2 extends RecyclerView.Adapter<IndustryRecAdapter
         this.onItemClick = onItemClick;
     }
 
-    public IndustryRecAdapter2(Context context, ArrayList<Industry> data) {
-        this.context = context;
+    public void setData(ArrayList<Industry> data) {
         this.data = data;
+    }
+
+    public IndustryRecAdapter2(Context context) {
+        this.context = context;
 //        Log.i("IndustryRecAdapter", "======data" + data.toString());
     }
 

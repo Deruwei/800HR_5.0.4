@@ -370,9 +370,9 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intentFunction);
                 break;
             case R.id.tv_subscription_place:
-                Intent intentPlace = new Intent(this, SelectCitySubscriptionActivity.class);
-                intentPlace.putExtra("filter", "place");
-                intentPlace.putExtra("value", "选择城市");
+                Intent intentPlace = new Intent(this, SelectCityActicity.class);
+                intentPlace.putExtra("type", "1");
+                intentPlace.putExtra("from", "subscription");
                 startActivity(intentPlace);
                 break;
             case R.id.tv_subscription_jobexp:

@@ -20,10 +20,10 @@ public class MyLocationListenner implements BDLocationListener {
     @Override
     public void onReceiveLocation(BDLocation location) {
         //获取定位结果
-        StringBuffer sb = new StringBuffer(256);
+      /*  StringBuffer sb = new StringBuffer(256);*/
 
         if (location.getLocType() == BDLocation.TypeGpsLocation){
-            Log.i("定位的地址1",location.getAddress().city);
+           // Log.i("定位的地址1",location.getAddress().city);
             city=location.getAddress().city;
             MyUtils.currentCityZh = city;
         } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
@@ -35,16 +35,16 @@ public class MyLocationListenner implements BDLocationListener {
 
             city=location.getAddress().city;
             MyUtils.currentCityZh = city;
-            sb.append("\ndescribe : ");
-            sb.append("离线定位成功，离线定位结果也是有效的");
+            //sb.append("\ndescribe : ");
+            //sb.append("离线定位成功，离线定位结果也是有效的");
 
         }else{
             city="";
             MyUtils.currentCityZh = city;
         }
-        Log.i("定位的地址7",city);
-        sb.append("\nlocationdescribe : ");
-        sb.append(location.getLocationDescribe());    //位置语义化信息
+       // Log.i("定位的地址7",city);
+    /*    sb.append("\nlocationdescribe : ");
+        sb.append(location.getLocationDescribe());    //位置语义化信息*/
 
     }
 

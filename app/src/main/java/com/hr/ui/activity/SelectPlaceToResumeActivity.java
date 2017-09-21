@@ -24,6 +24,7 @@ import com.hr.ui.config.Constants;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
+import com.hr.ui.view.MyFlowLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -60,7 +61,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
     private static HashMap<String, Boolean> checkStateHashMap2;// 记录选择状态
     private Object fromActivity = null;
     private String id;
-    private LinearLayout placeselect_showinforlayout;// 动态布局
+    private MyFlowLayout placeselect_showinforlayout;// 动态布局
     private LinearLayout placeselect_showmessage;
     private TextView placeselect_selectedinfo;
     public MyBaseAdapterFindJobPlaceSelect adapter;
@@ -84,7 +85,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
             final TextView placeselect_title = (TextView) findViewById(R.id.tv_placeselect_jobnum);
             findViewById(R.id.post_placeselect_confirm).setOnClickListener(this);
             placeselect_showmessage = (LinearLayout) findViewById(R.id.placeselect_showmessage);
-            placeselect_showinforlayout = (LinearLayout) findViewById(R.id.placeselect_showinforlayout);
+            placeselect_showinforlayout = (MyFlowLayout) findViewById(R.id.placeselect_showinforlayout);
             placeselect_selectedinfo = (TextView) findViewById(R.id.placeselect_selectedinfo);
             iv_placeselect_back = (ImageView) findViewById(R.id.iv_placeselect_back);
 
@@ -572,6 +573,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
                     JSONArray cityJSONArray = NetService.getCityAsJSONArray(
                             this, "city.json");
                     data = NetService.getCityArray(cityJSONArray, "0");
+                    //Log.i("城市的数据",cityJSONArray.toString());
                 } else {// 使用程序内置数据
                     if (isCHS) {// ------------------------------------zh
                         InputStream in = getAssets().open("city_zh.json");
@@ -897,9 +899,9 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
                 // 设置显示信息
                 switch (fromTag) {
                     case FROMTAG_VALUE1:// 求职意向
-                        ((ResumeJobOrderActivity) fromActivity)
+                       /* ((ResumeJobOrderActivity) fromActivity)
                                 .setPlaceId(checkStateHashMap);
-                        checkStateHashMap.clear();
+                        checkStateHashMap.clear();*/
                         break;
                     default:
                         break;

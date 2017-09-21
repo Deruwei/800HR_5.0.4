@@ -136,12 +136,10 @@ public class ModifyPlantActivity extends BaseResumeActivity {
         tvResumeItemModifytrainTrainplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(context, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 103);
-                intent.putExtra("isCHS", true);
-                intent.putExtra("filter", "place");
-                intent.putExtra("value", "省市选择");
+                intent.putExtra("type", "1");
+                intent.putExtra("from", "resumePlant");
                 context.startActivity(intent);
             }
         });

@@ -509,18 +509,26 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 String mobilUrl = null;
                 String enterprise_name="";
                 String jobnameString="";
+                String enterpriseId="";
+                String jobId="";
                 if(!"".equals( resultComMap.get("enterprise_name"))&& resultComMap.get("enterprise_name")!=null) {
                      enterprise_name = resultComMap.get("enterprise_name");
                 }
                 if(!"".equals(resultPostMap.get("job_name"))&&resultPostMap.get("job_name")!=null) {
                      jobnameString = resultPostMap.get("job_name");
                 }
+                if(!"".endsWith(resultPostMap.get("enterprise_id"))&&resultPostMap.get("enterprise_id")!=null){
+                    enterpriseId=resultPostMap.get("enterprise_id");
+                }
+                if(!"".equals(resultPostMap.get("job_id"))&&resultPostMap.get("job_id")!=null){
+                    jobId=resultPostMap.get("job_id");
+                }
                 if (jobnameString == null||"".equals(jobnameString) || jobnameString.length() == 0) {
                     text = "我在行业找工作上看到了" + enterprise_name + "发布了招聘职位。";
-                    mobilUrl = MobileUrl.getCompanyUrl(resultPostMap.get("enterprise_id"));
+                    mobilUrl = MobileUrl.getCompanyUrl(enterpriseId);
                 } else {
                     text = "我在行业找工作上看到了" + enterprise_name + "的" + jobnameString + "职位";
-                    mobilUrl = MobileUrl.getJobUrl(resultPostMap.get("job_id"));
+                    mobilUrl = MobileUrl.getJobUrl(jobId);
                 }
 
                 //System.out.println("mobilUrl==" + mobilUrl);

@@ -29,7 +29,6 @@ import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
 import com.hr.ui.utils.netutils.NetService;
 
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,10 +67,6 @@ public class PagerRecruitmentFragment extends BaseFragment {
         this.ad_type = ad_type;
     }
 
-    @Subscribe
-    public void onEvent(ArrayList<Industry> dataList) {
-        this.dataList = dataList;
-    }
 
     @SuppressLint("ValidFragment")
     public PagerRecruitmentFragment() {
@@ -89,7 +84,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
                     if (dataList.size() != 0) {
                         lvPagerRecruitment.setVisibility(View.VISIBLE);
                         tvComNoData.setVisibility(View.GONE);
-                        findAdapter = new FindAdapter(mContext, dataList, 1);
+                        findAdapter.setData(dataList);
                         lvPagerRecruitment.setAdapter(findAdapter);
                         tvComNoData.setVisibility(View.GONE);
                         lvPagerRecruitment.setVisibility(View.VISIBLE);
@@ -159,6 +154,7 @@ public class PagerRecruitmentFragment extends BaseFragment {
 
     private void initView() {
         // Log.i("this", dataList.toString());
+        findAdapter = new FindAdapter(mContext, 1);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvPagerRecruitment.setLayoutManager(manager);

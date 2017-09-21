@@ -86,6 +86,7 @@ public class AsyncNewLoginPhone {
                             message.what = 0;
                             handler.sendMessage(message);
                             RecommendJobFragment.recommendJobFragment.initView();
+                            MyUtils.canReflesh=true;
 //                            MyUtils.isLogin = true;
 //                    FindjobFragment.upDataUI();
                             NewLoginActivity.newLoginActivity.execute();

@@ -20,6 +20,7 @@ import com.hr.ui.R;
 import com.hr.ui.activity.ChooseIndustriesActivity;
 import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.MainSelectCityToKeywordActivity;
+import com.hr.ui.activity.SelectCityActicity;
 import com.hr.ui.adapter.FindPagerAdapter;
 import com.hr.ui.bean.ResumeInfo;
 import com.hr.ui.config.Constants;
@@ -297,10 +298,10 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                     baiduLocation.loadLocation();
                     getAddress();
                 }
-                Intent intent1 = new Intent(getActivity(), MainSelectCityToKeywordActivity.class);
+                Intent intent1 = new Intent(getActivity(), SelectCityActicity.class);
                 intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent1.putExtra("value", "选择地点");
-                intent1.putExtra("filter", "place");
+                intent1.putExtra("type", "1");
+                intent1.putExtra("from", "findJob");
                 startActivity(intent1);
                 break;
             case R.id.tv_findjob_back:

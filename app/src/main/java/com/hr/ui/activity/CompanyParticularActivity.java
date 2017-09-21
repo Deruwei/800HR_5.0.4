@@ -3,6 +3,8 @@ package com.hr.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.service.carrier.CarrierService;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 import com.hr.ui.R;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.RefleshDialogUtils;
@@ -36,6 +39,7 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
     private TextView tv_companyparticular_place;
     private TextView tv_companyparticular_comparticular;
     private RelativeLayout rl_companyparticular_clickother;
+    private RelativeLayout rl_noJob;
     /**
      * logo地址
      */
@@ -47,30 +51,42 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
     /**
      * UIL配置信息
      */
-    /*private DisplayImageOptions options;
-    private ImageLoader imageLoader = ImageLoader.getInstance();*/
+    private DisplayImageOptions options;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
     private RefleshDialogUtils dialogUtils;
+    private String closeJob;
     /**
      * 返回的公司详情
      */
     private HashMap<String, String> resultComMap;
     Handler handlerForCom = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            if (msg != null) {
-                resultComMap = (HashMap<String, String>) msg.obj;
-                tv_companyparticular_comname2.setText(resultComMap.get("enterprise_name"));
-                tv_companyparticular_nature.setText(resultComMap.get("company_type"));
-                tv_companyparticular_place.setText(resultComMap.get("address"));
-                tv_companyparticular_scale.setText(resultComMap.get("stuff_munber"));
-                tv_companyparticular_comparticular.setText(resultComMap.get("synopsis"));
-                logoUrl = resultComMap.get("ent_logo").toString();
-                if (!"".equals(logoUrl)) {
-                    Glide.with(CompanyParticularActivity.this).load(Constants.LOGO_ROOTPATH + logoUrl).into(iv_companyparticular_comlogo2);
-                    /*imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_companyparticular_comlogo2, options);*/
-                }
-                dialogUtils.dismissDialog();
-            }
 
+            if (msg != null) {
+                switch (msg.what) {
+                    case 1:
+                    resultComMap = (HashMap<String, String>) msg.obj;
+                    tv_companyparticular_comname2.setText(resultComMap.get("enterprise_name"));
+                    tv_companyparticular_nature.setText(resultComMap.get("company_type"));
+                    tv_companyparticular_place.setText(resultComMap.get("address"));
+                    tv_companyparticular_scale.setText(resultComMap.get("stuff_munber"));
+                    tv_companyparticular_comparticular.setText(resultComMap.get("synopsis"));
+                    logoUrl = resultComMap.get("ent_logo").toString();
+                    if (!"".equals(logoUrl)) {
+                        //Glide.with(CompanyParticularActivity.this).load(Constants.LOGO_ROOTPATH + logoUrl).into(iv_companyparticular_comlogo2);
+                        imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_companyparticular_comlogo2, options);
+                    }
+                    sl_companyparticular2.setVisibility(View.VISIBLE);
+                    rl_noJob.setVisibility(View.GONE);
+                    break;
+                    case 2:
+                       rl_noJob.setVisibility(View.VISIBLE);
+                        sl_companyparticular2.setVisibility(View.GONE);
+                        break;
+                }
+
+            }
+            dialogUtils.dismissDialog();
         }
     };
 
@@ -94,6 +110,7 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
         tv_companyparticular_place = (TextView) findViewById(R.id.tv_companyparticular_place);
         tv_companyparticular_comparticular = (TextView) findViewById(R.id.tv_companyparticular_comparticular);
         rl_companyparticular_clickother = (RelativeLayout) findViewById(R.id.rl_companyparticular_clickother);
+        rl_noJob= (RelativeLayout) findViewById(R.id.rl_noJob);
         rl_companyparticular_clickother.setOnClickListener(this);
         iv_companyparticular_back.setOnClickListener(this);
     }
@@ -130,5 +147,8 @@ public class CompanyParticularActivity extends BaseActivity implements View.OnCl
     protected void onDestroy() {
         super.onDestroy();
         dialogUtils.dismissDialog();
+      /*  if(Util.isOnMainThread()) {
+            Glide.with(this).pauseRequests();
+        }*/
     }
 }

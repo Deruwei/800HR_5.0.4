@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.hr.ui.R;
 import com.hr.ui.activity.PostParticularsActivity;
+import com.hr.ui.utils.ItemUtil;
 import com.hr.ui.utils.datautils.FileUtil;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.hr.ui.utils.netutils.DownImg;

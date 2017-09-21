@@ -27,7 +27,6 @@ import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
 import com.umeng.analytics.MobclickAgent;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

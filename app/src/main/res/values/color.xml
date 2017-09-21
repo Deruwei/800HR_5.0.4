@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="view_color">#EBEBEB</color>
+    <color name="text_Grey">#B0C4DE</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="color_background">#fff0efed</color>
     <color name="hui">#ff7e7e7e</color>
     <color name="group_top">#fffdfdfd</color>
@@ -24,6 +27,8 @@
     <color name="transparent">#0000</color>
     <color name="color_hei">#ff000000</color>
     <color name="dialog_gray">#34000000</color>
+    <color name="cityName_color">#949390</color>
+    <color name="cityTitle_bg">#F6F6F6</color>
     <color name="dialog_blue">#ff0079ff</color>
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>

@@ -46,7 +46,7 @@
     <LinearLayout
         android:id="@+id/placeselect_showmessage"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/dimen_40px"
         android:background="#10000000"
         android:orientation="horizontal"
         android:padding="5dp">
@@ -73,38 +73,52 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <com.hr.ui.view.MyFlowLayout
         android:id="@+id/placeselect_showinforlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f9f9f9"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+    </com.hr.ui.view.MyFlowLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
         <ListView
             android:background="#fff"
             android:id="@+id/placeselect_listview"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:cacheColorHint="#0000"
             android:divider="@null"
             android:focusable="true"
             android:listSelector="#00000000"
             android:scrollbars="none"></ListView>
-
+        </RelativeLayout>
+        <View
+            android:layout_width="@dimen/dimen_1px"
+            android:layout_height="match_parent"
+            android:background="@color/view_color"/>
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
         <ListView
             android:background="#fff"
             android:id="@+id/add_city"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:divider="@null"
             android:focusable="true"
             android:listSelector="#00000000"
             android:scrollbars="none"></ListView>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

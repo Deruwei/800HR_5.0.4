@@ -127,7 +127,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
                 if (msg.what == 1001) {// 获取数据成功
                     if (msg.arg1 == 0) {// 数据获取成功，并解析没有错误
                         if (rec_data != null && rec_data.size() > 0) {
-                            industryRecAdapter2 = new IndustryRecAdapter2(getActivity(), rec_data);
+                            industryRecAdapter2.setData(rec_data);
                             lv_postsearch_advertistment.setAdapter(industryRecAdapter2);
                             /*OptimizeLVSV.setListViewHeightBasedOnChildren(lv_postsearch_advertistment);*/
                             industryRecAdapter2.setOnItemClick(new OnItemClick() {
@@ -215,6 +215,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     }
 
     private void initView() {
+        industryRecAdapter2 = new IndustryRecAdapter2(getActivity());
         sUtils = new SharedPreferencesUtils(getActivity());
         industryId = sUtils.getIntValue(Constants.INDUSTRY, Constants.INDUSTRY_BUILD_ID);
         LinearLayoutManager manager=new LinearLayoutManager(getActivity());
@@ -612,7 +613,6 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
 //            rl_postsearch_text4.setVisibility(View.GONE);
         } else {
             rl_search_post_clear.setVisibility(View.VISIBLE);
-
             rl_postsearch_text1.setVisibility(View.GONE);
             rl_postsearch_text2.setVisibility(View.GONE);
             rl_postsearch_text3.setVisibility(View.GONE);
@@ -689,10 +689,12 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     }
 
     private static void showZhixiLayoutOrNot() {
-        if (isHaveZhiXi(functionBeanList)) {
-            rl_post_medical.setVisibility(View.VISIBLE);
-        } else {
-            rl_post_medical.setVisibility(View.GONE);
+        if(rl_post_medical!=null) {
+            if (isHaveZhiXi(functionBeanList)) {
+                rl_post_medical.setVisibility(View.VISIBLE);
+            } else {
+                rl_post_medical.setVisibility(View.GONE);
+            }
         }
     }
 

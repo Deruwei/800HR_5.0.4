@@ -21,12 +21,14 @@ import com.hr.ui.activity.ChooseIndustriesActivity;
 import com.hr.ui.activity.MainActivity;
 import com.hr.ui.activity.MySelectFuncitonActivity;
 import com.hr.ui.activity.NewLoginActivity;
+import com.hr.ui.activity.SelectCityActicity;
 import com.hr.ui.activity.SelectCityRecommendJobActivity;
 import com.hr.ui.adapter.SearchJobResultRecommendAdapter;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.GetJssonList;
+import com.hr.ui.utils.MyItemAnimator;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
@@ -62,8 +64,7 @@ public class RecommendJobFragment extends BaseFragment {
     @Bind(R.id.rl_recfragment_login)
     RelativeLayout rlRecfragmentLogin;
     private LinearLayout lrRecfragmentJob;
-    @Bind(R.id.lv_recommendfragment)
-    RecyclerView lvRecommendfragment;
+    private RecyclerView lvRecommendfragment;
     @Bind(R.id.tv_recfragment_login)
     TextView tvRecfragmentLogin;
     @Bind(R.id.tv_gome)
@@ -170,16 +171,18 @@ public class RecommendJobFragment extends BaseFragment {
     }
 
     public void initView() {
+        sjrAdapter = new SearchJobResultRecommendAdapter(getActivity());
         tvRecfragmentFunction = (TextView) view.findViewById(R.id.tv_recfragment_function);
         tvRecfragmentText = (TextView) view.findViewById(R.id.tv_recfragment_text);
         tvRecfragmentPlace = (TextView) view.findViewById(R.id.tv_recfragment_place);
         rlRecfragmentEmpty = (RelativeLayout) view.findViewById(R.id.rl_recfragment_empty);
         lrRecfragmentJob= (LinearLayout) view.findViewById(R.id.lr_recfragment_job);
+        lvRecommendfragment= (RecyclerView) view.findViewById(R.id.lv_recommendfragment);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lvRecommendfragment.setLayoutManager(manager);
         lvRecommendfragment.addItemDecoration(new SpacesItemDecoration(5));
-        sjrAdapter = new SearchJobResultRecommendAdapter(getActivity());
+
 //        tvRecommendfragmentBack = (ImageView) view.findViewById(R.id.iv_recommendfragment_back);
 //        rlRecfragmentFunction = (RelativeLayout) view.findViewById(R.id.rl_recfragment_function);
 //        rlRecfragmentLogin = (RelativeLayout) view.findViewById(R.id.rl_recfragment_login);
@@ -204,10 +207,10 @@ public class RecommendJobFragment extends BaseFragment {
 
                 break;
             case R.id.rl_recfragment_place:
-                Intent intent1 = new Intent(getActivity(), SelectCityRecommendJobActivity.class);
+                Intent intent1 = new Intent(getActivity(), SelectCityActicity.class);
                 intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent1.putExtra("value", "选择地点");
-                intent1.putExtra("filter", "place");
+                intent1.putExtra("type", "1");
+                intent1.putExtra("from", "recommendJob");
                 startActivity(intent1);
                 break;
             case R.id.bt_recfragment_submit:
@@ -349,6 +352,10 @@ public class RecommendJobFragment extends BaseFragment {
                     totalList.addAll(dataList);
                     sjrAdapter.setDataList(dataList);
                     lvRecommendfragment.setAdapter(sjrAdapter);
+                    MyItemAnimator animator = new MyItemAnimator(getActivity());
+                    animator.setAddDuration(500);
+                    animator.setRemoveDuration(1000);
+                    lvRecommendfragment.setItemAnimator(animator);
                     lrRecfragmentJob.setVisibility(View.GONE);
                     lvRecommendfragment.setVisibility(View.VISIBLE);
                     rlRecfragmentEmpty.setVisibility(View.GONE);

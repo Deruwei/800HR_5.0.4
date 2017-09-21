@@ -350,7 +350,9 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                 }
                             }
                             //*Log.i("functionList的参数",functionBeenList1.toString());*//*
-                            funcitionSecondAdapter.notifyDataSetChanged();
+                            if(funcitionSecondAdapter!=null) {
+                                funcitionSecondAdapter.notifyDataSetChanged();
+                            }
                         }
                     });
 
@@ -518,7 +520,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 getFunctionSecondListBean();
                 getFunctionFirstListBean(functionBean);
                 functionFirstAdapter.notifyDataSetChanged();
-                if(isRefresh==true) {
+                if(isRefresh==true&&funcitionSecondAdapter!=null) {
                     funcitionSecondAdapter.notifyDataSetChanged();
                 }
                 setSelectCount(num);
@@ -558,7 +560,7 @@ public class MySelectFuncitonActivity extends BaseActivity {
                         .findViewWithTag(functionBean.getId()));
         /*Log.i("选择2",selectFunctionBeenList.toString());*/
         getFunctionSecondListBean();
-        if(isRefresh==true) {
+        if(isRefresh==true&&funcitionSecondAdapter!=null) {
             funcitionSecondAdapter.notifyDataSetChanged();
         }
 

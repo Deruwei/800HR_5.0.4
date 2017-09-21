@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SearchJobResultAdapter;
+import com.hr.ui.utils.MyItemAnimator;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.RefleshDialogUtils;
 import com.hr.ui.utils.SpacesItemDecoration;
@@ -186,6 +187,10 @@ public class SearchJobResultActivity extends Activity  {
                             } else {
                                 sjrAdapter.notifyDataSetChanged();
                             }
+                            MyItemAnimator animator = new MyItemAnimator(SearchJobResultActivity.this);
+                            animator.setAddDuration(500);
+                            animator.setRemoveDuration(1000);
+                            lvSearchjobresultResult.setItemAnimator(animator);
                         }
                     }else{
                         Toast.makeText(SearchJobResultActivity.this, "没有更多的数据！",

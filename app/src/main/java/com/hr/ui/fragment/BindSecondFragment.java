@@ -55,10 +55,10 @@ public class BindSecondFragment extends BaseFragment{
     private Handler handlerLogin = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
-                Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             } else {
-                Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_SHORT).show();
             }
         }
     };

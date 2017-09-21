@@ -2,9 +2,9 @@ package com.hr.ui.utils;
 
 import android.util.Log;
 
+import com.hr.ui.bean.CityBean;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.model.Industry;
-import com.lidroid.xutils.db.annotation.Id;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -209,5 +209,24 @@ public class GetJssonList {
         }
         //Log.i("职能的集合",list.toString());
         return list;
+    }
+    public static List<CityBean> getCityBeanList(JSONArray jsonArray){
+        List<CityBean> cityBeanList=new ArrayList<>();
+        try {
+            for(int i=0;i<jsonArray.length();i++){
+                CityBean cityBean=new CityBean();
+                JSONObject obj=jsonArray.getJSONObject(i);
+                String id=obj.keys().next();
+                String name=obj.getString(id);
+                cityBean.setId(id);
+                cityBean.setName(name);
+                cityBean.setCheck(false);
+                cityBean.setSign(false);
+                cityBeanList.add(cityBean);
+            }
+        } catch (JSONException e) {
+        e.printStackTrace();
+    }
+        return cityBeanList;
     }
 }

@@ -36,6 +36,8 @@ public class SharedPreferencesUtils {
         if (context!=null){
             sharedPreferences = context.getSharedPreferences(Constants.PREFS_NAME, context.MODE_PRIVATE);
             editor = sharedPreferences.edit();
+        }else{
+            return;
         }
     }
 

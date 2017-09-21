@@ -365,13 +365,11 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 break;
             case R.id.tv_resume_personinfo_home:
                 modification = true;
-                Intent intent = new Intent(mContext, SelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(mContext, SelectCityActicity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 100);
-                intent.putExtra("filter", "place");
-                intent.putExtra("isCHS", true);
-                intent.putExtra("value", "省市选择");
-                startActivityForResult(intent,RequestCode);
+                intent.putExtra("from", "resumePersonInfo");
+                intent.putExtra("type", "1");
+                startActivity(intent);
                 break;
             case R.id.ll_resume_personinfo_man:
                 modification = true;
@@ -392,7 +390,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         }
     }
 
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==RequestCode &&requestCode==SelectPlaceToResumeActivity.ResultCode){
@@ -400,7 +398,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
             placeName=address;
             setPlaceText(placeName);
         }
-    }
+    }*/
 
     /*
              * 保存数据

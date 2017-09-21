@@ -69,7 +69,7 @@ public class PagerCompanyFragment extends BaseFragment {
                 dataList = GetJssonList.getDazzleJson(ad_type, json_result);
                 if (dataList != null) {
                     if (dataList.size() != 0) {
-                        findAdapter = new FindAdapter(mContext, dataList, 2);
+                        findAdapter.setData(dataList);
                         lvPagerCompany.setAdapter(findAdapter);
                         findAdapter.setOnItemClick(new OnItemClick() {
                             @Override
@@ -133,6 +133,7 @@ public class PagerCompanyFragment extends BaseFragment {
     }
 
     private void initView() {
+        findAdapter = new FindAdapter(mContext, 2);
         lvPagerCompany= (RecyclerView) view.findViewById(R.id.lv_pager_company);
         tvComNoData= (TextView) view.findViewById(R.id.tv_comNoData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

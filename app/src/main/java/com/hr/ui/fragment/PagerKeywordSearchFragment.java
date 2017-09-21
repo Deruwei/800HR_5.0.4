@@ -119,7 +119,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
                     if (msg.arg1 == 0) {// 数据获取成功，并解析没有错误
                         if (rec_data != null && rec_data.size() > 0) {
                             /*Log.i("广告的数据",rec_data.toString());*/
-                            industryRecAdapter = new IndustryRecKeywordAdapter(getActivity(), rec_data);
+                            industryRecAdapter.setIndustries(rec_data);
                             lv_keyword_advertistment.setAdapter(industryRecAdapter);
                             industryRecAdapter.setOnItemClick(new OnItemClick() {
                                 @Override
@@ -199,6 +199,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
 
     private void initView() {
         sUtils = new SharedPreferencesUtils(getActivity());
+        industryRecAdapter = new IndustryRecKeywordAdapter(getActivity());
         industryId = sUtils.getIntValue(Constants.INDUSTRY, Constants.INDUSTRY_BUILD_ID);
         iv_keyword_net = (ImageView) view.findViewById(R.id.iv_keyword_net);
 //        tv_keyword_city = (TextView) view.findViewById(R.id.tv_keyword_city);
@@ -502,20 +503,22 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
         Bundle bundle2 = new Bundle();
         // 查询历史记录
         keyWorldHistory2 = db.query_KeyWorldHistory(industryId + "");
-        String strOut_Place_id = keyWorldHistory2[keyWorldHistory2.length - i].getPlace_id();
-        String strOut_searchword = keyWorldHistory2[keyWorldHistory2.length - i].getSearch_value();
-        String strPlaceValue = keyWorldHistory2[keyWorldHistory2.length - i].getPlace_value();
-        String strWordtype = keyWorldHistory2[keyWorldHistory2.length - i].getWordtype();
+        if(keyWorldHistory2!=null&&keyWorldHistory2.length!=0) {
+            String strOut_Place_id = keyWorldHistory2[keyWorldHistory2.length - i].getPlace_id();
+            String strOut_searchword = keyWorldHistory2[keyWorldHistory2.length - i].getSearch_value();
+            String strPlaceValue = keyWorldHistory2[keyWorldHistory2.length - i].getPlace_value();
+            String strWordtype = keyWorldHistory2[keyWorldHistory2.length - i].getWordtype();
 
-        bundle2.putString("industry", industryId + "");// 默认建筑
-        bundle2.putString("areaid", strOut_Place_id);
-        bundle2.putString("searchword", strOut_searchword);
-        bundle2.putString("areaName", strPlaceValue);
-        bundle2.putString("wordtype", strWordtype);
+            bundle2.putString("industry", industryId + "");// 默认建筑
+            bundle2.putString("areaid", strOut_Place_id);
+            bundle2.putString("searchword", strOut_searchword);
+            bundle2.putString("areaName", strPlaceValue);
+            bundle2.putString("wordtype", strWordtype);
 
-        Intent intent2 = new Intent(getActivity(), SearchJobResultActivity.class);
-        intent2.putExtras(bundle2);
-        startActivity(intent2);
+            Intent intent2 = new Intent(getActivity(), SearchJobResultActivity.class);
+            intent2.putExtras(bundle2);
+            startActivity(intent2);
+        }
     }
 
     /**

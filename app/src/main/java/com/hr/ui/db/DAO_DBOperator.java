@@ -580,6 +580,7 @@ public class DAO_DBOperator {
         // "user_name='"+WorkExperience.getUser_name()+"' and  resume_id="+WorkExperience.getResume_id()+" and  resume_language= '"+WorkExperience.getResume_language();
         values.put("user_id", resumeOrder.getUser_id());
         values.put("jobtype", resumeOrder.getJobtype());
+        Log.i("数据id", resumeOrder.getJobtype());
         values.put("industry", resumeOrder.getIndustry());
         values.put("func", resumeOrder.getFunc());
         values.put("workarea", resumeOrder.getWorkarea());

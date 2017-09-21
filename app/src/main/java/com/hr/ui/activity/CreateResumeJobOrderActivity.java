@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hr.ui.R;
 import com.hr.ui.adapter.SpinnerAdapter;
+import com.hr.ui.bean.CityBean;
 import com.hr.ui.bean.FunctionBean;
 import com.hr.ui.bean.SelectBean;
 import com.hr.ui.config.Constants;
@@ -67,6 +68,7 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
     private String lingyuIdString = "";// 领域id
     private CustomDatePicker datePickerFindJob,datePickerJobType;
     private String selectJobTypeId,selectFindJobId;
+    private List<CityBean> selectCityBean=new ArrayList<>();
     private List<SelectBean> jobTypeList=new ArrayList<>();
     private List<SelectBean> findJobList=new ArrayList<>();
 
@@ -202,14 +204,13 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                 ago();
                 break;
             case R.id.tv_resume_personinfo_place:
-                Intent intent = new Intent(this, CreateSelectPlaceToResumeActivity.class);
+                Intent intent = new Intent(this, SelectCityActicity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("fromtag", 101);
+                intent.putExtra("type", "2");
+                intent.putExtra("from","createJobOrder");
                 intent.putExtra("placeId", placeId);
-                intent.putExtra("isCHS", isCHS);
+                intent.putExtra("selectCity", (Serializable) selectCityBean);
                 intent.putExtra("ableselected", 5);
-                intent.putExtra("filter", "place");
-                intent.putExtra("value", "选择城市");
                 startActivity(intent);
                 break;
             case R.id.tv_createresume_joborder_position:
@@ -259,6 +260,7 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
      * @param placeIdString
      */
     private void initWorkPlace(String placeIdString) {
+        selectCityBean.clear();
         placeId = placeIdString;
         if (placeIdString == null || placeIdString.length() == 0) {// 选择的城市为空
             tv_resume_personinfo_place.setText("");
@@ -283,9 +285,13 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
             if (placeId != null && placeId.length() > 0) {
                 String[] placeStrings = placeId.split(",");
                 for (String string : placeStrings) {
+                    CityBean cityBean=new CityBean();
                     for (int i = 0; i < cityJSONArray.length(); i++) {
                         JSONObject object = cityJSONArray.getJSONObject(i);
                         if (object.has(string)) {
+                            cityBean.setId(string);
+                            cityBean.setName(object.getString(string));
+                            selectCityBean.add(cityBean);
                             showText.append("," + object.getString(string));
                             break;
                         }
@@ -462,11 +468,10 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
         placeId = string;
     }
 
-    public void setPlaceId(HashMap<String, Boolean> checkStateHashMap) {
-        Set<String> set = checkStateHashMap.keySet();
+    public void setPlaceId(List<CityBean> cityBeen) {
         StringBuffer pBuffer = new StringBuffer();
-        for (String string : set) {
-            pBuffer.append("," + string);
+        for (int i=0;i<cityBeen.size();i++) {
+            pBuffer.append("," + cityBeen.get(i).getId());
         }
         if (pBuffer.length() > 0) {
             pBuffer.deleteCharAt(0);
@@ -619,7 +624,6 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
         resumeOrder.setUser_id(MyUtils.userID);
         resumeOrder.setResume_id(resumeIdString);
         resumeOrder.setResume_language(resumeLanguageString);
-
         if (resumeOrder.getId() == -1) {// 新建后保存
             int insertOrderResult = dbOperator
                     .Insert_ResumeCareerObjective(resumeOrder);
@@ -636,13 +640,13 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
             // System.out.println("保存的基本信息：" + resumeBaseInfo);
             // System.out.println("保存的求职意向：" + resumeOrder);
             if (insertOrderResult > 0 && updateBaseinfoResult
-                    || insertOrderResult > 0 && insertBaseinfoResult > 0) {
-                ResumeTitle resumeTitle = dbOperator.query_ResumeTitle_info(
-                        resumeIdString, resumeLanguageString);
-                // 标记此份简历已修改
-                if (resumeTitle != null) {
-                    resumeTitle.setIsUpdate(1);
-                    boolean isReWriteTitle = dbOperator.update_ResumeList(resumeTitle);
+                            || insertOrderResult > 0 && insertBaseinfoResult > 0) {
+                        ResumeTitle resumeTitle = dbOperator.query_ResumeTitle_info(
+                                resumeIdString, resumeLanguageString);
+                        // 标记此份简历已修改
+                        if (resumeTitle != null) {
+                            resumeTitle.setIsUpdate(1);
+                            boolean isReWriteTitle = dbOperator.update_ResumeList(resumeTitle);
                 }
                 Toast.makeText(this, "保存成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(mContext, CreateResumeEduActivity.class);

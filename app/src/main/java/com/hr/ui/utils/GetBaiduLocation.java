@@ -15,9 +15,11 @@ public class GetBaiduLocation {
         this.context=context;
     }
     private  LocationClient locationClient;
+    private MyLocationListenner locationListenner;
     public void loadLocation() {
         locationClient = new LocationClient(context);
-        locationClient.registerLocationListener(new MyLocationListenner());
+        locationListenner=new MyLocationListenner();
+        locationClient.registerLocationListener(locationListenner);
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
@@ -55,5 +57,7 @@ public class GetBaiduLocation {
         locationClient.setLocOption(option);
         locationClient.start();
     }
-
+    public void closeLocation() {
+        locationClient.unRegisterLocationListener(locationListenner);
+    }
 }

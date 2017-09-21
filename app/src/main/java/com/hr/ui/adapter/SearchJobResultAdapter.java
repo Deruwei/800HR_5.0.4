@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.hr.ui.R;
 import com.hr.ui.activity.PostParticularsActivity;
 import com.hr.ui.config.Constants;
+import com.hr.ui.utils.ItemUtil;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.FileUtil;
 import com.hr.ui.utils.datautils.Rc4Md5Utils;

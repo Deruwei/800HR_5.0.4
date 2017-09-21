@@ -66,9 +66,6 @@ import com.hr.ui.view.custom.BeautifulDialog;
 import com.networkbench.agent.impl.NBSAppAgent;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -144,8 +141,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private RecommendJobFragment recommendJobFragment;
     private RefleshDialogUtils dialogUtils;
 //    private boolean isDrawer = false;
-    private static final String[] PERMISSIONS_CONTACT = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE} ;
+  /*  private static final String[] PERMISSIONS_CONTACT = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE} ;*/
    // 定义一个请求码
 
    /* private static final int REQUEST_CONTACTS = 1000;*/
@@ -434,8 +431,15 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mReceiver);
-        dialogUtils.dismissDialog();
+        if(mReceiver!=null) {
+            unregisterReceiver(mReceiver);
+        }
+        if(dialogUtils!=null) {
+            dialogUtils.dismissDialog();
+        }
+        if(baiduLocation!=null){
+            baiduLocation.closeLocation();
+        }
     }
 
     /**

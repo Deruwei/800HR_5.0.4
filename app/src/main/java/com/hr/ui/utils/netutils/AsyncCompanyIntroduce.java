@@ -43,14 +43,14 @@ public class AsyncCompanyIntroduce {
 						}
 						Message message = handler.obtainMessage();
 						message.obj = resultHashMap;
+						message.what=1;
 						handler.sendMessage(message);
 						break;
 					default:
-						Toast.makeText(
-								context,
-								Rc4Md5Utils
-										.getErrorResourceId(error_code),
-								Toast.LENGTH_SHORT).show();
+						Message message2 = handler.obtainMessage();
+						message2.what = 2;
+						message2.obj=1001;
+						handler.sendMessage(message2);
 						break;
 					}
 				} catch (Exception e) {

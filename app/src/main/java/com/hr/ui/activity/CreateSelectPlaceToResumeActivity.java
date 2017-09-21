@@ -888,9 +888,9 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
                 // 设置显示信息
                 switch (fromTag) {
                     case FROMTAG_VALUE1:// 求职意向
-                        ((CreateResumeJobOrderActivity) fromActivity)
+                       /* ((CreateResumeJobOrderActivity) fromActivity)
                                 .setPlaceId(checkStateHashMap);
-                        checkStateHashMap.clear();
+                        checkStateHashMap.clear();*/
                         break;
                     default:
                         break;

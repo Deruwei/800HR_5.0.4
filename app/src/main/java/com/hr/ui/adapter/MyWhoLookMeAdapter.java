@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hr.ui.R;
 import com.hr.ui.model.BrowsedInfo;
+import com.hr.ui.utils.ItemUtil;
 import com.hr.ui.utils.OnItemClick;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class MyWhoLookMeAdapter extends RecyclerView.Adapter<MyWhoLookMeAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+        ItemUtil.runEnterAnimation(holder.itemView,position);
         holder.companyName.setText(listBrowsedInfos.get(position)
                 .getEnterprise_name());
         holder.companyTime.setText("浏览日期:"

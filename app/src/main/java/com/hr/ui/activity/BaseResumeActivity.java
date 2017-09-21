@@ -12,6 +12,7 @@ import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.fragment.MyResumeFragment;
 import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.model.ResumeTitle;
+import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeInfoToJsonString;
 import com.hr.ui.utils.netutils.AsyncResumeUpdate;
 import com.hr.ui.view.custom.BeautifulDialog;
@@ -53,6 +54,8 @@ public class BaseResumeActivity extends BaseActivity {
                         modification = false;
 //                        MyResumeActivity.myResumeActivity.refreshUI();
                         MyResumeFragment.isRefresh=true;
+                        MyUtils.canResumeReflesh=true;
+                        MyUtils.canReflesh = true;
                         finish();
                         break;
                     default:
@@ -114,7 +117,7 @@ public class BaseResumeActivity extends BaseActivity {
             beautifulDialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+
 //                    MyResumeActivity.myResumeActivity.refreshUI();
                     MyResumeFragment.isRefresh=true;
                     modification = false;
@@ -133,12 +136,9 @@ public class BaseResumeActivity extends BaseActivity {
             finish();
         }
     }
-
     @Override
-    public void onPause() {
-        super.onPause();
-        if(beautifulDialog!=null&&beautifulDialog.create().isShowing()){
-            beautifulDialog.create().dismiss();
-        }
+    protected void onDestroy() {
+        showSaveDialog();
+        super.onDestroy();
     }
 }

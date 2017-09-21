@@ -51,7 +51,6 @@ public class GetResumeArrayList {
             selectBean.setId(jobTypeId[i]);
             selectBean.setName(jobTypeName[i]);
             selectBeen.add(selectBean);
-            selectBeen.add(selectBean);
         }
         return selectBeen;
     }
@@ -64,7 +63,6 @@ public class GetResumeArrayList {
             SelectBean selectBean=new SelectBean();
             selectBean.setId(findJobId[i]);
             selectBean.setName(findJobName[i]);
-            selectBeen.add(selectBean);
             selectBeen.add(selectBean);
         }
         return selectBeen;
@@ -79,7 +77,6 @@ public class GetResumeArrayList {
             selectBean.setId(findJobId[i]);
             selectBean.setName(findJobName[i]);
             selectBeen.add(selectBean);
-            selectBeen.add(selectBean);
         }
         return selectBeen;
     }
@@ -92,7 +89,6 @@ public class GetResumeArrayList {
             SelectBean selectBean=new SelectBean();
             selectBean.setId(levelId[i]);
             selectBean.setName(levleName[i]);
-            selectBeen.add(selectBean);
             selectBeen.add(selectBean);
         }
         return selectBeen;
@@ -107,7 +103,6 @@ public class GetResumeArrayList {
             selectBean.setId(laugageTypeId[i]);
             selectBean.setName(laugageTypeName[i]);
             selectBeen.add(selectBean);
-            selectBeen.add(selectBean);
         }
         return selectBeen;
     }
@@ -121,7 +116,6 @@ public class GetResumeArrayList {
             selectBean.setId(listenSkillId[i]);
             selectBean.setName(listenSkillName[i]);
             selectBeen.add(selectBean);
-            selectBeen.add(selectBean);
         }
         return selectBeen;
     }
@@ -134,7 +128,6 @@ public class GetResumeArrayList {
             SelectBean selectBean=new SelectBean();
             selectBean.setId(readWriteSkillId[i]);
             selectBean.setName(readWriteSkillName[i]);
-            selectBeen.add(selectBean);
             selectBeen.add(selectBean);
         }
         return selectBeen;
