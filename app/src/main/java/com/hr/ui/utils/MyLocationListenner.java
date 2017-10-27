@@ -25,15 +25,51 @@ public class MyLocationListenner implements BDLocationListener {
         if (location.getLocType() == BDLocation.TypeGpsLocation){
            // Log.i("定位的地址1",location.getAddress().city);
             city=location.getAddress().city;
+            if("北京市".equals(city)){
+                city="北京";
+            }
+            if("上海市".equals(city)){
+                city="上海";
+            }
+            if("重庆市".equals(city)){
+                city="重庆";
+            }
+            if("天津市".equals(city)){
+                city="天津";
+            }
             MyUtils.currentCityZh = city;
         } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
 
             city=location.getAddress().city;
+            if("北京市".equals(city)){
+                city="北京";
+            }
+            if("上海市".equals(city)){
+                city="上海";
+            }
+            if("重庆市".equals(city)){
+                city="重庆";
+            }
+            if("天津市".equals(city)){
+                city="天津";
+            }
             MyUtils.currentCityZh = city;
 
         } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
 
             city=location.getAddress().city;
+            if("北京市".equals(city)){
+                city="北京";
+            }
+            if("上海市".equals(city)){
+                city="上海";
+            }
+            if("重庆市".equals(city)){
+                city="重庆";
+            }
+            if("天津市".equals(city)){
+                city="天津";
+            }
             MyUtils.currentCityZh = city;
             //sb.append("\ndescribe : ");
             //sb.append("离线定位成功，离线定位结果也是有效的");
@@ -42,7 +78,7 @@ public class MyLocationListenner implements BDLocationListener {
             city="";
             MyUtils.currentCityZh = city;
         }
-       // Log.i("定位的地址7",city);
+        //Log.i("定位的地址7",city);
     /*    sb.append("\nlocationdescribe : ");
         sb.append(location.getLocationDescribe());    //位置语义化信息*/
 

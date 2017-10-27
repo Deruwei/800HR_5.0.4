@@ -1,5 +1,6 @@
 package com.hr.ui.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,11 +25,13 @@ import com.hr.ui.adapter.SelectCitySecondAdapter;
 import com.hr.ui.bean.CityBean;
 import com.hr.ui.fragment.FindjobFragment;
 import com.hr.ui.fragment.RecommendJobFragment;
+import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.view.MyFlowLayout;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 
@@ -53,13 +58,15 @@ public class SelectCityActicity extends BaseActivity {
     @Bind(R.id.placeselect_selectedinfo)
     TextView placeselectSelectedinfo;
     @Bind(R.id.placeselect_showmessage)
-    LinearLayout placeselectShowmessage;
+    RelativeLayout placeselectShowmessage;
     @Bind(R.id.placeselect_showinforlayout)
     MyFlowLayout placeselectShowinforlayout;
     @Bind(R.id.placeselect_listview)
     ListView placeselectListview;
     @Bind(R.id.add_city)
     ListView addCity;
+    @Bind(R.id.iv_selectCityShow)
+    ImageView ivSelectCityShow;
     private List<CityBean> cityList = new ArrayList<>();
     private List<CityBean> cityList2 = new ArrayList<>();
     private List<CityBean> cityFisrtList = new ArrayList<>();
@@ -69,9 +76,11 @@ public class SelectCityActicity extends BaseActivity {
     private String from;//来自哪个页面
     private int num;
     private int sum;
+    private boolean isCheck;
     private int position;//左边listview现在点击的位置
     private SelectCityFirstAdapter selectFirstAdapter;
     private SelectCitySecondAdapter selectCitySecondAdapter;
+    private GetBaiduLocation baiduLocation;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -82,71 +91,115 @@ public class SelectCityActicity extends BaseActivity {
                     placeselectListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            position=i;
-                            if (i < num) {
+                            position = i;
+                            if("3".equals(type)){
                                 if (i == 0 && "定位失败".equals(cityFisrtList.get(i).getName())) {
+                                    baiduLocation = new GetBaiduLocation(SelectCityActicity.this);
+                                    baiduLocation.loadLocation();
+                                    if ("".equals(MyUtils.currentCityZh)) {
+                                        Toast.makeText(SelectCityActicity.this, "定位失败，请检查您的网络或着是否关闭定位权限", Toast.LENGTH_SHORT).show();
+                                        cityFisrtList.get(0).setName("定位失败");
+                                        cityFisrtList.get(0).setId("");
+                                    } else {
+                                        Toast.makeText(SelectCityActicity.this, "当前定位到的城市为：" + MyUtils.currentCityZh, Toast.LENGTH_SHORT).show();
+                                        cityFisrtList.get(0).setName(MyUtils.currentCityZh);
+                                        cityFisrtList.get(0).setId(ResumeInfoIDToString.getCityID(SelectCityActicity.this, MyUtils.currentCityZh, true));
+                                    }
+                                    selectFirstAdapter.notifyDataSetChanged();
                                     return;
                                 }
-                                if ("createPersonInfo".equals(from)) {
-                                    CreateResumePersonInfoActivity.setPlaceId(cityFisrtList.get(i).getId());
-                                    CreateResumePersonInfoActivity.setPlaceText(cityFisrtList.get(i).getName());
-                                } else if ("recommendJob".equals(from)) {
-                                    RecommendJobFragment.setPlaceId(cityFisrtList.get(i).getId());
-                                    RecommendJobFragment.setPlaceText(cityFisrtList.get(i).getName());
-                                } else if ("findJob".equals(from)) {
-                                    FindjobFragment.setPlaceId(cityFisrtList.get(i).getId());
-                                    FindjobFragment.setPlaceText(cityFisrtList.get(i).getName());
-                                }else if("createJob".equals(from)){
-                                    CreateResumeJobActivity.createResumeJobActivity.setPlaceId(cityFisrtList.get(i).getId());
-                                    CreateResumeJobActivity.createResumeJobActivity.setPlaceText(cityFisrtList.get(i).getName());
-                                }else if("resumePersonInfo".equals(from)){
-                                    ResumePersonInfoActivity.setPlaceId(cityFisrtList.get(i).getId());
-                                    ResumePersonInfoActivity.setPlaceText(cityFisrtList.get(i).getName());
-                                }else if("resumePlant".equals(from)){
-                                    ModifyPlantActivity.modifyPlantActivity.setPlaceId(cityFisrtList.get(i).getId());
-                                    ModifyPlantActivity.modifyPlantActivity.setPlaceText(cityFisrtList.get(i).getName());
-                                }else if("subscription".equals(from)) {
-                                    SubscriptionActivity.subscriptionActivity.setPlaceId(cityFisrtList.get(i).getId());
-                                    SubscriptionActivity.subscriptionActivity.setPlaceText(cityFisrtList.get(i).getName());
-                                }else {
-                                    ModifyExpActivity.modifyExpActivity.setPlaceId(cityFisrtList.get(i).getId());
-                                    ModifyExpActivity.modifyExpActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                if ("resumePersonInfo".equals(from)) {
+                                    ResumePersonInfoActivity.setHuKouId(cityFisrtList.get(i).getId());
+                                    ResumePersonInfoActivity.setHuKouName(cityFisrtList.get(i).getName());
                                 }
-                                MyUtils.selectCityId = cityFisrtList.get(i).getId();
-                                MyUtils.selectCityZh = cityFisrtList.get(i).getName();
                                 submit();
-                            } else {
-                                if (num == 0) {
-                                    if (i < 4) {
-                                        if (cityFisrtList.get(i).isCheck() == true) {
-                                            cityFisrtList.get(i).setCheck(false);
-                                            cityFisrtList.get(i).setSign(false);
-                                            for (int j = 0; j < selectCityList.size(); j++) {
-                                                if (selectCityList.get(j).getId().equals(cityFisrtList.get(i).getId())) {
-                                                    selectCityList.remove(selectCityList.get(j));
+                            }else {
+                                if (i < num) {
+                                    if (i == 0 && "定位失败".equals(cityFisrtList.get(i).getName())) {
+                                        baiduLocation = new GetBaiduLocation(SelectCityActicity.this);
+                                        baiduLocation.loadLocation();
+                                        if ("".equals(MyUtils.currentCityZh)) {
+                                            Toast.makeText(SelectCityActicity.this, "定位失败，请检查您的网络或着是否关闭定位权限", Toast.LENGTH_SHORT).show();
+                                            cityFisrtList.get(0).setName("定位失败");
+                                            cityFisrtList.get(0).setId("");
+                                        } else {
+                                            Toast.makeText(SelectCityActicity.this, "当前定位到的城市为：" + MyUtils.currentCityZh, Toast.LENGTH_SHORT).show();
+                                            cityFisrtList.get(0).setName(MyUtils.currentCityZh);
+                                            cityFisrtList.get(0).setId(ResumeInfoIDToString.getCityID(SelectCityActicity.this, MyUtils.currentCityZh, true));
+                                        }
+                                        selectFirstAdapter.notifyDataSetChanged();
+                                        return;
+
+                                    }
+                                    if ("createPersonInfo".equals(from)) {
+                                        CreateResumePersonInfoActivity.setPlaceId(cityFisrtList.get(i).getId());
+                                        CreateResumePersonInfoActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else if ("recommendJob".equals(from)) {
+                                        RecommendJobFragment.setPlaceId(cityFisrtList.get(i).getId());
+                                        RecommendJobFragment.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else if ("findJob".equals(from)) {
+                                        FindjobFragment.setPlaceId(cityFisrtList.get(i).getId());
+                                        FindjobFragment.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else if ("createJob".equals(from)) {
+                                        CreateResumeJobActivity.createResumeJobActivity.setPlaceId(cityFisrtList.get(i).getId());
+                                        CreateResumeJobActivity.createResumeJobActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else if ("resumePersonInfo".equals(from)) {
+                                        ResumePersonInfoActivity.setPlaceId(cityFisrtList.get(i).getId());
+                                        ResumePersonInfoActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else if ("resumePlant".equals(from)) {
+                                        ModifyPlantActivity.modifyPlantActivity.setPlaceId(cityFisrtList.get(i).getId());
+                                        ModifyPlantActivity.modifyPlantActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else if ("subscription".equals(from)) {
+                                        SubscriptionActivity.subscriptionActivity.setPlaceId(cityFisrtList.get(i).getId());
+                                        SubscriptionActivity.subscriptionActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                    } else {
+                                        ModifyExpActivity.modifyExpActivity.setPlaceId(cityFisrtList.get(i).getId());
+                                        ModifyExpActivity.modifyExpActivity.setPlaceText(cityFisrtList.get(i).getName());
+                                    }
+                                    MyUtils.selectCityId = cityFisrtList.get(i).getId();
+                                    MyUtils.selectCityZh = cityFisrtList.get(i).getName();
+                                    submit();
+                                } else {
+                                    if (num == 0) {
+                                        if (i < 4) {
+                                            if (cityFisrtList.get(i).isCheck() == true) {
+                                                cityFisrtList.get(i).setCheck(false);
+                                                cityFisrtList.get(i).setSign(false);
+                                                for (int j = 0; j < selectCityList.size(); j++) {
+                                                    if (selectCityList.get(j).getId().equals(cityFisrtList.get(i).getId())) {
+                                                        selectCityList.remove(selectCityList.get(j));
+                                                    }
+                                                }
+                                                sum = selectCityList.size();
+                                                removeView(cityFisrtList.get(i));
+                                            } else {
+
+                                                if (sum >= 5) {
+                                                    Toast.makeText(SelectCityActicity.this, "选择城市已达最大值", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    selectCityList.add(cityFisrtList.get(i));
+                                                    cityFisrtList.get(i).setCheck(true);
+                                                    addView(cityFisrtList.get(i));
+                                                    sum = selectCityList.size();
                                                 }
                                             }
-                                            sum=selectCityList.size();
-                                            removeView(cityFisrtList.get(i));
-                                        } else {
-
-                                            if (sum >= 5) {
-                                                Toast.makeText(SelectCityActicity.this, "选择城市已达最大值", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                selectCityList.add(cityFisrtList.get(i));
-                                                cityFisrtList.get(i).setCheck(true);
-                                                addView(cityFisrtList.get(i));
-                                                sum=selectCityList.size();
+                                            for (int j = 4; j < cityFisrtList.size(); j++) {
+                                                cityFisrtList.get(j).setCheck(false);
+                                                cityFisrtList.get(j).setSign(false);
                                             }
+                                            addCity.setVisibility(View.GONE);
+                                        } else {
+                                            addCity.setVisibility(View.VISIBLE);
+                                            for (int j = 4; j < cityFisrtList.size(); j++) {
+                                                cityFisrtList.get(j).setCheck(false);
+                                                cityFisrtList.get(j).setSign(false);
+                                            }
+                                            cityFisrtList.get(i).setCheck(true);
+                                            cityFisrtList.get(i).setSign(true);
+                                            getSecondList(cityFisrtList.get(i));
                                         }
-                                        for (int j = 4; j < cityFisrtList.size(); j++) {
-                                            cityFisrtList.get(j).setCheck(false);
-                                            cityFisrtList.get(j).setSign(false);
-                                        }
-                                        addCity.setVisibility(View.GONE);
                                     } else {
-                                        addCity.setVisibility(View.VISIBLE);
-                                        for (int j = 4; j < cityFisrtList.size(); j++) {
+                                        for (int j = num; j < cityFisrtList.size(); j++) {
                                             cityFisrtList.get(j).setCheck(false);
                                             cityFisrtList.get(j).setSign(false);
                                         }
@@ -154,34 +207,35 @@ public class SelectCityActicity extends BaseActivity {
                                         cityFisrtList.get(i).setSign(true);
                                         getSecondList(cityFisrtList.get(i));
                                     }
-                                } else {
-                                    for (int j = num; j < cityFisrtList.size(); j++) {
-                                        cityFisrtList.get(j).setCheck(false);
-                                        cityFisrtList.get(j).setSign(false);
-                                    }
-                                    cityFisrtList.get(i).setCheck(true);
-                                    cityFisrtList.get(i).setSign(true);
-                                    getSecondList(cityFisrtList.get(i));
-                                }
-                                for (int j = 0; j < cityFisrtList.size(); j++) {
-                                    for (int k = 0; k < selectCityList.size(); k++) {
-                                        if (selectCityList.get(k).getId().substring(0, 2).equals(cityFisrtList.get(j).getId().substring(0, 2))) {
-                                            cityFisrtList.get(j).setSign(true);
+                                    for (int j = 0; j < cityFisrtList.size(); j++) {
+                                        for (int k = 0; k < selectCityList.size(); k++) {
+                                            if (selectCityList.get(k).getId().substring(0, 2).equals(cityFisrtList.get(j).getId().substring(0, 2))) {
+                                                cityFisrtList.get(j).setSign(true);
+                                            }
                                         }
                                     }
+                                    //Log.i("第二个adapter的数据",citySecondList.toString());
                                 }
-                                //Log.i("第二个adapter的数据",citySecondList.toString());
+                                setNum();
+                                if (sum > 0) {
+                                    ivSelectCityShow.setImageResource(R.mipmap.shangjiantou);
+                                    placeselectShowinforlayout.setVisibility(View.VISIBLE);
+                                    isCheck = true;
+                                } else {
+                                    ivSelectCityShow.setImageResource(R.mipmap.xiajiantou);
+                                    placeselectShowinforlayout.setVisibility(View.GONE);
+                                    isCheck = false;
+                                }
+                                selectFirstAdapter.notifyDataSetChanged();
                             }
-                            setNum();
-                            selectFirstAdapter.notifyDataSetChanged();
                         }
                     });
                     break;
                 case 2:
                     selectCitySecondAdapter = new SelectCitySecondAdapter(SelectCityActicity.this, citySecondList);
                     addCity.setAdapter(selectCitySecondAdapter);
-                    if(num==0) {
-                        if(selectCityList!=null&&selectCityList.size()!=0) {
+                    if (num == 0) {
+                        if (selectCityList != null && selectCityList.size() != 0) {
                             for (int i = 0; i < citySecondList.size(); i++) {
                                 for (int j = 0; j < selectCityList.size(); j++) {
                                     if (citySecondList.get(i).getId().equals(selectCityList.get(j).getId())) {
@@ -204,7 +258,7 @@ public class SelectCityActicity extends BaseActivity {
 
                                         }
                                     }
-                                    sum=selectCityList.size();
+                                    sum = selectCityList.size();
                                     int mon = 0;
                                     for (int j = 0; j < citySecondList.size(); j++) {
                                         if (citySecondList.get(i).isCheck() == true) {
@@ -250,11 +304,20 @@ public class SelectCityActicity extends BaseActivity {
                                         selectCityList.add(citySecondList.get(i));
                                         citySecondList.get(i).setCheck(true);
                                         addView(citySecondList.get(i));
-                                        sum=selectCityList.size();
+                                        sum = selectCityList.size();
                                     }
 
                                 }
                                 setNum();
+                                if(sum>0) {
+                                    ivSelectCityShow.setImageResource(R.mipmap.shangjiantou);
+                                    placeselectShowinforlayout.setVisibility(View.VISIBLE);
+                                    isCheck = true;
+                                }else {
+                                    ivSelectCityShow.setImageResource(R.mipmap.xiajiantou);
+                                    placeselectShowinforlayout.setVisibility(View.GONE);
+                                    isCheck=false;
+                                }
                                 selectCitySecondAdapter.notifyDataSetChanged();
                             } else {
                                 if ("createPersonInfo".equals(from)) {
@@ -266,19 +329,19 @@ public class SelectCityActicity extends BaseActivity {
                                 } else if ("findJob".equals(from)) {
                                     FindjobFragment.setPlaceId(citySecondList.get(i).getId());
                                     FindjobFragment.setPlaceText(citySecondList.get(i).getName());
-                                }else if("createJob".equals(from)){
+                                } else if ("createJob".equals(from)) {
                                     CreateResumeJobActivity.createResumeJobActivity.setPlaceId(citySecondList.get(i).getId());
                                     CreateResumeJobActivity.createResumeJobActivity.setPlaceText(citySecondList.get(i).getName());
-                                } else if("resumePersonInfo".equals(from)){
+                                } else if ("resumePersonInfo".equals(from)) {
                                     ResumePersonInfoActivity.setPlaceId(citySecondList.get(i).getId());
                                     ResumePersonInfoActivity.setPlaceText(citySecondList.get(i).getName());
-                                }else if("resumePlant".equals(from)){
+                                } else if ("resumePlant".equals(from)) {
                                     ModifyPlantActivity.modifyPlantActivity.setPlaceId(citySecondList.get(i).getId());
                                     ModifyPlantActivity.modifyPlantActivity.setPlaceText(citySecondList.get(i).getName());
-                                }else if("subscription".equals(from)) {
+                                } else if ("subscription".equals(from)) {
                                     SubscriptionActivity.subscriptionActivity.setPlaceId(citySecondList.get(i).getId());
                                     SubscriptionActivity.subscriptionActivity.setPlaceText(citySecondList.get(i).getName());
-                                }   else {
+                                } else {
                                     ModifyExpActivity.modifyExpActivity.setPlaceId(citySecondList.get(i).getId());
                                     ModifyExpActivity.modifyExpActivity.setPlaceText(citySecondList.get(i).getName());
                                 }
@@ -323,6 +386,15 @@ public class SelectCityActicity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_selectcity_tosearch);
         ButterKnife.bind(this);
         initData();
@@ -331,12 +403,19 @@ public class SelectCityActicity extends BaseActivity {
     private void initData() {
         type = getIntent().getStringExtra("type");
         from = getIntent().getStringExtra("from");
-        if("2".equals(type)){
-            selectCityList= (List<CityBean>) getIntent().getSerializableExtra("selectCity");
-            if(selectCityList!=null&&selectCityList.size()!=0){
-                sum=selectCityList.size();
-            }else{
-                sum=0;
+        if ("2".equals(type)) {
+            //获取传过来的已选城市
+            selectCityList = (List<CityBean>) getIntent().getSerializableExtra("selectCity");
+            if (selectCityList != null && selectCityList.size() != 0) {
+                sum = selectCityList.size();
+                ivSelectCityShow.setImageResource(R.mipmap.shangjiantou);
+                placeselectShowinforlayout.setVisibility(View.VISIBLE);
+                isCheck=true;
+            } else {
+                ivSelectCityShow.setImageResource(R.mipmap.xiajiantou);
+                placeselectShowinforlayout.setVisibility(View.GONE);
+                isCheck=false;
+                sum = 0;
             }
             setNum();
             for (int i = 0; i < selectCityList.size(); i++) {
@@ -361,14 +440,14 @@ public class SelectCityActicity extends BaseActivity {
             for (int i = 0; i < cityFisrtList.size(); i++) {
                 for (int j = 0; j < selectCityList.size(); j++) {
                     if (selectCityList.get(j).getId().length() > 2) {
-                        if (selectCityList.get(j).getId().substring(0,2).equals(cityFisrtList.get(i).getId().substring(0, 2))) {
-                           if(i<4){
-                               cityFisrtList.get(i).setCheck(true);
-                               cityFisrtList.get(i).setSign(true);
-                           }else{
-                               cityFisrtList.get(i).setCheck(false);
-                               cityFisrtList.get(i).setSign(true);
-                           }
+                        if (selectCityList.get(j).getId().substring(0, 2).equals(cityFisrtList.get(i).getId().substring(0, 2))) {
+                            if (i < 4) {
+                                cityFisrtList.get(i).setCheck(true);
+                                cityFisrtList.get(i).setSign(true);
+                            } else {
+                                cityFisrtList.get(i).setCheck(false);
+                                cityFisrtList.get(i).setSign(true);
+                            }
                         }
                     }
                 }
@@ -467,6 +546,10 @@ public class SelectCityActicity extends BaseActivity {
                 getFirstCityList(cityBean);
                 getSecondCityListBean();
                 sum = selectCityList.size();
+                if (sum==0){
+                    ivSelectCityShow.setImageResource(R.mipmap.xiajiantou);
+                    placeselectShowinforlayout.setVisibility(View.GONE);
+                }
                 setNum();
                 if (selectFirstAdapter != null) {
                     selectFirstAdapter.notifyDataSetChanged();
@@ -492,6 +575,10 @@ public class SelectCityActicity extends BaseActivity {
         placeselectShowinforlayout
                 .removeView(placeselectShowinforlayout
                         .findViewWithTag(cityBean.getId()));
+        if (sum==0){
+            ivSelectCityShow.setImageResource(R.mipmap.xiajiantou);
+            placeselectShowinforlayout.setVisibility(View.GONE);
+        }
         /*Log.i("选择2",selectFunctionBeenList.toString());*/
 
 
@@ -504,15 +591,15 @@ public class SelectCityActicity extends BaseActivity {
                 cityFisrtList.get(i).setSign(false);
             }
         }
-        int count=0;
-        for(int i=0;i<selectCityList.size();i++){
-            if(selectCityList.get(i).getId().substring(0,2).equals(cityBean.getId().substring(0,2))){
+        int count = 0;
+        for (int i = 0; i < selectCityList.size(); i++) {
+            if (selectCityList.get(i).getId().substring(0, 2).equals(cityBean.getId().substring(0, 2))) {
                 count++;
             }
         }
-        if(count==0){
+        if (count == 0) {
             for (int i = 0; i < cityFisrtList.size(); i++) {
-                if (cityBean.getId().subSequence(0,2).equals(cityFisrtList.get(i).getId().substring(0,2))) {
+                if (cityBean.getId().subSequence(0, 2).equals(cityFisrtList.get(i).getId().substring(0, 2))) {
                     cityFisrtList.get(i).setCheck(false);
                     cityFisrtList.get(i).setSign(false);
                 }
@@ -533,23 +620,36 @@ public class SelectCityActicity extends BaseActivity {
         /*Log.i("选择3",functionBeenList3.toString());*/
     }
 
-    @OnClick({R.id.iv_placeselect_back, R.id.post_placeselect_confirm})
+    @OnClick({R.id.iv_placeselect_back, R.id.post_placeselect_confirm,R.id.iv_selectCityShow})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_placeselect_back:
                 finish();
                 break;
             case R.id.post_placeselect_confirm:
-                if(selectCityList!=null&&!"".equals(selectCityList)&&selectCityList.size()!=0) {
-                    if("resumeJobOrder".equals(from)) {
+                if (selectCityList != null && !"".equals(selectCityList) && selectCityList.size() != 0) {
+                    if ("resumeJobOrder".equals(from)) {
                         ResumeJobOrderActivity.getInstance().setPlaceId(selectCityList);
-                    }else {
+                    } else {
                         CreateResumeJobOrderActivity.getInstance().setPlaceId(selectCityList);
                     }
                     finish();
-                }else{
-                    Toast.makeText(SelectCityActicity.this,"请选择城市",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SelectCityActicity.this, "请选择城市", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.iv_selectCityShow:
+               if(sum>0){
+                   if(isCheck==true) {
+                       placeselectShowinforlayout.setVisibility(View.GONE);
+                       ivSelectCityShow.setImageResource(R.mipmap.xiajiantou);
+                   }else{
+                       placeselectShowinforlayout.setVisibility(View.VISIBLE);
+                       ivSelectCityShow.setImageResource(R.mipmap.shangjiantou);
+
+                   }
+                   isCheck=!isCheck;
+               }
                 break;
         }
     }

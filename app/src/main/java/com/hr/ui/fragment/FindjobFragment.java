@@ -66,7 +66,6 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
      * 城市名
      */
     private static String cityName;
-    private GetBaiduLocation baiduLocation;
     /**
      * 存放Fragment的集合
      */
@@ -78,14 +77,9 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    String city = MyUtils.currentCityZh;
-                    if (city != null && !"".equals(city)) {
-                        if (city.length() != 0) {
-                            cityName = city.substring(0, city.length() - 1);
+                    if (cityName != null && !"".equals(cityName)) {
                             MyUtils.selectCityZh = cityName;
-                            MyUtils.selectCityId = ResumeInfoIDToString.getCityID(getActivity(), city, true);
-
-                        }
+                            MyUtils.selectCityId = ResumeInfoIDToString.getCityID(getActivity(), cityName, true);
                     } else {
                         cityName = "定位失败";
                     }
@@ -147,7 +141,7 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_findjob, container, false);
-        baiduLocation = new GetBaiduLocation(getActivity());
+        cityName = MyUtils.currentCityZh;
         initView();
         return view;
     }
@@ -155,7 +149,6 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-
         if (MyUtils.firstIn == true) {
             initData();
             initViewPager();
@@ -294,10 +287,6 @@ public class FindjobFragment extends Fragment implements View.OnClickListener {
                 vp_findjob.setCurrentItem(0);
                 break;
             case R.id.tv_findjob_city:
-                if (tv_findjob_city.getText().toString().equals("定位失败")) {
-                    baiduLocation.loadLocation();
-                    getAddress();
-                }
                 Intent intent1 = new Intent(getActivity(), SelectCityActicity.class);
                 intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent1.putExtra("type", "1");

@@ -111,7 +111,6 @@ public class WelcomeActivity extends BaseActivity {
         sUtils = new SharedPreferencesUtils(WelcomeActivity.this);
         sUtils.setIntValue(Constants.OPPEN_NUM, sUtils.getIntValue(Constants.OPPEN_NUM, 0) + 1);
         initData();
-
         /*goToPermissionActivity();
         if (Build.VERSION.SDK_INT>=23){
             showContacts();

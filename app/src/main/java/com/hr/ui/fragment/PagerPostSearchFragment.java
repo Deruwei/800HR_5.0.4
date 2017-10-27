@@ -4,6 +4,7 @@ package com.hr.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +34,8 @@ import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.HistoyInfo;
 import com.hr.ui.model.Industry;
 import com.hr.ui.utils.CityNameConvertCityID;
+import com.hr.ui.utils.FullyLinearLayoutManager;
+import com.hr.ui.utils.MyImageVIew;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.NoDoubleClickListener;
 import com.hr.ui.utils.OnItemClick;
@@ -113,6 +116,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     private Context context;
     private int industry_id;
     private RefleshDialogUtils dialogUtils;
+    private MyImageVIew ivPostAds;
 
 
     // 显示广告的图片
@@ -159,7 +163,9 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                dialogUtils.dismissDialog();
+                if(dialogUtils!=null) {
+                    dialogUtils.dismissDialog();
+                }
                 json_result = (String) msg.obj;
                 Log.i("SearchJobActivity", "======== json_result" + json_result.toString());
                 // 1001 成功 1002失败
@@ -175,7 +181,9 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
                     handlerUI.sendMessage(message);
                 }
             } else {
-                dialogUtils.dismissDialog();
+                if(dialogUtils!=null) {
+                    dialogUtils.dismissDialog();
+                }
                 Message message = Message.obtain();
                 message.what = 1002;
                 handlerUI.sendMessage(message);
@@ -199,7 +207,9 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pager_post_search, container, false);
-        dialogUtils=new RefleshDialogUtils(getActivity());
+        if(getActivity()!=null) {
+            dialogUtils = new RefleshDialogUtils(getActivity());
+        }
         ad_data = new ArrayList<Industry>();
         rec_data = new ArrayList<Industry>();
         db = new DAO_DBOperator(getActivity());
@@ -218,7 +228,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
         industryRecAdapter2 = new IndustryRecAdapter2(getActivity());
         sUtils = new SharedPreferencesUtils(getActivity());
         industryId = sUtils.getIntValue(Constants.INDUSTRY, Constants.INDUSTRY_BUILD_ID);
-        LinearLayoutManager manager=new LinearLayoutManager(getActivity());
+        FullyLinearLayoutManager manager=new FullyLinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         lv_postsearch_advertistment = (RecyclerView) view.findViewById(R.id.lv_postsearch_advertistment);
         lv_postsearch_advertistment.setLayoutManager(manager);
@@ -235,6 +245,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
         rl_postsearch_text3 = (RelativeLayout) view.findViewById(R.id.rl_postsearch_text3);
 //        rl_postsearch_text4 = (RelativeLayout) view.findViewById(R.id.rl_postsearch_text4);
         rl_search_post_clear = (RelativeLayout) view.findViewById(R.id.rl_search_post_clear);
+        ivPostAds= (MyImageVIew) view.findViewById(R.id.iv_findJobPost);
 
         rl_postsearch_text1.setOnClickListener(this);
         rl_postsearch_text2.setOnClickListener(this);
@@ -270,52 +281,106 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
         switch (industryId) {
             case 11:// 建筑
                 iv_post_net.setImageResource(R.mipmap.net11);
+                ivPostAds.setImageResource(R.mipmap.build);
                 break;
             case 12:// 金融
                 iv_post_net.setImageResource(R.mipmap.net12);
+                ivPostAds.setImageResource(R.mipmap.finance);
                 break;
             case 14:// 医药
 //                rl_post_medical.setVisibility(View.VISIBLE);
                 iv_post_net.setImageResource(R.mipmap.net14);
+                ivPostAds.setImageResource(R.mipmap.medicine);
                 break;
             case 26:// 服装
                 iv_post_net.setImageResource(R.mipmap.net26);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 29:// 化工
                 iv_post_net.setImageResource(R.mipmap.net29);
+                ivPostAds.setImageResource(R.mipmap.chemical);
                 break;
             case 15:// 教培
                 iv_post_net.setImageResource(R.mipmap.net15);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 22:// 机械
                 iv_post_net.setImageResource(R.mipmap.net22);
+                ivPostAds.setImageResource(R.mipmap.manufacture);
                 break;
             case 19:// 电子
                 iv_post_net.setImageResource(R.mipmap.net19);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 13:// 传媒
                 iv_post_net.setImageResource(R.mipmap.net13);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 30:// 旅游
                 iv_post_net.setImageResource(R.mipmap.net30);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 40:// 酒店餐饮
                 iv_post_net.setImageResource(R.mipmap.net40);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 20:// 电力
                 iv_post_net.setImageResource(R.mipmap.net20);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 23:// IT
                 iv_post_net.setImageResource(R.mipmap.net23);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 16:// 物流
                 iv_post_net.setImageResource(R.mipmap.net16);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
             case 21:// 通信
                 iv_post_net.setImageResource(R.mipmap.net21);
+                ivPostAds.setImageResource(R.mipmap.hr);
                 break;
         }
         functionBeanList.clear();
+        ivPostAds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (industryId) {
+                    case 11:// 建筑
+                        openBrowser(Constants.BUILD_URL);
+                        break;
+                    case 12:// 金融
+                        openBrowser(Constants.FINANCE_URL);
+                        break;
+                    case 14:// 医药
+                        openBrowser(Constants.MEDICINE_URL);
+                        break;
+                    case 29:// 化工
+                        openBrowser(Constants.CHEMICAL_URL);
+                        break;
+                    case 22:// 机械
+                        openBrowser(Constants.MANUFACTURE_URL);
+                        break;
+                    default:
+                        openBrowser(Constants.HR_URL);
+                        break;
+                }
+            }
+        });
+
+    }
+    /**
+     * 打开浏览器
+     * @param url
+     */
+    private void openBrowser(String url) {
+        try {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } catch (Exception e) {
+            System.out.println("url无效");
+        }
     }
 
     private int json() {
@@ -460,8 +525,11 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
             String keyString = (String) iterator.next();
             buffer.append(zhixiSelectMap.get(keyString).trim() + "、");
         }
-        tv_post_medical.setText(buffer.toString()
-                .subSequence(0, buffer.length() - 1).toString().trim());
+        if(buffer.toString()
+                .subSequence(0, buffer.length() - 1).toString().trim()!=null) {
+            tv_post_medical.setText(buffer.toString()
+                    .subSequence(0, buffer.length() - 1).toString().trim());
+        }
     }
 
     /**
@@ -478,7 +546,7 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
             buffer.append(keyString + "、");
         }
         tv_post_function.setText(buffer.toString()
-                .subSequence(0, buffer.length() - 1).toString().trim());
+                .substring(0, buffer.length() - 1).toString().trim());
     }
 
     /**
@@ -666,7 +734,9 @@ public class PagerPostSearchFragment extends BaseFragment implements View.OnClic
     @Override
     public void onDestroy() {
         super.onDestroy();
-        dialogUtils.dismissDialog();
+        if(dialogUtils!=null) {
+            dialogUtils.dismissDialog();
+        }
     }
 
     /**

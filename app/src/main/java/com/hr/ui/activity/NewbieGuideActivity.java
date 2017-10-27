@@ -7,15 +7,19 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hr.ui.R;
@@ -23,6 +27,7 @@ import com.hr.ui.adapter.ViewPagerAdapter;
 import com.hr.ui.config.Constants;
 import com.hr.ui.utils.GetBaiduLocation;
 import com.hr.ui.utils.datautils.SharedPreferencesUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,7 @@ public class NewbieGuideActivity extends BaseActivity implements OnClickListener
         OnPageChangeListener {
 
     private ViewPager viewPager;
+    private RelativeLayout rl_background;
     private ViewPagerAdapter viewPagerAdapter;
     private List<View> views;
     private static final int BAIDU_READ_PHONE_STATE =100;
@@ -44,6 +50,25 @@ public class NewbieGuideActivity extends BaseActivity implements OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }*/
+        //判断版本是否支持沉浸式状态栏
+        //透明状态栏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         setContentView(R.layout.activity_newbie_guide);
         if (Build.VERSION.SDK_INT>=23){
             showContacts();
@@ -61,6 +86,8 @@ public class NewbieGuideActivity extends BaseActivity implements OnClickListener
             iv.setBackgroundResource(pics[i]);
             views.add(iv);
         }
+        rl_background= (RelativeLayout) findViewById(R.id.background);
+        rl_background.setBackgroundColor(ContextCompat.getColor(this,R.color.guide1));
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPagerAdapter = new ViewPagerAdapter(views);
         viewPager.setAdapter(viewPagerAdapter);
@@ -118,6 +145,18 @@ public class NewbieGuideActivity extends BaseActivity implements OnClickListener
 
     @Override
     public void onPageSelected(int index) {
+        if(index==0){
+            rl_background.setBackgroundColor(ContextCompat.getColor(this,R.color.guide1));
+        }
+        if(index==1){
+            rl_background.setBackgroundColor(ContextCompat.getColor(this,R.color.guide2));
+        }
+        if(index==2){
+            rl_background.setBackgroundColor(ContextCompat.getColor(this,R.color.guide3));
+        }
+        if(index==3){
+            rl_background.setBackgroundColor(ContextCompat.getColor(this,R.color.guide4));
+        }
         if (index == pics.length - 1) {
             myClickBtn.setVisibility(View.VISIBLE);
         } else {

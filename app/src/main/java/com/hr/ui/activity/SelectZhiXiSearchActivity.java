@@ -2,11 +2,14 @@ package com.hr.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 import com.hr.ui.R;
 import com.hr.ui.fragment.PagerPostSearchFragment;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 
 import java.util.ArrayList;
@@ -40,6 +44,15 @@ public class SelectZhiXiSearchActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_select_zhi_xi_search);
         Bundle bundle = getIntent().getExtras();
         final String filter = bundle.getString("filter");

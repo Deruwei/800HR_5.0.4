@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ import com.hr.ui.utils.netutils.Async_GetNotice;
 import com.hr.ui.utils.netutils.Async_SetRobJob;
 import com.hr.ui.utils.netutils.Async_Set_Rob_Switch;
 import com.hr.ui.view.custom.WheelMain;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -325,6 +328,15 @@ public class SubscriptionActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_subscription);
         ButterKnife.bind(this);
         display = getResources().getDisplayMetrics();

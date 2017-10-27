@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
  */
 
 public class SelectCityFirstAdapter extends BaseAdapter {
-
     private Context context;
     private List<CityBean> list;
     private int position = 0;
@@ -39,7 +38,7 @@ public class SelectCityFirstAdapter extends BaseAdapter {
                                   int num) {
         this.context = context;
         this.list = list;
-        this.num=num;
+        this.num = num;
     }
 
     public int getCount() {
@@ -63,7 +62,7 @@ public class SelectCityFirstAdapter extends BaseAdapter {
         } else {
             hold = (ViewHolder) view.getTag();
         }
-        if(num!=0) {
+        if (num != 0) {
             if (arg0 == 0) {
                 hold.tvSelectCityTitle.setVisibility(View.VISIBLE);
                 hold.tvSelectCityTitle.setText("定位城市");
@@ -77,23 +76,28 @@ public class SelectCityFirstAdapter extends BaseAdapter {
                 hold.tvSelectCityTitle.setVisibility(View.GONE);
                 hold.viewSelectCity.setVisibility(View.GONE);
             }
-        }else{
-            if(arg0<4) {
-                hold.ivSelectCityName.setImageResource(R.mipmap.duihao);
+            if ("定位失败".equals(list.get(arg0).getName())) {
+                hold.ivSelectCityDingWei.setVisibility(View.VISIBLE);
             }else{
+                hold.ivSelectCityDingWei.setVisibility(View.GONE);
+            }
+        } else {
+            if (arg0 < 4) {
+                hold.ivSelectCityName.setImageResource(R.mipmap.duihao);
+            } else {
                 hold.ivSelectCityName.setImageResource(R.mipmap.jiantou_right);
             }
             hold.tvSelectCityTitle.setVisibility(View.GONE);
             hold.viewSelectCity.setVisibility(View.GONE);
         }
         hold.tvSelectCityName.setText(list.get(arg0).getName());
-        if (list.get(arg0).isCheck() == true&&list.get(arg0).isSign()==true) {
+        if (list.get(arg0).isCheck() == true && list.get(arg0).isSign() == true) {
             hold.tvSelectCityName.setTextColor(ContextCompat.getColor(context, R.color.orange));
             hold.ivSelectCityName.setVisibility(View.VISIBLE);
-        } else if(list.get(arg0).isCheck()==false&&list.get(arg0).isSign()==true){
+        } else if (list.get(arg0).isCheck() == false && list.get(arg0).isSign() == true) {
             hold.tvSelectCityName.setTextColor(ContextCompat.getColor(context, R.color.orange));
             hold.ivSelectCityName.setVisibility(View.GONE);
-        }else{
+        } else {
             hold.tvSelectCityName.setTextColor(ContextCompat.getColor(context, R.color.darkgray));
             hold.ivSelectCityName.setVisibility(View.GONE);
         }
@@ -120,6 +124,8 @@ public class SelectCityFirstAdapter extends BaseAdapter {
         ImageView ivSelectCityName;
         @Bind(R.id.rl_selectCity_name)
         RelativeLayout rlSelectCityName;
+        @Bind(R.id.iv_selectCity_dingWei)
+        ImageView ivSelectCityDingWei;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

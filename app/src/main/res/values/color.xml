@@ -56,8 +56,15 @@
     <color name="dialog_button_text_color">#ffff6a22</color>
     <color name="top_list_text_color">#FF5000</color>
 
+    <color name="guide1">#f3584f</color>
+    <color name="guide2">#60bce0</color>
+    <color name="guide3">#68dace</color>
+    <color name="guide4">#8fa2bb</color>
+
+
     <color name="text_color_orange">#F7931E</color>
     <color name="text_color_333">#333333</color>
+    <color name="text_color_999">#999999</color>
     <!-- 白色 -->
     <color name="bg_White">#FFFFFF</color>
     <!-- 黑色 -->

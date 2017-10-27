@@ -30,6 +30,7 @@ public class AsyncLogin {
     private String userID;
     private String industry;
     private Handler handler;
+    private int i;
     //	private int LoginTag = -1;
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
@@ -75,25 +76,35 @@ public class AsyncLogin {
 //							}
 //						}
                             MyUtils.isLogin = true;
-                            RecommendJobFragment.recommendJobFragment.initView();
+                            RecommendJobFragment.recommendJobFragment.toLogin();
                             NewLoginActivity.newLoginActivity.execute();
                             break;
                         default:
-                            Message message1 = handler.obtainMessage();
-                            message1.what = -1;
+                                Message message1 = handler.obtainMessage();
+                                message1.what = -1;
 //						message1.arg1 = LoginTag;
-                            handler.sendMessage(message1);
-                            Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
+                                handler.sendMessage(message1);
+                                Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else if (msg.what == -1) {
-                Toast.makeText(context,
-                        context.getString(R.string.login_false),
-                        Toast.LENGTH_SHORT).show();
-                MyUtils.isLogin = false;
+                i++;
+                if(i<2) {
+                    AsyncLogin asyncLogin = new AsyncLogin(context, handlerService);
+                    asyncLogin.execute(username, pwd, industry + "");
+                }else {
+                    Message message1 = handler.obtainMessage();
+                    message1.what = -1;
+//						message1.arg1 = LoginTag;
+                    handler.sendMessage(message1);
+                    Toast.makeText(context,
+                            context.getString(R.string.login_false),
+                            Toast.LENGTH_SHORT).show();
+                    MyUtils.isLogin = false;
+                }
             }
         }
 

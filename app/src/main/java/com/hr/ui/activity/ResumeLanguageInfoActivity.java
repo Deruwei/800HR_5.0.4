@@ -2,9 +2,12 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import com.hr.ui.adapter.ResumeLanguageExpLVAdapter;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.ResumeLanguageLevel;
 import com.hr.ui.utils.MyUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 
@@ -40,6 +44,15 @@ public class ResumeLanguageInfoActivity extends BaseResumeActivity implements Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_resume_language_info);
         resumeLanguageInfoActivity = ResumeLanguageInfoActivity.this;
         initData();

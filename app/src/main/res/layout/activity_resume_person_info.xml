@@ -1,12 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.hr.ui.activity.ResumePersonInfoActivity">
 
     <ScrollView
+        android:layout_above="@+id/rl_myresume_savenext1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -438,38 +439,405 @@
                     android:inputType="textWebEmailAddress"
                     android:textSize="16sp" />
             </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
                 android:background="#EBEBEB" />
-
-            <RelativeLayout
-                android:id="@+id/rl_myresume_savenext1"
+            <LinearLayout
+                android:id="@+id/ll_resumePersonInfo_choose"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:background="#EBEBEB"
-                android:gravity="center">
+                android:gravity="center_vertical"
+                android:background="#ebebeb"
+                android:orientation="horizontal"
+                android:layout_height="@dimen/dimen_50px">
+                <ImageView
+                    android:layout_marginLeft="@dimen/dimen_12px"
+                    android:id="@+id/iv_resumePersonInfo_jianTou"
+                    android:src="@mipmap/xiajiantou"
+                    android:layout_marginTop="@dimen/dimen_5px"
+                    android:layout_marginBottom="@dimen/dimen_5px"
+                    android:layout_width="@dimen/dimen_20px"
+                    android:layout_height="@dimen/dimen_20px" />
+                <TextView
+                    android:layout_marginLeft="@dimen/dimen_5px"
+                    android:text="@string/morePersonInfo"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/text_14px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_resumePersonInfo_choooseContent"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
                 <RelativeLayout
-                    android:id="@+id/rl_resume_personinfo_save"
-                    style="@style/bt_orange"
-                    android:background="@drawable/btn_1chang"
-                    android:gravity="center">
-
+                    android:id="@+id/rl_resumePersonInfo_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
                     <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_resume_personinfo_height"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="保存修改"
-                        android:textColor="#fff"
-                        android:textSize="18sp" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请填写"
+                        android:maxLength="3"
+                        android:inputType="number"
+                        android:textColorHint="@color/text_color_999"
+                        android:textSize="14sp" />
                 </RelativeLayout>
-            </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_huKou"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/account_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_resume_personinfo_Hukou"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/imageViewHuKou"
+                        android:gravity="right"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_999"
+                        android:text="请选择" />
+                    <ImageView
+                        android:id="@+id/imageViewHuKou"
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/jiantou_right" />
+                </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#EBEBEB" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_marry"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/marriage_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_resume_personinfo_marry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/imageViewMarry"
+                        android:gravity="right"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_999"
+                        android:text="请选择" />
+                    <ImageView
+                        android:id="@+id/imageViewMarry"
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/jiantou_right" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_resume_personinfo_Country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/imageViewCountry"
+                        android:gravity="right"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_999"
+                        android:text="请选择" />
+                    <ImageView
+                        android:id="@+id/imageViewCountry"
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/jiantou_right" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_polity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/polity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_resume_personinfo_polity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/imageViewPolity"
+                        android:gravity="right"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_999"
+                        android:text="请选择" />
+                    <ImageView
+                        android:id="@+id/imageViewPolity"
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/jiantou_right" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_blood"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/blood_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_resume_personinfo_blood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/imageViewblood"
+                        android:gravity="right"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_999"
+                        android:text="请选择" />
+                    <ImageView
+                        android:id="@+id/imageViewblood"
+                        android:layout_width="6dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/jiantou_right" />
+                </RelativeLayout>
+                <View
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+
+                    <TextView
+                        android:id="@+id/tv_resumePersonInfo_CMName"
+                        style="@style/reusme_myresume_tvhead2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nummber_of_pagers" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_resumePersonInfo_certificateNumberType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dimen_20px"
+                        android:layout_toRightOf="@+id/tv_resumePersonInfo_CMName">
+
+                        <TextView
+                            android:id="@+id/tv_resume_personinfo_certificateNumberType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="请选择"
+                            android:textColor="@color/text_color_999"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/imageViewcertificateNumberType"
+                            android:layout_width="6dp"
+                            android:layout_height="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dimen_5px"
+                            android:layout_toRightOf="@+id/tv_resume_personinfo_certificateNumberType"
+                            android:src="@mipmap/jiantou_right" />
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/et_resume_personinfo_certificateNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请填写号码"
+                        android:textColorHint="@color/text_color_999"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_resume_personinfo_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请填写"
+                        android:textColorHint="@color/text_color_999"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/dimen_10px"
+                    android:layout_marginRight="@dimen/dimen_10px"
+                    android:background="#EBEBEB" />
+                <RelativeLayout
+                    android:id="@+id/rl_resumePersonInfo_myHomePage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50px">
+                    <TextView
+                        style="@style/reusme_myresume_tvhead2"
+                        android:text="@string/message_homepage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_resume_personinfo_myHomePage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请填写"
+                        android:textColorHint="@color/text_color_999"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <RelativeLayout
+        android:paddingBottom="@dimen/dimen_5px"
+        android:paddingTop="@dimen/dimen_5px"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rl_myresume_savenext1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#EBEBEB">
+
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:id="@+id/rl_resume_personinfo_save"
+            style="@style/bt_orange"
+            android:background="@drawable/btn_1chang"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存修改"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

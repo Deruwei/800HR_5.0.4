@@ -2,9 +2,13 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -51,10 +56,14 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -200,17 +209,18 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
             if (msg != null) {
 //                onCreate(null);// 刷新页面
                 resultPostMap = (HashMap<String, String>) msg.obj;
-                tv_postparticular_postname.setText(resultPostMap.get("job_name"));
-                tv_postparticular_place.setText(resultPostMap.get("workplace"));
-                tv_postparticular_edu.setText(resultPostMap.get("study"));
-                tv_postparticular_sal.setText(resultPostMap.get("salary"));
-                tv_postparticular_releasetime.setText(resultPostMap.get("issue_date"));
-                tv_postparticular_exp.setText(resultPostMap.get("workyear"));
-                if(!"".equals(resultPostMap.get("synopsis"))&&resultPostMap.get("synopsis")!=null) {
-                    String str = resultPostMap.get("synopsis");
-                    tv_postparticular_postparticular.setText(str);
-                }
-                //Log.i("职位的信息",str);
+                if (resultPostMap != null) {
+                    tv_postparticular_postname.setText(resultPostMap.get("job_name"));
+                    tv_postparticular_place.setText(resultPostMap.get("workplace"));
+                    tv_postparticular_edu.setText(resultPostMap.get("study"));
+                    tv_postparticular_sal.setText(resultPostMap.get("salary"));
+                    tv_postparticular_releasetime.setText(resultPostMap.get("issue_date"));
+                    tv_postparticular_exp.setText(resultPostMap.get("workyear"));
+                    if (!"".equals(resultPostMap.get("synopsis")) && resultPostMap.get("synopsis") != null) {
+                        String str = resultPostMap.get("synopsis");
+                        tv_postparticular_postparticular.setText(str);
+                    }
+                    //Log.i("职位的信息",str);
 
                /* ViewTreeObserver vto2 = tv_postparticular_postparticular.getViewTreeObserver();
                 vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -229,41 +239,42 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                         }
                     }
                 });*/
-                tv_postparticular_comname.setText(resultPostMap.get("enterprise_name"));
-                tv_postparticular_city.setText(resultPostMap.get("workplace"));
-                if ("".equals(resultPostMap.get("email"))) {
-                    tv_postparticular_email.setText("企业邮箱：" + "保密");
-                } else {
-                    tv_postparticular_email.setText("企业邮箱：" + resultPostMap.get("email"));
-                }
-                if(!"".equals(resultPostMap.get("enterprise_id"))&&resultPostMap.get("enterprise_id")!=null) {
-                    comId = resultPostMap.get("enterprise_id");
-                }
-                loadComNetData();
-                //Log.i(TAG, "=====poster" + resultPostMap.get("posterimg").toString());
+                    tv_postparticular_comname.setText(resultPostMap.get("enterprise_name"));
+                    tv_postparticular_city.setText(resultPostMap.get("workplace"));
+                    if ("".equals(resultPostMap.get("email"))) {
+                        tv_postparticular_email.setText("企业邮箱：" + "保密");
+                    } else {
+                        tv_postparticular_email.setText("企业邮箱：" + resultPostMap.get("email"));
+                    }
+                    if (!"".equals(resultPostMap.get("enterprise_id")) && resultPostMap.get("enterprise_id") != null) {
+                        comId = resultPostMap.get("enterprise_id");
+                    }
+                    loadComNetData();
+                    //Log.i(TAG, "=====poster" + resultPostMap.get("posterimg").toString());
 
-                if (!"".equals(resultPostMap.get("posterimg").toString())&&resultPostMap.get("posterimg").toString()!=null) {
-                    posterPath = resultPostMap.get("posterimg").toString();
-                    ll_postparticular_poster.setVisibility(View.VISIBLE);
-                    DownLoadImg();
-                }
-                is_favourite = resultPostMap.get("is_favourite");
-                is_apply = resultPostMap.get("is_apply");
-                is_expire = resultPostMap.get("is_expire");
-                if ("0".equals(is_favourite)) {
-                    bt_postparticulars_collect.setText("收藏该职位");
-                    bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
-                } else {
-                    bt_postparticulars_collect.setText("已收藏");
-                    bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
-                }
+                    if (!"".equals(resultPostMap.get("posterimg").toString()) && resultPostMap.get("posterimg").toString() != null) {
+                        posterPath = resultPostMap.get("posterimg").toString();
+                        ll_postparticular_poster.setVisibility(View.VISIBLE);
+                        DownLoadImg();
+                    }
+                    is_favourite = resultPostMap.get("is_favourite");
+                    is_apply = resultPostMap.get("is_apply");
+                    is_expire = resultPostMap.get("is_expire");
+                    if ("0".equals(is_favourite)) {
+                        bt_postparticulars_collect.setText("收藏");
+                        bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_yuanhu_button);
+                    } else {
+                        bt_postparticulars_collect.setText("已收藏");
+                        bt_postparticulars_collect.setBackgroundResource(R.drawable.linear_select_gray);
+                    }
 
-                if ("0".equals(is_apply)) {
-                    bt_postparticulars_send.setText("投递该职位");
-                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
-                } else {
-                    bt_postparticulars_send.setText("已投递");
-                    bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
+                    if ("0".equals(is_apply)) {
+                        bt_postparticulars_send.setText("投递该职位");
+                        bt_postparticulars_send.setBackgroundResource(R.drawable.linear_yuanhu_button);
+                    } else {
+                        bt_postparticulars_send.setText("已投递");
+                        bt_postparticulars_send.setBackgroundResource(R.drawable.linear_select_gray);
+                    }
                 }
             }
         }
@@ -272,17 +283,21 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         public void handleMessage(Message msg) {
             dialogUtils.dismissDialog();
             if (msg != null) {
-                resultComMap = (HashMap<String, String>) msg.obj;
-                tv_postparticular_comname2.setText(resultComMap.get("enterprise_name"));
-                tv_postparticular_nature.setText(resultComMap.get("company_type"));
-                tv_postparticular_place.setText(resultComMap.get("address"));
-                tv_postparticular_scale.setText(resultComMap.get("stuff_munber"));
-                //tv_postparticular_comparticular.setText(resultComMap.get("synopsis"));
-                expandableTextView.setText(resultComMap.get("synopsis"),true);
-                logoUrl = resultComMap.get("ent_logo").toString();
-                if (!logoUrl.equals("")) {
-                    imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo, options);
-                    imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo2, options);
+                switch (msg.what) {
+                    case 1:
+                        resultComMap = (HashMap<String, String>) msg.obj;
+                        tv_postparticular_comname2.setText(resultComMap.get("enterprise_name"));
+                        tv_postparticular_nature.setText(resultComMap.get("company_type"));
+                        tv_postparticular_place.setText(resultComMap.get("address"));
+                        tv_postparticular_scale.setText(resultComMap.get("stuff_munber"));
+                        //tv_postparticular_comparticular.setText(resultComMap.get("synopsis"));
+                        expandableTextView.setText(resultComMap.get("synopsis"), true);
+                        logoUrl = resultComMap.get("ent_logo").toString();
+                        if (!logoUrl.equals("")) {
+                            imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo, options);
+                            imageLoader.displayImage(Constants.LOGO_ROOTPATH + logoUrl, iv_postparticular_comlogo2, options);
+                        }
+                    break;
                 }
             }
         }
@@ -333,6 +348,15 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_post_particulars);
         MobclickAgent.onEvent(this, " job-show-job-info");
         dialogUtils=new RefleshDialogUtils(this);
@@ -450,7 +474,9 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
 //                    + posterPath.substring(posterPath.lastIndexOf("/") + 1);
             if (FileUtil.isFileExist(comLogoFileName)) {
                 drawable = BitmapFactory.decodeFile(comLogoFileName);
-                initPopupWindows(drawable);
+                if(drawable!=null) {
+                    initPopupWindows(drawable);
+                }
             } else {// 下载海报
                 dLoadImg = new DownLoadImg(iv_postparticular_comlogo2);
                 dLoadImg.execute(posterPath);
@@ -463,13 +489,16 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.ll_postparticular_poster:
                 if(popupWindow!=null&&posterPath!=null) {
-                    initPopupWindows(drawable);
+                    if(drawable!=null) {
+                        initPopupWindows(drawable);
+                    }
                 }
                 break;
             case R.id.iv_postparticulars_back:
                 finish();
                 break;
             case R.id.bt_postparticulars_collect:
+                //Log.i("当前的结果",resultPostMap.toString());
                 collectJob();
                 break;
             case R.id.bt_postparticulars_send:
@@ -500,13 +529,17 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
                 break;
             case R.id.iv_postparticulars_share:
+                /*Log.i("当前的结果",resultComMap.get("enterprise_name"));
+                Log.i("当前的结果",resultPostMap.get("job_name"));
+                Log.i("当前的结果",resultPostMap.get("enterprise_id"));
+                Log.i("当前的结果",resultPostMap.get("job_id"));*/
 //                ShareSDK.initSDK(this);
                 OnekeyShare oks = new OnekeyShare();
                 // 关闭sso授权
                 oks.disableSSOWhenAuthorize();
 //                oks.addHiddenPlatform(QQ.NAME);
                 String text = "";
-                String mobilUrl = null;
+                String mobilUrl = "";
                 String enterprise_name="";
                 String jobnameString="";
                 String enterpriseId="";
@@ -523,14 +556,14 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 if(!"".equals(resultPostMap.get("job_id"))&&resultPostMap.get("job_id")!=null){
                     jobId=resultPostMap.get("job_id");
                 }
-                if (jobnameString == null||"".equals(jobnameString) || jobnameString.length() == 0) {
+                if(enterpriseId!=null&&!"".equals(enterpriseId)&&jobnameString==null){
                     text = "我在行业找工作上看到了" + enterprise_name + "发布了招聘职位。";
                     mobilUrl = MobileUrl.getCompanyUrl(enterpriseId);
-                } else {
+                }
+                if (jobId != null&&!"".equals(jobId)&&jobnameString!=null) {
                     text = "我在行业找工作上看到了" + enterprise_name + "的" + jobnameString + "职位";
                     mobilUrl = MobileUrl.getJobUrl(jobId);
                 }
-
                 //System.out.println("mobilUrl==" + mobilUrl);
                 text = text + " " + mobilUrl;
                 // text是分享文本，所有平台都需要这个字段
@@ -546,6 +579,7 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
 //                    oks.setImagePath(fileName);
 //                }
                 // url仅在微信（包括好友和朋友圈）中使用
+                oks.setImagePath(getBenDiPhoto());
                 oks.setUrl(mobilUrl);
                 // 启动分享GUI,防止用户多次点击
                 if (System.currentTimeMillis() - currTime > 500) {
@@ -555,7 +589,35 @@ public class PostParticularsActivity extends BaseActivity implements View.OnClic
                 break;
         }
     }
-
+    private String getBenDiPhoto(){
+        Resources res = this.getResources();
+        BitmapDrawable d = (BitmapDrawable) res.getDrawable(R.mipmap.share);
+        Bitmap img = d.getBitmap();
+        int width = img.getWidth();
+        int height = img.getHeight();
+        // 设置想要的大小
+        int newWidth = 30;
+        int newHeight = 30;
+        // 计算缩放比例
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        // 得到新的图片
+        Bitmap newbm = Bitmap.createBitmap(img, 0, 0, width, height, matrix,
+                true);
+        String fn = "image_test.png";
+        String path = this.getFilesDir() + File.separator + fn;
+        try{
+            OutputStream os = new FileOutputStream(path);
+            img.compress(Bitmap.CompressFormat.PNG, 100, os);
+            os.close();
+        }catch(Exception e){
+            Log.e("TAG", "", e);
+        }
+        return path;
+    }
     /**
      * 投递职位
      */

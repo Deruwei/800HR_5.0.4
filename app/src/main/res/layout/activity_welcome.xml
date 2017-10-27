@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
+    android:background="#F6F6F6"
     tools:context="com.hr.ui.activity.WelcomeActivity">
 
     <ImageView
@@ -9,8 +11,6 @@
         android:layout_height="match_parent"
         android:src="@mipmap/qidongye"
         android:scaleType="fitXY"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         />
 
 </RelativeLayout>

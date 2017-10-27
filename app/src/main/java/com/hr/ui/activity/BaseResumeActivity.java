@@ -92,10 +92,12 @@ public class BaseResumeActivity extends BaseActivity {
             asyncResumeUpdate.execute();
         } else if ((titleZhUpdate != null && titleZhUpdate.getIsUpdate() == 0) || (baseInfoZh != null && baseInfoZh.getIsUpdate() == 0)) {
             // ---------中文不需要上传,检测英文简历
-            Message message = handlerUploadResume.obtainMessage();
-            message.what = 0;
-            message.arg1 = Integer.parseInt(resumeId+"");
-            handlerUploadResume.sendMessage(message);
+            if(resumeId!=null) {
+                Message message = handlerUploadResume.obtainMessage();
+                message.what = 0;
+                message.arg1 = Integer.parseInt(resumeId);
+                handlerUploadResume.sendMessage(message);
+            }
         }
     }
 
@@ -117,7 +119,6 @@ public class BaseResumeActivity extends BaseActivity {
             beautifulDialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
 //                    MyResumeActivity.myResumeActivity.refreshUI();
                     MyResumeFragment.isRefresh=true;
                     modification = false;

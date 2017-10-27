@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#f6f6f6"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.hr.ui.activity.RegistPhoneActivity">
 
     <RelativeLayout style="@style/title_rl_scale">

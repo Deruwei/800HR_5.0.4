@@ -39,7 +39,7 @@ public class ResumeBaseInfo implements Serializable {
     public String im_type = "";// 即时通讯类型
     public String day = "1";// 出生日
     public String telephone = "";// 固定电话
-    public String echo_yes = "";//保密全名、只显示姓氏，0不保密，1保密
+    public String echo_yes = "";//保密全名、只显示姓0不保密，1保密
     public String ydphone_verify_status = "";//是否验证过手机号，1未验证，2以验证
 
     public String getYdphone_verify_status() {

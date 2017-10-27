@@ -2,9 +2,12 @@ package com.hr.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +16,7 @@ import com.hr.ui.R;
 import com.hr.ui.model.Invitedinfo;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.netutils.NetService;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +40,15 @@ public class CompanyEmailActivity extends Activity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_company_email);
         getDate();
         init();

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:fitsSystemWindows="true"
     tools:context="com.hr.ui.activity.ModifyLanguageActivity">
-
     <RelativeLayout
         android:id="@+id/rl_resume_modifynewlangue_top"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/new_main"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="0dp">
+        android:background="@color/new_main">
 
         <ImageView
             android:id="@+id/iv_resume_modifynewlangue_back"
@@ -31,24 +27,28 @@
             android:textColor="#fff"
             android:textSize="22sp" />
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_resume_modifynewlangue_top"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_resume_modifynewlangue_top"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent">
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">
+
             <TextView
                 android:id="@+id/textView42"
                 style="@style/reusme_myresume_tvhead"
-                android:text="语言类别" />
+                android:text="语言" />
+
             <TextView
                 android:id="@+id/sp_resume_modifylanguage_langname"
                 android:layout_width="@dimen/dimen_100px"
@@ -62,8 +62,9 @@
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:singleLine="true"
-                android:text="请选择语言类别"
-                android:textColor="#F7931E"/>
+                android:text="请选择"
+                android:textColor="#F7931E" />
+
             <ImageView
                 android:id="@+id/imageView45"
                 android:layout_width="6dp"
@@ -75,22 +76,26 @@
                 android:layout_marginRight="12dp"
                 android:src="@mipmap/jiantou_right" />
         </RelativeLayout>
+
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1px"  />
+            android:layout_height="@dimen/dimen_1px"
+            android:layout_marginEnd="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginStart="13dp"
+            android:background="#efefef" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">
+
             <TextView
                 android:id="@+id/textView42444"
                 style="@style/reusme_myresume_tvhead"
-                android:text="听说能力" />
+                android:text="听说" />
+
             <TextView
                 android:id="@+id/sp_resume_modifylanguage_speak_level"
                 android:layout_width="@dimen/dimen_100px"
@@ -104,8 +109,8 @@
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:singleLine="true"
-                android:text="请选择听说能力"
-                android:textColor="#F7931E"/>
+                android:text="请选择"
+                android:textColor="#F7931E" />
 
             <ImageView
                 android:id="@+id/imageView452222"
@@ -118,14 +123,16 @@
                 android:layout_marginRight="12dp"
                 android:src="@mipmap/jiantou_right" />
         </RelativeLayout>
+
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1px" />
+            android:layout_height="@dimen/dimen_1px"
+            android:layout_marginEnd="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginStart="13dp"
+            android:background="#efefef" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -134,7 +141,7 @@
             <TextView
                 android:id="@+id/textView42334"
                 style="@style/reusme_myresume_tvhead"
-                android:text="读写能力" />
+                android:text="读写" />
 
             <TextView
                 android:id="@+id/sp_resume_modifylanguage_read_level"
@@ -149,7 +156,7 @@
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:singleLine="true"
-                android:text="请选择读写能力"
+                android:text="请选择"
                 android:textColor="#F7931E" />
 
             <ImageView
@@ -164,55 +171,153 @@
                 android:src="@mipmap/jiantou_right" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1px"  />
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dimen_10px"
+            android:layout_marginRight="@dimen/dimen_10px"
+            android:background="#EBEBEB" />
         <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ll_testLevel"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
-          <RelativeLayout
-              android:layout_weight="1"
-              android:layout_width="0dp"
-              android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50px">
+
             <TextView
-                android:id="@+id/tv_resume_item_languagemodify_delete"
-                android:layout_marginLeft="@dimen/dimen_20px"
+                android:id="@+id/tv_resumePersonInfo_CMName"
+                style="@style/reusme_myresume_tvhead2"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_40px"
-                android:paddingLeft="@dimen/dimen_50px"
-                android:paddingRight="@dimen/dimen_50px"
-                android:background="@drawable/btn_1chang"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/delete"
-                android:textColor="#fff"
-                android:textSize="14sp"/>
-          </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/testLevel" />
+
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_resume_item_llanguagemodify_save"
-                android:layout_marginLeft="@dimen/dimen_20px"
+                android:id="@+id/rl_ModifyLanguage_TestLevel"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_40px"
-                android:paddingLeft="@dimen/dimen_50px"
-                android:paddingRight="@dimen/dimen_50px"
-                android:background="@drawable/btn_1chang"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="保存"
-                android:textColor="#fff"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_30px"
+                android:layout_toRightOf="@+id/tv_resumePersonInfo_CMName">
+
+                <TextView
+                    android:id="@+id/tv_ModifyLanguage_TestType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="请选择"
+                    android:textColor="@color/new_main"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imageViewModifyLanguage"
+                    android:layout_width="6dp"
+                    android:layout_height="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimen_5px"
+                    android:layout_toRightOf="@+id/tv_ModifyLanguage_TestType"
+                    android:src="@mipmap/jiantou_right" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_ModifyLanguage_TestNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="请填写号码"
+                android:textColorHint="@color/text_color_999"
                 android:textSize="14sp" />
         </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1px"
+            android:layout_marginEnd="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginStart="13dp"
+            android:background="#efefef" />
+
+        <LinearLayout
+            android:id="@+id/ll_modifyLanguage_AddView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         </LinearLayout>
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_modifyLanguage_addView"
+            android:textColor="@color/new_main"
+            android:text="@string/addTestLevel"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_30px"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_50px" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1px"
+                android:layout_marginEnd="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginStart="13dp"
+            android:background="#efefef" />
+        </LinearLayout>
+        </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+            android:id="@+id/ll_modifyLanguageButton"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_resume_item_languagemodify_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_40px"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/dimen_20px"
+                    android:background="@drawable/btn_1chang"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dimen_50px"
+                    android:paddingRight="@dimen/dimen_50px"
+                    android:text="@string/delete"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_resume_item_llanguagemodify_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_40px"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/dimen_20px"
+                    android:background="@drawable/btn_1chang"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dimen_50px"
+                    android:paddingRight="@dimen/dimen_50px"
+                    android:text="保存"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </LinearLayout>
+</RelativeLayout>

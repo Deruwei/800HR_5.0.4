@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,6 +40,7 @@ import com.hr.ui.utils.tools.PushAliasString;
 import com.hr.ui.view.custom.MyProgressDialog;
 import com.hr.ui.view.custom.PopupmenuBar;
 import com.hr.ui.view.pulltorefresh.PullToRefreshListView;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
@@ -144,7 +147,7 @@ public class SearchJobResultActivity extends Activity  {
                     msg0.what = 1001;
                     msg0.arg1 = searchResult_json();
                     // 状态码
-                    Log.d("msg0.arg1", msg0.arg1 + "");
+                    //Log.d("msg0.arg1", msg0.arg1 + "");
                     myhandler.sendMessage(msg0);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -187,10 +190,10 @@ public class SearchJobResultActivity extends Activity  {
                             } else {
                                 sjrAdapter.notifyDataSetChanged();
                             }
-                            MyItemAnimator animator = new MyItemAnimator(SearchJobResultActivity.this);
+                            /*MyItemAnimator animator = new MyItemAnimator(SearchJobResultActivity.this);
                             animator.setAddDuration(500);
                             animator.setRemoveDuration(1000);
-                            lvSearchjobresultResult.setItemAnimator(animator);
+                            lvSearchjobresultResult.setItemAnimator(animator);*/
                         }
                     }else{
                         Toast.makeText(SearchJobResultActivity.this, "没有更多的数据！",
@@ -229,6 +232,15 @@ public class SearchJobResultActivity extends Activity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_search_job_result);
         ButterKnife.bind(this);
         MobclickAgent.onEvent(this, "job-search");
@@ -445,7 +457,7 @@ public class SearchJobResultActivity extends Activity  {
         try {
             dataList = new ArrayList<HashMap<String, Object>>();
             JSONObject jsonObject = new JSONObject(json_result);
-            LogTools.i(TAG, "====jsonObject" + jsonObject.toString());
+            //LogTools.i(TAG, "====jsonObject" + jsonObject.toString());
             error_code = jsonObject.getInt("error_code");
             jobNum = jsonObject.getString("totals");
             refreshInfo();
@@ -494,8 +506,8 @@ public class SearchJobResultActivity extends Activity  {
             } else {
                 tvSearchjobresultJobnum.setText("为您找到" + jobNum + "个职位");
             }
-            Log.i("工作的数量",jobNum+"");
-            if (jobNum.equals("0")) {
+          //  Log.i("工作的数量",jobNum+"");
+            if ("0".equals(jobNum)) {
                 srSearchJobResult.setVisibility(View.GONE);
                 rlSearchjobresultVisible.setVisibility(View.GONE);
             } else {
@@ -564,7 +576,7 @@ public class SearchJobResultActivity extends Activity  {
         while (showBuffer.toString().endsWith("+")) {
             showBuffer.delete(showBuffer.length() - 1, showBuffer.length());
         }
-        if (showBuffer.toString().equals("") || showBuffer == null || showBuffer.toString().equals("null")) {
+        if ("".equals(showBuffer.toString()) || showBuffer == null || "null".equals(showBuffer.toString())) {
             tvSearchjobresultCondition.setText(word);
             return;
         } else {

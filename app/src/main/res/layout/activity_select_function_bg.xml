@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:focusable="true"
+    android:fitsSystemWindows="true"
     android:focusableInTouchMode="true">
 
     <!-- start title -->

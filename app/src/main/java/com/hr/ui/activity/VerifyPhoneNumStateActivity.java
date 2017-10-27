@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ import com.hr.ui.utils.netutils.AsyncPhoneVerifyStates;
 import com.hr.ui.utils.tools.CodeUtils;
 import com.hr.ui.utils.tools.RegisterCodeTimer;
 import com.hr.ui.view.custom.CodeButton;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -73,6 +75,15 @@ public class VerifyPhoneNumStateActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_verify_phone_num_state);
         ButterKnife.bind(this);
         sharedPreferencedUtils = new SharedPreferencesUtils(this);

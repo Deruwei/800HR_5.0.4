@@ -213,20 +213,20 @@ public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResult
 
 //                viewHolderImage.tv_item_searchjoblvimage_releasetime.setText(dataList.get(position).get("is_favourite").toString());
 //                viewHolderImage.tv_item_searchjobimage_companyname.setText(dataList.get(position).get("is_apply").toString());
-            ((ViewHolderImage) holder).rlItemSearchjoblvimageClick.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (position < dataList.size()) {
-                        String job_id = (String) v.getTag();
-                        // Toast.makeText(context, "文本信息" + url, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(mContext, PostParticularsActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("job_id", job_id);
-                        intent.putExtras(bundle);
-                        mContext.startActivity(intent);
+            if (position < dataList.size()&&mContext!=null) {
+                ((ViewHolderImage) holder).rlItemSearchjoblvimageClick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            String job_id = (String) v.getTag();
+                            // Toast.makeText(context, "文本信息" + url, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(mContext, PostParticularsActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("job_id", job_id);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
                     }
-                }
-            });
+                });
+            }
             DownLoadImg(((ViewHolderImage) holder).ivItemSearchjoblvimagePoster);
 
             if (isSelected.get(position) == null) {
@@ -248,10 +248,11 @@ public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResult
             ((ViewHolderInfo) holder).tvItemSearchjobCompanyname.setText(dataList.get(position).get("enterprise_name").toString());
             ((ViewHolderInfo) holder).tvItemSearchjoblvReleasetime.setText(dataList.get(position).get("issue_date").toString());
             ((ViewHolderInfo) holder).rlItemSearchjoblvClick.setTag(dataList.get(position).get("job_id").toString());
-            ((ViewHolderInfo) holder).rlItemSearchjoblvClick.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (position < dataList.size()) {
+            if (position < dataList.size()&&mContext!=null) {
+                ((ViewHolderInfo) holder).rlItemSearchjoblvClick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
                         String job_id = (String) v.getTag();
                         // Toast.makeText(context, "文本信息" + url, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(mContext, PostParticularsActivity.class);
@@ -259,9 +260,10 @@ public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResult
                         bundle.putString("job_id", job_id);
                         intent.putExtras(bundle);
                         mContext.startActivity(intent);
+
                     }
-                }
-            });
+                });
+            }
             if (isSelected.get(position) == null) {
                 isSelected.put(position, false);
             }
@@ -294,7 +296,7 @@ public class SearchJobResultAdapter extends RecyclerView.Adapter<SearchJobResult
     @Override
     public int getItemViewType(int position) {
         posterPath = dataList.get(position).get("posterimg").toString();
-        if (!posterPath.equals("") && posterPath != null) {
+        if (!"".equals(posterPath) && posterPath != null) {
             return TYPE_1;
         } else {
             return TYPE_2;

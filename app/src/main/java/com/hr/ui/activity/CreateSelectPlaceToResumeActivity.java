@@ -2,6 +2,7 @@ package com.hr.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -11,11 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -63,7 +68,7 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
     private Object fromActivity = null;
     private String id;
     private LinearLayout placeselect_showinforlayout;// 动态布局
-    private LinearLayout placeselect_showmessage;
+    private RelativeLayout placeselect_showmessage;
     private TextView placeselect_selectedinfo;
     public MyBaseAdapterFindJobPlaceSelect adapter;
     private int ableselected = 0;// 可以选择的个数
@@ -73,6 +78,15 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_selectcity_tosearch);
         init();
     }
@@ -81,7 +95,7 @@ public class CreateSelectPlaceToResumeActivity extends Activity implements
         try {
             final TextView placeselect_title = (TextView) findViewById(R.id.tv_placeselect_jobnum);
             findViewById(R.id.post_placeselect_confirm).setOnClickListener(this);
-            placeselect_showmessage = (LinearLayout) findViewById(R.id.placeselect_showmessage);
+            placeselect_showmessage = (RelativeLayout) findViewById(R.id.placeselect_showmessage);
             placeselect_showinforlayout = (LinearLayout) findViewById(R.id.placeselect_showinforlayout);
             placeselect_selectedinfo = (TextView) findViewById(R.id.placeselect_selectedinfo);
             iv_placeselect_back = (ImageView) findViewById(R.id.iv_placeselect_back);

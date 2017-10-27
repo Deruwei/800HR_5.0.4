@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#F6F6F6"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.hr.ui.activity.UserFeedBackActivity">
 
     <RelativeLayout

@@ -3,6 +3,7 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -44,6 +47,7 @@ import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.MyCustomDatePicker;
 import com.mob.tools.utils.LocationHelper;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -179,6 +183,15 @@ public class CreateResumeJobActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_create_resume_job);
         ButterKnife.bind(this);
         createResumeJobActivity = CreateResumeJobActivity.this;
@@ -241,8 +254,10 @@ public class CreateResumeJobActivity extends BaseActivity {
         listResumeJobExp = new ArrayList<>();
         ResumeTitle resumeTitle1 = dbOperator.query_ResumeTitle_info("-1", resumeLanguageString);
         resumeType = resumeTitle1.getResume_type();
-        for (ResumeExperience resumeJobExp : resumeExperience) {
-            listResumeJobExp.add(resumeJobExp);
+        if (resumeExperience!=null) {
+            for (ResumeExperience resumeJobExp : resumeExperience) {
+                listResumeJobExp.add(resumeJobExp);
+            }
         }
         if (listResumeJobExp.size() == 0) {
             ResumeExperience resumeJobExp = new ResumeExperience();
@@ -373,7 +388,7 @@ public class CreateResumeJobActivity extends BaseActivity {
     private void saveData() {
         ResumeExperience resumeExperience = listResumeJobExp.get(groupPosition);
         if (etResumeItemJobComname.getText()
-                .toString().trim().length() == 0) {
+                .toString().length() == 0) {
             Toast.makeText(mContext, "请输入公司名称", Toast.LENGTH_LONG).show();
             return;
         }
@@ -392,12 +407,12 @@ public class CreateResumeJobActivity extends BaseActivity {
             return;
         }
         if (tvResumeItemJobWorkplace.getText()
-                .toString().trim().length() == 0 || tvResumeItemJobWorkplace.getText().toString().trim().equals("请选择地点")) {
+                .toString().length() == 0 || "请选择地点".equals(tvResumeItemJobWorkplace.getText().toString())) {
             Toast.makeText(mContext, "请选择工作地点", Toast.LENGTH_LONG).show();
             return;
         }
         if (etResumeItemJobSalary.getText().toString()
-                .trim().length() == 0) {
+                .length() == 0) {
             Toast.makeText(mContext, "请输入税前月薪", Toast.LENGTH_LONG).show();
             return;
         }
@@ -408,12 +423,12 @@ public class CreateResumeJobActivity extends BaseActivity {
         }
 
         if (etResumeItemJobPost.getText()
-                .toString().trim().length() == 0) {
+                .toString().length() == 0) {
             Toast.makeText(mContext, "请输入所任职位", Toast.LENGTH_LONG).show();
             return;
         }
         if (etResumeItemJobDescribe.getText()
-                .toString().trim().length() == 0) {
+                .toString().length() == 0) {
             Toast.makeText(mContext, "请输入职位描述", Toast.LENGTH_LONG).show();
             return;
         }
@@ -447,11 +462,11 @@ public class CreateResumeJobActivity extends BaseActivity {
         int startMonth = Integer.parseInt(starttimeStrings[1]);
         int endYear = Integer.parseInt(endtimeStrings[0]);
         int endMonth = Integer.parseInt(endtimeStrings[1]);
-        if (endYear < startYear&&!tvResumeItemJobEndtime.getText().toString().equals("至今")) {
+        if (endYear < startYear&&!"至今".equals(tvResumeItemJobEndtime.getText().toString())) {
             Toast.makeText(mContext, mContext.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (endYear == startYear && endMonth < startMonth&&!tvResumeItemJobEndtime.getText().toString().equals("至今")) {
+        if (endYear == startYear && endMonth < startMonth&&!"至今".equals(tvResumeItemJobEndtime.getText().toString())) {
             Toast.makeText(mContext, mContext.getString(R.string.date0), Toast.LENGTH_SHORT).show();
             return;
         }

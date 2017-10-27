@@ -63,39 +63,43 @@ public class PagerActivityFragment extends BaseFragment {
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                json_result = (String) msg.obj;
-                dataList = new ArrayList<>();
-                dialogUtils.dismissDialog();
-                dataList = GetJssonList.getEnterpriseJson(ad_type, json_result);
-                if (dataList != null) {
-                    if (dataList.size() != 0) {
-                        findAdapter.setData(dataList);
-                        lvPagerActivity.setAdapter(findAdapter);
+                if(lvPagerActivity!=null) {
+                    json_result = (String) msg.obj;
+                    dataList = new ArrayList<>();
+                    dialogUtils.dismissDialog();
+                    dataList = GetJssonList.getEnterpriseJson(ad_type, json_result);
+                    if (dataList != null) {
+                        if (dataList.size() != 0) {
+                            findAdapter.setData(dataList);
+                            lvPagerActivity.setAdapter(findAdapter);
+                            findAdapter.setOnItemClick(new OnItemClick() {
+                                @Override
+                                public void ItemClick(View view, int position) {
+                                    industry = dataList.get(position);
+                                    if (industry.getTopic_type() == 1) {// 专题网址
+                                        openBrowser(industry.getTopic_url());
 
-                        findAdapter.setOnItemClick(new OnItemClick() {
-                            @Override
-                            public void ItemClick(View view, int position) {
-                                industry = dataList.get(position);
-                                if (industry.getTopic_type() == 1) {// 专题网址
-                                    openBrowser(industry.getTopic_url());
-
-                                } else if (industry.getTopic_type() == 2) {// 企业详情
-                                    Intent intent = new Intent(mContext,
-                                            CompanyParticularActivity.class);
-                                    intent.putExtra("Enterprise_id", industry.getEnterprise_id());
-                                    startActivity(intent);
+                                    } else if (industry.getTopic_type() == 2) {// 企业详情
+                                        Intent intent = new Intent(mContext,
+                                                CompanyParticularActivity.class);
+                                        intent.putExtra("Enterprise_id", industry.getEnterprise_id());
+                                        startActivity(intent);
+                                    }
+                                    totalAdNum(industry.getA_id());
                                 }
-                                totalAdNum(industry.getA_id());
+                            });
+                            lvPagerActivity.setVisibility(View.VISIBLE);
+                            if (tvActNoData != null) {
+                                tvActNoData.setVisibility(View.GONE);
                             }
-                        });
-                        lvPagerActivity.setVisibility(View.VISIBLE);
-                        tvActNoData.setVisibility(View.GONE);
-                    } else {
-                        lvPagerActivity.setVisibility(View.GONE);
-                        tvActNoData.setVisibility(View.VISIBLE);
+                        } else {
+                            lvPagerActivity.setVisibility(View.GONE);
+                            if (tvActNoData != null) {
+                                tvActNoData.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
                 }
-
             }else{
                 dialogUtils.dismissDialog();
             }

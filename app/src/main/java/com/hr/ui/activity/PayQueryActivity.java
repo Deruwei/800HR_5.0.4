@@ -18,6 +18,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
@@ -33,6 +35,7 @@ import com.hr.ui.view.payquery.Constants;
 import com.hr.ui.view.payquery.NetUtils;
 import com.hr.ui.view.payquery.OperatorSharedPreference;
 import com.hr.ui.view.payquery.TestSD;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -70,6 +73,15 @@ public class PayQueryActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         group = this;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
 //		MyUtils.currentGroup = PayQueryActivity.group;
         setContentView(R.layout.activity_pay_query);
         sharedPreference = new OperatorSharedPreference(this);
@@ -99,16 +111,19 @@ public class PayQueryActivity extends BaseActivity {
         getWindow().setBackgroundDrawable(null);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         // webview从5.0开始默认不允许混合模式,https中不能加载http资源,需要设置开启。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         webView.setWebViewClient(new WebViewClient() {
             // 点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
-
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                return super.shouldInterceptRequest(view, url);
+            public void onReceivedSslError(WebView view, android.webkit.SslErrorHandler handler, android.net.http.SslError error) {
+                if(error.getPrimaryError() == android.net.http.SslError.SSL_INVALID ){// 校验过程遇到了bug
+                    handler.proceed();
+                }else{
+                    handler.cancel();
+                }
             }
 
             @Override
@@ -131,7 +146,6 @@ public class PayQueryActivity extends BaseActivity {
                 enterprise_id = enterpriseid;
                 new AsyncWebview().execute();
             }
-
             /**
              * 获取网络状态
              */
@@ -141,7 +155,6 @@ public class PayQueryActivity extends BaseActivity {
                 }
                 return "1";
             }
-
             /**
              *
              *
@@ -199,8 +212,6 @@ public class PayQueryActivity extends BaseActivity {
                     if (progressdialog.isShowing()) {
                         progressdialog.dismiss();
                     }
-                } else {
-
                 }
             }
 

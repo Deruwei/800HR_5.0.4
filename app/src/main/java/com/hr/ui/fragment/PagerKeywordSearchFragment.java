@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +35,8 @@ import com.hr.ui.config.Constants;
 import com.hr.ui.db.DAO_DBOperator;
 import com.hr.ui.model.Industry;
 import com.hr.ui.model.KeyWorldHistory;
+import com.hr.ui.utils.FullyLinearLayoutManager;
+import com.hr.ui.utils.MyImageVIew;
 import com.hr.ui.utils.MyUtils;
 import com.hr.ui.utils.OnItemClick;
 import com.hr.ui.utils.RefleshDialogUtils;
@@ -96,6 +99,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
     private String json_result;// 网络获取的json数据集合
     private int error_code;// 异常返回值
     private IndustryRecKeywordAdapter industryRecAdapter;
+    private MyImageVIew ivKeyWordAd;
     /**
      * 城市名
      */
@@ -209,7 +213,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
         iv_keyword_voice = (ImageView) view.findViewById(R.id.iv_keyword_voice);
 //        lv_keyword_history = (ListView) view.findViewById(R.id.lv_keyword_history);
         lv_keyword_advertistment = (RecyclerView) view.findViewById(R.id.lv_keyword_advertistment);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        FullyLinearLayoutManager linearLayoutManager=new FullyLinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         lv_keyword_advertistment.setLayoutManager(linearLayoutManager);
         lv_keyword_advertistment.addItemDecoration(new SpacesItemDecoration(1));
@@ -225,6 +229,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
 
         rl_pager_keyword_search = (RelativeLayout) view.findViewById(R.id.rl_pager_keyword_search);
         rl_search_keyword_clear = (RelativeLayout) view.findViewById(R.id.rl_search_keyword_clear);
+        ivKeyWordAd= (MyImageVIew) view.findViewById(R.id.iv_findJobKeyWordAd);
         view_history1=view.findViewById(R.id.view_history1);
         view_history2=view.findViewById(R.id.view_history2);
         iv_keyword_search.setOnClickListener(this);
@@ -239,53 +244,105 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
         switch (industryId) {
             case 11:// 建筑
                 iv_keyword_net.setImageResource(R.mipmap.net11);
+                ivKeyWordAd.setImageResource(R.mipmap.build);
                 break;
             case 12:// 金融
                 iv_keyword_net.setImageResource(R.mipmap.net12);
+                ivKeyWordAd.setImageResource(R.mipmap.finance);
                 break;
             case 14:// 医药
                 iv_keyword_net.setImageResource(R.mipmap.net14);
+                ivKeyWordAd.setImageResource(R.mipmap.medicine);
                 break;
             case 26:// 服装
                 iv_keyword_net.setImageResource(R.mipmap.net26);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 29:// 化工
                 iv_keyword_net.setImageResource(R.mipmap.net29);
+                ivKeyWordAd.setImageResource(R.mipmap.chemical);
                 break;
             case 15:// 教培
                 iv_keyword_net.setImageResource(R.mipmap.net15);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 22:// 机械
                 iv_keyword_net.setImageResource(R.mipmap.net22);
+                ivKeyWordAd.setImageResource(R.mipmap.manufacture);
                 break;
             case 19:// 电子
                 iv_keyword_net.setImageResource(R.mipmap.net19);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 13:// 传媒
                 iv_keyword_net.setImageResource(R.mipmap.net13);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 30:// 旅游
                 iv_keyword_net.setImageResource(R.mipmap.net30);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 40:// 酒店餐饮
                 iv_keyword_net.setImageResource(R.mipmap.net40);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 20:// 电力
                 iv_keyword_net.setImageResource(R.mipmap.net20);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 23:// IT
                 iv_keyword_net.setImageResource(R.mipmap.net23);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 16:// 物流
                 iv_keyword_net.setImageResource(R.mipmap.net16);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
             case 21:// 通信
                 iv_keyword_net.setImageResource(R.mipmap.net21);
+                ivKeyWordAd.setImageResource(R.mipmap.hr);
                 break;
         }
+        ivKeyWordAd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (industryId) {
+                    case 11:// 建筑
+                        openBrowser(Constants.BUILD_URL);
+                        break;
+                    case 12:// 金融
+                        openBrowser(Constants.FINANCE_URL);
+                        break;
+                    case 14:// 医药
+                        openBrowser(Constants.MEDICINE_URL);
+                        break;
+                    case 29:// 化工
+                        openBrowser(Constants.CHEMICAL_URL);
+                        break;
+                    case 22:// 机械
+                        openBrowser(Constants.MANUFACTURE_URL);
+                        break;
+                    default:
+                        openBrowser(Constants.HR_URL);
+                        break;
+                }
+            }
+        });
 
     }
-
+    /**
+     * 打开浏览器
+     * @param url
+     */
+    private void openBrowser(String url) {
+        try {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } catch (Exception e) {
+            System.out.println("url无效");
+        }
+    }
     private void btnVoice() {
         RecognizerDialog dialog = new RecognizerDialog(getActivity(), null);
         dialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
@@ -398,8 +455,10 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
      */
     private void initactivity() {
         // TODO Auto-generated method stub
+        String s=et_keyword_keyword.getText().toString().trim();
+        //去掉包含标点符号
         Bundle bundle = new Bundle();
-        bundle.putString("searchword", et_keyword_keyword.getText().toString().trim());
+        bundle.putString("searchword", s);
         bundle.putString("wordtype", wordtype);
         bundle.putString("areaid", MyUtils.selectCityId);
 //        Toast.makeText(getActivity(), placeId + cityName, Toast.LENGTH_SHORT).show();
@@ -490,7 +549,7 @@ public class PagerKeywordSearchFragment extends BaseFragment implements View.OnC
         keyWorldHistory.setPlace_value(MyUtils.selectCityZh);
         keyWorldHistory.setSearch_value(et_keyword_keyword.getText().toString().trim());
         keyWorldHistory.setWordtype(wordtype);
-        int db_num = db.query_KeyWorldHistory(industryId + "", et_keyword_keyword.getText().toString(), cityName, wordtype);
+        int db_num = db.query_KeyWorldHistory(industryId + "", et_keyword_keyword.getText().toString().replaceAll("[\\p{Punct}\\s]+", ""), cityName, wordtype);
         if (db_num == 0) {
             DB_strid = db.Insert_KeyWorldHistory(keyWorldHistory);
         } else {

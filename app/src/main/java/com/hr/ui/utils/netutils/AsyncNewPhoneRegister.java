@@ -56,8 +56,6 @@ public class AsyncNewPhoneRegister {
                             Message message = new Message();
                             message.what = 0;
                             handler.sendMessage(message);
-                            RecommendJobFragment.recommendJobFragment.toLogin();
-                            MainActivity.instanceMain.refreshBaseInfo();
                             break;
                         case 201:
                             Toast.makeText(context, "请输入正确的验证码", Toast.LENGTH_SHORT).show();

@@ -56,7 +56,9 @@ public class BindSecondFragment extends BaseFragment{
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
                 Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
-                getActivity().finish();
+                if(getActivity()!=null) {
+                    getActivity().finish();
+                }
             } else {
                 Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_SHORT).show();
             }
@@ -129,14 +131,16 @@ public class BindSecondFragment extends BaseFragment{
         String regExp = "^\\+?(86|086)?(-)?(1[3|4|5|8|7]\\d{9})$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(phoneNum.trim());
-        if (phoneNum == null || phoneNum.equals("") || !m.find()) {
-            Toast.makeText(getActivity(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-        } else if (psw == null || psw.equals("")) {
-            Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
-        } else {
-            type=0;
-            AsyncNewLoginPhone asyncLogin = new AsyncNewLoginPhone(getActivity(), handler);
-            asyncLogin.execute(phoneNum, psw, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+        if(getActivity()!=null) {
+            if (phoneNum == null || phoneNum.equals("") || !m.find()) {
+                Toast.makeText(getActivity(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+            } else if (psw == null || psw.equals("")) {
+                Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
+            } else {
+                type = 0;
+                AsyncNewLoginPhone asyncLogin = new AsyncNewLoginPhone(getActivity(), handler);
+                asyncLogin.execute(phoneNum, psw, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+            }
         }
     }
     /**
@@ -145,14 +149,16 @@ public class BindSecondFragment extends BaseFragment{
     private void  saveInfo2() {
         username = etBindloginUsername.getText().toString().trim();
         userpassword = etBindloginUserpwd.getText().toString().trim();
-        if (username == null || username.equals("")) {
-            Toast.makeText(getActivity(), "请输入用户名", Toast.LENGTH_SHORT).show();
-        } else if (userpassword == null || userpassword.equals("")) {
-            Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
-        } else {
-            type=1;
-            AsyncLogin asyncLogin = new AsyncLogin(getActivity(), handler);
-            asyncLogin.execute(username, userpassword, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+        if(getActivity()!=null) {
+            if (username == null || username.equals("")) {
+                Toast.makeText(getActivity(), "请输入用户名", Toast.LENGTH_SHORT).show();
+            } else if (userpassword == null || userpassword.equals("")) {
+                Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
+            } else {
+                type = 1;
+                AsyncLogin asyncLogin = new AsyncLogin(getActivity(), handler);
+                asyncLogin.execute(username, userpassword, sUtils.getIntValue(Constants.INDUSTRY, 11) + "");
+            }
         }
     }
 }

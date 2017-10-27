@@ -166,7 +166,9 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                dialogUtils.dismissDialog();
+                if(dialogUtils!=null) {
+                    dialogUtils.dismissDialog();
+                }
                 final String jsonString = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(jsonString);
@@ -282,7 +284,9 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                     e.printStackTrace();
                 }
             }else{
-                dialogUtils.dismissDialog();
+                if(dialogUtils!=null) {
+                    dialogUtils.dismissDialog();
+                }
             }
         }
     };
@@ -433,7 +437,9 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
         }
         view = inflater.inflate(R.layout.fragment_me, container, false);
         sUtils = new SharedPreferencesUtils(getActivity());
-        dialogUtils=new RefleshDialogUtils(getActivity());
+        if(getActivity()!=null) {
+            dialogUtils = new RefleshDialogUtils(getActivity());
+        }
         initView();
         initUIL();
         refreshData();
@@ -592,11 +598,7 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
                     MainActivity.instanceMain.closeD();
                     break;
                 case R.id.tv_me_city:
-                    Intent intentCity = new Intent(getActivity(), MeFragmentSelectCityActivity.class);
-                    intentCity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intentCity.putExtra("value", "选择地点");
-                    intentCity.putExtra("filter", "place");
-                    startActivity(intentCity);
+
                     break;
             }
         } else {
@@ -713,6 +715,14 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
      */
     private void startScanResume() {
         initIsApp();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(dialogUtils!=null){
+            dialogUtils.dismissDialog();
+        }
     }
 
     /**
@@ -923,39 +933,41 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
      * 简历头像选取
      */
     public void showPhotoDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AlertDialogCustom));
-        builder.setItems(new String[]{"相机", "相册", "取消"},
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        File file = new File(Environment.getExternalStorageDirectory(), MyUtils.IMAGE_TEMP_PATH + "/" + MyUtils.IMAGE_TEMP_NAME);
-                        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-                        Uri imageUri = Uri.fromFile(file);
-                        switch (which) {
-                            case 0:
-                                /**
-                                 * 从相机获取图片并裁剪
-                                 * @param outPutUri 图片裁剪之后保存的路径
-                                 * @param options 裁剪配置
-                                 */
-                                Log.i("======", "/temp/" + System.currentTimeMillis() + ".jpg");
-                                initTakePhoto2();
-                                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
-                                break;
-                            case 1:
-                                /**
-                                 * 从相册中获取图片并裁剪
-                                 * @param outPutUri 图片裁剪之后保存的路径
-                                 * @param options 裁剪配置
-                                 */
-                                initTakePhoto1();
-                                takePhoto.onPickFromGalleryWithCrop(imageUri, getCropOptions());
-                                break;
-                            case 2:
-                                dialog.dismiss();
-                                break;
+        if(getActivity()!=null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AlertDialogCustom));
+            builder.setItems(new String[]{"相机", "相册", "取消"},
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            File file = new File(Environment.getExternalStorageDirectory(), MyUtils.IMAGE_TEMP_PATH + "/" + MyUtils.IMAGE_TEMP_NAME);
+                            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+                            Uri imageUri = Uri.fromFile(file);
+                            switch (which) {
+                                case 0:
+                                    /**
+                                     * 从相机获取图片并裁剪
+                                     * @param outPutUri 图片裁剪之后保存的路径
+                                     * @param options 裁剪配置
+                                     */
+                                    Log.i("======", "/temp/" + System.currentTimeMillis() + ".jpg");
+                                    initTakePhoto2();
+                                    takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
+                                    break;
+                                case 1:
+                                    /**
+                                     * 从相册中获取图片并裁剪
+                                     * @param outPutUri 图片裁剪之后保存的路径
+                                     * @param options 裁剪配置
+                                     */
+                                    initTakePhoto1();
+                                    takePhoto.onPickFromGalleryWithCrop(imageUri, getCropOptions());
+                                    break;
+                                case 2:
+                                    dialog.dismiss();
+                                    break;
+                            }
                         }
-                    }
-                }).create().show();
+                    }).create().show();
+        }
     }
 
     /**
@@ -966,7 +978,9 @@ public class MeFragment extends TakePhotoFragment implements View.OnClickListene
             /*Log.i("=========加载数据", "1");*/
             HashMap<String, String> requestParams = new HashMap<String, String>();
             requestParams.put("method", "user_resume.resumelist");
-            dialogUtils.showDialog();
+            if(dialogUtils!=null) {
+                dialogUtils.showDialog();
+            }
             NetService service = new NetService(getActivity(), handler);
             service.execute(requestParams);
         } catch (Exception e) {

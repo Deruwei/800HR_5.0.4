@@ -3,12 +3,15 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,6 +44,7 @@ import com.hr.ui.view.custom.BeautifulDialog;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.MyCustomDatePicker;
 import com.hr.ui.view.custom.MyProgressDialog;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -112,6 +116,15 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_create_resume_person_info);
         ButterKnife.bind(this);
         sUtils = new SharedPreferencesUtils(mContext);
@@ -511,8 +524,8 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
                 return;
             }
             if (!et_createresume_personinfo_email.getText().toString().contains("@")
-                    || !et_createresume_personinfo_email.getText().toString()
-                    .contains(".com")) {
+                    &&( !et_createresume_personinfo_email.getText().toString()
+                    .contains(".com")||!et_createresume_personinfo_email.getText().toString().contains("yeah.net")) ){
                 Toast.makeText(mContext, "请正确输入电子邮箱", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -549,7 +562,7 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
         String phoneString = et_createresume_personinfo_phonenum.getText().toString();
         String[] phoneStrings = null;
         if (phoneString.length() != 0) {
-            phoneString = phoneString.replaceAll("，", ",");
+//            phoneString = phoneString.replaceAll("，", ",");
             if (phoneString != null) {
                 phoneStrings = phoneString.split(",");
             }
@@ -917,7 +930,9 @@ public class CreateResumePersonInfoActivity extends BaseActivity implements View
 //                    if (dialog != null && dialog.isShowing()) {
 //                        dialog.dismiss();
 //                    }
-                    Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(msg.arg1), Toast.LENGTH_SHORT).show();
+                   /* if(!"".equals(msg.arg1)) {*/
+                        Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(msg.arg1), Toast.LENGTH_SHORT).show();
+
                 }
             }
 

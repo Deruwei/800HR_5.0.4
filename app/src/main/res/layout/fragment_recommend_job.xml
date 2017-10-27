@@ -61,7 +61,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_75px"
+            android:layout_height="@dimen/dimen_60px"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -85,7 +85,7 @@
             <RelativeLayout
                 android:id="@+id/rl_recfragment_function"
                 android:layout_width="match_parent"
-                android:layout_height="47dp">
+                android:layout_height="@dimen/dimen_40px">
 
                 <TextView
                     android:id="@+id/textView24"
@@ -137,7 +137,7 @@
             <RelativeLayout
                 android:id="@+id/rl_recfragment_place"
                 android:layout_width="match_parent"
-                android:layout_height="47dp">
+                android:layout_height="@dimen/dimen_40px">
 
                 <TextView
                     android:id="@+id/textView25"
@@ -182,7 +182,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="20dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -200,7 +200,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="20dp" />
 
         <ImageView
             android:id="@+id/imageView9"
@@ -217,8 +217,8 @@
 
         <RelativeLayout
             android:id="@+id/rl_recfragment_login"
-            android:layout_width="111dp"
-            android:layout_height="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/imageView9"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
@@ -226,25 +226,46 @@
 
             <TextView
                 android:id="@+id/tv_recfragment_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimen_100px"
+                android:layout_height="@dimen/dimen_40px"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:gravity="center"
                 android:text="注册登录"
                 android:textColor="#F7931E"
                 android:textSize="18sp" />
         </RelativeLayout>
+        <com.hr.ui.utils.MyImageVIew
+            android:scaleType="fitXY"
+            android:id="@+id/iv_recommendAdNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="@dimen/dimen_10px"
+    <ScrollView
+        android:id="@+id/sv_recommend"
+        android:scrollbars="none"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_recycleViewData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.hr.ui.utils.MyImageVIew
+            android:id="@+id/iv_recommendAd"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+       <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/iv_recommendAd"
         android:id="@+id/lv_recommendfragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-
+    </RelativeLayout>
+    </ScrollView>
     <RelativeLayout
         android:id="@+id/rl_recfragment_empty"
         android:layout_width="match_parent"

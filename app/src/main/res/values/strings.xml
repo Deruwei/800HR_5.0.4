@@ -24,6 +24,8 @@
     <string name="companyinfo">公司详情</string>
     <string name="string_help_text">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。\n\n最后点击两次后退按钮，即可返回。</string>
     <string name="quit">退出</string>
+
+    <string name="morePersonInfo">更专业的简历，需要更完善的信息！</string>
     <string name="autoCode">验    证    码：</string>
 
     <!-- 侧边栏中的内容 -->
@@ -266,7 +268,7 @@
     <string name="age">年龄</string>
     <string name="date_of_birth">出生日期</string>
     <string name="workyear">工作经验</string>
-    <string name="country">国家/地区</string>
+    <string name="country">国家地区</string>
     <string name="phone_number">手机号码</string>
     <string name="now_place">现居住地</string>
     <string name="account_place">户口所在地</string>
@@ -277,12 +279,13 @@
     <string name="Current_Professional_Titles">现有职称</string>
     <string name="type_of_pagers">证件类型</string>
     <string name="nummber_of_pagers">证件号码</string>
+    <string name="testLevel">等级考试</string>
     <string name="marriage_info">婚姻状况</string>
     <string name="polity">政治面貌</string>
-    <string name="height">身高</string>
+    <string name="height">身高（CM）</string>
     <string name="blood_type">血型</string>
     <string name="fixed_phone">固话</string>
-    <string name="message_type">即时通讯类型</string>
+    <string name="message_type">即时通讯工具</string>
     <string name="message_nummber">即时通讯号码</string>
     <string name="message_address">地址</string>
     <string name="message_homepage">个人主页</string>
@@ -504,6 +507,7 @@
     <string name="delete_success">删除成功</string>
     <string name="delete_faile">删除失败</string>
     <string name="save">保存</string>
+    <string name="addTestLevel"><u>添加等级考试+</u></string>
     <string name="edit">修改</string>
     <string name="send">发送</string>
     <string name="send_success">发送成功</string>
@@ -530,7 +534,7 @@
     <string name="username_null">请输入用户名</string>
     <string name="password_null">请输入密码</string>
     <string name="login_success">登录成功</string>
-    <string name="login_false">登录失败</string>
+    <string name="login_false">登录已超时，请手动登录</string>
     <string name="email_error">邮箱地址格式错误</string>
     <string name="username_error">用户名不能包含特殊字符</string>
     <string name="username_nochina">用户名不能是中文</string>

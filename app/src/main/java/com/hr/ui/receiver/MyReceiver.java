@@ -66,14 +66,14 @@ public class MyReceiver extends BroadcastReceiver {
             //System.out.println("收到推送消息:" + extraData);
             json(extraData);
             Intent aIntent = new Intent();
-            if (alert_type.equals("1")) {
+            if ("1".equals(alert_type)) {
                 aIntent.setClass(context, PostParticularsActivity.class);// 职位详细页
                 aIntent.putExtra("industry", industry);
                 aIntent.putExtra("isFromPush", true);
                 aIntent.putExtra("jobIdFromPush", job_id);
                 aIntent.putExtra("ente_id", ente_id);
 
-            } else if (alert_type.equals("2")) {
+            } else if ("2".equals(alert_type)) {
                 aIntent.putExtra("id", id);
                 aIntent.putExtra("uid", uid);
                 aIntent.putExtra("isFromPush", true);

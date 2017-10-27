@@ -41,13 +41,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/800hrDebug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/800hrDebug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/800hrDebug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/800hr/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/800hr/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/800hr/debug" isTestSource="true" generated="true" />
@@ -55,6 +48,13 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/800hr/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/800hr/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/800hr/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test800hrDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/800hr/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/800hr/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/800hr/assets" type="java-resource" />
@@ -119,14 +119,12 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/proguard-rules" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shaders" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
@@ -156,12 +154,12 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="glide-3.6.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.0.0" level="project" />
-    <orderEntry type="library" exported="" name="nbs.newlens.agent-2.5.9" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="asmack" level="project" />
     <orderEntry type="library" exported="" name="constraint-layout-solver-1.0.2" level="project" />
     <orderEntry type="library" exported="" name="takephoto_library-4.0.2" level="project" />
     <orderEntry type="library" exported="" name="multipleimageselect-1.0.4" level="project" />
+    <orderEntry type="library" exported="" name="nbs.newlens.agent-2.7.0" level="project" />
     <orderEntry type="library" exported="" name="rxjava-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="rxandroid-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.0.0" level="project" />

@@ -231,9 +231,9 @@ public class FindPhonePWDFragment extends BaseFragment {
 //        popwindowIsAPPResume.setAnimationStyle(R.style.popwindow);
 //        popwindowIsAPPResume.showAtLocation(viewPopIsApp, Gravity.CENTER, 0, 0);
         viewPopIsApp = LayoutInflater.from(getActivity()).inflate(R.layout.item_autocode, null);
-        WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
+        /*WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         int width = manager.getDefaultDisplay().getWidth();
-        int height = manager.getDefaultDisplay().getHeight();
+        int height = manager.getDefaultDisplay().getHeight();*/
         popwindowIsAPPResume = new PopupWindow(getActivity());
         popwindowIsAPPResume.setContentView(viewPopIsApp);
         popwindowIsAPPResume.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);

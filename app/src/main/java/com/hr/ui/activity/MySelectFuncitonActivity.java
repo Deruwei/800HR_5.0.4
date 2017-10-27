@@ -2,6 +2,7 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -30,6 +32,7 @@ import com.hr.ui.fragment.RecommendJobFragment;
 import com.hr.ui.utils.GetJssonList;
 import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.view.MyFlowLayout;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 
@@ -126,9 +129,11 @@ public class MySelectFuncitonActivity extends BaseActivity {
                                         functionBeenList3.add(functionBeenList2.get(i));
                                     }
                                 }
-                                Message message = Message.obtain();
-                                message.what = 2;
-                                handler.sendMessage(message);
+                                if (selectFunctionBeenList != null){
+                                    Message message = Message.obtain();
+                                    message.what = 2;
+                                    handler.sendMessage(message);
+                                }
                             }
                         }
                     });
@@ -398,6 +403,15 @@ public class MySelectFuncitonActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_select_function_bg);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
@@ -575,16 +589,25 @@ public class MySelectFuncitonActivity extends BaseActivity {
                 break;
             case R.id.tv_selectfunction_save:
                 if(fitter.equals("recommend")) {
-                    RecommendJobFragment.setFunctionSelectMap(selectFunctionBeenList);
+                    if(selectFunctionBeenList!=null) {
+                        RecommendJobFragment.setFunctionSelectMap(selectFunctionBeenList);
+                    }
                 }else if(fitter.equals("post")){
-                    PagerPostSearchFragment.setFunctionSelectMap(selectFunctionBeenList);
-
+                    if(selectFunctionBeenList!=null) {
+                        PagerPostSearchFragment.setFunctionSelectMap(selectFunctionBeenList);
+                    }
                 }else if(fitter.equals("creatjoborder")){
-                    CreateResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
+                    if(selectFunctionBeenList!=null) {
+                        CreateResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
+                    }
                 }else if(fitter.equals("resumeJobOrder")){
-                    ResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
+                    if(selectFunctionBeenList!=null) {
+                        ResumeJobOrderActivity.getInstance().setFunctionSelected(selectFunctionBeenList);
+                    }
                 }else if(fitter.equals("subscription")){
-                    SubscriptionActivity.subscriptionActivity.setFunctionSelected(selectFunctionBeenList);
+                    if(selectFunctionBeenList!=null) {
+                        SubscriptionActivity.subscriptionActivity.setFunctionSelected(selectFunctionBeenList);
+                    }
                 }
                 if(selectFunctionBeenList.size()==0) {
                     Toast.makeText(this,"请选择职能",Toast.LENGTH_SHORT).show();

@@ -629,7 +629,6 @@
     </string-array>
     <!-- 国家 -->
     <string-array name="array_nationality_zh">
-        <item></item>
         <item>中国</item>
         <item>中国香港</item>
         <item>中国澳门</item>
@@ -699,7 +698,6 @@
       -->
     </string-array>
     <string-array name="array_nationality_en">
-        <item></item>
         <item>China</item>
         <item>HongKong(China)</item>
         <item>Macao(China)</item>
@@ -761,7 +759,6 @@
         <item>Other</item>
     </string-array>
     <string-array name="array_nationality_ids">
-        <item>0</item>
         <item>11</item>
         <item>12</item>
         <item>13</item>
@@ -856,7 +853,6 @@
     </string-array>
     <!-- 证件类型 -->
     <string-array name="array_cartype_zh">
-        <item>请选择</item>
         <item>身份证</item>
         <item>护照</item>
         <item>军人证</item>
@@ -867,7 +863,6 @@
         <item>其他</item>
     </string-array>
     <string-array name="array_cartype_en">
-        <item>Please Select</item>
         <item>Identification Card</item>
         <item>Passport</item>
         <item>Military Card</item>
@@ -878,7 +873,6 @@
         <item>Other</item>
     </string-array>
     <string-array name="array_cartype_ids">
-        <item>0</item>
         <item>11</item>
         <item>12</item>
         <item>13</item>
@@ -1017,5 +1011,80 @@
         <item>10502</item>
         <item>10503</item>
     </string-array>
-
+    <string-array name="array_languageTestLevel_zh">
+        <item>大学英语考试四级</item>
+        <item>大学英语考试六级</item>
+        <item>英语专业四级</item>
+        <item>英语专业八级</item>
+        <item>托业</item>
+        <item>TOEFL</item>
+        <item>GRE</item>
+        <item>GMAT</item>
+        <item>IELTS</item>
+        <item>商务英语</item>
+        <item>日语一级</item>
+        <item>日语二级</item>
+        <item>日语三级</item>
+        <item>日语四级</item>
+        <item>大学德语四级考试</item>
+        <item>大学德语六级考试</item>
+        <item>全国德语水平考试</item>
+        <item>大学俄语四级考试</item>
+        <item>大学俄语六级考试</item>
+        <item>大学法语四级考试</item>
+        <item>法语专业四级</item>
+        <item>全国法语等级考试</item>
+        <item>西班牙语专业四级</item>
+        <item>西班牙语专业八级</item>
+        <item>韩语一级</item>
+        <item>韩语二级</item>
+        <item>韩语三级</item>
+        <item>韩语四级</item>
+        <item>韩语五级</item>
+        <item>韩语六级</item>
+        <item>一级甲等</item>
+        <item>一级乙等</item>
+        <item>二级甲等</item>
+        <item>二级乙等</item>
+        <item>三级甲等</item>
+        <item>三级乙等</item>
+    </string-array>
+    <string-array name="array_languageTestLevel_ids">
+        <item>1102</item>
+        <item>1103</item>
+        <item>1104</item>
+        <item>1105</item>
+        <item>1106</item>
+        <item>1107</item>
+        <item>1108</item>
+        <item>1109</item>
+        <item>1110</item>
+        <item>1111</item>
+        <item>1201</item>
+        <item>1202</item>
+        <item>1203</item>
+        <item>1204</item>
+        <item>1301</item>
+        <item>1302</item>
+        <item>1303</item>
+        <item>1401</item>
+        <item>1402</item>
+        <item>1501</item>
+        <item>1502</item>
+        <item>1503</item>
+        <item>1601</item>
+        <item>1602</item>
+        <item>1701</item>
+        <item>1702</item>
+        <item>1703</item>
+        <item>1704</item>
+        <item>1705</item>
+        <item>1706</item>
+        <item>2201</item>
+        <item>2202</item>
+        <item>2203</item>
+        <item>2204</item>
+        <item>2205</item>
+        <item>2206</item>
+    </string-array>
 </resources>

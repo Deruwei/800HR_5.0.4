@@ -35,6 +35,16 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
         <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_selectCity_dingWei"
+            android:layout_marginRight="@dimen/dimen_5px"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_selectCity_name"
+            android:padding="@dimen/dimen_5px"
+            android:src="@mipmap/findaddess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
             android:id="@+id/iv_selectCity_name"
             android:layout_marginRight="@dimen/dimen_5px"
             android:layout_centerVertical="true"

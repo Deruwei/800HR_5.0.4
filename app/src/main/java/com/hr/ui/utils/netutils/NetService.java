@@ -63,7 +63,7 @@ public class NetService {
             switch (msg.what) {
                 case 0:// 重连结果
                     String jsonString = (String) msg.obj;
-                    Log.i("第一次",jsonString);
+                    //Log.i("第一次",jsonString);
                     try {
                         JSONObject jsonObject = new JSONObject(jsonString);
                         int error_code = jsonObject.getInt("error_code");
@@ -171,7 +171,7 @@ public class NetService {
              * 发布版本的真实地址 SERVER_URL，把NetService类中的TEST_SERVER_URL改为SERVER_URL
              */
             NetRequest<String> request = new NetRequest<String>(Method.POST,
-                    Constants.SERVER_URL, new Listener<String>() {
+                    Constants.TEST_SERVER_URL, new Listener<String>() {
                 @Override
                 public void onResponse(String arg0) {
                     // listRequestQueues.remove(mQueue);
@@ -205,6 +205,7 @@ public class NetService {
                     try {
                         reconnecting = false;
                         message.obj = arg0;
+                        Log.i("数据",arg0.toString());
                         message.what = 0;
                         handler.sendMessage(message);
                     } catch (Exception e) {

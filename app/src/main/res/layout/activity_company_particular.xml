@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.hr.ui.activity.CompanyParticularActivity">
 
     <RelativeLayout
@@ -155,6 +156,7 @@
                     android:layout_toRightOf="@+id/textView31"
                     android:text="地址"
                     android:gravity="left"
+                    android:layout_marginBottom="@dimen/dimen_10px"
                     android:textColor="#666666"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>

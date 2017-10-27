@@ -2,9 +2,11 @@ package com.hr.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -82,6 +85,15 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_create_resume_job_order);
         initView();
@@ -549,7 +561,7 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                     }
                 }
             }
-            if (tv_resume_personinfo_place.getText().toString().length() == 0 || tv_resume_personinfo_place.getText().equals("请选择地点")) {
+            if (tv_resume_personinfo_place.getText().toString().length() == 0 || ("请选择地点").equals(tv_resume_personinfo_place.getText().toString())) {
                 Toast.makeText(this, "请选择工作地点", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -558,8 +570,8 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                 Toast.makeText(this, "请输入期望薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (et_resume_personinfo_salay.getText().toString()
-                    .trim().substring(0, 1).equals("0")) {
+            if (("0").equals(et_resume_personinfo_salay.getText().toString()
+                    .substring(0, 1))) {
                 Toast.makeText(this, "请输入大于0的薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -647,8 +659,9 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                         if (resumeTitle != null) {
                             resumeTitle.setIsUpdate(1);
                             boolean isReWriteTitle = dbOperator.update_ResumeList(resumeTitle);
+
                 }
-                Toast.makeText(this, "保存成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, CreateResumeEduActivity.class);
                 if (resumeIdString != null) {
                     intent.putExtra("resumeId", resumeIdString);
@@ -658,7 +671,7 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, "保存失败", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show();
             }
         } else {// 修改
             boolean updateOrderResult = dbOperator
@@ -670,7 +683,7 @@ public class CreateResumeJobOrderActivity extends BaseActivity implements View.O
             if (updateOrderResult && updateBaseinfoResult) {
                 ResumeIsUpdateOperator.setResumeTitleIsUpdate(this, dbOperator,
                         resumeIdString, resumeLanguageString);
-                Toast.makeText(this, "修改成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, CreateResumeEduActivity.class);
                 if (resumeIdString != null) {
                     intent.putExtra("resumeId", resumeIdString);

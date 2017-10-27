@@ -82,12 +82,14 @@ public class PagerRecruitmentFragment extends BaseFragment {
                 dataList = GetJssonList.getSpecialJson(ad_type, json_result);
                 if (dataList != null) {
                     if (dataList.size() != 0) {
-                        lvPagerRecruitment.setVisibility(View.VISIBLE);
-                        tvComNoData.setVisibility(View.GONE);
+                        if(tvComNoData!=null) {
+                            tvComNoData.setVisibility(View.GONE);
+                        }
                         findAdapter.setData(dataList);
                         lvPagerRecruitment.setAdapter(findAdapter);
-                        tvComNoData.setVisibility(View.GONE);
-                        lvPagerRecruitment.setVisibility(View.VISIBLE);
+                        if(lvPagerRecruitment!=null) {
+                            lvPagerRecruitment.setVisibility(View.VISIBLE);
+                        }
                         findAdapter.setOnItemClick(new OnItemClick() {
                             @Override
                             public void ItemClick(View view, int position) {
@@ -105,8 +107,12 @@ public class PagerRecruitmentFragment extends BaseFragment {
                         });
 
                     } else {
-                        tvComNoData.setVisibility(View.VISIBLE);
-                        lvPagerRecruitment.setVisibility(View.GONE);
+                        if(tvComNoData!=null) {
+                            tvComNoData.setVisibility(View.VISIBLE);
+                        }
+                        if(lvPagerRecruitment!=null) {
+                            lvPagerRecruitment.setVisibility(View.GONE);
+                        }
                     }
                 }
 

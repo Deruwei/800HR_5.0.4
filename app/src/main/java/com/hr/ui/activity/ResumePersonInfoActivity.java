@@ -3,11 +3,14 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.audiofx.Equalizer;
+import android.os.Build;
 import android.os.Bundle;
 import android.service.carrier.CarrierService;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +29,7 @@ import com.hr.ui.model.ResumeBaseInfo;
 import com.hr.ui.utils.DatePickerUtil;
 import com.hr.ui.utils.GetResumeArrayList;
 import com.hr.ui.utils.MyUtils;
+import com.hr.ui.utils.VerityUtils;
 import com.hr.ui.utils.datautils.DataPickerDialog;
 import com.hr.ui.utils.datautils.ResumeInfoIDToString;
 import com.hr.ui.utils.datautils.ResumeIsUpdateOperator;
@@ -35,16 +39,23 @@ import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
 import com.hr.ui.view.custom.MyCustomDatePicker;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.hr.ui.R.id.tv_main_recommendjob;
+import static com.hr.ui.R.id.tv_resume_personinfo_Hukou;
+import static com.hr.ui.R.id.tv_resume_personinfo_blood;
 
 /**
  * 个人信息修改页面
@@ -60,38 +71,64 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     private SharedPreferencesUtils sUtils;
     private static int RequestCode=1005;
     private String address;
-    private CustomDatePicker datePickerBeginJob,datePickerFunc;
+    private CustomDatePicker datePickerBeginJob,datePickerFunc,datePickerHuKou,datePickerMarry,datePickerCountry,datePickerPolity,datePickerBlood,datePickerCertificateNumberType;
     private MyCustomDatePicker datePickerBirth;
     private int sexId=1;
     private TextView tv_man,tv_woman;
+    public static String selectHukouId,selectHuKouName;
+
     /**
      * 控件
      */
 //    rl_resume_personinfo_nation
     private RelativeLayout rl_resume_personinfo_save,  rl_resume_personinfo_jobbegintime, rl_resume_personinfo_func;
+    private RelativeLayout rl_resumePersonInfo_height,rl_resumePersonInfo_huKou,rl_resumePersonInfo_marry,rl_resumePersonInfo_country,rl_resumePersonInfo_polity,rl_resumePersonInfo_blood,rl_resumePersonInfo_certificateNumber,rl_resumePersonInfo_address,rl_resumePersonInfo_myHomePage;
+    private LinearLayout ll_resumePersonInfo_choose,ll_resumePersonInfo_chooseContent;
+    private EditText et_resumePersonInfo_height,et_resumePersonInfo_certificateNumber,et_resumePersonInfo_address,et_resumePersonInfo_myHomePage;
+    private TextView tv_resumePersonInfo_height,tv_resumePersonInfo_marry,tv_resumePersonInfo_country,tv_resumePersonInfo_polity,tv_resumePersonInfo_blood,tv_resumePersonInfo_certificateNumberType;
     private EditText et_resume_personinfo_name, et_resume_personinfo_email;
     private LinearLayout rb_resume_personinfo_man, rb_resume_personinfo_woman;
     private TextView tv_resume_personinfo_birthday, tv_phone_confirm;
-    private static TextView tv_resume_personinfo_home, et_resume_personinfo_phonenum, tv_image_phone, tv_image_phone2;
+    private static TextView tv_resume_personinfo_home, et_resume_personinfo_phonenum, tv_image_phone, tv_image_phone2,tv_resumePersonInfo_huKou;
     private TextView  sp_resume_personinfo_jobbegintime, sp_resume_personinfo_func;
     private ImageView iv_resume_personinfo_back;
 //    sp_resume_personinfo_nation,
 //    private LinearLayout lr_resumepersoninfo;
     private List<SelectBean> selectBeginJobList=new ArrayList<>();
     private List<SelectBean> selectFuncList=new ArrayList<>();
+    private List<SelectBean> selectMarryList=new ArrayList<>();
+    private List<SelectBean> selectCountryList=new ArrayList<>();
+    private List<SelectBean> selectPolityList=new ArrayList<>();
+    private List<SelectBean> selectBloodList=new ArrayList<>();
+    private List<SelectBean> selectCertificateNumberType=new ArrayList<>();
     private static String placeIdNowPlace;
-    private String selectBenginId,selectFuncId;
+    private String selectBenginId,selectFuncId,selectMarryId,selectCountryId,selectPolityId,selectBloodId,selectCertificateNumberTypeId;
+    private boolean isOpenOtherContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_resume_person_info);
         sUtils = new SharedPreferencesUtils(mContext);
         initView();
         initData();
         initDialog();
     }
-
+    public static void setHuKouId(String huKouId){
+        selectHukouId=huKouId;
+    }
+    public static void setHuKouName(String huKouName){
+        tv_resumePersonInfo_huKou.setText(huKouName);
+    }
     private void initData() {
         dbOperator = new DAO_DBOperator(mContext);
         resumeIdString = getIntent().getStringExtra("resumeId");
@@ -145,6 +182,86 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 tv_resume_personinfo_birthday.setText(time);
             }
         });
+       datePickerMarry=new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+           @Override
+           public void handle(String time) {
+               if("".equals(time)||time==null){
+                   tv_resumePersonInfo_marry.setText("请选择");
+               }else {
+                   tv_resumePersonInfo_marry.setText(time);
+                   for(int i=0;i<selectMarryList.size();i++) {
+                       if(time.equals(selectMarryList.get(i).getName())){
+                           selectMarryId=selectMarryList.get(i).getId();
+                           break;
+                       }
+                   }
+               }
+           }
+       },getResources().getStringArray(R.array.array_marriage_zh));
+        datePickerCountry=new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    tv_resumePersonInfo_country.setText("请选择");
+                }else {
+                    tv_resumePersonInfo_country.setText(time);
+                    for(int i=0;i<selectCountryList.size();i++) {
+                        if(time.equals(selectCountryList.get(i).getName())){
+                            selectCountryId=selectCountryList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        },getResources().getStringArray(R.array.array_nationality_zh));
+        datePickerPolity=new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    tv_resumePersonInfo_polity.setText("请选择");
+                }else {
+                    tv_resumePersonInfo_polity.setText(time);
+                    for(int i=0;i<selectPolityList.size();i++) {
+                        if(time.equals(selectPolityList.get(i).getName())){
+                            selectPolityId=selectPolityList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        },getResources().getStringArray(R.array.array_polity_zh));
+        datePickerBlood=new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    tv_resumePersonInfo_blood.setText("请选择");
+                }else {
+                    tv_resumePersonInfo_blood.setText(time);
+                    for(int i=0;i<selectBloodList.size();i++) {
+                        if(time.equals(selectBloodList.get(i).getName())){
+                            selectBloodId=selectBloodList.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        },getResources().getStringArray(R.array.array_blood));
+        datePickerCertificateNumberType=new CustomDatePicker(ResumePersonInfoActivity.this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                if("".equals(time)||time==null){
+                    tv_resumePersonInfo_certificateNumberType.setText("请选择");
+                }else {
+                    tv_resumePersonInfo_certificateNumberType.setText(time);
+                    for(int i=0;i<selectCertificateNumberType.size();i++) {
+                        if(time.equals(selectCertificateNumberType.get(i).getName())){
+                            selectCertificateNumberTypeId=selectCertificateNumberType.get(i).getId();
+                            break;
+                        }
+                    }
+                }
+            }
+        },getResources().getStringArray(R.array.array_cartype_zh));
     }
 
 
@@ -210,6 +327,66 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
             }
 
         }
+        if(resumeBaseInfo.getHeight()!=null){
+            et_resumePersonInfo_height.setText(resumeBaseInfo.getHeight());
+        }
+        if(resumeBaseInfo.getHukou()!=null){
+            selectHukouId=resumeBaseInfo.getHukou();
+        }
+        if(resumeBaseInfo.getMarriage()!=null){
+            selectMarryId=resumeBaseInfo.getMarriage();
+            for(int i=0;i<selectMarryList.size();i++){
+                if(selectMarryId.equals(selectMarryList.get(i).getId())){
+                    tv_resumePersonInfo_marry.setText(selectMarryList.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if(resumeBaseInfo.getNationality()!=null){
+            selectCountryId=resumeBaseInfo.getNationality();
+            for(int i=0;i<selectCountryList.size();i++){
+                if(selectCountryId.equals(selectCountryList.get(i).getId())){
+                    tv_resumePersonInfo_country.setText(selectCountryList.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if(resumeBaseInfo.getPolity()!=null){
+            selectPolityId=resumeBaseInfo.getPolity();
+            for(int i=0;i<selectPolityList.size();i++){
+                if(selectPolityId.equals(selectPolityList.get(i).getId())){
+                    tv_resumePersonInfo_polity.setText(selectPolityList.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if(resumeBaseInfo.getBlood()!=null){
+            selectBloodId=resumeBaseInfo.getBlood();
+            for(int i=0;i<selectBloodList.size();i++){
+                if(selectBloodId.equals(selectBloodList.get(i).getId())){
+                    tv_resumePersonInfo_blood.setText(selectBloodList.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if(resumeBaseInfo.getCardtype()!=null){
+            selectCertificateNumberTypeId=resumeBaseInfo.getCardtype();
+            for(int i=0;i<selectCertificateNumberType.size();i++){
+                if(selectCertificateNumberTypeId.equals(selectCertificateNumberType.get(i).getId())){
+                    tv_resumePersonInfo_certificateNumberType.setText(selectCertificateNumberType.get(i).getName());
+                    break;
+                }
+            }
+        }
+        if(resumeBaseInfo.getIdnumber()!= null){
+            et_resumePersonInfo_certificateNumber.setText(resumeBaseInfo.getIdnumber());
+        }
+        if(resumeBaseInfo.getAddress()!=null){
+            et_resumePersonInfo_address.setText(resumeBaseInfo.getAddress());
+        }
+        if(resumeBaseInfo.homepage!=null){
+            et_resumePersonInfo_myHomePage.setText(resumeBaseInfo.homepage);
+        }
         //电话
 //        if (resumeBaseInfo.getYdphone().length() > 11) {
 //            et_resume_personinfo_phonenum.setText(resumeBaseInfo.getYdphone().substring(0, 10) + "...");
@@ -253,6 +430,20 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                     }
                 }
             }
+            for (int i = 0; i < cityJSONArray.length(); i++) {
+                JSONObject object = cityJSONArray.getJSONObject(i);
+                if (object.has(hukouId)) {
+                    selectHukouId=hukouId;
+                    tv_resumePersonInfo_huKou.setText(object.getString(hukouId));
+                    break;
+                } else {
+                    if (isCHS) {
+                        tv_resumePersonInfo_huKou.setText("请选择");
+                    } else {
+                        tv_resumePersonInfo_huKou.setText("Please Select");
+                    }
+                }
+            }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -262,6 +453,11 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
     private void initView() {
         selectBeginJobList= GetResumeArrayList.getBeginJobListFromArray(this);
         selectFuncList=GetResumeArrayList.getFuncListFromArray(this);
+        selectMarryList=GetResumeArrayList.getMarryListFromArray(this);
+        selectCountryList=GetResumeArrayList.getCountryListFromArray(this);
+        selectPolityList=GetResumeArrayList.getPolityListFromArray(this);
+        selectBloodList=GetResumeArrayList.getBloodListFromArray(this);
+        selectCertificateNumberType=GetResumeArrayList.getCertificateNumberTypeListFromArray(this);
 //        lr_resumepersoninfo = (LinearLayout) findViewById(R.id.lr_resumepersoninfo);
         et_resume_personinfo_name = (EditText) findViewById(R.id.et_resume_personinfo_name);
         rb_resume_personinfo_man = (LinearLayout) findViewById(R.id.ll_resume_personinfo_man);
@@ -298,6 +494,35 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         rl_resume_personinfo_jobbegintime.setOnClickListener(this);
 //        rl_resume_personinfo_nation.setOnClickListener(this);
         tv_phone_confirm.setOnClickListener(this);
+        //选填项
+        tv_resumePersonInfo_huKou= (TextView) findViewById(R.id.tv_resume_personinfo_Hukou);
+        tv_resumePersonInfo_marry= (TextView) findViewById(R.id.tv_resume_personinfo_marry);
+        tv_resumePersonInfo_country= (TextView) findViewById(R.id.tv_resume_personinfo_Country);
+        tv_resumePersonInfo_polity= (TextView) findViewById(R.id.tv_resume_personinfo_polity);
+        tv_resumePersonInfo_blood= (TextView) findViewById(tv_resume_personinfo_blood);
+        tv_resumePersonInfo_certificateNumberType= (TextView) findViewById(R.id.tv_resume_personinfo_certificateNumberType);
+        et_resumePersonInfo_height= (EditText) findViewById(R.id.et_resume_personinfo_height);
+        et_resumePersonInfo_certificateNumber= (EditText) findViewById(R.id.et_resume_personinfo_certificateNumber);
+        et_resumePersonInfo_address= (EditText) findViewById(R.id.et_resume_personinfo_address);
+        et_resumePersonInfo_myHomePage= (EditText) findViewById(R.id.et_resume_personinfo_myHomePage);
+        rl_resumePersonInfo_height= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_height);
+        rl_resumePersonInfo_huKou= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_huKou);
+        rl_resumePersonInfo_marry= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_marry);
+        rl_resumePersonInfo_country= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_country);
+        rl_resumePersonInfo_polity= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_polity);
+        rl_resumePersonInfo_blood= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_blood);
+        rl_resumePersonInfo_certificateNumber= (RelativeLayout) findViewById(R.id.rl_resumePersonInfo_certificateNumberType);
+        ll_resumePersonInfo_choose= (LinearLayout) findViewById(R.id.ll_resumePersonInfo_choose);
+        ll_resumePersonInfo_chooseContent= (LinearLayout) findViewById(R.id.ll_resumePersonInfo_choooseContent);
+        ll_resumePersonInfo_choose.setOnClickListener(this);
+        rl_resumePersonInfo_huKou.setOnClickListener(this);
+        rl_resumePersonInfo_marry.setOnClickListener(this);
+        rl_resumePersonInfo_country.setOnClickListener(this);
+        rl_resumePersonInfo_polity.setOnClickListener(this);
+        rl_resumePersonInfo_blood.setOnClickListener(this);
+        rl_resumePersonInfo_certificateNumber.setOnClickListener(this);
+
+
     }
 
     private static String placeName;
@@ -387,6 +612,37 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 rb_resume_personinfo_man.setBackgroundResource(R.drawable.bg_sex_gray_left);
                 rb_resume_personinfo_woman.setBackgroundResource(R.drawable.bg_sex_orange_right);
                 break;
+            case R.id.ll_resumePersonInfo_choose:
+                if(isOpenOtherContent==false) {
+                    ll_resumePersonInfo_chooseContent.setVisibility(View.VISIBLE);
+                }else{
+                    ll_resumePersonInfo_chooseContent.setVisibility(View.GONE);
+                }
+                isOpenOtherContent=!isOpenOtherContent;
+                break;
+            case R.id.rl_resumePersonInfo_huKou:
+                Intent intent1 = new Intent(mContext, SelectCityActicity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent1.putExtra("from", "resumePersonInfo");
+                intent1.putExtra("type", "3");
+                startActivity(intent1);
+                break;
+            case R.id.rl_resumePersonInfo_marry:
+                datePickerMarry.show(tv_resumePersonInfo_marry.getText().toString());
+                break;
+            case R.id.rl_resumePersonInfo_country:
+                datePickerCountry.show(tv_resumePersonInfo_country.getText().toString());
+                break;
+            case R.id.rl_resumePersonInfo_polity:
+                datePickerPolity.show(tv_resumePersonInfo_polity.getText().toString());
+                break;
+            case R.id.rl_resumePersonInfo_blood:
+                datePickerBlood.show(tv_resumePersonInfo_blood.getText().toString());
+                break;
+            case R.id.rl_resumePersonInfo_certificateNumberType:
+                datePickerCertificateNumberType.show(tv_resumePersonInfo_certificateNumberType.getText().toString());
+                break;
+
         }
     }
 
@@ -411,7 +667,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            Log.i("性别的名称：",sexId+"");
+            //Log.i("性别的名称：",sexId+"");
             if (sexId!=1&&sexId!=2) {
                 Toast.makeText(mContext, "请选择性别", Toast.LENGTH_SHORT).show();
                 return;
@@ -420,7 +676,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 Toast.makeText(mContext, "请选择出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(MyUtils.currentCityZh!=null&&"".equals(MyUtils.currentCityZh)) {
+            if(MyUtils.currentCityZh!=null&&!"".equals(MyUtils.currentCityZh)) {
                 if (placeName.equals(MyUtils.currentCityZh)) {
                     placeIdNowPlace = ResumeInfoIDToString.getCityID(this, placeName, true);
                 }
@@ -500,6 +756,44 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
                 return;
             }
         }
+        if(et_resumePersonInfo_height.getText().toString()!=null&&!"请填写".equals(et_resumePersonInfo_height.getText().toString())){
+            if(Integer.parseInt(et_resumePersonInfo_height.getText().toString())<0||Integer.parseInt(et_resumePersonInfo_height.getText().toString())>300){
+                Toast.makeText(mContext,"请输入正确的身高范围",Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                resumeBaseInfo.setHeight(et_resumePersonInfo_height.getText().toString());
+            }
+        }
+        if(selectHukouId!=null&&!"".equals(selectHukouId)){
+            resumeBaseInfo.setHukou(selectHukouId);
+        }
+        if(selectMarryId!=null&&!"".equals(selectMarryId)){
+            resumeBaseInfo.setMarriage(selectMarryId);
+        }
+        if(selectCountryId!=null&&!"".equals(selectCountryId)){
+            resumeBaseInfo.setNationality(selectCountryId);
+        }
+        //Log.i("tuanyuan",selectPolityId);
+        if(selectPolityId!=null&&!"".equals(selectPolityId)){
+            resumeBaseInfo.setPolity(selectPolityId);
+        }
+        if(selectBloodId!=null&&!"".equals(selectBloodId)){
+            resumeBaseInfo.setBlood(selectBloodId);
+        }
+        if(selectCertificateNumberTypeId!=null&&!"".equals(selectCertificateNumberTypeId)){
+            if(et_resumePersonInfo_certificateNumber.getText().toString()!=null&&!"请填写号码".equals(et_resumePersonInfo_certificateNumber.getText().toString())){
+                resumeBaseInfo.setCardtype(selectCertificateNumberTypeId);
+                resumeBaseInfo.setIdnumber(et_resumePersonInfo_certificateNumber.getText().toString());
+
+            }
+
+        }
+        if(et_resumePersonInfo_address.getText().toString()!=null&&!"请填写".equals(et_resumePersonInfo_address.getText().toString())){
+            resumeBaseInfo.setAddress(et_resumePersonInfo_address.getText().toString());
+        }
+        if(et_resumePersonInfo_myHomePage.getText().toString()!=null&&!"请填写".equals(et_resumePersonInfo_myHomePage.getText().toString())){
+            resumeBaseInfo.setHomepage(et_resumePersonInfo_myHomePage.getText().toString());
+        }
         resumeBaseInfo.setUser_id(MyUtils.userID);
         resumeBaseInfo.setResume_language(resumeLanguageString);
         resumeBaseInfo.setName(et_resume_personinfo_name.getText().toString());
@@ -515,7 +809,7 @@ public class ResumePersonInfoActivity extends BaseResumeActivity implements View
         resumeBaseInfo.setYdphone(mobileString);
         resumeBaseInfo.setEmailaddress(et_resume_personinfo_email.getText().toString());
 //        resumeBaseInfo.setNationality(sp_resume_personinfo_nation.getSelectedId());
-        resumeBaseInfo.setNationality("11");
+        Log.i("你好",resumeBaseInfo.toString());
         boolean updateResult = dbOperator.update_ResumePersonInfo(resumeBaseInfo);
         if (updateResult) {// 修改成功
             ResumeIsUpdateOperator.setBaseInfoIsUpdate(this, dbOperator, resumeLanguageString);

@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,7 @@ import com.hr.ui.utils.tools.CodeUtils;
 import com.hr.ui.utils.tools.RegisterCodeTimer;
 import com.hr.ui.utils.tools.TimeCountUtil;
 import com.hr.ui.view.custom.CodeButton;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,6 +77,15 @@ public class NewPhoneRegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_new_phone_register);
         ButterKnife.bind(this);
         initView();
@@ -95,22 +107,32 @@ public class NewPhoneRegisterActivity extends Activity {
                 String regExp = "^\\+?(86|086)?(-)?(1[3|4|5|8|7]\\d{9})$";
                 Pattern p = Pattern.compile(regExp);
                 Matcher m = p.matcher(phoneNum.trim());
-                if (phoneNum.equals("") || !m.find()) {
+                if ("".equals(phoneNum) || !m.find()) {
                     Toast.makeText(NewPhoneRegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                } else if (token.equals("")) {
-                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
-                } else if (pwdStr.equals("")) {
-                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-                } else if (pwdStr.trim().length() > 25 || pwdStr.trim().length() < 6) {
-                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入6-25位密码", Toast.LENGTH_SHORT).show();
-                } else if (!matcher1.find()) {
-                    Toast.makeText(NewPhoneRegisterActivity.this, "密码只能输入数字和字母", Toast.LENGTH_SHORT).show();
-                } else if (!isCheck) {
-                    Toast.makeText(NewPhoneRegisterActivity.this, "您未同意注册协议", Toast.LENGTH_LONG).show();
-                } else {
-                    AsyncNewPhoneRegister asyncNewRegister = new AsyncNewPhoneRegister(NewPhoneRegisterActivity.this, handler);
-                    asyncNewRegister.execute(phoneNum, pwdStr, industryID + "", token);
+                    return;
                 }
+                if ("".equals(token)) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入正确的验证码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ("".equals(pwdStr)) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (pwdStr.trim().length() > 25 || pwdStr.trim().length() < 6) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "请输入6-25位密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!matcher1.find()) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "密码只能输入数字和字母", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isCheck) {
+                    Toast.makeText(NewPhoneRegisterActivity.this, "您未同意注册协议", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                AsyncNewPhoneRegister asyncNewRegister = new AsyncNewPhoneRegister(NewPhoneRegisterActivity.this, handler);
+                asyncNewRegister.execute(phoneNum, pwdStr, industryID + "", token);
             }
         });
 
@@ -119,17 +141,16 @@ public class NewPhoneRegisterActivity extends Activity {
     @Override
     protected void onDestroy() {
         btPhoneregisterAuthcode.onDestroy();
+        super.onDestroy();
         if(popwindowIsAPPResume!=null) {
             popwindowIsAPPResume.dismiss();
         }
-        super.onDestroy();
-
     }
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                finish();
+                    finish();
             }
         }
 
@@ -163,11 +184,14 @@ public class NewPhoneRegisterActivity extends Activity {
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @OnClick({R.id.iv_phoneregister_back, R.id.bt_phoneregister_authcode, R.id.iv_regist_check, R.id.tv_regist_agreement, R.id.frame_phoneregister_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_phoneregister_back:
-                finish();
+                if(this.isDestroyed()==false) {
+                    finish();
+                }
                 break;
             case R.id.bt_phoneregister_authcode:
                 phoneNum = etPhoneregisterUsername.getText().toString().trim();
@@ -179,11 +203,10 @@ public class NewPhoneRegisterActivity extends Activity {
                         if (!m.find()) {
                             Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                             return;
-                        } else {
-//                            Toast.makeText(this, "运行1", Toast.LENGTH_SHORT).show();
-                            AsyncPhoneVerifyStates asyncPhoneVerifyStates = new AsyncPhoneVerifyStates(NewPhoneRegisterActivity.this, handlerPhone);
-                            asyncPhoneVerifyStates.execute(phoneNum);
                         }
+//                            Toast.makeText(this, "运行1", Toast.LENGTH_SHORT).show();
+                        AsyncPhoneVerifyStates asyncPhoneVerifyStates = new AsyncPhoneVerifyStates(NewPhoneRegisterActivity.this, handlerPhone);
+                        asyncPhoneVerifyStates.execute(phoneNum);
                     }
                 } else {
                     Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();

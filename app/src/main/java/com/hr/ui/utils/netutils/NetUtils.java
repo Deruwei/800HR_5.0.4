@@ -88,58 +88,61 @@ public class NetUtils extends Application {
     public static boolean checkNet(Context context) {
         // System.out.println("检测网络状态");
         // // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
-
-        ConnectivityManager connMgr = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo == null||"".equals(networkInfo)) {
-            return false;
-        }
-        if (networkInfo != null && networkInfo.isAvailable()) {
-            int nType = networkInfo.getType();
-            if (nType == ConnectivityManager.TYPE_MOBILE) {
-                MyUtils.network_type = "mobile";
-                if (!"".equals(networkInfo.getExtraInfo().toLowerCase())&&networkInfo.getExtraInfo().toLowerCase()!=null){
-                    if ("cmnet".equals(networkInfo.getExtraInfo().toLowerCase())) {
-                        if (networkInfo.isConnected()) {
-                            return true;
-                        }
-                    } else {
-                        if (networkInfo.isConnected()) {
-                            return true;
+        if (context != null) {
+            ConnectivityManager connMgr = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if (networkInfo == null || "".equals(networkInfo)) {
+                return false;
+            }
+            if (networkInfo != null && networkInfo.isAvailable()) {
+                int nType = networkInfo.getType();
+                if (nType == ConnectivityManager.TYPE_MOBILE) {
+                    MyUtils.network_type = "mobile";
+                    if (networkInfo.getExtraInfo() != null && !"".equals(networkInfo.getExtraInfo().toLowerCase()) && networkInfo.getExtraInfo().toLowerCase() != null) {
+                        if ("cmnet".equals(networkInfo.getExtraInfo().toLowerCase())) {
+                            if (networkInfo.isConnected()) {
+                                return true;
+                            }
+                        } else {
+                            if (networkInfo.isConnected()) {
+                                return true;
+                            }
                         }
                     }
-                }
-            } else if (nType == ConnectivityManager.TYPE_WIFI) {
-                MyUtils.network_type = "wifi";
-                WifiManager wifiManager = (WifiManager) context
-                        .getSystemService(Service.WIFI_SERVICE);
+                } else if (nType == ConnectivityManager.TYPE_WIFI) {
+                    MyUtils.network_type = "wifi";
+                    WifiManager wifiManager = (WifiManager) context
+                            .getSystemService(Service.WIFI_SERVICE);
 
-                if (networkInfo.isConnected()) {
-                    return true;
-                }
-            } else {
-                MyUtils.network_type = "Other";
-                WifiManager wifiManager = (WifiManager) context
-                        .getSystemService(Service.WIFI_SERVICE);
+                    if (networkInfo.isConnected()) {
+                        return true;
+                    }
+                } else {
+                    MyUtils.network_type = "Other";
+                    WifiManager wifiManager = (WifiManager) context
+                            .getSystemService(Service.WIFI_SERVICE);
 
-                if (networkInfo.isConnected()) {
-                    return true;
+                    if (networkInfo.isConnected()) {
+                        return true;
+                    }
                 }
+
             }
-        }
 
-        // WIFi网卡有五个状态，实际就是一些整形常量：
-        //
-        // WIFI_STATE_DISABLED:WIFI不能使用，其值是：1.
-        //
-        // WIFI_STATE_DISABLING:WIFI正在关闭中，由于WIFI关闭是需要一个过程，其值是：0
-        //
-        // WIFI_STATE_ENABLED:WIFI可以使用，其值是：3.
-        //
-        // WIFI_STATE_ENABLING:WIFI正在开启中， 其值是：2.
-        //
-        // WIFI_STATE_UNKNOWN:WIFI未知网卡状态，当手机或程序出现错误引起WIFi不可用，其值是：4.
+            // WIFi网卡有五个状态，实际就是一些整形常量：
+            //
+            // WIFI_STATE_DISABLED:WIFI不能使用，其值是：1.
+            //
+            // WIFI_STATE_DISABLING:WIFI正在关闭中，由于WIFI关闭是需要一个过程，其值是：0
+            //
+            // WIFI_STATE_ENABLED:WIFI可以使用，其值是：3.
+            //
+            // WIFI_STATE_ENABLING:WIFI正在开启中， 其值是：2.
+            //
+            // WIFI_STATE_UNKNOWN:WIFI未知网卡状态，当手机或程序出现错误引起WIFi不可用，其值是：4.
+           /* return false;*/
+        }
         return false;
     }
 }

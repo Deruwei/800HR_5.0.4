@@ -3,10 +3,13 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -28,6 +31,7 @@ import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.BeautifulDialog;
 import com.hr.ui.view.custom.MyCustomDatePicker;
 import com.hr.ui.view.custom.MyDatePicker;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +83,15 @@ public class ModifyExpActivity extends BaseResumeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         setContentView(R.layout.activity_modify_exp);
         ButterKnife.bind(this);
         modifyExpActivity = ModifyExpActivity.this;
@@ -392,7 +405,6 @@ public class ModifyExpActivity extends BaseResumeActivity {
         }
     }
     private void next(){
-        MyUtils.canResumeReflesh=true;
         MyUtils.canResumeReflesh=true;
         if (MyUtils.ableInternet) {
             uploadData(resumeId);

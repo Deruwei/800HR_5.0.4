@@ -32,6 +32,7 @@ public class AsyncNewAutoLoginPhone {
     private String userID;
     private String industry;
     private Handler handler;
+    private int i;
     //	private int LoginTag = -1;
     private Handler handlerService = new Handler() {
         public void handleMessage(Message msg) {
@@ -63,7 +64,7 @@ public class AsyncNewAutoLoginPhone {
                             Message message = new Message();
                             message.what = 0;
                             handler.sendMessage(message);
-                            RecommendJobFragment.recommendJobFragment.initView();
+                            RecommendJobFragment.recommendJobFragment.toLogin();
                             MainActivity.instanceMain.refreshBaseInfo();
                             break;
                         case 301:
@@ -73,18 +74,28 @@ public class AsyncNewAutoLoginPhone {
                             Toast.makeText(context, "手机号或密码错误", Toast.LENGTH_SHORT).show();
                             break;
                         default:
-                            Message message2 = new Message();
-                            message2.what = -1;
-                            handler.sendMessage(message2);
-                            Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
+
+                                Message message2 = new Message();
+                                message2.what = -1;
+                                handler.sendMessage(message2);
+                                Toast.makeText(context, Rc4Md5Utils.getErrorResourceId(error_code), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else if (msg.what == -1) {
-                Toast.makeText(context, context.getString(R.string.login_false), Toast.LENGTH_SHORT).show();
-                MyUtils.isLogin = false;
+                if(i<2){
+                    AsyncNewAutoLoginPhone asyncLogin = new AsyncNewAutoLoginPhone(context, handlerService);
+                    asyncLogin.execute(userphone, pwd, industry + "");
+                }else {
+                    Message message1 = handler.obtainMessage();
+                    message1.what = -1;
+//						message1.arg1 = LoginTag;
+                    handler.sendMessage(message1);
+                    Toast.makeText(context, context.getString(R.string.login_false), Toast.LENGTH_SHORT).show();
+                    MyUtils.isLogin = false;
+                }
             }
         }
 

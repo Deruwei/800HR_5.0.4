@@ -142,10 +142,10 @@ public class DAO_DBOperator {
                     "select last_insert_rowid() from ResumeList", null);
             if (cursor.moveToFirst())
                 strid = cursor.getInt(0);
-            Log.d("SQLITE", "简历列表插入成功");
+            //Log.d("SQLITE", "简历列表插入成功");
             cursor.close();
         } else {
-            Log.d("SQLITE", "简历列表插入失败");
+            //Log.d("SQLITE", "简历列表插入失败");
         }
         closeDB();
         return strid;
@@ -176,10 +176,10 @@ public class DAO_DBOperator {
                 "id=" + resumeTitle.getId(), null);
         closeDB();
         if (iNumber == 0) {
-            Log.d("iNumber", "修改简历列表失败");
+            //Log.d("iNumber", "修改简历列表失败");
             return false;
         } else {
-            Log.d("iNumber", "修改简历列表成功");
+            //Log.d("iNumber", "修改简历列表成功");
             return true;
         }
     }
@@ -293,10 +293,10 @@ public class DAO_DBOperator {
         int iNumber = db.update("ResumeList", values, strSQLWhere, null);
         closeDB();
         if (iNumber == 0) {
-            Log.d("iNumber", "修改个人信息失败");
+           // Log.d("iNumber", "修改个人信息失败");
             return false;
         } else {
-            Log.d("iNumber", "修改个人信息成功");
+           // Log.d("iNumber", "修改个人信息成功");
             return true;
         }
     }
@@ -348,9 +348,9 @@ public class DAO_DBOperator {
 			 * "select last_insert_rowid() from ResumePersonInfo", null); if
 			 * (cursor.moveToFirst()) strid = cursor.getInt(0); cursor.close();
 			 */
-            Log.d("SQLITE", "个人信息插入成功");
+            //Log.d("SQLITE", "个人信息插入成功");
         } else {
-            Log.d("SQLITE", "个人信息插入失败");
+            //Log.d("SQLITE", "个人信息插入失败");
         }
         closeDB();
         return result;
@@ -402,10 +402,10 @@ public class DAO_DBOperator {
         int iNumber = db.update("ResumePersonInfo", values, strSQLWhere, null);
         closeDB();
         if (iNumber == 0) {
-            Log.d("iNumber", "修改个人信息失败");
+            Log.d("简历修改", "修改个人信息失败");
             return false;
         } else {
-            Log.d("iNumber", "修改个人信息成功");
+            Log.d("简历修改", "修改个人信息成功");
             return true;
         }
     }
@@ -559,10 +559,10 @@ public class DAO_DBOperator {
                     null);
             if (cursor.moveToFirst())
                 strid = cursor.getInt(0);
-            Log.d("SQLITE", "求职意向插入成功");
+            //Log.d("SQLITE", "求职意向插入成功");
             cursor.close();
         } else {
-            Log.d("SQLITE", "求职意向插入失败");
+            //Log.d("SQLITE", "求职意向插入失败");
         }
         closeDB();
         return strid;
@@ -580,7 +580,7 @@ public class DAO_DBOperator {
         // "user_name='"+WorkExperience.getUser_name()+"' and  resume_id="+WorkExperience.getResume_id()+" and  resume_language= '"+WorkExperience.getResume_language();
         values.put("user_id", resumeOrder.getUser_id());
         values.put("jobtype", resumeOrder.getJobtype());
-        Log.i("数据id", resumeOrder.getJobtype());
+       // Log.i("数据id", resumeOrder.getJobtype());
         values.put("industry", resumeOrder.getIndustry());
         values.put("func", resumeOrder.getFunc());
         values.put("workarea", resumeOrder.getWorkarea());
@@ -595,10 +595,10 @@ public class DAO_DBOperator {
                 null);
         closeDB();
         if (iNumber == 0) {
-            Log.d("iNumber", "修改求职意向失败");
+            //Log.d("iNumber", "修改求职意向失败");
             return false;
         } else {
-            Log.d("iNumber", "修改求职意向成功");
+           // Log.d("iNumber", "修改求职意向成功");
             return true;
         }
     }

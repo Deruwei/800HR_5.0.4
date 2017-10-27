@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:context="com.hr.ui.activity.CreateResumeJobActivity">
 
     <RelativeLayout
         android:id="@+id/rl_createresume_job_top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:background="@color/new_main"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -38,9 +38,6 @@
         android:id="@+id/lr_create_resume_edu_top2"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -79,12 +76,9 @@
             android:text="有工作经历"
             android:textSize="12sp" />
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:orientation="vertical"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -411,20 +405,19 @@
                         android:textSize="14sp" />
 
                     <RelativeLayout
-                        android:layout_width="360dp"
+                        android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:layout_alignLeft="@+id/textView501"
-                        android:layout_alignStart="@+id/textView501"
                         android:layout_below="@+id/textView501"
                         android:layout_marginTop="10dp"
-                        android:background="#F6F6F6">
+                        android:background="@color/white">
 
                         <EditText
                             android:id="@+id/et_resume_item_job_describe"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:padding="@dimen/dimen_3px"
                             android:layout_margin="5dp"
-                            android:background="@null"
+                            android:background="@drawable/bg_edit"
                             android:gravity="left"
                             android:hint="请填写职位描述，限400字以内"
                             android:maxEms="4000"

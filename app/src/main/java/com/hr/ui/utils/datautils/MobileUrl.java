@@ -16,43 +16,43 @@ public class MobileUrl {
      */
     public static String getCompanyUrl(String e_id) {
         StringBuilder builder = new StringBuilder("http://m.");
-        if (MyUtils.industryId.equals("11")) {// 建筑行业
+        if ("11".equals(MyUtils.industryId)/*.equals("11")*/) {// 建筑行业
             builder.append("buildhr");
-        } else if (MyUtils.industryId.equals("12")) {// 金融行业
+        } else if ("12".equals(MyUtils.industryId)/*.equals("12")*/) {// 金融行业
             builder.append("bankhr");
-        } else if (MyUtils.industryId.equals("13")) {// 传媒行业
+        } else if ("13".equals(MyUtils.industryId)/*.equals("13")*/) {// 传媒行业
             builder.append("media.800hr");
-        } else if (MyUtils.industryId.equals("14")) {// 医药行业
+        } else if ("14".equals(MyUtils.industryId)/*.equals("14")*/) {// 医药行业
             builder.append("healthr");
-        } else if (MyUtils.industryId.equals("15")) {// 教培行业
+        } else if ("15".equals(MyUtils.industryId)/*.equals("15")*/) {// 教培行业
             builder.append("edu.800hr");
-        } else if (MyUtils.industryId.equals("19")) {// 电子行业
+        } else if ("19".equals(MyUtils.industryId)/*.equals("19")*/) {// 电子行业
             builder.append("ele.800hr");
-        } else if (MyUtils.industryId.equals("22")) {// 机械行业
+        } else if ("22".equals(MyUtils.industryId)/*.equals("22")*/) {// 机械行业
             builder.append("michr");
-        } else if (MyUtils.industryId.equals("26")) {// 服装行业
+        } else if ("26".equals(MyUtils.industryId)/*.equals("26")*/) {// 服装行业
             builder.append("clothr");
-        } else if (MyUtils.industryId.equals("29")) {// 化工行业
+        } else if ("29".equals(MyUtils.industryId)/*.equals("29")*/) {// 化工行业
             builder.append("chenhr");
-        }else if (MyUtils.industryId.equals("23")) {// IT行业
+        }else if ("23".equals(MyUtils.industryId)/*.equals("23")*/) {// IT行业
             builder.append("it.800hr");
         }
-        else if (MyUtils.industryId.equals("40")) {// 酒店行业
+        else if ("40".equals(MyUtils.industryId)/*.equals("40")*/) {// 酒店行业
             builder.append("hotel.800hr");
         }
-        else if (MyUtils.industryId.equals("16")) {// 运输行业
+        else if ("16".equals(MyUtils.industryId)/*.equals("16")*/) {// 运输行业
             builder.append("56.800hr");
         }
-        else if (MyUtils.industryId.equals("21")) {// 通信行业
+        else if ("21".equals(MyUtils.industryId)/*.equals("21")*/) {// 通信行业
             builder.append("telecom.800hr");
         }
-        else if (MyUtils.industryId.equals("20")) {// 电力行业
+        else if ("20".equals(MyUtils.industryId)/*.equals("20")*/) {// 电力行业
             builder.append("ep.800hr");
         }
-        else if (MyUtils.industryId.equals("30")) {// 旅游行业
+        else if ("30".equals(MyUtils.industryId)/*.equals("30")*/) {// 旅游行业
             builder.append("tour.800hr");
         }
-        else if (MyUtils.industryId.equals("6")) {// 旅游行业
+        else if ("6".equals(MyUtils.industryId)/*.equals("6")*/) {// 旅游行业
             builder.append("tour.800hr");
         }
         builder.append(".com/company/");
@@ -64,7 +64,46 @@ public class MobileUrl {
     public static String getJobUrl(String j_id) {
 
         StringBuilder builder = new StringBuilder("http://m.");
-        if (MyUtils.industryId.equals("11")) {// 建筑行业
+        if ("11".equals(MyUtils.industryId)/*.equals("11")*/) {// 建筑行业
+            builder.append("buildhr");
+        } else if ("12".equals(MyUtils.industryId)/*.equals("12")*/) {// 金融行业
+            builder.append("bankhr");
+        } else if ("13".equals(MyUtils.industryId)/*.equals("13")*/) {// 传媒行业
+            builder.append("media.800hr");
+        } else if ("14".equals(MyUtils.industryId)/*.equals("14")*/) {// 医药行业
+            builder.append("healthr");
+        } else if ("15".equals(MyUtils.industryId)/*.equals("15")*/) {// 教培行业
+            builder.append("edu.800hr");
+        } else if ("19".equals(MyUtils.industryId)/*.equals("19")*/) {// 电子行业
+            builder.append("ele.800hr");
+        } else if ("22".equals(MyUtils.industryId)/*.equals("22")*/) {// 机械行业
+            builder.append("michr");
+        } else if ("26".equals(MyUtils.industryId)/*.equals("26")*/) {// 服装行业
+            builder.append("clothr");
+        } else if ("29".equals(MyUtils.industryId)/*.equals("29")*/) {// 化工行业
+            builder.append("chenhr");
+        }else if ("23".equals(MyUtils.industryId)/*.equals("23")*/) {// IT行业
+            builder.append("it.800hr");
+        }
+        else if ("40".equals(MyUtils.industryId)/*.equals("40")*/) {// 酒店行业
+            builder.append("hotel.800hr");
+        }
+        else if ("16".equals(MyUtils.industryId)/*.equals("16")*/) {// 运输行业
+            builder.append("56.800hr");
+        }
+        else if ("21".equals(MyUtils.industryId)/*.equals("21")*/) {// 通信行业
+            builder.append("telecom.800hr");
+        }
+        else if ("20".equals(MyUtils.industryId)/*.equals("20")*/) {// 电力行业
+            builder.append("ep.800hr");
+        }
+        else if ("30".equals(MyUtils.industryId)/*.equals("30")*/) {// 旅游行业
+            builder.append("tour.800hr");
+        }
+      /*  else if ("6".equals(MyUtils.industryId)*//*.equals("6")*//*) {// 旅游行业
+            builder.append("tour.800hr");
+        }*/
+       /* if (MyUtils.industryId.equals("11")) {// 建筑行业
             builder.append("buildhr");
         } else if (MyUtils.industryId.equals("12")) {// 金融行业
             builder.append("bankhr");
@@ -99,7 +138,7 @@ public class MobileUrl {
         }
         else if (MyUtils.industryId.equals("30")) {// 旅游行业
             builder.append("tour.800hr");
-        }
+        }*/
         builder.append(".com/job/");
         builder.append(j_id);
         builder.append(".html");

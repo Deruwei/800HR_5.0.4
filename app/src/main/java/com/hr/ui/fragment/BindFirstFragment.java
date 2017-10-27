@@ -92,7 +92,9 @@ public class BindFirstFragment extends BaseFragment {
             if (msg.what == 0) {
                 btFirstbindAuthcode.setClickable(true);
                 MyUtils.canResumeReflesh=true;
-                getActivity().finish();
+                if (getActivity()!=null) {
+                    getActivity().finish();
+                }
             }
         }
 
@@ -184,12 +186,12 @@ public class BindFirstFragment extends BaseFragment {
                 Matcher matcher1 = pattern.matcher(pwdStr);
                 String regExp = "^\\+?(86|086)?(-)?(1[3|4|5|8|7]\\d{9})$";
                 Pattern p = Pattern.compile(regExp);
-                Matcher m = p.matcher(phoneNum.trim());
-                if (phoneNum.equals("") || !m.find()) {
+                Matcher m = p.matcher(phoneNum);
+                if ("".equals(phoneNum)|| !m.find()) {
                     Toast.makeText(getActivity(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                } else if (token.equals("")) {
+                } else if ("".equals(token)) {
                     Toast.makeText(getActivity(), "请输入正确的验证码", Toast.LENGTH_SHORT).show();
-                } else if (pwdStr.equals("")) {
+                } else if ("".equals(pwdStr)) {
                     Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
                 } else if (pwdStr.trim().length() > 25 || pwdStr.trim().length() < 6) {
                     Toast.makeText(getActivity(), "请输入6-25位密码", Toast.LENGTH_SHORT).show();

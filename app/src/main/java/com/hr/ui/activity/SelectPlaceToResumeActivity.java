@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +63,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
     private Object fromActivity = null;
     private String id;
     private MyFlowLayout placeselect_showinforlayout;// 动态布局
-    private LinearLayout placeselect_showmessage;
+    private RelativeLayout placeselect_showmessage;
     private TextView placeselect_selectedinfo;
     public MyBaseAdapterFindJobPlaceSelect adapter;
     private int ableselected = 0;// 可以选择的个数
@@ -84,7 +85,7 @@ public class SelectPlaceToResumeActivity extends BaseActivity implements
         try {
             final TextView placeselect_title = (TextView) findViewById(R.id.tv_placeselect_jobnum);
             findViewById(R.id.post_placeselect_confirm).setOnClickListener(this);
-            placeselect_showmessage = (LinearLayout) findViewById(R.id.placeselect_showmessage);
+            placeselect_showmessage = (RelativeLayout) findViewById(R.id.placeselect_showmessage);
             placeselect_showinforlayout = (MyFlowLayout) findViewById(R.id.placeselect_showinforlayout);
             placeselect_selectedinfo = (TextView) findViewById(R.id.placeselect_selectedinfo);
             iv_placeselect_back = (ImageView) findViewById(R.id.iv_placeselect_back);

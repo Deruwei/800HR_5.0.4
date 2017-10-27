@@ -157,10 +157,8 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    dialogUtils.dismissDialog();
                     break;
             }
         }
@@ -244,6 +242,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                     }
                 }
                 MyUtils.isLogin=true;
+                dialogUtils.dismissDialog();
             } else if (sUtils.getBooleanValue(Constants.IS_CHOOSEINDUSTRY, false)) {
                 goActivity(ChooseIndustriesActivity.class);
                 MyUtils.isLogin = false;
@@ -297,6 +296,16 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         main_layout = (RelativeLayout) findViewById(R.id.main_layout);
         right_layout = (RelativeLayout) findViewById(R.id.right_layout);
+        sUtils = new SharedPreferencesUtils(mContext);
+        thirdCode = sUtils.getStringValue("autoLoginThird_code", "");
+        thirdIndustry = sUtils.getStringValue("autoLoginIndustry", "");
+        thirdUid = sUtils.getStringValue("autoLoginThird_uid", "");
+        userName = sUtils.getStringValue(Constants.USERNAME, "");
+        psw = sUtils.getStringValue(Constants.PASSWORD, "");
+        PhoneName = sUtils.getStringValue(Constants.USERPHONE, "");
+        Industry = sUtils.getIntValue(Constants.INDUSTRY, 11);
+        fragmentManager = getSupportFragmentManager();
+        setTabSelect(0);
         /*
         设置监听
          */
@@ -591,16 +600,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
      * 初始化数据
      */
     private void initData() {
-        sUtils = new SharedPreferencesUtils(mContext);
-        thirdCode = sUtils.getStringValue("autoLoginThird_code", "");
-        thirdIndustry = sUtils.getStringValue("autoLoginIndustry", "");
-        thirdUid = sUtils.getStringValue("autoLoginThird_uid", "");
-        userName = sUtils.getStringValue(Constants.USERNAME, "");
-        psw = sUtils.getStringValue(Constants.PASSWORD, "");
-        PhoneName = sUtils.getStringValue(Constants.USERPHONE, "");
-        Industry = sUtils.getIntValue(Constants.INDUSTRY, 11);
-        fragmentManager = getSupportFragmentManager();
-        setTabSelect(0);
     }
 /*    *//**
      * 判断获取的权限的返回码
@@ -689,7 +688,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
             //Log.i("=========加载数据", "1");
             HashMap<String, String> requestParams = new HashMap<String, String>();
             requestParams.put("method", "user_resume.resumelist");
-            dialogUtils.showDialog();
             NetService service = new NetService(mContext, handlerRefresh);
             service.execute(requestParams);
         } catch (Exception e) {
@@ -704,7 +702,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                dialogUtils.dismissDialog();
                 final String jsonString = (String) msg.obj;
                 try {
                     JSONObject jsonObject = new JSONObject(jsonString);
@@ -819,8 +816,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }else{
-                dialogUtils.dismissDialog();
             }
         }
     };

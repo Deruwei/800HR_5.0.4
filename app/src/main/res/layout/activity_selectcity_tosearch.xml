@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <!-- start title -->
@@ -43,15 +44,17 @@
     </RelativeLayout>
     <!-- end title -->
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/placeselect_showmessage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40px"
-        android:background="#10000000"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="5dp">
 
         <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_selectCitySign"
             style="@style/colour_style2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,28 +63,45 @@
             android:textSize="18sp" />
 
         <TextView
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_selectCitySign"
             android:id="@+id/placeselect_selectedinfo"
+            android:layout_toLeftOf="@+id/iv_selectCityShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:drawablePadding="5dp"
-            android:drawableRight="@mipmap/xiajiantou"
             android:gravity="right|center_vertical"
             android:paddingRight="8dp"
             android:text="0/3"
             android:textColor="#949390"
             android:textSize="18sp" />
-    </LinearLayout>
-
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_selectCityShow"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/xiajiantou"
+            android:layout_width="@dimen/dimen_18px"
+            android:layout_height="@dimen/dimen_18px" />
+    </RelativeLayout>
+    <View
+        android:background="@color/view_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        />
     <com.hr.ui.view.MyFlowLayout
         android:id="@+id/placeselect_showinforlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f9f9f9"
+        android:background="@color/white"
         android:orientation="vertical">
 
     </com.hr.ui.view.MyFlowLayout>
-
+    <View
+        android:background="@color/view_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

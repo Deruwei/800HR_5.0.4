@@ -298,6 +298,12 @@ public class MyResumeFragment extends BaseFragment {
         getResumeList();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        type=2;
+    }
+
     /**
      * 从本地 获取简历列表
      */
@@ -305,7 +311,6 @@ public class MyResumeFragment extends BaseFragment {
         dbOperator = new DAO_DBOperator(getActivity());
         listResume = new ArrayList<ResumeList>();
         if(type==1) {
-            type=2;
             dialogUtils.showDialog();
         }
         AsyncGetResumeList asyncGetResumeList = new AsyncGetResumeList(getActivity());
@@ -625,6 +630,7 @@ public class MyResumeFragment extends BaseFragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), ModifyLanguageActivity.class);
                         intent.putExtra("resumeId", resumeID);
+                        intent.putExtra("langname",resumeLanguageLevels[finalI].getLangname());
                         intent.putExtra("resumeLanguage", "zh");
                         intent.putExtra("isAdd","2");
                         Bundle bundle = new Bundle();
@@ -1032,7 +1038,7 @@ public class MyResumeFragment extends BaseFragment {
             int yearStringInt = 0;
             try {
                 if (yearString != null && yearString.length() > 0) {
-                    yearStringInt = Integer.parseInt(yearString.trim());
+                    yearStringInt = Integer.parseInt(yearString);
                 }
                 int ageInt = curYear - yearStringInt;
                 if (isCHS) {// zh
@@ -1274,10 +1280,12 @@ public class MyResumeFragment extends BaseFragment {
     private void setOpen() {
         Async_MyResume_Open resumesDetail = new Async_MyResume_Open(getActivity());
         type=2;
-        if ("0".equals(resumeTitle.getOpen())) {
-            resumesDetail.execute("2", resumeID);
-        } else if ("2".equals(resumeTitle.getOpen())) {
-            resumesDetail.execute("0", resumeID);
+        if(resumeTitle.getOpen()!=null&&resumeID!=null) {
+            if ("0".equals(resumeTitle.getOpen())) {
+                resumesDetail.execute("2", resumeID);
+            } else if ("2".equals(resumeTitle.getOpen())) {
+                resumesDetail.execute("0", resumeID);
+            }
         }
     }
 
@@ -1311,33 +1319,39 @@ public class MyResumeFragment extends BaseFragment {
     private SharedPreferencesUtils sharedPreferencedUtils;
 
     private void setResumeName() {
-        viewSetResume = LayoutInflater.from(getActivity()).inflate(R.layout.item_setresume, null);
-        setResumeNamePopWinow = new PopupWindow(getActivity());
-        setResumeNamePopWinow.setContentView(viewSetResume);
-        setResumeNamePopWinow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        setResumeNamePopWinow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        setResumeNamePopWinow.setTouchable(true);
-        setResumeNamePopWinow.setFocusable(true);
-        setResumeNamePopWinow.setBackgroundDrawable(new BitmapDrawable());
-        //设置点击窗口外边窗口消失
-        setResumeNamePopWinow.setOutsideTouchable(true);
-        //设置弹出窗体需要软键盘，
-        setResumeNamePopWinow.showAtLocation(viewSetResume, Gravity.CENTER, 0, 0);
-        setResumeNamePopWinow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        // 设置弹窗外可点击，默认为false
-        setResumeNamePopWinow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        if(getActivity()!=null) {
+            viewSetResume = LayoutInflater.from(getActivity()).inflate(R.layout.item_setresume, null);
+            setResumeNamePopWinow = new PopupWindow(getActivity());
+            setResumeNamePopWinow.setContentView(viewSetResume);
+            setResumeNamePopWinow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+            setResumeNamePopWinow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+            setResumeNamePopWinow.setTouchable(true);
+            setResumeNamePopWinow.setFocusable(true);
+            setResumeNamePopWinow.setBackgroundDrawable(new BitmapDrawable());
+            //设置点击窗口外边窗口消失
+            setResumeNamePopWinow.setOutsideTouchable(true);
+            //设置弹出窗体需要软键盘，
+            setResumeNamePopWinow.showAtLocation(viewSetResume, Gravity.CENTER, 0, 0);
+            setResumeNamePopWinow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+            // 设置弹窗外可点击，默认为false
+            setResumeNamePopWinow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-        RelativeLayout rl_item_setresume_confirm = (RelativeLayout) viewSetResume.findViewById(R.id.rl_item_setresume_confirm);
-        final EditText et_myresume_resumename = (EditText) viewSetResume.findViewById(R.id.et_myresume_resumename);
-        et_myresume_resumename.setText(resumeTitle.getTitle());
-        et_myresume_resumename.clearFocus();
-        rl_item_setresume_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AsyncSetResumeName asyncSetResumeName = new AsyncSetResumeName(getActivity());
-                asyncSetResumeName.execute(resumeID, et_myresume_resumename.getText().toString());
+            RelativeLayout rl_item_setresume_confirm = (RelativeLayout) viewSetResume.findViewById(R.id.rl_item_setresume_confirm);
+            final EditText et_myresume_resumename = (EditText) viewSetResume.findViewById(R.id.et_myresume_resumename);
+            if (resumeTitle.getTitle() != null) {
+                et_myresume_resumename.setText(resumeTitle.getTitle());
             }
-        });
+            et_myresume_resumename.clearFocus();
+            rl_item_setresume_confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (resumeID != null && et_myresume_resumename.getText().toString() != null) {
+                        AsyncSetResumeName asyncSetResumeName = new AsyncSetResumeName(getActivity());
+                        asyncSetResumeName.execute(resumeID, et_myresume_resumename.getText().toString());
+                    }
+                }
+            });
+        }
     }
 
     public void closeStResumeNamePopWinow() {
@@ -1504,11 +1518,11 @@ public class MyResumeFragment extends BaseFragment {
                                 showBuffer.append(","
                                         + ResumeInfoIDToString.getFunc(getActivity(),
                                         MyUtils.industryId,
-                                        funcAndZhixiStrings[0].trim())
+                                        funcAndZhixiStrings[0])
                                         + ResumeInfoIDToString.getZhixiString(getActivity(),
-                                        funcAndZhixiStrings[1].trim()));
+                                        funcAndZhixiStrings[1]));
                             } else {// 例如： 256101
-                                showBuffer.append("," + ResumeInfoIDToString.getFunc(getActivity(), MyUtils.industryId, string.trim()));
+                                showBuffer.append("," + ResumeInfoIDToString.getFunc(getActivity(), MyUtils.industryId, string));
                             }
                         }
                     }else{
@@ -1589,6 +1603,7 @@ public class MyResumeFragment extends BaseFragment {
             public void handleMessage(Message msg) {
                 if (msg.what == 0) {
                     final String jsonString = (String) msg.obj;
+                    Log.i("当前简历的信息",jsonString);
                     new Thread(new Runnable() {
                         public void run() {
                             try {

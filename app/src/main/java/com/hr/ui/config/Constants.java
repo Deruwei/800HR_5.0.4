@@ -109,7 +109,15 @@ public class Constants {
      * 企业logo下载地址
      */
     public static final String LOGO_ROOTPATH = "http://img.800hr.com";
-
+    /**
+     * 校招的ImageView地址
+     */
+    public static final String MANUFACTURE_URL="http://m.michr.com/act/2017/xyzp/";
+    public static final String HR_URL="http://m.800hr.com/act/2017/xyzp/";
+    public static final String BUILD_URL="http://m.buildhr.com/act/2017/xyzp/";
+    public static final String MEDICINE_URL="http://m.healthr.com/act/2017/xyzp/";
+    public static final String CHEMICAL_URL="http://m.chenhr.com/act/2017/xyzp/";
+    public static final String FINANCE_URL="http://m.bankhr.com/act/2017/xyzp/";
     /**
      * sin
      */

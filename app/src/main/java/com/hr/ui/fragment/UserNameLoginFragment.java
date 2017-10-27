@@ -212,13 +212,14 @@ public class UserNameLoginFragment extends BaseFragment {
      * 确认登录
      */
     private void saveInfo() {
-        String username = etUserloginUsername.getText().toString().trim();
-        String password = etUserloginPassword.getText().toString().trim();
-        if (username == null || username.equals("")) {
+        String username = etUserloginUsername.getText().toString();
+        String password = etUserloginPassword.getText().toString();
+        if (username == null || "".equals(username)) {
             Toast.makeText(getActivity(), "请输入用户名", Toast.LENGTH_SHORT).show();
             return;
-        } else if (password == null || password.equals("")) {
+        } else if (password == null || "".equals(password)) {
             Toast.makeText(getActivity(), "请输入密码", Toast.LENGTH_SHORT).show();
+            return;
         } else {
             AsyncLogin asyncLogin = new AsyncLogin(getActivity(), handler);
             if (isAutoLogin) {

@@ -3,9 +3,11 @@ package com.hr.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -33,6 +35,7 @@ import com.hr.ui.utils.netutils.NetService;
 import com.hr.ui.utils.netutils.NetUtils;
 import com.hr.ui.view.custom.CustomDatePicker;
 import com.hr.ui.view.custom.IdSpineer;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -83,6 +86,15 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.new_main));// 通知栏所需颜色
+        }
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_resume_job_order);
         modification = false;
@@ -210,12 +222,14 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 break;
             case R.id.iv_resume_joborder_salary:
                 modification = true;
-                if ("1".equals(resumeOrder.getOrder_salary_noshow())) {
-                    iv_resume_joborder_salary.setImageResource(R.mipmap.hui);
-                    resumeOrder.setOrder_salary_noshow("0");
-                } else {
-                    iv_resume_joborder_salary.setImageResource(R.mipmap.lv);
-                    resumeOrder.setOrder_salary_noshow("1");
+                if(resumeOrder.getOrder_salary_noshow()!=null) {
+                    if ("1".equals(resumeOrder.getOrder_salary_noshow())) {
+                        iv_resume_joborder_salary.setImageResource(R.mipmap.hui);
+                        resumeOrder.setOrder_salary_noshow("0");
+                    } else {
+                        iv_resume_joborder_salary.setImageResource(R.mipmap.lv);
+                        resumeOrder.setOrder_salary_noshow("1");
+                    }
                 }
                 break;
         }
@@ -322,7 +336,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
             String wokestateString = resumeBaseInfo.getCurrent_workstate();
             if (wokestateString != null) {
                 selectFindJobId=wokestateString;
-                Log.i("id求职",selectFindJobId);
+                //Log.i("id求职",selectFindJobId);
                 for(int i=0;i<findJobList.size();i++){
                     if(wokestateString.equals(findJobList.get(i).getId())){
                         sp_resume_joborder_state.setText(findJobList.get(i).getName());
@@ -332,13 +346,15 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
             }
         }
         // 期望工作性质
-        String jobTypeString = resumeOrder.getJobtype();
-        if (jobTypeString != null) {
-            selectJobTypeId=jobTypeString;
-            for(int i=0;i<jobTypeList.size();i++){
-                if(jobTypeString.equals(jobTypeList.get(i).getId())){
-                    sp_resume_joborder_worktype.setText(jobTypeList.get(i).getName());
-                    break;
+        if (resumeOrder != null) {
+            String jobTypeString = resumeOrder.getJobtype();
+            if (jobTypeString != null) {
+                selectJobTypeId = jobTypeString;
+                for (int i = 0; i < jobTypeList.size(); i++) {
+                    if (jobTypeString.equals(jobTypeList.get(i).getId())) {
+                        sp_resume_joborder_worktype.setText(jobTypeList.get(i).getName());
+                        break;
+                    }
                 }
             }
         }
@@ -349,7 +365,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
             // 期望期望职位
             StringBuffer showBuffer = new StringBuffer();
             funcIdString = resumeOrder.getFunc();
-            if (funcIdString.length() > 0) {
+            if (funcIdString!=null) {
                 String[] itemFuncStrings = funcIdString.split(",");// 所有行业信息
                 ArrayList<String> curIndustryFuncArrayList = new ArrayList<String>();// 当前行业职能
                 if (itemFuncStrings != null && itemFuncStrings.length > 0) {
@@ -394,10 +410,12 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
             // 工作地区
             initWorkPlace(resumeOrder.getWorkarea());
             et_resume_personinfo_salay.setText(resumeOrder.getOrder_salary());
-            if (resumeOrder.getOrder_salary_noshow().equals("1")) {
-                iv_resume_joborder_salary.setImageResource(R.mipmap.lv);
-            } else {
-                iv_resume_joborder_salary.setImageResource(R.mipmap.hui);
+            if(resumeOrder.getOrder_salary_noshow()!=null) {
+                if ("1".equals(resumeOrder.getOrder_salary_noshow())) {
+                    iv_resume_joborder_salary.setImageResource(R.mipmap.lv);
+                } else {
+                    iv_resume_joborder_salary.setImageResource(R.mipmap.hui);
+                }
             }
         }
     }
@@ -533,7 +551,7 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
     private void saveToDB() {
 
         if (isCHS) {// zh
-            if (tv_resume_joborder_position.getText().toString().length() == 0 || tv_resume_joborder_position.getText().toString().equals("请选择职位")) {
+            if (tv_resume_joborder_position.getText().toString().length() == 0 || ("请选择职位").equals(tv_resume_joborder_position.getText().toString())) {
                 Toast.makeText(this, "请选择期望职位", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -552,13 +570,11 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
                 Toast.makeText(this, "请选择工作地点", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (et_resume_personinfo_salay.getText().toString()
-                    .length() == 0) {
+            if (et_resume_personinfo_salay.getText().toString()==null||"".equals(et_resume_personinfo_salay.getText().toString())) {
                 Toast.makeText(this, "请输入期望薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (et_resume_personinfo_salay.getText().toString()
-                    .trim().substring(0, 1).equals("0")) {
+            if ("0".equals(et_resume_personinfo_salay.getText().toString())) {
                 Toast.makeText(this, "请输入大于0的薪资", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -602,9 +618,17 @@ public class ResumeJobOrderActivity extends BaseResumeActivity implements View.O
         String placeIdString = placeId + "";
         // System.out.println("placeId:" + placeIdString);
         // 薪资
-        String salaryString = et_resume_personinfo_salay.getText().toString().trim();
-        if (!workStateString.equals(resumeBaseInfo.getCurrent_workstate())) {
-            resumeBaseInfo.setIsUpdate(1);
+        String salaryString="";
+        //防止出现0100之类的薪资
+        if("0".equals(et_resume_personinfo_salay.getText().toString().subSequence(0,1))){
+            salaryString= Integer.parseInt(et_resume_personinfo_salay.getText().toString().trim())+"";
+        }else {
+            salaryString = et_resume_personinfo_salay.getText().toString().trim();
+        }
+        if(resumeBaseInfo.getCurrent_workstate()!=null) {
+            if (!workStateString.equals(resumeBaseInfo.getCurrent_workstate())) {
+                resumeBaseInfo.setIsUpdate(1);
+            }
         }
         resumeBaseInfo.setCurrent_workstate(workStateString);
         resumeBaseInfo.setResume_language(resumeLanguageString);

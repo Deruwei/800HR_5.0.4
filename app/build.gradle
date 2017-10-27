@@ -10,8 +10,8 @@ android {
         applicationId "com.hr.ui"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 65
-        versionName "5.5.0"
+        versionCode 66
+        versionName "5.5.1"
     }
     buildTypes {
         release {
@@ -74,5 +74,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile files('libs/BaiduLBS_Android.jar')
-    compile 'com.networkbench.newlens.agent.android:nbs.newlens.agent:2.5.9'
+    compile 'com.networkbench.newlens.agent.android:nbs.newlens.agent:2.7.0'
 }

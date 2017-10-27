@@ -5,6 +5,7 @@ import android.animation.PropertyValuesHolder;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -52,6 +53,7 @@ public class CustomDatePicker {
             this.context = context;
             this.handler = resultHandler;
             this.date=data;
+            Log.i("当前的数据",data.toString());
             initDialog();
             initView();
     }
@@ -156,10 +158,14 @@ public class CustomDatePicker {
 
     public void show(String time) {
                     /*initParameter();*/
+                    if("请选择学历".equals(time)){
+                        selectText="大专";
+                        time=selectText;
+                    }
                     initTimer();
                     addListener();
                     setSelectedTime(time);
-                   executeAnimator(year_pv);
+                    executeAnimator(year_pv);
                     datePickerDialog.show();
     }
 

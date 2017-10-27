@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:background="#EBEBEB"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -113,19 +114,19 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.3" />
 
         <Button
             android:id="@+id/bt_searchjobresult_collect"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            android:layout_weight="3"
+            android:layout_weight="1.2"
             android:background="@drawable/linear_select_orange"
             android:drawableLeft="@mipmap/select_xing"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="30dp"
+            android:gravity="center"
             android:text="收藏"
+            android:paddingLeft="@dimen/dimen_5px"
             android:textColor="#F39D0D"
             android:textSize="14sp" />
 

@@ -132,4 +132,78 @@ public class GetResumeArrayList {
         }
         return selectBeen;
     }
+    //从本地获取到婚姻状态集合
+    public static List<SelectBean> getMarryListFromArray(Context context){
+        List<SelectBean> selectBeenList=new ArrayList<>();
+        String[] marryIds=context.getResources().getStringArray(R.array.array_marriage_ids);
+        String[] marryNames=context.getResources().getStringArray(R.array.array_marriage_zh);
+        for(int i=0;i<marryIds.length;i++){
+            SelectBean selectBean=new SelectBean();
+            selectBean.setId(marryIds[i]);
+            selectBean.setName(marryNames[i]);
+            selectBeenList.add(selectBean);
+        }
+        return selectBeenList;
+    }
+    public static List<SelectBean> getCountryListFromArray(Context context){
+        List<SelectBean> selectBeanList=new ArrayList<>();
+        String[] countryIds=context.getResources().getStringArray(R.array.array_nationality_ids);
+        String[] countryNames=context.getResources().getStringArray(R.array.array_nationality_zh);
+        for(int i=0;i<countryIds.length;i++){
+            SelectBean selectBean=new SelectBean();
+            selectBean.setId(countryIds[i]);
+            selectBean.setName(countryNames[i]);
+            selectBeanList.add(selectBean);
+        }
+        return selectBeanList;
+    }
+    public static List<SelectBean> getPolityListFromArray(Context context){
+        List<SelectBean> selectBeanList=new ArrayList<>();
+        String[] polityIds=context.getResources().getStringArray(R.array.array_polity_ids);
+        String[] polityNames=context.getResources().getStringArray(R.array.array_polity_zh);
+        for(int i=0;i<polityIds.length;i++){
+            SelectBean selectBean=new SelectBean();
+            selectBean.setId(polityIds[i]);
+            selectBean.setName(polityNames[i]);
+            selectBeanList.add(selectBean);
+        }
+        return selectBeanList;
+    }
+    public static List<SelectBean> getBloodListFromArray(Context context){
+        List<SelectBean> selectBeanList=new ArrayList<>();
+        String[] bloodIds=context.getResources().getStringArray(R.array.array_blood_ids);
+        String[] bloodNames=context.getResources().getStringArray(R.array.array_blood);
+        for(int i=0;i<bloodIds.length;i++){
+            SelectBean selectBean=new SelectBean();
+            selectBean.setId(bloodIds[i]);
+            selectBean.setName(bloodNames[i]);
+            selectBeanList.add(selectBean);
+        }
+        return selectBeanList;
+    }
+    public static List<SelectBean> getCertificateNumberTypeListFromArray(Context context){
+        List<SelectBean> selectBeanList=new ArrayList<>();
+        String[] CertificateNumberTypeIds=context.getResources().getStringArray(R.array.array_cartype_ids);
+        String[] CertificateNumberTypeNames=context.getResources().getStringArray(R.array.array_cartype_zh);
+        for(int i=0;i<CertificateNumberTypeIds.length;i++){
+            SelectBean selectBean=new SelectBean();
+            selectBean.setId(CertificateNumberTypeIds[i]);
+            selectBean.setName(CertificateNumberTypeNames[i]);
+            selectBeanList.add(selectBean);
+        }
+        return selectBeanList;
+    }
+
+    public static List<SelectBean> getTestLevelListFromArray(Context context){
+        List<SelectBean> selectBeanList=new ArrayList<>();
+        String[] CertificateNumberTypeIds=context.getResources().getStringArray(R.array.array_languageTestLevel_ids);
+        String[] CertificateNumberTypeNames=context.getResources().getStringArray(R.array.array_languageTestLevel_zh);
+        for(int i=0;i<CertificateNumberTypeIds.length;i++){
+            SelectBean selectBean=new SelectBean();
+            selectBean.setId(CertificateNumberTypeIds[i]);
+            selectBean.setName(CertificateNumberTypeNames[i]);
+            selectBeanList.add(selectBean);
+        }
+        return selectBeanList;
+    }
 }
